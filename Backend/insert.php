@@ -31,7 +31,7 @@ if (isset($postdata) && !empty($postdata)) {
     $lName = htmlspecialchars($request->{'lName'});
     $email = htmlspecialchars($request->{'email'});
 
-    if (!empty($fName) && !empty($lName) && !empty($email)) {
+    if (!empty($fName) || !empty($lName) || !empty($email)) {
         try {
             $students->insert($fName, $lName, $email);
             http_response_code(201);
