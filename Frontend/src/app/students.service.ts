@@ -11,14 +11,14 @@ export class StudentsService {
   }
 
   getStudents(){
-    return this.http.get<Students[]>('https://mt201064.students.fhstp.ac.at/Backend/list.php');
+    return this.http.get<Students[]>('http://flock-1902.students.fhstp.ac.at/Backend/list.php');
   }
 
   deleteStudent(Id: number){
-    return this.http.delete<Students[]>('https://mt201064.students.fhstp.ac.at/Backend/delete.php?id='+ Id);
+    return this.http.delete<Students[]>('http://flock-1902.students.fhstp.ac.at/Backend/delete.php?id='+ Id);
   }
 
   createStudent(student: Students){
-    return this.http.post('https://mt201064.students.fhstp.ac.at/Backend/insert.php', student);
+    return this.http.post('http://flock-1902.students.fhstp.ac.at/Backend/insert.php', student);
   }
 }
