@@ -11,3 +11,5 @@ define("DB_HOST","mysql5");
 define("DB_NAME","db_flock-1902_1");
 define("DB_USER","flock-1902");
 define("DB_PW","r_TaA3LBaBev");
+
+print("Huhu");
