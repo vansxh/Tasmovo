@@ -1,5 +1,7 @@
 <?php
 
+print("hallo leidis");
+
 //private $db;
 
 /*define("DB_HOST","mysql5");
