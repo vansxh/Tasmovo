@@ -9,4 +9,4 @@ Header always set Access-Control-Max-Age "1000"
 Header always set Access-Control-Allow-Headers "X-Requested-With, Content-Type, Origin, Authorization,
 Header always set Access-Control-Allow-Origin "*"
 Header always set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Access-Control-Allow-Origin"
-Header always set Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS, PATCH"
+Header always set Access-Control-Allow-Methods "HEAD, PUT, GET, POST, DELETE, OPTIONS, PATCH"
