@@ -24,6 +24,7 @@ require('config.inc.php');
 $students = new Students();
 
 try {
+    //header('Access-Control-Allow-Origin: *');
     echo($students->showStudents());
 } catch (PDOException $e) {
     echo("Fehler aufgetreten");
