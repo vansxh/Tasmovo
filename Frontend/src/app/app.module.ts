@@ -8,6 +8,7 @@ import { AddComponent } from './pages/add/add.component';
 import { ViewComponent } from './pages/view/view.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {path: '', component: ViewComponent, pathMatch: 'full'},
@@ -20,7 +21,8 @@ export const routes: Routes = [
   declarations: [
     AppComponent,
     AddComponent,
-    ViewComponent
+    ViewComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
