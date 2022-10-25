@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
-import { AddComponent } from './add/add.component';
-import { ViewComponent } from './view/view.component';
+import { AddComponent } from './pages/add/add.component';
+import { ViewComponent } from './pages/view/view.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
