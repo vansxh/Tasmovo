@@ -1,0 +1,32 @@
+<?php
+
+class Task{
+    private $db;
+
+    function __construct()
+    {
+
+        try {
+            $this->db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PW);
+        } catch (PDOException $e) {
+            echo "Verbindung fehlgeschlagen";
+            die();
+        }
+    }
+
+    function insertTask($tName, $notes, $deadline, $uid, $gid, $caid){
+        $stmt = $this->db->prepare("INSERT INTO tasks(task_name, notes, deadline, created_by, groupID, categoryID) VALUES(:tName, :notes, :deadline, :uid, :gid, :caid)");
+        $stmt->bindValue(":tName", $tName);
+        $stmt->bindValue(":notes", $notes);
+        $stmt->bindValue(":deadline", $deadline);
+        $stmt->bindValue(":uid", $uid);
+        $stmt->bindValue(":gid", $gid);
+        $stmt->bindValue(":caid", $caid);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($result);
+    }
+}
