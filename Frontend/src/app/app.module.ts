@@ -9,6 +9,7 @@ import { ViewComponent } from './pages/view/view.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { InsertTaskComponent } from './pages/insert-task/insert-task.component';
 
 export const routes: Routes = [
   {path: '', component: ViewComponent, pathMatch: 'full'},
@@ -22,7 +23,8 @@ export const routes: Routes = [
     AppComponent,
     AddComponent,
     ViewComponent,
-    DashboardComponent
+    DashboardComponent,
+    InsertTaskComponent
   ],
   imports: [
     BrowserModule,
