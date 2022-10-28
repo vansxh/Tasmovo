@@ -14,7 +14,8 @@ import { InsertTaskComponent } from './pages/insert-task/insert-task.component';
 export const routes: Routes = [
   {path: '', component: ViewComponent, pathMatch: 'full'},
   {path: 'view', component: ViewComponent},
-  {path: 'add', component: AddComponent}
+  {path: 'add', component: AddComponent},
+  {path: 'insert-task', component: InsertTaskComponent}
 
 ];
 

@@ -1,1 +1,61 @@
-<p>insert-task works!</p>
+<div class="col-md-6">
+    <h2 class="text-center">Neuer Task</h2>
+    <form [formGroup]="insertTaskForm" novalidate class="form">
+     <!--   <div class="form-group">
+            <label for="sId">Student Id:</label>
+            <input type="number" formControlName="sId" placeholder="Students Id" name="sId" class="form-control">
+        </div>-->
+
+        <div class="form-group">
+            <label for="taskName">Titel</label>
+            <input type="text" formControlName="taskName" placeholder="Neuer Taskname" name="taskName"
+                class="form-control">
+        </div>
+        <!--<div class="alert alert-danger"
+            *ngIf="insertTaskForm.get('fName')?.hasError('required') && insertTaskForm.get('fName')?.touched">
+            Please enter first Name
+        </div>-->
+
+        <div class="form-group">
+            <label for="deadline">Datum</label>
+            <input type="text" formControlName="deadline" placeholder="Datum auswählen" name="deadline"
+                class="form-control">
+        </div>
+         <!--<div class="alert alert-danger"
+            *ngIf="addForm.get('lName')?.hasError('maxlength') && addForm.get('lName')?.touched">
+            Max Length: 10 Characters
+        </div>
+        <div class="alert alert-danger"
+            *ngIf="addForm.get('lName')?.hasError('required') && addForm.get('lName')?.touched">
+            Please enter last Name
+        </div>-->
+
+        <div class="form-group">
+            <label for="notes">Notizen:</label>
+            <input type="text" formControlName="notes" placeholder="Notizen" name="notes"
+                class="form-control">
+        </div>
+        <!-- <div class="alert alert-danger"
+            *ngIf="addForm.get('email')?.hasError('maxlength') && addForm.get('email')?.touched">
+            Max Length: 30 Characters
+        </div>
+        <div class="alert alert-danger"
+            *ngIf="addForm.get('email')?.hasError('required') && addForm.get('email')?.touched">
+            Please enter Email
+        </div>-->
+
+        <!--<div class="form-group">
+            <label for="categoryID">Kategorie:</label>
+            <input type="number" formControlName="categoryID" placeholder="help" name="categoryID"
+                class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="groupID">Gruppe:</label>
+            <input type="number" formControlName="groupID" placeholder="help" name="groupID"
+                class="form-control">
+        </div>-->
+
+        <button class="btn btn-success" (click)="onInsertTaskSubmit()">Task erstellen</button>
+    </form>
+</div>

@@ -1,22 +1,23 @@
 <?php
-require('config.inc.php');
+require('../../config.inc.php');
 $postdata = file_get_contents("php://input");
 
 $task = new Task();
 
 if (isset($postdata) && !empty($postdata)) {
     $request = json_decode($postdata);
+    print_r($postdata);
 
-    $tName = htmlspecialchars($request->{'tName'});
+    $tName = htmlspecialchars($request->{'taskName'});
     $notes = htmlspecialchars($request->{'notes'});
     $deadline = htmlspecialchars($request->{'deadline'});
-    $createdby = htmlspecialchars($request->{'createdby'});
-    $gid = htmlspecialchars($request->{'gid'});
-    $caid = htmlspecialchars($request->{'caid'});
+    /*$createdby = htmlspecialchars($request->{'createdby'});
+    $gid = htmlspecialchars($request->{'groupID'});
+    $caid = htmlspecialchars($request->{'categoryID'});*/
 
-    if (!empty($tName) && !empty($notes) && !empty($deadline) && !empty($createdby) && !empty($gid) && !empty($caid)) {
+    if (!empty($tName) && !empty($deadline)) {
         try {
-            $students->insert($tName, $notes, $deadline, $createdby, $gid, $caid);
+        $task->insertTask($tName, $notes, $deadline/*, $createdby, $gid, $caid*/);
             http_response_code(201);
         } catch (PDOException $e) {
             echo ("Fehler aufgetreten");
