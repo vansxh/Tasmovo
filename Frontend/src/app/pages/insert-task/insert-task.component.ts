@@ -16,7 +16,7 @@ export class InsertTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.insertTaskForm = this.formbuilder.group({
-      taskName: ['', Validators.required, Validators.maxLength(30)],
+      task_name: ['', Validators.required, Validators.maxLength(30)],
       deadline: ['', [Validators.required]],
       notes: ['']/*,
       categoryID: [''],

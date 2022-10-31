@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
-    this.taskService.getNextTasks().subscribe((data: Task[]) => {
+    this.taskService.getNextTasks(1).subscribe((data: Task[]) => {
       this.tasks = data;
       console.log(this.tasks);
     });

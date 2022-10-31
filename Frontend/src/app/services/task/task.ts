@@ -1,13 +1,13 @@
 export class Task {
     TAID!: number;
-    taskName!: string;
+    task_name!: string;
     notes!: string;
-    endDate!: string;
+    end_date!: string;
     deadline!: string;
     statusID!: number;
-    createdDate!: string;
-    updatedDate!: string;
-    createdBy!: number;
+    created_date!: string;
+    updated_date!: string;
+    created_by!: number;
     groupID!: number;
     categoryID!: number;
 }

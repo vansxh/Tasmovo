@@ -13,12 +13,12 @@ export class TaskService {
     return this.http.post('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/insertTask.php', task);
   }
 
-  getNextTasks() {
-    return this.http.get<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getNextTasks.php?userID=1');
+  getNextTasks(userID: number) {
+    return this.http.get<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getNextTasks.php?userID='+ userID);
   }
 
   deleteTask(TAID: number){
-    return this.http.delete<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/delete.php?TAID='+ TAID);
+    return this.http.delete<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/deleteTask.php?TAID='+ TAID);
   }
 
 }

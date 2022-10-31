@@ -31,7 +31,7 @@ class Task{
     }
 
     function getNextTasks($userID) {
-        $stmt = $this->db->prepare("SELECT * FROM students where created_by = :userID");
+        $stmt = $this->db->prepare("SELECT * FROM Task WHERE created_by = :userID ORDER BY deadline ASC LIMIT 3");
         $stmt->bindValue(":userID", $userID);
 
         $stmt->execute();
@@ -39,6 +39,12 @@ class Task{
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return json_encode($result);
+    }
+
+    function deleteTask($TAID){
+        $stmt = $this->db->prepare("DELETE FROM Task WHERE TAID=:TAID LIMIT 1");
+        $stmt->bindValue(":TAID", $TAID);
+        $stmt->execute();
     }
 
 }
