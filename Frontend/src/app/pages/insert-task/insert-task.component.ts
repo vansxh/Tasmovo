@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, Params, ActivatedRoute } from '@angular/router';
+import { Task } from 'src/app/services/task/task';
 import { TaskService } from '../../services/task/task.service';
 
 @Component({
@@ -10,24 +11,43 @@ import { TaskService } from '../../services/task/task.service';
 })
 export class InsertTaskComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private TaskService: TaskService, private router: Router) { }
+  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute) { }
 
   insertTaskForm!: FormGroup;
+  selectedTask!: Task;
+  edit!: boolean;
 
   ngOnInit(): void {
+
+    const routeParams = this.route.snapshot.params;
+
+    this.taskService.getTask(routeParams['TAID']).subscribe((data: Task) => {
+      this.selectedTask = data;
+      this.insertTaskForm.patchValue(data);
+      if(routeParams['TAID']) this.edit = true;
+      else this.edit = false;
+      console.log(this.selectedTask);
+    });
+
     this.insertTaskForm = this.formbuilder.group({
-      task_name: ['', Validators.required, Validators.maxLength(30)],
+      TAID: [''],
+      task_name: ['', [Validators.required, Validators.maxLength(30)]],
       deadline: ['', [Validators.required]],
       notes: ['']/*,
       categoryID: [''],
       groupID: ['']*/
     });
+
   }
 
   onInsertTaskSubmit(){
-    console.log(this.insertTaskForm.value);
+    this.taskService.insertTask(this.insertTaskForm.value).subscribe(data => {
+      this.router.navigate(['dashboard']);
+    });
+  }
 
-    this.TaskService.insertTask(this.insertTaskForm.value).subscribe(data => {
+  onEditTaskSubmit() {
+    this.taskService.updateTask(this.insertTaskForm.value).subscribe(() => {
       this.router.navigate(['dashboard']);
     });
   }

@@ -41,10 +41,38 @@ class Task{
         return json_encode($result);
     }
 
+    function getTask($TAID) {
+        $stmt = $this->db->prepare("SELECT * FROM Task WHERE TAID = :TAID LIMIT 1");
+        $stmt->bindValue(":TAID", $TAID);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return json_encode($result);
+    }
+
     function deleteTask($TAID){
         $stmt = $this->db->prepare("DELETE FROM Task WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
         $stmt->execute();
+    }
+
+    function updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/){
+        $stmt = $this->db->prepare("UPDATE Task SET task_name=:tName, notes=:notes, deadline=:deadline WHERE TAID=:TAID LIMIT 1");
+        $stmt->bindValue(":TAID", $TAID);
+        $stmt->bindValue(":tName", $tName);
+        $stmt->bindValue(":notes", $notes);
+        $stmt->bindValue(":deadline", $deadline);
+        /*$stmt->bindValue(":createdby", $createdby);
+        $stmt->bindValue(":gid", $gid);
+        $stmt->bindValue(":caid", $caid);*/
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($result);
     }
 
 }

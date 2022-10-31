@@ -16,6 +16,7 @@ export const routes: Routes = [
   {path: 'view', component: ViewComponent},
   {path: 'add', component: AddComponent},
   {path: 'insert-task', component: InsertTaskComponent},
+  {path: 'insert-task/:TAID', component: InsertTaskComponent},
   {path: 'dashboard', component: DashboardComponent}
 
 ];
