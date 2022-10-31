@@ -15,7 +15,8 @@ export const routes: Routes = [
   {path: '', component: ViewComponent, pathMatch: 'full'},
   {path: 'view', component: ViewComponent},
   {path: 'add', component: AddComponent},
-  {path: 'insert-task', component: InsertTaskComponent}
+  {path: 'insert-task', component: InsertTaskComponent},
+  {path: 'dashboard', component: DashboardComponent}
 
 ];
 

@@ -29,4 +29,16 @@ class Task{
 
         return json_encode($result);
     }
+
+    function getNextTasks($userID) {
+        $stmt = $this->db->prepare("SELECT * FROM students where created_by = :userID");
+        $stmt->bindValue(":userID", $userID);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($result);
+    }
+
 }
