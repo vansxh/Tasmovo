@@ -4,61 +4,36 @@
     <form [formGroup]="insertTaskForm" novalidate class="form">
 
         <input type="hidden" formControlName="TAID" name="TAID">
-        
-     <!--   <div class="form-group">
-            <label for="sId">Student Id:</label>
-            <input type="number" formControlName="sId" placeholder="Students Id" name="sId" class="form-control">
-        </div>-->
 
         <div class="form-group">
             <label for="task_name">Titel</label>
             <input type="text" formControlName="task_name" placeholder="Neuer Taskname" name="task_name"
                 class="form-control">
         </div>
-        <!--<div class="alert alert-danger"
-            *ngIf="insertTaskForm.get('fName')?.hasError('required') && insertTaskForm.get('fName')?.touched">
-            Please enter first Name
-        </div>-->
+        <div class="alert alert-danger"
+            *ngIf="insertTaskForm.get('task_name')?.hasError('required') && insertTaskForm.get('task_name')?.touched">
+            Bitte einen Titel für den Task eingeben!
+        </div>
+        <div class="alert alert-danger"
+            *ngIf="insertTaskForm.get('task_name')?.hasError('maxlength') && insertTaskForm.get('task_name')?.touched">
+            Max Länge: 30 Zeichen
+        </div>
 
         <div class="form-group">
             <label for="deadline">Datum</label>
             <input type="text" formControlName="deadline" placeholder="Datum auswählen" name="deadline"
                 class="form-control">
         </div>
-         <!--<div class="alert alert-danger"
-            *ngIf="addForm.get('lName')?.hasError('maxlength') && addForm.get('lName')?.touched">
-            Max Length: 10 Characters
+         <div class="alert alert-danger"
+            *ngIf="insertTaskForm.get('deadline')?.hasError('required') && insertTaskForm.get('deadline')?.touched">
+            Bitte eine Deadline für den Task wählen!
         </div>
-        <div class="alert alert-danger"
-            *ngIf="addForm.get('lName')?.hasError('required') && addForm.get('lName')?.touched">
-            Please enter last Name
-        </div>-->
 
         <div class="form-group">
             <label for="notes">Notizen:</label>
             <input type="text" formControlName="notes" placeholder="Notizen" name="notes"
                 class="form-control">
         </div>
-        <!-- <div class="alert alert-danger"
-            *ngIf="addForm.get('email')?.hasError('maxlength') && addForm.get('email')?.touched">
-            Max Length: 30 Characters
-        </div>
-        <div class="alert alert-danger"
-            *ngIf="addForm.get('email')?.hasError('required') && addForm.get('email')?.touched">
-            Please enter Email
-        </div>-->
-
-        <!--<div class="form-group">
-            <label for="categoryID">Kategorie:</label>
-            <input type="number" formControlName="categoryID" placeholder="help" name="categoryID"
-                class="form-control">
-        </div>
-
-        <div class="form-group">
-            <label for="groupID">Gruppe:</label>
-            <input type="number" formControlName="groupID" placeholder="help" name="groupID"
-                class="form-control">
-        </div>-->
 
         <button *ngIf="!this.edit" class="btn btn-success" (click)="onInsertTaskSubmit()">Task erstellen</button>
         <button *ngIf="this.edit" class="btn btn-success" (click)="onEditTaskSubmit()">Task bearbeiten</button>
