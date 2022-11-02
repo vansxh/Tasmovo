@@ -35,11 +35,11 @@ export class TaskService {
   }
 
   updateTask(task: Task) {
-    return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/updateTask.php?TAID='+ task.TAID, task);
+    return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/updateTask.php', task);
   }
 
   finishTask(task: Task) {
-    return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/finishTask.php?TAID='+ task.TAID, task);
+    return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/finishTask.php', task);
   }
 
 }

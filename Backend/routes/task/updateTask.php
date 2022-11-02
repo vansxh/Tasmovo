@@ -7,7 +7,7 @@ $task = new Task();
 if (isset($postdata) && !empty($postdata)) {
     $request = json_decode($postdata);
 
-    $TAID = $_GET['TAID'];
+    $TAID = htmlspecialchars($request->{'TAID'});
     $tName = htmlspecialchars($request->{'task_name'});
     $notes = htmlspecialchars($request->{'notes'});
     $deadline = htmlspecialchars($request->{'deadline'});

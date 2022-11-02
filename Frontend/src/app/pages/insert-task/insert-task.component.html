@@ -21,13 +21,16 @@
 
         <div class="form-group">
             <label for="deadline">Datum</label>
-            <input type="text" formControlName="deadline" placeholder="Datum auswählen" name="deadline"
+            <input type="date" formControlName="deadline" placeholder="Datum auswählen" name="deadline"
                 class="form-control">
         </div>
          <div class="alert alert-danger"
             *ngIf="insertTaskForm.get('deadline')?.hasError('required') && insertTaskForm.get('deadline')?.touched">
             Bitte eine Deadline für den Task wählen!
         </div>
+        <!--<input matInput [matDatepicker]="picker">
+<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-datepicker #picker></mat-datepicker>-->
 
         <div class="form-group">
             <label for="notes">Notizen:</label>

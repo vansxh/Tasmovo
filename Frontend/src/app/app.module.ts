@@ -10,6 +10,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { InsertTaskComponent } from './pages/insert-task/insert-task.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 export const routes: Routes = [
   {path: '', component: ViewComponent, pathMatch: 'full'},
@@ -34,7 +36,9 @@ export const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

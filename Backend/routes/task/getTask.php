@@ -4,11 +4,13 @@ $TAID = $_GET['TAID'];
 
 $task = new Task();
 
-try {
-    echo($task->getTask($TAID));
-} catch (PDOException $e) {
-    echo("Fehler aufgetreten");
-    http_response_code(404);
+if (!empty($TAID)) {
+    try {
+        echo($task->getTask($TAID));
+    } catch (PDOException $e) {
+        echo("Fehler aufgetreten");
+        http_response_code(404);
+    }
 }
 
 
