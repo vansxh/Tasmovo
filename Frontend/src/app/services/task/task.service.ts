@@ -18,6 +18,10 @@ export class TaskService {
     return this.http.get<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getNextTasks.php?userID='+ userID);
   }
 
+  getfinishedTasks(userID: number) {
+    return this.http.get<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getFinishedTasks.php?userID='+ userID);
+  }
+
   deleteTask(TAID: number){
     return this.http.delete<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/deleteTask.php?TAID='+ TAID);
   }
@@ -32,6 +36,10 @@ export class TaskService {
 
   updateTask(task: Task) {
     return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/updateTask.php?TAID='+ task.TAID, task);
+  }
+
+  finishTask(task: Task) {
+    return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/finishTask.php?TAID='+ task.TAID, task);
   }
 
 }

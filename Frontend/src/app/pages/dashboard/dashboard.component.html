@@ -1,10 +1,26 @@
 <h1>{{dailyQuote.quote}}</h1>
 
-<div class="row" *ngFor="let t of tasks">
+<div class="row">
+    <div class="col-md-2">Titel</div>
+    <div class="col-md-2">Deadline</div>
+</div>
+<div class="row" *ngFor="let t of openTasks">
     <div class="col-md-2">{{t.task_name}}</div>
     <div class="col-md-2">{{t.deadline}}</div>
     <div class="col-md-2"><button class="btn btn-success" (click)="editTask(t)">Edit</button></div>
     <div class="col-md-2"><button class="btn btn-danger" (click)="deleteTask(t)">Delete</button></div>
+    <div class="col-md-2"><button class="btn btn-primary" (click)="finishTask(t)">Finish</button></div>
+</div>
+
+<br>
+<h2>Finished Tasks</h2>
+<div class="row">
+    <div class="col-md-2">Titel</div>
+    <div class="col-md-2">Abgeschlossen am</div>
+</div>
+<div style="color:darkgray;" class="row" *ngFor="let t of finishedTasks">
+    <div class="col-md-2">{{t.task_name}}</div>
+    <div class="col-md-2">{{t.end_date}}</div>
 </div>
 
 

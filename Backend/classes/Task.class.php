@@ -31,7 +31,7 @@ class Task{
     }
 
     function getNextTasks($userID) {
-        $stmt = $this->db->prepare("SELECT * FROM Task WHERE created_by = :userID ORDER BY deadline ASC LIMIT 3");
+        $stmt = $this->db->prepare("SELECT * FROM Task WHERE created_by=:userID AND statusID=1 ORDER BY deadline ASC LIMIT 3");
         $stmt->bindValue(":userID", $userID);
 
         $stmt->execute();
@@ -41,8 +41,19 @@ class Task{
         return json_encode($result);
     }
 
+    function getFinishedTasks($userID) {
+        $stmt = $this->db->prepare("SELECT * FROM Task WHERE created_by=:userID AND statusID=2");
+        $stmt->bindValue(":userID", $userID);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($result);
+    }    
+
     function getTask($TAID) {
-        $stmt = $this->db->prepare("SELECT * FROM Task WHERE TAID = :TAID LIMIT 1");
+        $stmt = $this->db->prepare("SELECT * FROM Task WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
 
         $stmt->execute();
@@ -67,6 +78,17 @@ class Task{
         /*$stmt->bindValue(":createdby", $createdby);
         $stmt->bindValue(":gid", $gid);
         $stmt->bindValue(":caid", $caid);*/
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return json_encode($result);
+    }
+
+    function finishTask($TAID){
+        $stmt = $this->db->prepare("UPDATE Task SET statusID=2, end_date=now() WHERE TAID=:TAID LIMIT 1");
+        $stmt->bindValue(":TAID", $TAID);
 
         $stmt->execute();
 

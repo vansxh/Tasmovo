@@ -11,16 +11,15 @@ import { Quote } from 'src/app/services/quote/quote';
 })
 export class DashboardComponent implements OnInit {
 
-  public tasks!: Task[];
+  public openTasks!: Task[];
+  public finishedTasks!: Task[];
   public dailyQuote!: Quote;
 
   constructor(private taskService: TaskService, private quoteService: QuoteService) { }
 
   ngOnInit(): void {
 
-    this.taskService.getNextTasks(1).subscribe((data: Task[]) => {
-      this.tasks = data;
-    });
+    this.loadTasks();
 
     this.quoteService.getQuote().subscribe((data: Quote) => {
       this.dailyQuote = data;
@@ -28,14 +27,31 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  loadTasks(): void {
+    this.taskService.getNextTasks(1).subscribe((data: Task[]) => {
+      this.openTasks = data;
+    });
+
+    this.taskService.getfinishedTasks(1).subscribe((data: Task[]) => {
+      this.finishedTasks = data;
+      console.log(this.finishedTasks);
+    });
+  }
+
   deleteTask(task: Task): void{
     this.taskService.deleteTask(task.TAID).subscribe(data => {
-      this.tasks = this.tasks.filter(t => t !== task);
+      this.loadTasks();
     });
   }
 
   editTask(task: Task): void{
     this.taskService.editTask(task.TAID);
+  }
+
+  finishTask(task: Task): void {
+    this.taskService.finishTask(task).subscribe(data => {
+      this.loadTasks();
+    });;
   }
 
 }
