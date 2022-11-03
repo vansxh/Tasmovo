@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { Task } from 'src/app/services/task/task';
 import { TaskService } from '../../services/task/task.service';
+import { DatePipe } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
 
 @Component({
   selector: 'app-insert-task',
@@ -11,7 +13,7 @@ import { TaskService } from '../../services/task/task.service';
 })
 export class InsertTaskComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe) { }
 
   insertTaskForm!: FormGroup;
   selectedTask!: Task;
@@ -24,9 +26,10 @@ export class InsertTaskComponent implements OnInit {
     this.taskService.getTask(routeParams['TAID']).subscribe((data: Task) => {
       if(data != null) {
         this.selectedTask = data;
-        let deadline = this.selectedTask.deadline.split(" ");
-        this.selectedTask.deadlineDay = deadline[0];
-        this.selectedTask.deadlineHour = deadline[1].slice(0, -3);
+        let deadline = new Date(this.selectedTask.deadline);
+        this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
+        this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
+        console.log(this.selectedTask);
         this.insertTaskForm.patchValue(this.selectedTask);
         if(routeParams['TAID']) this.edit = true;
         else this.edit = false;

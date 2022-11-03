@@ -11,6 +11,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { InsertTaskComponent } from './pages/insert-task/insert-task.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePipe } from '@angular/common';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeAt from '@angular/common/locales/de-AT';
+registerLocaleData(localeAt);
 
 export const routes: Routes = [
   {path: '', component: ViewComponent, pathMatch: 'full'},
@@ -38,7 +43,10 @@ export const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    {provide: LOCALE_ID, useValue: "de-AT"},
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -40,7 +40,7 @@
                 class="form-control">
         </div>
 
-        <button *ngIf="!this.edit" class="btn btn-success" (click)="onInsertTaskSubmit()">Task erstellen</button>
-        <button *ngIf="this.edit" class="btn btn-success" (click)="onEditTaskSubmit()">Task bearbeiten</button>
+        <button [disabled]="!insertTaskForm.valid" *ngIf="!this.edit" class="btn btn-success" (click)="onInsertTaskSubmit()">Task erstellen</button>
+        <button [disabled]="!insertTaskForm.valid" *ngIf="this.edit" class="btn btn-success" (click)="onEditTaskSubmit()">Task bearbeiten</button>
     </form>
 </div>

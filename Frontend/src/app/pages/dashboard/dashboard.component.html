@@ -6,7 +6,7 @@
 </div>
 <div class="row" *ngFor="let t of openTasks">
     <div class="col-md-2">{{t.task_name}}</div>
-    <div class="col-md-2">{{t.deadlineDay}}</div>
+    <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
     <div class="col-md-2"><button class="btn btn-success" (click)="editTask(t)">Edit</button></div>
     <div class="col-md-2"><button class="btn btn-danger" (click)="deleteTask(t)">Delete</button></div>
     <div class="col-md-2"><button class="btn btn-primary" (click)="finishTask(t)">Finish</button></div>
@@ -20,7 +20,5 @@
 </div>
 <div style="color:darkgray;" class="row" *ngFor="let t of finishedTasks">
     <div class="col-md-2">{{t.task_name}}</div>
-    <div class="col-md-2">{{t.end_date}}</div>
+    <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
 </div>
-
-
