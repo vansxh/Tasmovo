@@ -8,7 +8,6 @@ if (!empty($TAID)) {
     try {
         echo($task->getTask($TAID));
     } catch (PDOException $e) {
-        echo("Fehler aufgetreten");
         http_response_code(404);
     }
 }

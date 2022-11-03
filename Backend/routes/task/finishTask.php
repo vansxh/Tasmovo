@@ -11,10 +11,10 @@ if (isset($postdata) && !empty($postdata)) {
 
     if (!empty($TAID)) {
         try {
-        $task->finishTask($TAID);
+            $task->finishTask($TAID);
+            echo(json_encode("done"));
             http_response_code(201);
         } catch (PDOException $e) {
-            echo ("Fehler aufgetreten");
             http_response_code(422);
         }
     }

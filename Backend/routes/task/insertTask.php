@@ -6,21 +6,20 @@ $task = new Task();
 
 if (isset($postdata) && !empty($postdata)) {
     $request = json_decode($postdata);
-    print_r($postdata);
 
-    $tName = htmlspecialchars($request->{'taskName'});
+    $tName = htmlspecialchars($request->{'task_name'});
     $notes = htmlspecialchars($request->{'notes'});
-    $deadline = htmlspecialchars($request->{'deadline'});
+    $deadline = htmlspecialchars($request->{'deadlineDay'})." ".htmlspecialchars($request->{'deadlineHour'});
     /*$createdby = htmlspecialchars($request->{'createdby'});
     $gid = htmlspecialchars($request->{'groupID'});
     $caid = htmlspecialchars($request->{'categoryID'});*/
 
     if (!empty($tName) && !empty($deadline)) {
         try {
-        $task->insertTask($tName, $notes, $deadline/*, $createdby, $gid, $caid*/);
+            $task->insertTask($tName, $notes, $deadline/*, $createdby, $gid, $caid*/);
+            echo(json_encode("done"));
             http_response_code(201);
         } catch (PDOException $e) {
-            echo ("Fehler aufgetreten");
             http_response_code(422);
         }
     }

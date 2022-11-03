@@ -4,11 +4,12 @@ $userID = $_GET['userID'];
 
 $task = new Task();
 
-try {
-    echo($task->getFinishedTasks($userID));
-} catch (PDOException $e) {
-    echo("Fehler aufgetreten");
-    http_response_code(404);
+if (!empty($userID)) {
+    try {
+        echo($task->getFinishedTasks($userID));
+    } catch (PDOException $e) {
+        http_response_code(404);
+    }
 }
 
 

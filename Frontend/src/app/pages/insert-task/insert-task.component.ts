@@ -22,17 +22,22 @@ export class InsertTaskComponent implements OnInit {
     const routeParams = this.route.snapshot.params;
 
     this.taskService.getTask(routeParams['TAID']).subscribe((data: Task) => {
-      this.selectedTask = data;
-      this.insertTaskForm.patchValue(data);
-      if(routeParams['TAID']) this.edit = true;
-      else this.edit = false;
-      console.log(this.selectedTask);
+      if(data != null) {
+        this.selectedTask = data;
+        let deadline = this.selectedTask.deadline.split(" ");
+        this.selectedTask.deadlineDay = deadline[0];
+        this.selectedTask.deadlineHour = deadline[1].slice(0, -3);
+        this.insertTaskForm.patchValue(this.selectedTask);
+        if(routeParams['TAID']) this.edit = true;
+        else this.edit = false;
+      } ("Task konnte nicht geladen werden!");
     });
 
     this.insertTaskForm = this.formbuilder.group({
       TAID: [''],
       task_name: ['', [Validators.required, Validators.maxLength(30)]],
-      deadline: ['', [Validators.required]],
+      deadlineDay: ['', [Validators.required]],
+      deadlineHour: ['', [Validators.required]],
       notes: ['']/*,
       categoryID: [''],
       groupID: ['']*/
@@ -41,14 +46,19 @@ export class InsertTaskComponent implements OnInit {
   }
 
   onInsertTaskSubmit(){
+    console.log(this.insertTaskForm.value);
     this.taskService.insertTask(this.insertTaskForm.value).subscribe(data => {
-      this.router.navigate(['dashboard']);
+      console.log(data);
+      if(data != null) this.router.navigate(['dashboard']);
+      else alert("Task konnte nicht hinzugefügt werden!");
     });
   }
 
   onEditTaskSubmit() {
-    this.taskService.updateTask(this.insertTaskForm.value).subscribe(() => {
-      this.router.navigate(['dashboard']);
+    this.taskService.updateTask(this.insertTaskForm.value).subscribe(data => {
+      console.log(data);
+      if(data != null) this.router.navigate(['dashboard']);
+      else alert("Task konnte nicht bearbeitet werden!");
     });
   }
 

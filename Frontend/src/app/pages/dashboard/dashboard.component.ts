@@ -29,18 +29,26 @@ export class DashboardComponent implements OnInit {
 
   loadTasks(): void {
     this.taskService.getNextTasks(1).subscribe((data: Task[]) => {
-      this.openTasks = data;
+      if(data != null) {
+        this.openTasks = data;
+        for(let t of this.openTasks) {
+          let deadline = t.deadline.split(" ");
+          t.deadlineDay = deadline[0];
+          t.deadlineHour = deadline[1].slice(0, -3);
+        }
+      } else alert("Tasks konnten nicht geladen werden!")
     });
 
     this.taskService.getfinishedTasks(1).subscribe((data: Task[]) => {
-      this.finishedTasks = data;
-      console.log(this.finishedTasks);
+      if(data != null) this.finishedTasks = data;
+      else alert("Tasks konnten nicht geladen werden!")
     });
   }
 
   deleteTask(task: Task): void{
     this.taskService.deleteTask(task.TAID).subscribe(data => {
-      this.loadTasks();
+      if(data != null) this.loadTasks();
+      else alert("Task konnte nicht gelöscht werden!")
     });
   }
 
@@ -50,7 +58,8 @@ export class DashboardComponent implements OnInit {
 
   finishTask(task: Task): void {
     this.taskService.finishTask(task).subscribe(data => {
-      this.loadTasks();
+      if(data != null) this.loadTasks();
+      else alert("Task konnte nicht abgeschlossen werden!")
     });;
   }
 

@@ -3,6 +3,8 @@ export class Task {
     task_name!: string;
     notes!: string;
     end_date!: string;
+    deadlineDay!: string;
+    deadlineHour!: string;
     deadline!: string;
     statusID!: number;
     created_date!: string;
