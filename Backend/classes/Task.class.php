@@ -23,11 +23,8 @@ class Task{
         $stmt->bindValue(":gid", $gid);
         $stmt->bindValue(":caid", $caid);*/
 
-        $stmt->execute();
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return json_encode($result);
+        if($stmt->execute()) return true;
+        else return false;
     }
 
     function getNextTasks($userID) {
@@ -79,7 +76,8 @@ class Task{
     function deleteTask($TAID){
         $stmt = $this->db->prepare("DELETE FROM Task WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
-        $stmt->execute();
+        if($stmt->execute()) return true;
+        else return false;
     }
 
     function updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/){
@@ -92,22 +90,16 @@ class Task{
         $stmt->bindValue(":gid", $gid);
         $stmt->bindValue(":caid", $caid);*/
 
-        $stmt->execute();
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return json_encode($result);
+        if($stmt->execute()) return true;
+        else return false;
     }
 
     function finishTask($TAID){
         $stmt = $this->db->prepare("UPDATE Task SET statusID=2, end_date=now() WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
 
-        $stmt->execute();
-
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return json_encode($result);
+        if($stmt->execute()) return true;
+        else return false;
     }
 
 }

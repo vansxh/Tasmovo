@@ -47,6 +47,7 @@ export class DashboardComponent implements OnInit {
 
   deleteTask(task: Task): void{
     this.taskService.deleteTask(task.TAID).subscribe(data => {
+      console.log(data);
       if(data != null) this.loadTasks();
       else alert("Task konnte nicht gelöscht werden!")
     });

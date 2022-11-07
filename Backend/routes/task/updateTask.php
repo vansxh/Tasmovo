@@ -17,9 +17,10 @@ if (isset($postdata) && !empty($postdata)) {
 
     if (!empty($tName) && !empty($deadline)) {
         try {
-            $task->updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/);
-            echo(json_encode("done"));
-            http_response_code(201);
+            if($task->updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/)){
+                echo(json_encode("done"));
+                http_response_code(201);
+            } else http_response_code(422);
         } catch (PDOException $e) {
             http_response_code(422);
         }
