@@ -10,7 +10,7 @@ $postdata = file_get_contents("php://input");
 if (isset($postdata) && !empty($postdata)) {
     $request = json_decode($postdata);
 
-    $uid = $request->{'userID'};
+    $uid = $request->{'UserID'};
     $firstname = htmlspecialchars($request->{'firstName'});
     $lastname = htmlspecialchars($request->{'lastName'});
     $username = htmlspecialchars($request->{'username'});
@@ -36,6 +36,7 @@ if (isset($postdata) && !empty($postdata)) {
                 echo json_encode($authdata);
                 http_response_code(201);
             }else{
+                echo("Fehler aufgetreten"); 
                 http_response_code(422);
             }     
         } catch (PDOException $e) {
