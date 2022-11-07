@@ -23,7 +23,7 @@ class Auth
             //echo ("Felder sind leer!");
             return false;
         } else {
-            $stmt = $this->db->prepare("SELECT * FROM User WHERE Username = :username");
+            $stmt = $this->db->prepare("SELECT * FROM User WHERE username = :username");
             $stmt->bindValue(":username", $username);
             $stmt->execute();
             $resultUser = $stmt->rowCount();
@@ -39,7 +39,7 @@ class Auth
                 return false;
             } else {
                 //In DB speichern
-                $stmt3 = $this->db->prepare("INSERT INTO User (UserID, Username, Passwort, mail, first_name, last_name) VALUES(:userid, :username, :pw, :mail, :firstname, :lastname)");
+                $stmt3 = $this->db->prepare("INSERT INTO User (UID, username, password, mail, first_name, last_name) VALUES(:userid, :username, :pw, :mail, :firstname, :lastname)");
                 $stmt3->bindValue(":userid", $uid);
                 $stmt3->bindValue(":firstname", $firstname);
                 $stmt3->bindValue(":lastname", $lastname);
@@ -57,18 +57,18 @@ class Auth
         if (empty($usernameORmail) || empty($password)) {
             //Felder sind leer
         } else {
-            $stmt = $this->db->prepare("SELECT * FROM User WHERE Username LIKE :usernameORmail OR mail LIKE :usernameORmail");
+            $stmt = $this->db->prepare("SELECT * FROM User WHERE username LIKE :usernameORmail OR mail LIKE :usernameORmail");
             $stmt->bindValue(":usernameORmail", $usernameORmail);
             $stmt->execute();
 
             $resultUser = $stmt->rowCount();
 
-            $stmt2 = $this->db->prepare("SELECT * FROM User WHERE Username = :usernameORmail OR mail = :usernameORmail");
+            $stmt2 = $this->db->prepare("SELECT * FROM User WHERE username = :usernameORmail OR mail = :usernameORmail");
             $stmt2->bindValue(":usernameORmail", $usernameORmail);
             $stmt2->execute();
 
             $resultPW = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-            $hashedPW = $resultPW[0]['Passwort'];
+            $hashedPW = $resultPW[0]['password'];
 
             /*echo "<pre>";
             print_r($resultPW);
@@ -92,7 +92,7 @@ class Auth
 
     function getUserID($usernameORmail)
     {
-        $stmt = $this->db->prepare("SELECT * FROM User WHERE Username = :usernameORmail OR mail = :usernameORmail LIMIT 1");
+        $stmt = $this->db->prepare("SELECT * FROM User WHERE username = :usernameORmail OR mail = :usernameORmail LIMIT 1");
         $stmt->bindValue(":usernameORmail", $usernameORmail);
         $stmt->execute();
 

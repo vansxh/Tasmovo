@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ValidateEqualModule } from 'ng-validate-equal';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
@@ -14,6 +15,11 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  model = {
+    password: null,
+    confirmpassword: null
+  }
+
   registerForm!: FormGroup;
   userError!: boolean;
   message!: string;
@@ -24,7 +30,8 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
-      mail: ['', Validators.required]
+      repeatpassword: ['', Validators.required],
+      mail: ['', [Validators.required, Validators.email]]
     });
   }
 

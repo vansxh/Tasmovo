@@ -41,11 +41,25 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="text" formControlName="password" placeholder="Password" name="password"
-                    class="form-control">
+                    class="form-control"> 
             </div>
             <div class="alert alert-danger"
                 *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
                 Please enter a Password
+            </div>
+
+            <div class="form-group">
+                <label for="repeatpassword">Confirm Password:</label>
+                <input type="text" formControlName="repeatpassword" placeholder="Password" name="repeatpassword"
+                    class="form-control" ngValidateEqual="password">
+            </div>
+            <div class="alert alert-danger"
+                *ngIf="registerForm.get('repeatpassword')?.hasError('required') && registerForm.get('repeatpassword')?.touched">
+                Please enter your Password
+            </div>
+            <div class="alert alert-danger"
+                *ngIf="registerForm.get('repeatpassword')?.hasError('notEqual') ">
+                Passwords must match
             </div>
 
             <div class="form-group">

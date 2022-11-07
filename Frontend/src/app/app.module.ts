@@ -19,6 +19,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ValidateEqualModule } from  'ng-validate-equal';
 registerLocaleData(localeAt);
 
 export const routes: Routes = [
@@ -52,6 +53,7 @@ export const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
     BrowserAnimationsModule,
+    ValidateEqualModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},
