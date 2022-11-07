@@ -10,7 +10,7 @@ $postdata = file_get_contents("php://input");
 if (isset($postdata) && !empty($postdata)) {
     $request = json_decode($postdata);
 
-    $uid = $request->{'UserID'};
+    $uid = $request->{'UID'};
     $firstname = htmlspecialchars($request->{'firstName'});
     $lastname = htmlspecialchars($request->{'lastName'});
     $username = htmlspecialchars($request->{'username'});
@@ -25,7 +25,7 @@ if (isset($postdata) && !empty($postdata)) {
             $register = $auth->register($uid, $firstname, $lastname, $username, $passwordHash, $mail);
             if($register){
                 $authdata =[
-                    'userID' => $uid,
+                    'UID' => $uid,
                     'firstName' => $firstname,
                     'lastName' => $lastname,
                     'username' => $username,

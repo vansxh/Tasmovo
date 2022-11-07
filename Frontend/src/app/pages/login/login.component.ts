@@ -42,8 +42,9 @@ export class LoginComponent implements OnInit {
         this.router.navigate([redirect]);
         //console.log(data.UserID);
         //this.currentUser = data;
-        //console.log(data.UserID); 
-        this.auth.setSession(data.UserID);
+        //console.log(data.UserID);
+        //console.log(data.UID);
+        this.auth.setSession(data.UID);
         }
         
       }, error => {

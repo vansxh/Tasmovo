@@ -14,7 +14,7 @@ export class AuthenticationService {
   redirectUrl!: string;
 
   register(user: User){
-    user.UserID = uuidv4();
+    user.UID = uuidv4();
     return this.http.post('http://flock-1902.students.fhstp.ac.at/Backend/routes/user/register.php', user);
   }
 
