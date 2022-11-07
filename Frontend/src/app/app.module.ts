@@ -15,15 +15,22 @@ import { DatePipe } from '@angular/common';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeAt from '@angular/common/locales/de-AT';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { LandingComponent } from './pages/landing/landing.component';
+import { AuthGuard } from './guards/auth.guard';
 registerLocaleData(localeAt);
 
 export const routes: Routes = [
-  {path: '', component: ViewComponent, pathMatch: 'full'},
-  {path: 'view', component: ViewComponent},
-  {path: 'add', component: AddComponent},
-  {path: 'insert-task', component: InsertTaskComponent},
-  {path: 'insert-task/:TAID', component: InsertTaskComponent},
-  {path: 'dashboard', component: DashboardComponent}
+  {path: '', component: LandingComponent, pathMatch: 'full'},
+  {path: 'view', component: ViewComponent, canActivate: [AuthGuard]},
+  {path: 'add', component: AddComponent, canActivate: [AuthGuard]},
+  {path: 'insert-task', component: InsertTaskComponent, canActivate: [AuthGuard]},
+  {path: 'insert-task/:TAID', component: InsertTaskComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: LandingComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent}
 
 ];
 
@@ -33,14 +40,17 @@ export const routes: Routes = [
     AddComponent,
     ViewComponent,
     DashboardComponent,
-    InsertTaskComponent
+    InsertTaskComponent,
+    LoginComponent,
+    RegisterComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
     BrowserAnimationsModule,
   ],
   providers: [
