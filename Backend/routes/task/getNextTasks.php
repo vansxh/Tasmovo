@@ -11,7 +11,7 @@ $task = new Task();
         http_response_code(404);
     }
 }*/
-$result = $task->test(1);
+$result = $task->getNextTasks(1);
 //echo($result);
 //$json = json_encode($result);
 echo($result);
