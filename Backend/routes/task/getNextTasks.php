@@ -4,12 +4,16 @@ $userID = $_GET['userID'];
 
 $task = new Task();
 
-if (!empty($userID)) {
+/*if (!empty($userID)) {
     try {
         echo($task->getNextTasks($userID));
     } catch (PDOException $e) {
         http_response_code(404);
     }
-}
+}*/
+$result = $task->test(1);
+//echo($result);
+//$json = json_encode($result);
+echo($result);
 
 

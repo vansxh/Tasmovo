@@ -6,7 +6,7 @@ $task = new Task();
 
 if (!empty($userID)) {
     try {
-        echo($task->getFinishedTasks($userID));
+        echo($task->getFinishedTasks(1));
     } catch (PDOException $e) {
         http_response_code(404);
     }

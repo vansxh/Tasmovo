@@ -37,7 +37,19 @@ class Task{
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        //echo(json_encode($result));
+        //return $result;
 
+        return json_encode($result);
+    }
+
+    function test($id){
+        $stmt = $this->db->prepare("SELECT * FROM Task WHERE created_by = :id AND statusID = 1 ORDER BY deadline ASC LIMIT 3");
+        $stmt->bindValue(":id", $id);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return json_encode($result);
     }
 
@@ -48,6 +60,7 @@ class Task{
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //print_r($result);
 
         return json_encode($result);
     }    
