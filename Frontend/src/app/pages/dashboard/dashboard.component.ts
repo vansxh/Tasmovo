@@ -3,6 +3,7 @@ import { TaskService } from '../../services/task/task.service';
 import { Task } from 'src/app/services/task/task';
 import { QuoteService } from 'src/app/services/quote/quote.service';
 import { Quote } from 'src/app/services/quote/quote';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,7 @@ export class DashboardComponent implements OnInit {
   public finishedTasks!: Task[];
   public dailyQuote!: Quote;
 
-  constructor(private taskService: TaskService, private quoteService: QuoteService) { }
+  constructor(private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService) { }
 
   ngOnInit(): void {
 
@@ -28,7 +29,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadTasks(): void {
-    this.taskService.getNextTasks(1).subscribe((data: Task[]) => {
+    this.taskService.getNextTasks(this.authService.getSession()).subscribe((data: Task[]) => {
       if(data != null) {
         this.openTasks = data;
         for(let t of this.openTasks) {
@@ -39,7 +40,7 @@ export class DashboardComponent implements OnInit {
       } else alert("Tasks konnten nicht geladen werden!")
     });
 
-    this.taskService.getfinishedTasks(1).subscribe((data: Task[]) => {
+    this.taskService.getfinishedTasks(this.authService.getSession()).subscribe((data: Task[]) => {
       if(data != null) this.finishedTasks = data;
       else alert("Tasks konnten nicht geladen werden!")
     });
@@ -55,6 +56,10 @@ export class DashboardComponent implements OnInit {
 
   editTask(task: Task): void{
     this.taskService.editTask(task.TAID);
+  }
+  
+  addTask(): void{
+    this.taskService.addTask();
   }
 
   finishTask(task: Task): void {

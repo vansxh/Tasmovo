@@ -14,11 +14,11 @@ export class TaskService {
     return this.http.post('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/insertTask.php', task);
   }
 
-  getNextTasks(userID: number) {
+  getNextTasks(userID: string) {
     return this.http.get<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getNextTasks.php?userID='+ userID);
   }
 
-  getfinishedTasks(userID: number) {
+  getfinishedTasks(userID: string) {
     return this.http.get<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getFinishedTasks.php?userID='+ userID);
   }
 
@@ -28,6 +28,10 @@ export class TaskService {
 
   editTask(TAID: number){
     this.router.navigate(['/insert-task/' + TAID]);
+  }
+
+  addTask(){
+    this.router.navigate(['/insert-task']);
   }
 
   getTask(TAID: number) {

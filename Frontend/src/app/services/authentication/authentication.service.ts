@@ -26,8 +26,8 @@ export class AuthenticationService {
     sessionStorage.setItem('token', token);
   }
 
-  getSession(){
-    return sessionStorage.getItem('token');
+  getSession(): string{
+    return String(sessionStorage.getItem('token'));
   }
 
   deleteToken(){
