@@ -8,7 +8,7 @@ if(isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
     if (isset($postdata) && !empty($postdata)) {
         $request = json_decode($postdata);
 
-        $cName = htmlspecialchars($request->{'category_name'});
+        $cName = strip_tags($request->{'category_name'});
         /*$parent_categoryID = htmlspecialchars($request->{'category'}->{'parent_categoryID'});
         $gid = htmlspecialchars($request->{'groupID'});*/
 
