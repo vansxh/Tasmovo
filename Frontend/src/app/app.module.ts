@@ -20,6 +20,11 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ValidateEqualModule } from  'ng-validate-equal';
+import { TimerComponent } from './pages/timer/timer.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
+import { OverviewComponent } from './pages/overview/overview.component';
+import { InsertGroupComponent } from './pages/insert-group/insert-group.component';
+import { InsertCategoryComponent } from './pages/insert-category/insert-category.component';
 registerLocaleData(localeAt);
 
 export const routes: Routes = [
@@ -31,7 +36,12 @@ export const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'home', component: LandingComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'timer', component: TimerComponent, canActivate: [AuthGuard]},
+  {path: 'overview', component: OverviewComponent, canActivate: [AuthGuard]},
+  {path: 'insert-group', component: InsertGroupComponent, canActivate: [AuthGuard]},
+  {path: 'insert-category', component: InsertCategoryComponent, canActivate: [AuthGuard]},
+  {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]}
 
 ];
 
@@ -44,7 +54,12 @@ export const routes: Routes = [
     InsertTaskComponent,
     LoginComponent,
     RegisterComponent,
-    LandingComponent
+    LandingComponent,
+    TimerComponent,
+    CalendarComponent,
+    OverviewComponent,
+    InsertGroupComponent,
+    InsertCategoryComponent
   ],
   imports: [
     BrowserModule,
