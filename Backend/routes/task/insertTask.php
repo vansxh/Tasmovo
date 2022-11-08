@@ -7,16 +7,16 @@ $task = new Task();
 if (isset($postdata) && !empty($postdata)) {
     $request = json_decode($postdata);
 
-    $tName = htmlspecialchars($request->{'task_name'});
-    $notes = htmlspecialchars($request->{'notes'});
-    $deadline = htmlspecialchars($request->{'deadlineDay'})." ".htmlspecialchars($request->{'deadlineHour'});
-    /*$createdby = htmlspecialchars($request->{'createdby'});
-    $gid = htmlspecialchars($request->{'groupID'});
+    $tName = htmlspecialchars($request->{'task'}->{'task_name'});
+    $notes = htmlspecialchars($request->{'task'}->{'notes'});
+    $deadline = htmlspecialchars($request->{'task'}->{'deadlineDay'})." ".htmlspecialchars($request->{'task'}->{'deadlineHour'});
+    $created_by = htmlspecialchars($request->{'created_by'});
+    /*$gid = htmlspecialchars($request->{'groupID'});
     $caid = htmlspecialchars($request->{'categoryID'});*/
 
     if (!empty($tName) && !empty($deadline)) {
         try {
-            if($task->insertTask($tName, $notes, $deadline/*, $createdby, $gid, $caid*/)) {
+            if($task->insertTask($tName, $notes, $deadline, $created_by/*, $gid, $caid*/)) {
                 echo(json_encode("done"));
                 http_response_code(201);
             } else http_response_code(422);

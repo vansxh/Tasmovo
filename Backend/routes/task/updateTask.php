@@ -7,15 +7,16 @@ $task = new Task();
 if (isset($postdata) && !empty($postdata)) {
     $request = json_decode($postdata);
 
-    $TAID = htmlspecialchars($request->{'TAID'});
-    $tName = htmlspecialchars($request->{'task_name'});
-    $notes = htmlspecialchars($request->{'notes'});
-    $deadline = htmlspecialchars($request->{'deadlineDay'})." ".htmlspecialchars($request->{'deadlineHour'});
-    /*$createdby = htmlspecialchars($request->{'createdby'});
-    $gid = htmlspecialchars($request->{'groupID'});
+    $TAID = htmlspecialchars($request->{'task'}->{'TAID'});
+    $tName = htmlspecialchars($request->{'task'}->{'task_name'});
+    $notes = htmlspecialchars($request->{'task'}->{'notes'});
+    $deadline = htmlspecialchars($request->{'task'}->{'deadlineDay'})." ".htmlspecialchars($request->{'task'}->{'deadlineHour'});
+    $createdby = htmlspecialchars($request->{'task'}->{'created_by'});
+    $loggedIn = htmlspecialchars($request->{'loggedIn'});
+    /*$gid = htmlspecialchars($request->{'groupID'});
     $caid = htmlspecialchars($request->{'categoryID'});*/
 
-    if (!empty($tName) && !empty($deadline)) {
+    if (!empty($tName) && !empty($deadline) && $createdby === $loggedIn) {
         try {
             if($task->updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/)){
                 echo(json_encode("done"));

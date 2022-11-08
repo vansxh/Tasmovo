@@ -14,13 +14,13 @@ class Task{
         }
     }
 
-    function insertTask($tName, $notes, $deadline/*, $createdby, $gid, $caid*/){
-        $stmt = $this->db->prepare("INSERT INTO Task(task_name, notes, deadline) VALUES(:tName, :notes, :deadline)");
+    function insertTask($tName, $notes, $deadline, $created_by/*, $gid, $caid*/){
+        $stmt = $this->db->prepare("INSERT INTO Task(task_name, notes, deadline, created_by) VALUES(:tName, :notes, :deadline, :created_by)");
         $stmt->bindValue(":tName", $tName);
         $stmt->bindValue(":notes", $notes);
         $stmt->bindValue(":deadline", $deadline);
-        /*$stmt->bindValue(":createdby", $createdby);
-        $stmt->bindValue(":gid", $gid);
+        $stmt->bindValue(":created_by", $created_by);
+        /*$stmt->bindValue(":gid", $gid);
         $stmt->bindValue(":caid", $caid);*/
 
         if($stmt->execute()) return true;

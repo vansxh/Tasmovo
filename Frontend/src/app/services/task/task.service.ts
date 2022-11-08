@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Task } from './task';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) { }
 
-  insertTask(task: Task){
-    return this.http.post('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/insertTask.php', task);
+  insertTask(task: Task, created_by: string){
+    return this.http.post('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/insertTask.php', {task, created_by});
   }
 
   getNextTasks(userID: string) {
@@ -35,11 +36,11 @@ export class TaskService {
   }
 
   getTask(TAID: number) {
-    return this.http.get<Task>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getTask.php?TAID='+ TAID);
+    return this.http.get('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getTask.php?TAID='+ TAID);
   }
 
-  updateTask(task: Task) {
-    return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/updateTask.php', task);
+  updateTask(task: Task, loggedIn: string) {
+    return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/updateTask.php', {task, loggedIn});
   }
 
   finishTask(task: Task) {

@@ -1,1 +1,27 @@
-<p>insert-category works!</p>
+<div class="col-md-6">
+    <h1 *ngIf="!this.edit" class="text-center">Neue Kategorie</h1>
+    <h1 *ngIf="this.edit" class="text-center">Kategorie bearbeiten</h1>
+    <form [formGroup]="insertCategoryForm" novalidate class="form">
+
+        <input type="hidden" formControlName="CAID" name="CAID">
+
+        <input type="hidden" formControlName="userID" name="userID">
+
+        <div class="form-group">
+            <label for="category_name">Titel</label>
+            <input type="text" formControlName="category_name" placeholder="Neuer Kategoriename" name="category_name"
+                class="form-control">
+        </div>
+        <div class="alert alert-danger"
+            *ngIf="insertCategoryForm.get('category_name')?.hasError('required') && insertCategoryForm.get('category_name')?.touched">
+            Bitte einen Titel für die Kategorie eingeben!
+        </div>
+        <div class="alert alert-danger"
+            *ngIf="insertCategoryForm.get('category_name')?.hasError('maxlength') && insertCategoryForm.get('category_name')?.touched">
+            Max Länge: 30 Zeichen
+        </div>
+
+        <button [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit" class="btn btn-success" (click)="onInsertCategorySubmit()">Kategorie erstellen</button>
+        <button [disabled]="!insertCategoryForm.valid" *ngIf="this.edit" class="btn btn-success" (click)="onEditCategorySubmit()">Kategorie bearbeiten</button>
+    </form>
+</div>
