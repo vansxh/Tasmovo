@@ -34,10 +34,14 @@ export class AuthenticationService {
     sessionStorage.removeItem('token');
   }
 
+  getLogin(){
+    return sessionStorage.getItem('token');
+  }
+
   isLoggedIn(){
-    const token = this.getSession();
+    const token = this.getLogin();
     //console.log(token);
-    if (token != 'null' || token != null) {
+    if (token != null) {
       return true;
     }else{
       return false;
