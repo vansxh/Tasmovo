@@ -28,6 +28,7 @@ import { InsertCategoryComponent } from './pages/insert-category/insert-category
 import { MyCategoriesComponent } from './pages/my-categories/my-categories.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { SubCategoryComponent } from './pages/sub-category/sub-category.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 registerLocaleData(localeAt);
 
 export const routes: Routes = [
@@ -44,7 +45,11 @@ export const routes: Routes = [
   {path: 'overview', component: OverviewComponent, canActivate: [AuthGuard]},
   {path: 'insert-group', component: InsertGroupComponent, canActivate: [AuthGuard]},
   {path: 'insert-category', component: InsertCategoryComponent, canActivate: [AuthGuard]},
-  {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]}
+  {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
+  {path: 'category', component: CategoryComponent, canActivate: [AuthGuard]},
+  {path: 'my-categories', component: MyCategoriesComponent, canActivate: [AuthGuard]},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'sub-category', component: SubCategoryComponent, canActivate: [AuthGuard]}
 
 ];
 
@@ -65,7 +70,8 @@ export const routes: Routes = [
     InsertCategoryComponent,
     MyCategoriesComponent,
     CategoryComponent,
-    SubCategoryComponent
+    SubCategoryComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
