@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-landing',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LandingComponent implements OnInit {
 
-  constructor() { }
+  constructor(private auth: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
+    if (this.auth.isLoggedIn()) {
+      this.router.navigate(['dashboard']);
+    }
   }
 
 }
