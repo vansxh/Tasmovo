@@ -36,7 +36,8 @@ export class AuthenticationService {
 
   isLoggedIn(){
     const token = this.getSession();
-    if (token != null) {
+    //console.log(token);
+    if (token != 'null' || token != null) {
       return true;
     }else{
       return false;
