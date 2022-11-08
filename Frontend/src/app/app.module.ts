@@ -29,6 +29,7 @@ import { MyCategoriesComponent } from './pages/my-categories/my-categories.compo
 import { CategoryComponent } from './pages/category/category.component';
 import { SubCategoryComponent } from './pages/sub-category/sub-category.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { LoggedInGuard } from './guards/logged-in.guard';
 registerLocaleData(localeAt);
 
 export const routes: Routes = [
@@ -38,9 +39,9 @@ export const routes: Routes = [
   {path: 'insert-task', component: InsertTaskComponent, canActivate: [AuthGuard]},
   {path: 'insert-task/:TAID', component: InsertTaskComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'home', component: LandingComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'login', component: LoginComponent},
+  {path: 'home', component: LandingComponent, canActivate: [LoggedInGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [LoggedInGuard]},
+  {path: 'login', component: LoginComponent, canActivate: [LoggedInGuard]},
   {path: 'timer', component: TimerComponent, canActivate: [AuthGuard]},
   {path: 'overview', component: OverviewComponent, canActivate: [AuthGuard]},
   {path: 'insert-group', component: InsertGroupComponent, canActivate: [AuthGuard]},

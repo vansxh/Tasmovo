@@ -7,7 +7,7 @@ import { AuthenticationService } from './services/authentication/authentication.
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Tasmovo';
+  title = 'Frontend';
 
 
   loginbtn!: boolean;
@@ -31,7 +31,12 @@ export class AppComponent {
   }
 
   logout() {
-    this.service.deleteToken();
-    window.location.href = window.location.href;
+    //console.log(this.service.getSession());
+    this.service.logout(this.service.getSession()).subscribe(data => {
+      console.log(data);
+      this.service.deleteToken();
+      window.location.href = window.location.href;
+    });
+
   }
 }

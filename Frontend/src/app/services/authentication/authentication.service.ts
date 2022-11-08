@@ -15,11 +15,15 @@ export class AuthenticationService {
 
   register(user: User){
     user.UID = uuidv4();
-    return this.http.post('http://flock-1902.students.fhstp.ac.at/Backend/routes/user/register.php', user);
+    return this.http.post('/Backend/routes/user/register.php', user);
   }
 
   login(user: User){
-    return this.http.post<User>('http://flock-1902.students.fhstp.ac.at/Backend/routes/user/login.php', user);
+    return this.http.post<User>('/Backend/routes/user/login.php', user);
+  }
+
+  logout(UID: string){
+    return this.http.post('/Backend/routes/user/logout.php',UID);
   }
 
   setSession(token: string){

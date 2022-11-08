@@ -25,9 +25,6 @@ export class RegisterComponent implements OnInit {
   message!: string;
 
   ngOnInit(): void {
-    if (this.auth.isLoggedIn()) {
-      this.router.navigate(['dashboard']);
-    }
 
     this.registerForm = this.formbuilder.group({
       firstName: ['', Validators.required],

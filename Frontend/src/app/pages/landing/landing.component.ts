@@ -12,9 +12,7 @@ export class LandingComponent implements OnInit {
   constructor(private auth: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
-    if (this.auth.isLoggedIn()) {
-      this.router.navigate(['dashboard']);
-    }
+
   }
 
 }

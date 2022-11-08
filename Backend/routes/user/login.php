@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 require('../../config.inc.php');
 
@@ -18,9 +17,14 @@ if (isset($postdata) && !empty($postdata)) {
 
     if(!empty($usernameORmail) && !empty($password)){
             $canAccess = $auth->login($usernameORmail, $password);
+            $result = $auth->getUserID($usernameORmail);
+            $json = json_decode($result);
 
             if($canAccess){
                 $_SESSION['loggedIn'] = true;
+                $_SESSION['UID'] = $json->{'UID'};
+                //print_r($_SESSION);
+                //print_r($json->{'UID'});
                 echo ($auth->getUserID($usernameORmail));            
             }else{
                 unset($_SESSION['loggedIn']);

@@ -20,9 +20,6 @@ export class LoginComponent implements OnInit {
   currentUser!: User;
 
   ngOnInit(): void {
-    if (this.auth.isLoggedIn()) {
-      this.router.navigate(['dashboard']);
-    }
     
     this.loginForm = this.formbuilder.group({
       username: ['', Validators.required],
