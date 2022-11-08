@@ -9,8 +9,10 @@ if(isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
         $request = json_decode($postdata);
 
         $TAID = htmlspecialchars($request->{'TAID'});
+        
+        $gotTask = json_decode($task->getTask($TAID));
 
-        if (!empty($TAID)) {
+        if (!empty($TAID) && $gotTask->{'created_by'} === $_SESSION['UID']) {
             try {
                 if($task->finishTask($TAID)) {
                     echo(json_encode("done"));

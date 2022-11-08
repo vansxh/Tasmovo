@@ -12,11 +12,12 @@ if(isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
         $tName = htmlspecialchars($request->{'task_name'});
         $notes = htmlspecialchars($request->{'notes'});
         $deadline = htmlspecialchars($request->{'deadlineDay'})." ".htmlspecialchars($request->{'deadlineHour'});
-        $createdby = htmlspecialchars($request->{'created_by'});
         /*$gid = htmlspecialchars($request->{'groupID'});
         $caid = htmlspecialchars($request->{'categoryID'});*/
 
-        if (!empty($tName) && !empty($deadline) && $createdby === $_SESSION['UID']) {
+        $gotTask = json_decode($task->getTask($TAID));
+
+        if (!empty($tName) && !empty($deadline) && $gotTask->{'created_by'} === $_SESSION['UID']) {
             try {
                 if($task->updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/)){
                     echo(json_encode("done"));
