@@ -18,9 +18,10 @@ export class OverviewComponent implements OnInit {
 
     console.log(this.authService.getSession());
 
-    this.catService.getCategoriesByUser(this.authService.getSession()).subscribe((data: Category[]) => {
+    this.catService.getCategoriesByUser().subscribe((data: Category[]) => {
       if(data != null) {
         this.categories = data;
+        console.log(this.categories);
       } else alert("Tasks konnten nicht geladen werden!")
     });
 

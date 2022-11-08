@@ -11,20 +11,20 @@ export class TaskService {
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) { }
 
-  insertTask(task: Task, created_by: string){
-    return this.http.post('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/insertTask.php', {task, created_by});
+  insertTask(task: Task){
+    return this.http.post('/Backend/routes/task/insertTask.php', task);
   }
 
-  getNextTasks(userID: string) {
-    return this.http.get<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getNextTasks.php?userID='+ userID);
+  getNextTasks() {
+    return this.http.get<Task[]>('/Backend/routes/task/getNextTasks.php');
   }
 
-  getfinishedTasks(userID: string) {
-    return this.http.get<Task[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getFinishedTasks.php?userID='+ userID);
+  getFinishedTasks() {
+    return this.http.get<Task[]>('/Backend/routes/task/getFinishedTasks.php');
   }
 
   deleteTask(TAID: number){
-    return this.http.delete('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/deleteTask.php?TAID='+ TAID);
+    return this.http.delete('/Backend/routes/task/deleteTask.php?TAID='+ TAID);
   }
 
   editTask(TAID: number){
@@ -36,15 +36,15 @@ export class TaskService {
   }
 
   getTask(TAID: number) {
-    return this.http.get('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/getTask.php?TAID='+ TAID);
+    return this.http.get('/Backend/routes/task/getTask.php?TAID='+ TAID);
   }
 
-  updateTask(task: Task, loggedIn: string) {
-    return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/updateTask.php', {task, loggedIn});
+  updateTask(task: Task) {
+    return this.http.put('/Backend/routes/task/updateTask.php', task);
   }
 
   finishTask(task: Task) {
-    return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/task/finishTask.php', task);
+    return this.http.put('/Backend/routes/task/finishTask.php', task);
   }
 
 }

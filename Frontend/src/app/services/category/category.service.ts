@@ -11,24 +11,24 @@ export class CategoryService {
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) { }
 
-  insertCategory(category: Category, userID: string){
-    return this.http.post('http://flock-1902.students.fhstp.ac.at/Backend/routes/category/insertCategory.php', {category, userID});
+  insertCategory(category: Category){
+    return this.http.post('/Backend/routes/category/insertCategory.php', category);
   }
 
   getCategory(CAID: number) {
-    return this.http.get('http://flock-1902.students.fhstp.ac.at/Backend/routes/category/getCategory.php?CAID='+ CAID);
+    return this.http.get('/Backend/routes/category/getCategory.php?CAID='+ CAID);
   }
 
-  updateCategory(category: Category, userID: string) {
-    return this.http.put('http://flock-1902.students.fhstp.ac.at/Backend/routes/category/updateCategory.php', {category, userID});
+  updateCategory(category: Category) {
+    return this.http.put('/Backend/routes/category/updateCategory.php', category);
   }
 
   deleteCategory(CAID: number){
-    return this.http.delete('http://flock-1902.students.fhstp.ac.at/Backend/routes/category/deleteCategory.php?CAID='+ CAID);
+    return this.http.delete('/Backend/routes/category/deleteCategory.php?CAID='+ CAID);
   }
 
-  getCategoriesByUser(userID: string){
-    return this.http.get<Category[]>('http://flock-1902.students.fhstp.ac.at/Backend/routes/category/getCategoriesByUser.php?userID='+ userID);
+  getCategoriesByUser(){
+    return this.http.get<Category[]>('/Backend/routes/category/getCategoriesByUser.php');
   }
 
   editCategory(CAID: number){

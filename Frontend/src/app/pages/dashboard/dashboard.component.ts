@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadTasks(): void {
-    this.taskService.getNextTasks(this.authService.getSession()).subscribe((data: Task[]) => {
+    this.taskService.getNextTasks().subscribe((data: Task[]) => {
       if(data != null) {
         this.openTasks = data;
         for(let t of this.openTasks) {
@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
       } else alert("Tasks konnten nicht geladen werden!")
     });
 
-    this.taskService.getfinishedTasks(this.authService.getSession()).subscribe((data: Task[]) => {
+    this.taskService.getFinishedTasks().subscribe((data: Task[]) => {
       if(data != null) this.finishedTasks = data;
       else alert("Tasks konnten nicht geladen werden!")
     });

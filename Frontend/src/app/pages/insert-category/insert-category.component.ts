@@ -45,8 +45,7 @@ export class InsertCategoryComponent implements OnInit {
   }
 
   onInsertCategorySubmit(){
-    console.log(this.insertCategoryForm.value);
-    this.catService.insertCategory(this.insertCategoryForm.value, this.authService.getSession()).subscribe(data => {
+    this.catService.insertCategory(this.insertCategoryForm.value).subscribe(data => {
       console.log(data);
       if(data != null) this.router.navigate(['dashboard']);
       else alert("Kategorie konnte nicht hinzugefügt werden!");
@@ -54,8 +53,7 @@ export class InsertCategoryComponent implements OnInit {
   }
 
   onEditCategorySubmit() {
-    this.catService.updateCategory(this.insertCategoryForm.value, this.authService.getSession()).subscribe(data => {
-      console.log(data);
+    this.catService.updateCategory(this.insertCategoryForm.value).subscribe(data => {
       if(data != null) this.router.navigate(['dashboard']);
       else alert("Kategorie konnte nicht bearbeitet werden!");
     });

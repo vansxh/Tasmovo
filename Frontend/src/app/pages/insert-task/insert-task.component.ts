@@ -25,7 +25,8 @@ export class InsertTaskComponent implements OnInit {
     const routeParams = this.route.snapshot.params;
 
     if(routeParams['TAID']) {
-      this.taskService.getTask(routeParams['TAID']).subscribe((data) => {
+      this.taskService.getTask(routeParams['TAID']).subscribe(data => {
+        console.log(data);
         if(data != null) {
           if(data === 'falscher Benutzer') this.router.navigate(['dashboard']);
           if(typeof data === "object") {
@@ -56,7 +57,7 @@ export class InsertTaskComponent implements OnInit {
   }
 
   onInsertTaskSubmit(){
-    this.taskService.insertTask(this.insertTaskForm.value, this.authService.getSession()).subscribe(data => {
+    this.taskService.insertTask(this.insertTaskForm.value).subscribe(data => {
       console.log(data);
       if(data != null) this.router.navigate(['dashboard']);
       else alert("Task konnte nicht hinzugefügt werden!");
@@ -64,7 +65,7 @@ export class InsertTaskComponent implements OnInit {
   }
 
   onEditTaskSubmit() {
-    this.taskService.updateTask(this.insertTaskForm.value, this.authService.getSession()).subscribe(data => {
+    this.taskService.updateTask(this.insertTaskForm.value).subscribe(data => {
       console.log(data);
       if(data != null) this.router.navigate(['dashboard']);
       else alert("Task konnte nicht bearbeitet werden!");

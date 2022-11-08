@@ -1,12 +1,11 @@
 <?php
 require('../../config.inc.php');
-$userID = $_GET['userID'];
 
 $task = new Task();
 
-if (!empty($userID)) {
+if(isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
     try {
-        echo($task->getFinishedTasks($userID));
+        echo($task->getFinishedTasks($_SESSION['UID']));
     } catch (PDOException $e) {
         http_response_code(404);
     }

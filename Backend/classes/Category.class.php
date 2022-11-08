@@ -42,7 +42,7 @@ class Category{
 
         $stmt->execute();
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return json_encode($result);
     }
