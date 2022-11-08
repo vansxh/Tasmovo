@@ -25,6 +25,9 @@ import { CalendarComponent } from './pages/calendar/calendar.component';
 import { OverviewComponent } from './pages/overview/overview.component';
 import { InsertGroupComponent } from './pages/insert-group/insert-group.component';
 import { InsertCategoryComponent } from './pages/insert-category/insert-category.component';
+import { MyCategoriesComponent } from './pages/my-categories/my-categories.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { SubCategoryComponent } from './pages/sub-category/sub-category.component';
 registerLocaleData(localeAt);
 
 export const routes: Routes = [
@@ -59,7 +62,10 @@ export const routes: Routes = [
     CalendarComponent,
     OverviewComponent,
     InsertGroupComponent,
-    InsertCategoryComponent
+    InsertCategoryComponent,
+    MyCategoriesComponent,
+    CategoryComponent,
+    SubCategoryComponent
   ],
   imports: [
     BrowserModule,
