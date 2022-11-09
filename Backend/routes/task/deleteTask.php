@@ -1,5 +1,5 @@
 <?php
-require('../../config.inc.php');
+require('../../bootstrap.inc.php');
 $TAID = $_GET['TAID'];
 
 $task = new Task();

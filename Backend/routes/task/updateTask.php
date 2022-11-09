@@ -1,5 +1,5 @@
 <?php
-require('../../config.inc.php');
+require('../../bootstrap.inc.php');
 $postdata = file_get_contents("php://input");
 
 $task = new Task();
@@ -15,9 +15,9 @@ if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
         /*$gid = htmlspecialchars($request->{'groupID'});
         $caid = htmlspecialchars($request->{'categoryID'});*/
 
-        $gotTask = json_decode($task->getTask($TAID));
+        $gotTask = $task->getTask($TAID);
 
-        if (!empty($tName) && !empty($deadline) && $gotTask->{'created_by'} === $_SESSION['UID']) {
+        if (!empty($tName) && !empty($deadline) && $gotTask['created_by'] === $_SESSION['UID']) {
             try {
                 if ($task->updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/)) {
                     echo(json_encode("done"));

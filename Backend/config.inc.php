@@ -10,9 +10,7 @@ header("Access-Control-Allow-Credentials: true");
 header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 header('Access-Control-Max-Age: 600');
-session_start();
 
-require('functions.inc.php');
 
 define("DB_HOST", "mysql5");
 define("DB_NAME", "db_flock-1902_1");

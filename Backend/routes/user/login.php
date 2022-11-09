@@ -1,8 +1,8 @@
 <?php
 
-require('../../config.inc.php');
+require('../../bootstrap.inc.php');
 
-$auth = new Auth();
+//$auth = new Auth();
 $postdata = file_get_contents("php://input");
 
 

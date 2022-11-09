@@ -2,22 +2,10 @@
 
 class Task
 {
-    private $db;
-
-    function __construct()
-    {
-
-        try {
-            $this->db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PW);
-        } catch (PDOException $e) {
-            echo "Verbindung fehlgeschlagen";
-            die();
-        }
-    }
 
     function insertTask($tName, $notes, $deadline, $created_by/*, $gid, $caid*/)
     {
-        $stmt = $this->db->prepare("INSERT INTO Task(task_name, notes, deadline, created_by) VALUES(:tName, :notes, :deadline, :created_by)");
+        $stmt = Database::getDb()->prepare("INSERT INTO Task(task_name, notes, deadline, created_by) VALUES(:tName, :notes, :deadline, :created_by)");
         $stmt->bindValue(":tName", $tName);
         $stmt->bindValue(":notes", $notes);
         $stmt->bindValue(":deadline", $deadline);
@@ -31,7 +19,7 @@ class Task
 
     function getNextTasks($userID)
     {
-        $stmt = $this->db->prepare("SELECT * FROM Task WHERE created_by=:userID AND statusID=1 ORDER BY deadline ASC LIMIT 3");
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE created_by=:userID AND statusID=1 ORDER BY deadline ASC LIMIT 3");
         $stmt->bindValue(":userID", $userID);
 
         $stmt->execute();
@@ -46,7 +34,7 @@ class Task
 
     function test($id)
     {
-        $stmt = $this->db->prepare("SELECT * FROM Task WHERE created_by = :id AND statusID = 1 ORDER BY deadline ASC LIMIT 3");
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE created_by = :id AND statusID = 1 ORDER BY deadline ASC LIMIT 3");
         $stmt->bindValue(":id", $id);
         $stmt->execute();
 
@@ -56,7 +44,7 @@ class Task
 
     function getFinishedTasks($userID)
     {
-        $stmt = $this->db->prepare("SELECT * FROM Task WHERE created_by=:userID AND statusID=2");
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE created_by=:userID AND statusID=2");
         $stmt->bindValue(":userID", $userID);
 
         $stmt->execute();
@@ -69,7 +57,7 @@ class Task
 
     function getTask($TAID)
     {
-        $stmt = $this->db->prepare("SELECT * FROM Task WHERE TAID=:TAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
 
         $stmt->execute();
@@ -81,7 +69,7 @@ class Task
 
     function deleteTask($TAID)
     {
-        $stmt = $this->db->prepare("DELETE FROM Task WHERE TAID=:TAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("DELETE FROM Task WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
         if ($stmt->execute()) return true;
         else return false;
@@ -89,7 +77,7 @@ class Task
 
     function updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/)
     {
-        $stmt = $this->db->prepare("UPDATE Task SET task_name=:tName, notes=:notes, deadline=:deadline WHERE TAID=:TAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("UPDATE Task SET task_name=:tName, notes=:notes, deadline=:deadline WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
         $stmt->bindValue(":tName", $tName);
         $stmt->bindValue(":notes", $notes);
@@ -104,7 +92,7 @@ class Task
 
     function finishTask($TAID)
     {
-        $stmt = $this->db->prepare("UPDATE Task SET statusID=2, end_date=now() WHERE TAID=:TAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("UPDATE Task SET statusID=2, end_date=now() WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
 
         if ($stmt->execute()) return true;

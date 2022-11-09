@@ -1,5 +1,5 @@
 <?php
-require('../../config.inc.php');
+require('../../bootstrap.inc.php');
 
 $quote = new Quote();
 
