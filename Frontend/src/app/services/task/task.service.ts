@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Task } from './task';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '../authentication/authentication.service';
+import {Task} from './task';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) {
+  }
 
-  insertTask(task: Task){
+  insertTask(task: Task) {
     return this.http.post('/Backend/routes/task/insertTask.php', task);
   }
 
@@ -23,20 +24,20 @@ export class TaskService {
     return this.http.get<Task[]>('/Backend/routes/task/getFinishedTasks.php');
   }
 
-  deleteTask(TAID: number){
-    return this.http.delete('/Backend/routes/task/deleteTask.php?TAID='+ TAID);
+  deleteTask(TAID: number) {
+    return this.http.delete('/Backend/routes/task/deleteTask.php?TAID=' + TAID);
   }
 
-  editTask(TAID: number){
+  editTask(TAID: number) {
     this.router.navigate(['/insert-task/' + TAID]);
   }
 
-  addTask(){
+  addTask() {
     this.router.navigate(['/insert-task']);
   }
 
   getTask(TAID: number) {
-    return this.http.get('/Backend/routes/task/getTask.php?TAID='+ TAID);
+    return this.http.get('/Backend/routes/task/getTask.php?TAID=' + TAID);
   }
 
   updateTask(task: Task) {

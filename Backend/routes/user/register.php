@@ -6,7 +6,6 @@ $auth = new Auth();
 $postdata = file_get_contents("php://input");
 
 
-
 if (isset($postdata) && !empty($postdata)) {
     $request = json_decode($postdata);
 
@@ -23,8 +22,8 @@ if (isset($postdata) && !empty($postdata)) {
     if (!empty($uid) && !empty($firstname) && !empty($lastname) && !empty($username) && !empty($password) && !empty($mail)) {
         try {
             $register = $auth->register($uid, $firstname, $lastname, $username, $passwordHash, $mail);
-            if($register){
-                $authdata =[
+            if ($register) {
+                $authdata = [
                     'UID' => $uid,
                     'firstName' => $firstname,
                     'lastName' => $lastname,
@@ -35,12 +34,12 @@ if (isset($postdata) && !empty($postdata)) {
                 //print_r($authdata);
                 echo json_encode($authdata);
                 http_response_code(201);
-            }else{
-                echo("Fehler aufgetreten"); 
+            } else {
+                echo("Fehler aufgetreten");
                 http_response_code(422);
-            }     
+            }
         } catch (PDOException $e) {
-            echo ("Fehler aufgetreten");
+            echo("Fehler aufgetreten");
             http_response_code(422);
         }
     }

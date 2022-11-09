@@ -1,19 +1,21 @@
 <div class="row">
-    <div class="col-md-2">Id</div>
-    <div class="col-md-2">First Name</div>
-    <div class="col-md-2">Last Name</div>
-    <div class="col-md-2">Email</div>
-    <div class="col-md-2">Edit</div>
-    <div class="col-md-2">Delete</div>
+  <div class="col-md-2">Id</div>
+  <div class="col-md-2">First Name</div>
+  <div class="col-md-2">Last Name</div>
+  <div class="col-md-2">Email</div>
+  <div class="col-md-2">Edit</div>
+  <div class="col-md-2">Delete</div>
 </div>
 
 <div class="row" *ngFor="let std of students">
-    <div class="col-md-2">{{std.sId}}</div>
-    <div class="col-md-2">{{std.fName}}</div>
-    <div class="col-md-2">{{std.lName}}</div>
-    <div class="col-md-2">{{std.email}}</div>
-    <div class="col-md-2"><a href="" class="btn btn-success">Edit</a></div>
-    <div class="col-md-2"><button class="btn btn-danger" (click)="deleteStudent(std)">Delete</button></div>
+  <div class="col-md-2">{{std.sId}}</div>
+  <div class="col-md-2">{{std.fName}}</div>
+  <div class="col-md-2">{{std.lName}}</div>
+  <div class="col-md-2">{{std.email}}</div>
+  <div class="col-md-2"><a href="" class="btn btn-success">Edit</a></div>
+  <div class="col-md-2">
+    <button class="btn btn-danger" (click)="deleteStudent(std)">Delete</button>
+  </div>
 </div>
 
 

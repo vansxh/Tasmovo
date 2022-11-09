@@ -1,6 +1,7 @@
 <?php
 
-class Quote{
+class Quote
+{
     private $db;
 
     function __construct()
@@ -14,7 +15,8 @@ class Quote{
         }
     }
 
-    function getQuote() {
+    function getQuote()
+    {
         $stmt = $this->db->prepare("SELECT * FROM Quote ORDER BY RAND() LIMIT 1");
 
         $stmt->execute();

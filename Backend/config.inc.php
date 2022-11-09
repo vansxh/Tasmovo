@@ -1,6 +1,6 @@
 <?php
 //juhu
-if($_SERVER['REQUEST-METHOD'] === 'OPTIONS'){
+if ($_SERVER['REQUEST-METHOD'] === 'OPTIONS') {
     http_response_code(200);
     die();
 }
@@ -14,7 +14,7 @@ session_start();
 
 require('functions.inc.php');
 
-define("DB_HOST","mysql5");
-define("DB_NAME","db_flock-1902_1");
-define("DB_USER","flock-1902");
-define("DB_PW","r_TaA3LBaBev");
+define("DB_HOST", "mysql5");
+define("DB_NAME", "db_flock-1902_1");
+define("DB_USER", "flock-1902");
+define("DB_PW", "r_TaA3LBaBev");

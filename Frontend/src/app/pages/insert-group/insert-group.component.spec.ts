@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { InsertGroupComponent } from './insert-group.component';
+import {InsertGroupComponent} from './insert-group.component';
 
 describe('InsertGroupComponent', () => {
   let component: InsertGroupComponent;
@@ -8,9 +8,9 @@ describe('InsertGroupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InsertGroupComponent ]
+      declarations: [InsertGroupComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(InsertGroupComponent);
     component = fixture.componentInstance;

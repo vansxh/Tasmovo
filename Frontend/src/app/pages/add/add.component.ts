@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { StudentsService } from '../../services/students/students.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {StudentsService} from '../../services/students/students.service';
 
 
 @Component({
@@ -11,7 +11,8 @@ import { StudentsService } from '../../services/students/students.service';
 })
 export class AddComponent implements OnInit {
 
-  constructor(private formbiulder: FormBuilder, private studentService: StudentsService, private router: Router) { }
+  constructor(private formbiulder: FormBuilder, private studentService: StudentsService, private router: Router) {
+  }
 
   addForm!: FormGroup;
 
@@ -25,7 +26,7 @@ export class AddComponent implements OnInit {
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.addForm.value);
 
     this.studentService.createStudent(this.addForm.value).subscribe(data => {

@@ -1,29 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
-    <a class="avbar-brand" routerLink="home" routerLinkActive="active">Tasmovo</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample"
-        aria-controls="navbarsExample" aria-expanded="false" aria-label="Toggle navigation">
+  <a class="avbar-brand" routerLink="home" routerLinkActive="active">Tasmovo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample"
+          aria-controls="navbarsExample" aria-expanded="false" aria-label="Toggle navigation">
 
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarsExample">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" *ngIf="loggedIn()" routerLink="home" routerLinkActive="active">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" *ngIf="!loggedIn()" routerLink="login" routerLinkActive="active">Login</a>
-            </li>
-            <li class="nav-item">
-                <button type="button" *ngIf="loggedIn()" class="btn btn-block" (click)="logout()">Logout</button>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" *ngIf="!loggedIn()" routerLink="register" routerLinkActive="active">Registration</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" *ngIf="loggedIn()" routerLink="dashboard" routerLinkActive="active">Dashboard</a>
-            </li>
-        </ul>
-    </div>
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarsExample">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="loggedIn()" routerLink="home" routerLinkActive="active">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="!loggedIn()" routerLink="login" routerLinkActive="active">Login</a>
+      </li>
+      <li class="nav-item">
+        <button type="button" *ngIf="loggedIn()" class="btn btn-block" (click)="logout()">Logout</button>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="!loggedIn()" routerLink="register" routerLinkActive="active">Registration</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="loggedIn()" routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+    </ul>
+  </div>
 
 </nav>
 <router-outlet></router-outlet>

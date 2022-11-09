@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, Params, ActivatedRoute } from '@angular/router';
-import { Category } from 'src/app/services/category/category';
-import { CategoryService } from 'src/app/services/category/category.service';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Category} from 'src/app/services/category/category';
+import {CategoryService} from 'src/app/services/category/category.service';
+import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-insert-category',
@@ -12,7 +12,8 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 })
 export class InsertCategoryComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private catService: CategoryService, private router: Router, private route: ActivatedRoute, private authService: AuthenticationService) { }
+  constructor(private formbuilder: FormBuilder, private catService: CategoryService, private router: Router, private route: ActivatedRoute, private authService: AuthenticationService) {
+  }
 
   insertCategoryForm!: FormGroup;
   selectedCategory!: Category;
@@ -22,17 +23,17 @@ export class InsertCategoryComponent implements OnInit {
 
     const routeParams = this.route.snapshot.params;
 
-    if(routeParams['CAID']) {
+    if (routeParams['CAID']) {
       this.catService.getCategory(routeParams['CAID']).subscribe((data) => {
-        if(data != null) {
-          if(data === 'falscher Benutzer') this.router.navigate(['dashboard']);
-          if(typeof data === "object") {
+        if (data != null) {
+          if (data === 'falscher Benutzer') this.router.navigate(['dashboard']);
+          if (typeof data === "object") {
             this.selectedCategory = <Category>data;
             this.insertCategoryForm.patchValue(this.selectedCategory);
-            if(routeParams['CAID']) this.edit = true;
+            if (routeParams['CAID']) this.edit = true;
             else this.edit = false;
           }
-        } else alert ("Kategorie konnte nicht geladen werden!");
+        } else alert("Kategorie konnte nicht geladen werden!");
       });
     }
 
@@ -44,17 +45,17 @@ export class InsertCategoryComponent implements OnInit {
 
   }
 
-  onInsertCategorySubmit(){
+  onInsertCategorySubmit() {
     this.catService.insertCategory(this.insertCategoryForm.value).subscribe(data => {
       console.log(data);
-      if(data != null) this.router.navigate(['dashboard']);
+      if (data != null) this.router.navigate(['dashboard']);
       else alert("Kategorie konnte nicht hinzugefügt werden!");
     });
   }
 
   onEditCategorySubmit() {
     this.catService.updateCategory(this.insertCategoryForm.value).subscribe(data => {
-      if(data != null) this.router.navigate(['dashboard']);
+      if (data != null) this.router.navigate(['dashboard']);
       else alert("Kategorie konnte nicht bearbeitet werden!");
     });
   }

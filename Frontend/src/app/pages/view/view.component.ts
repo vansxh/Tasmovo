@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { StudentsService } from '../../services/students/students.service';
-import { Students } from '../../services/students/students';
+import {Component, OnInit} from '@angular/core';
+import {StudentsService} from '../../services/students/students.service';
+import {Students} from '../../services/students/students';
 
 
 @Component({
@@ -12,7 +12,8 @@ export class ViewComponent implements OnInit {
 
   public students!: Students[];
 
-  constructor(private studentService: StudentsService) { }
+  constructor(private studentService: StudentsService) {
+  }
 
   ngOnInit(): void {
     this.studentService.getStudents().subscribe((data: Students[]) => {
@@ -21,7 +22,7 @@ export class ViewComponent implements OnInit {
     });
   }
 
-  deleteStudent(students: Students): void{
+  deleteStudent(students: Students): void {
     //console.log(students.sId);
     this.studentService.deleteStudent(students.sId).subscribe(data => {
       this.students = this.students.filter(u => u !== students);

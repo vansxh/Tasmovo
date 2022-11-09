@@ -1,53 +1,54 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { User } from './user';
-import { v4 as uuidv4 } from 'uuid';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {User} from './user';
+import {v4 as uuidv4} from 'uuid';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   public createdUser!: boolean;
   redirectUrl!: string;
 
-  register(user: User){
+  register(user: User) {
     user.UID = uuidv4();
     return this.http.post('/Backend/routes/user/register.php', user);
   }
 
-  login(user: User){
+  login(user: User) {
     return this.http.post<User>('/Backend/routes/user/login.php', user);
   }
 
-  logout(UID: string){
-    return this.http.post('/Backend/routes/user/logout.php',UID);
+  logout(UID: string) {
+    return this.http.post('/Backend/routes/user/logout.php', UID);
   }
 
-  setSession(token: string){
+  setSession(token: string) {
     sessionStorage.setItem('token', token);
   }
 
-  getSession(): string{
+  getSession(): string {
     return String(sessionStorage.getItem('token'));
   }
 
-  deleteToken(){
+  deleteToken() {
     sessionStorage.removeItem('token');
   }
 
-  getLogin(){
+  getLogin() {
     return sessionStorage.getItem('token');
   }
 
-  isLoggedIn(){
+  isLoggedIn() {
     const token = this.getLogin();
     //console.log(token);
     if (token != null) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }

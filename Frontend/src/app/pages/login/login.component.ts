@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Route, Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
-import { User } from 'src/app/services/authentication/user';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
+import {User} from 'src/app/services/authentication/user';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,8 @@ import { User } from 'src/app/services/authentication/user';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private auth: AuthenticationService, private router: Router) { }
+  constructor(private formbuilder: FormBuilder, private auth: AuthenticationService, private router: Router) {
+  }
 
   loginForm!: FormGroup;
   userError!: boolean;
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   currentUser!: User;
 
   ngOnInit(): void {
-    
+
     this.loginForm = this.formbuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -38,16 +39,16 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.loginForm.value).subscribe((data: User) => {
         //console.log(data);
         if (data != null) {
-        console.log("JUHU"); 
-        const redirect = this.auth.redirectUrl ? this.auth.redirectUrl : '/dashboard';
-        this.router.navigate([redirect]);
-        //console.log(data.UserID);
-        //this.currentUser = data;
-        //console.log(data.UserID);
-        //console.log(data.UID);
-        this.auth.setSession(data.UID);
+          console.log("JUHU");
+          const redirect = this.auth.redirectUrl ? this.auth.redirectUrl : '/dashboard';
+          this.router.navigate([redirect]);
+          //console.log(data.UserID);
+          //this.currentUser = data;
+          //console.log(data.UserID);
+          //console.log(data.UID);
+          this.auth.setSession(data.UID);
         }
-        
+
       }, error => {
         this.message = "Username oder Passwort ist falsch!";
         this.userError = true;

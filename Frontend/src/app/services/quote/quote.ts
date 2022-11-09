@@ -1,4 +1,4 @@
 export class Quote {
-    QID!: number;
-    quote!: string;
+  QID!: number;
+  quote!: string;
 }

@@ -1,6 +1,7 @@
 <?php
 
-class Students{
+class Students
+{
     private $db;
 
     function __construct()
@@ -15,7 +16,8 @@ class Students{
         }
     }
 
-    function showStudents(){
+    function showStudents()
+    {
         $stmt = $this->db->prepare("SELECT * FROM students");
         $stmt->execute();
 
@@ -24,13 +26,15 @@ class Students{
         return json_encode($result);
     }
 
-    function deleteStudent($sId){
+    function deleteStudent($sId)
+    {
         $stmt = $this->db->prepare("DELETE FROM students WHERE sId=:studentID LIMIT 1");
         $stmt->bindValue(":studentID", $sId);
         $stmt->execute();
     }
 
-    function insert($fName, $lName, $email){
+    function insert($fName, $lName, $email)
+    {
         $stmt = $this->db->prepare("INSERT INTO students(fName, lName, email) VALUES(:firstname, :lastname, :mail)");
         $stmt->bindValue(":firstname", $fName);
         $stmt->bindValue(":lastname", $lName);

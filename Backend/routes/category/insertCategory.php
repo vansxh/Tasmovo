@@ -4,7 +4,7 @@ $postdata = file_get_contents("php://input");
 
 $category = new Category();
 
-if(isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
+if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
     if (isset($postdata) && !empty($postdata)) {
         $request = json_decode($postdata);
 
@@ -14,7 +14,7 @@ if(isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
 
         if (!empty($cName) && !empty($_SESSION['UID'])) {
             try {
-                if($category->insertCategory($cName, $_SESSION['UID']/*, $parent_categoryID, $gid*/)) {
+                if ($category->insertCategory($cName, $_SESSION['UID']/*, $parent_categoryID, $gid*/)) {
                     echo(json_encode("done"));
                     http_response_code(201);
                 } else http_response_code(422);

@@ -4,7 +4,7 @@ $CAID = $_GET['CAID'];
 
 $category = new Category();
 
-if(isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
+if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
     if (!empty($CAID)) {
         try {
             echo($category->getCategory($CAID));

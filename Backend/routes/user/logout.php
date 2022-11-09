@@ -8,13 +8,12 @@ $postdata = file_get_contents("php://input");
 //print_r($_SESSION['UID']);
 
 
-
 if (isset($postdata) && !empty($postdata) && $_SESSION['loggedIn'] === true && isset($_SESSION['UID'])) {
     unset($_SESSION['loggedIn']);
     unset($_SESSION['UID']);
     $message = json_encode("Erfolgreich abgemeldet");
     echo($message);
-}else{
+} else {
     //echo($_SESSION['loggedIn']);
     //echo($_SESSION['UID']);
     echo("Fehler aufgetreten");
