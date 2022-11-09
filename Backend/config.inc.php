@@ -1,5 +1,5 @@
 <?php
-
+//juhu
 if($_SERVER['REQUEST-METHOD'] === 'OPTIONS'){
     http_response_code(200);
     die();
