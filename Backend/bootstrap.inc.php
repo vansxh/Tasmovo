@@ -10,3 +10,4 @@ spl_autoload_register(function ($class) {
 
 Database::init();
 $auth = new Auth();
+$input = new Input();

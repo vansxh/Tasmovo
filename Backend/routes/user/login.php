@@ -1,9 +1,9 @@
 <?php
 
 require('../../bootstrap.inc.php');
-
+$input = new Input();
 //$auth = new Auth();
-$postdata = file_get_contents("php://input");
+/*$postdata = file_get_contents("php://input");
 
 
 if (isset($postdata) && !empty($postdata)) {
@@ -30,4 +30,16 @@ if (isset($postdata) && !empty($postdata)) {
             echo("Fehler aufgetreten");
         }
     }
+}*/
+
+if ($input->isEmpty()) die();
+
+if ($auth->login($input->read('username'), $input->read('password'))) {
+    $result = $auth->getUserID($input->read('username'));
+    $_SESSION['loggedIn'] = true;
+    $_SESSION['UID'] = $result['UID'];
+    echo json_encode($result);
+} else {
+    unset($_SESSION['loggedIn']);
+    echo("Fehler aufgetreten");
 }

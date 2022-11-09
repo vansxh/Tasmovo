@@ -85,6 +85,6 @@ class Auth
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return json_encode($result);
+        return $result;
     }
 }
