@@ -1,0 +1,1557 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger Petstore - OpenAPI 3.0",
+    "description": "This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.\n\n_If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_\n\nSome useful links:\n- [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)\n- [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.11"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "http://flock-1902.students.fhstp.ac.at/Backend/routes"
+    }
+  ],
+  "tags": [
+    {
+      "name": "user",
+      "description": "Users go brrr"
+    },
+    {
+      "name": "category",
+      "description": "like why I love u"
+    },
+    {
+      "name": "task",
+      "description": "TaskAway, we are TaskAway"
+    },
+    {
+      "name": "groups",
+      "description": "groupie"
+    },
+    {
+      "name": "timer",
+      "description": "TIME i guess"
+    },
+    {
+      "name": "chat",
+      "description": "let's chat ;))))))"
+    },
+    {
+      "name": "quote",
+      "description": "what all the wise people say"
+    },
+    {
+      "name": "stresstracking",
+      "description": "who may get to know u"
+    },
+    {
+      "name": "expense",
+      "description": "did u die? or did u thrive? what going on bro"
+    },
+    {
+      "name": "reward",
+      "description": "uwu u wanna liddle weward for your liddle work uwu"
+    }
+  ],
+  "paths": {
+    "/user/register.php": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "create new user",
+        "parameters": [
+          {
+            "name": "userObject",
+            "in": "body",
+            "description": "the new user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "created new user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/login.php": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "login with profile data",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "the user data for login",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "logged in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/updateUser.php": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "update user",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "the user's id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "userObject",
+            "in": "body",
+            "description": "the user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "user updated"
+          }
+        }
+      }
+    },
+    "/user/deleteUser.php": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "delete user",
+        "description": "This can only be done by the logged in user.",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "the user's id for deleting",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "user deleted"
+          }
+        }
+      }
+    },
+    "/category/insertCategory.php": {
+      "post": {
+        "tags": [
+          "category"
+        ],
+        "summary": "create new category",
+        "parameters": [
+          {
+            "name": "categoryObject",
+            "in": "body",
+            "description": "the new category object",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Category"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "created new category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/updateCategory.php": {
+      "put": {
+        "tags": [
+          "category"
+        ],
+        "summary": "update category",
+        "parameters": [
+          {
+            "name": "CAID",
+            "in": "query",
+            "description": "the category's id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "categoryObject",
+            "in": "body",
+            "description": "the category cobject",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Category"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "category updated"
+          }
+        }
+      }
+    },
+    "/category/deleteCategory.php": {
+      "delete": {
+        "tags": [
+          "category"
+        ],
+        "summary": "delete category",
+        "parameters": [
+          {
+            "name": "CAID",
+            "in": "query",
+            "description": "the category's id for deleting",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "category deleted"
+          }
+        }
+      }
+    },
+    "/category/getAllCategoriesByUser.php": {
+      "get": {
+        "tags": [
+          "category"
+        ],
+        "summary": "get all categories of a user",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "the user whose categories should be displayed",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "one or more categories returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/getAllCategoriesByGroup.php": {
+      "get": {
+        "tags": [
+          "category"
+        ],
+        "summary": "get all categories of a group",
+        "parameters": [
+          {
+            "name": "groupID",
+            "in": "query",
+            "description": "the group whose categories should be displayed",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "one or more categories returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category/getAllSubCategories.php": {
+      "get": {
+        "tags": [
+          "category"
+        ],
+        "summary": "get all subcategories of another parent category",
+        "parameters": [
+          {
+            "name": "parentID",
+            "in": "query",
+            "description": "the parent category whose categories should be displayed",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "one or more categories returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task/insertTask.php": {
+      "post": {
+        "tags": [
+          "task"
+        ],
+        "summary": "create new task",
+        "parameters": [
+          {
+            "name": "taskObject",
+            "in": "body",
+            "description": "the new task object",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Task"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "created new task",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task/updateTask.php": {
+      "put": {
+        "tags": [
+          "task"
+        ],
+        "summary": "update task",
+        "parameters": [
+          {
+            "name": "TIID",
+            "in": "query",
+            "description": "the task's id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "taskObject",
+            "in": "body",
+            "description": "the task object",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Task"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "task updated"
+          }
+        }
+      }
+    },
+    "/task/deleteTask.php": {
+      "delete": {
+        "tags": [
+          "task"
+        ],
+        "summary": "delete task",
+        "parameters": [
+          {
+            "name": "TIID",
+            "in": "query",
+            "description": "the task's id for deleting",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "task deleted"
+          }
+        }
+      }
+    },
+    "/task/getTask.php": {
+      "get": {
+        "tags": [
+          "task"
+        ],
+        "summary": "get a task by ID",
+        "parameters": [
+          {
+            "name": "TAID",
+            "in": "query",
+            "description": "the task's ID",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "one task returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task/getNextTasks.php": {
+      "get": {
+        "tags": [
+          "task"
+        ],
+        "summary": "get all next tasks of a user",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "the user whose next tasks should be displayed",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "one or more tasks returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task/getCategoryTasks.php": {
+      "get": {
+        "tags": [
+          "task"
+        ],
+        "summary": "get all tasks of a category",
+        "parameters": [
+          {
+            "name": "CAID",
+            "in": "query",
+            "description": "the category whose next tasks should be displayed",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "one or more tasks returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task/getDateTasks.php": {
+      "get": {
+        "tags": [
+          "task"
+        ],
+        "summary": "get all tasks of a user on a specific date",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "the user whose tasks should be displayed",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "one or more tasks returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Task"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task/finishTask.php": {
+      "put": {
+        "tags": [
+          "task"
+        ],
+        "summary": "finish a task",
+        "parameters": [
+          {
+            "name": "finishTask",
+            "in": "body",
+            "description": "the parameters needed to finish the task",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "TAID": {
+                  "description": "the task's id",
+                  "type": "number"
+                },
+                "UID": {
+                  "description": "the user's id",
+                  "type": "number"
+                },
+                "EID": {
+                  "description": "the expense's id",
+                  "type": "number"
+                },
+                "stressFactor": {
+                  "description": "the stress factor",
+                  "type": "number"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "task finished"
+          }
+        }
+      }
+    },
+    "/groups/insertGroup.php": {
+      "post": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "create new group",
+        "parameters": [
+          {
+            "name": "groupObject",
+            "in": "body",
+            "description": "the new group object",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Groups"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "created new group",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Groups"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Groups"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups/updateGroup.php": {
+      "put": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "update group",
+        "parameters": [
+          {
+            "name": "GID",
+            "in": "query",
+            "description": "the group's id",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "groupObject",
+            "in": "body",
+            "description": "the group object",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Groups"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "group updated"
+          }
+        }
+      }
+    },
+    "/groups/deleteGroup.php": {
+      "delete": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "delete group",
+        "parameters": [
+          {
+            "name": "GID",
+            "in": "query",
+            "description": "the group's id for deleting",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "group deleted"
+          }
+        }
+      }
+    },
+    "/groups/getAllGroups.php": {
+      "get": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "get all groups of a user",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "the user whose groups should be displayed",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "one or more groups returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Groups"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Groups"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups/addUser.php": {
+      "post": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "add user to group",
+        "parameters": [
+          {
+            "name": "groupID",
+            "in": "query",
+            "description": "the group the user is invited to",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "the user who is invited to the group",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "new groups-user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupsUser"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupsUser"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupsUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "default": {
+            "description": "created new groups-user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupsUser"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupsUser"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/groups/removeUser.php": {
+      "delete": {
+        "tags": [
+          "groups"
+        ],
+        "summary": "remove user from group",
+        "parameters": [
+          {
+            "name": "groupID",
+            "in": "query",
+            "description": "the group the user gets removed from",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "the user who is removed from the group",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "user removed"
+          }
+        }
+      }
+    },
+    "/timer/setTimer.php": {
+      "post": {
+        "tags": [
+          "timer"
+        ],
+        "summary": "set new timer",
+        "parameters": [
+          {
+            "name": "timerObject",
+            "in": "body",
+            "description": "the new timer object",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Timer"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "set new timer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Timer"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Timer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/timer/stopTimer.php": {
+      "delete": {
+        "tags": [
+          "timer"
+        ],
+        "summary": "stop and delete timer",
+        "parameters": [
+          {
+            "name": "TIID",
+            "in": "query",
+            "description": "the timer's id for deleting",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "timer deleted"
+          }
+        }
+      }
+    },
+    "/timer/getTimer.php": {
+      "get": {
+        "tags": [
+          "timer"
+        ],
+        "summary": "get the timer of a user",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "query",
+            "description": "the user whose timer is needed",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "one timer returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Timer"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Timer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/insertChatMessage.php": {
+      "post": {
+        "tags": [
+          "chat"
+        ],
+        "summary": "create new chat message",
+        "parameters": [
+          {
+            "name": "chatObject",
+            "in": "body",
+            "description": "the new chat object",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Chat"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "created new chat message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chat"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chat"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chat/deleteChatMessage.php": {
+      "delete": {
+        "tags": [
+          "chat"
+        ],
+        "summary": "delete chat",
+        "parameters": [
+          {
+            "name": "CHID",
+            "in": "query",
+            "description": "The chat's id for deleting",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "chat deleted"
+          }
+        }
+      }
+    },
+    "/chat/getChatMessages.php": {
+      "get": {
+        "tags": [
+          "chat"
+        ],
+        "summary": "get all chat messages of a group",
+        "parameters": [
+          {
+            "name": "groupID",
+            "in": "query",
+            "description": "the group whose chat messages should be displayed",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "one or more chat messages returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chat"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chat"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/quote/getQuote.php": {
+      "get": {
+        "tags": [
+          "quote"
+        ],
+        "summary": "get random quote",
+        "responses": {
+          "default": {
+            "description": "one random quote returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quote"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quote"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stresstracking/getAllPermissions.php": {
+      "get": {
+        "tags": [
+          "stresstracking"
+        ],
+        "summary": "get all permissions for dropdown",
+        "responses": {
+          "default": {
+            "description": "all permissions returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StressTracking"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/StressTracking"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stresstracking/setPermission.php": {
+      "put": {
+        "tags": [
+          "stresstracking"
+        ],
+        "summary": "set permission",
+        "parameters": [
+          {
+            "name": "groupsUser object",
+            "in": "body",
+            "description": "the groupsUser object",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/GroupsUser"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "stress tracking updated"
+          }
+        }
+      }
+    },
+    "/expense/getAllExpenses.php": {
+      "get": {
+        "tags": [
+          "expense"
+        ],
+        "summary": "get all expenses for dropdown",
+        "responses": {
+          "default": {
+            "description": "all expenses returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Expense"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Expense"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reward/getAllRewards.php": {
+      "get": {
+        "tags": [
+          "reward"
+        ],
+        "summary": "get all rewards for dropdown",
+        "responses": {
+          "default": {
+            "description": "all rewards returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reward"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reward"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Task": {
+        "type": "object",
+        "properties": {
+          "TAID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "taskName": {
+            "type": "string",
+            "example": "Putzen"
+          },
+          "notes": {
+            "type": "string",
+            "example": "Staubsaugen, Aufwischen"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-18"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-20"
+          },
+          "statusID": {
+            "type": "number",
+            "example": 1
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-14",
+            "readOnly": true
+          },
+          "updatedDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-15"
+          },
+          "createdBy": {
+            "type": "number",
+            "example": 1
+          },
+          "groupID": {
+            "type": "number",
+            "example": 1
+          },
+          "categoryID": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "UID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Lars"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Kainzbacher"
+          },
+          "username": {
+            "type": "string",
+            "example": "Lauser"
+          },
+          "password": {
+            "type": "string"
+          },
+          "mail": {
+            "type": "string",
+            "format": "email",
+            "example": "lars.kainzbacher@gmail.com"
+          },
+          "stressLimit": {
+            "type": "number",
+            "example": 50
+          }
+        }
+      },
+      "Groups": {
+        "type": "object",
+        "properties": {
+          "GID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "groupName": {
+            "type": "string",
+            "example": "TeamKlausi"
+          },
+          "groupDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-17",
+            "readOnly": true
+          },
+          "creatorID": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "CAID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "categoryName": {
+            "type": "string",
+            "example": "Klausi-project"
+          },
+          "categoryDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-17",
+            "readOnly": true
+          },
+          "parentCategoryID": {
+            "type": "number",
+            "example": 1
+          },
+          "groupID": {
+            "type": "number",
+            "example": 1
+          },
+          "userID": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "Status": {
+        "type": "object",
+        "properties": {
+          "SID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "status": {
+            "type": "string",
+            "example": "done",
+            "readOnly": true
+          }
+        }
+      },
+      "GroupsUser": {
+        "type": "object",
+        "properties": {
+          "GUID": {
+            "type": "number",
+            "example": 10
+          },
+          "groupID": {
+            "type": "number",
+            "example": 1
+          },
+          "userID": {
+            "type": "number",
+            "example": 1
+          },
+          "stressTrackingID": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "StressTracking": {
+        "type": "object",
+        "properties": {
+          "STID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "permission": {
+            "type": "string",
+            "example": "everyone",
+            "readOnly": true
+          }
+        }
+      },
+      "UserTask": {
+        "type": "object",
+        "properties": {
+          "UTID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "taskID": {
+            "type": "number",
+            "example": 1
+          },
+          "userID": {
+            "type": "number",
+            "example": 1
+          },
+          "expenseID": {
+            "type": "number",
+            "example": 1
+          },
+          "stressFactor": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "Expense": {
+        "type": "object",
+        "properties": {
+          "EID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "difficultyLevel": {
+            "type": "string",
+            "example": "easy",
+            "readOnly": true
+          }
+        }
+      },
+      "Chat": {
+        "type": "object",
+        "properties": {
+          "CHID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Hallo"
+          },
+          "messageDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-17",
+            "readOnly": true
+          },
+          "groupID": {
+            "type": "number",
+            "example": 1
+          },
+          "userID": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "Timer": {
+        "type": "object",
+        "properties": {
+          "TIID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "userID": {
+            "type": "number",
+            "example": 1
+          },
+          "rewardID": {
+            "type": "number",
+            "example": 1
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-10-17 10:30",
+            "readOnly": true
+          },
+          "duration": {
+            "type": "number",
+            "example": 120
+          }
+        }
+      },
+      "Reward": {
+        "type": "object",
+        "properties": {
+          "RID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "reward": {
+            "type": "string",
+            "example": "snack",
+            "readOnly": true
+          }
+        }
+      },
+      "Quote": {
+        "type": "object",
+        "properties": {
+          "QID": {
+            "type": "number",
+            "example": 10,
+            "readOnly": true
+          },
+          "quote": {
+            "type": "string",
+            "example": "LiveLaughLove",
+            "readOnly": true
+          }
+        }
+      }
+    }
+  }
+}
