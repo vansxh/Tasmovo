@@ -20,7 +20,7 @@ export class AuthenticationService {
   }
 
   login(user: User) {
-    return this.http.post<User>('/Backend/routes/user/login.php', user);
+    return this.http.post('/Backend/routes/user/login.php', user);
   }
 
   logout(UID: string) {

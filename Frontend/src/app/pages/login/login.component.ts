@@ -36,17 +36,17 @@ export class LoginComponent implements OnInit {
       this.userError = true;
     } else {
 
-      this.auth.login(this.loginForm.value).subscribe((data: User) => {
+      this.auth.login(this.loginForm.value).subscribe((data: any = []) => {
         //console.log(data);
         if (data != null) {
-          console.log("JUHU");
+          //console.log(data['data']['UID']);
           const redirect = this.auth.redirectUrl ? this.auth.redirectUrl : '/dashboard';
           this.router.navigate([redirect]);
           //console.log(data.UserID);
           //this.currentUser = data;
           //console.log(data.UserID);
           //console.log(data.UID);
-          this.auth.setSession(data.UID);
+          this.auth.setSession(data['data']['UID']);
         }
 
       }, error => {

@@ -24,24 +24,37 @@ export class InsertTaskComponent implements OnInit {
   ngOnInit(): void {
 
     const routeParams = this.route.snapshot.params;
-
     if (routeParams['TAID']) {
-      this.taskService.getTask(routeParams['TAID']).subscribe(data => {
-        console.log(data);
-        if (data != null) {
-          if (data === 'falscher Benutzer') this.router.navigate(['dashboard']);
-          if (typeof data === "object") {
-            this.selectedTask = <Task>data;
+      this.edit = true;
+      this.taskService.getTask(routeParams['TAID']).subscribe(
+        (data: any = []) => {
+
+          if (data['error'] == false) {
+            this.selectedTask = <Task>data['data'];
             let deadline = new Date(this.selectedTask.deadline);
             this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
             this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
             //console.log(this.selectedTask);
             this.insertTaskForm.patchValue(this.selectedTask);
-            if (routeParams['TAID']) this.edit = true;
-            else this.edit = false;
+          } else {
+            this.router.navigate(['dashboard']);
           }
-        } else alert("Task konnte nicht geladen werden!");
-      });
+        },
+        (error) => {
+          let response = error.status;
+
+          switch (response) {
+            case 403:
+              this.router.navigate(['dashboard']);
+              break;
+            case 404:
+              alert("Task konnte nicht geladen werden!");
+              this.router.navigate(['dashboard']);
+              break;
+            default:
+              this.router.navigate(['dashboard']);
+          }
+        });
     }
 
     this.insertTaskForm = this.formbuilder.group({
@@ -53,7 +66,6 @@ export class InsertTaskComponent implements OnInit {
       categoryID: [''],
       groupID: ['']*/
     });
-
   }
 
   onInsertTaskSubmit() {

@@ -87,4 +87,26 @@ class Auth
 
         return $result;
     }
+
+    function user()
+    {
+        $stmt = Database::getDb()->prepare("SELECT * FROM User WHERE UID = :UID");
+        $stmt->bindValue(":UID", $_SESSION['UID']);
+        $stmt->execute();
+
+        $result = $stmt->rowCount();
+
+        if ($result == 1) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return null;
+        }
+    }
+
+    function check()
+    {
+        if (!$this->user()) {
+            die();
+        }
+    }
 }

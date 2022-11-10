@@ -1,19 +1,30 @@
 <?php
 require('../../bootstrap.inc.php');
-$TAID = $_GET['TAID'];
+
+$auth->check();
 
 $task = new Task();
+$item = $task->getTask($_GET['TAID']);
 
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
-    if (!empty($TAID)) {
-        try {
-            $gotTask = $task->getTask($TAID);
-            if ($gotTask['created_by'] === $_SESSION['UID']) echo(json_encode($gotTask));
-            else echo(json_encode('falscher Benutzer'));
-        } catch (PDOException $e) {
-            http_response_code(404);
-        }
-    }
+if (!$item) {
+    (new Response([
+        'error' => true,
+        'message' => 'task not found'
+    ]))->send(HttpCode::NOT_FOUND);
 }
+
+if ($item['created_by'] !== $_SESSION['UID']) {
+    (new Response([
+        'error' => true,
+        'message' => 'wrong user'
+    ]))->send(HttpCode::FORBIDDEN);
+}
+
+(new Response([
+    'error' => false,
+    'data' => $item
+]))->send(HttpCode::OKAY);
+
+
 
 
