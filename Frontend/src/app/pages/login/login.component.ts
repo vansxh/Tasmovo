@@ -11,50 +11,37 @@ import {User} from 'src/app/services/authentication/user';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private auth: AuthenticationService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private auth: AuthenticationService, private router: Router) {
   }
 
   loginForm!: FormGroup;
   userError!: boolean;
   message!: string;
   createdUser = this.auth.createdUser;
-  currentUser!: User;
 
   ngOnInit(): void {
-
-    this.loginForm = this.formbuilder.group({
+    this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
   onLoginSubmit() {
-    this.auth.createdUser = false;
+    this.createdUser = false;
 
-    if (this.loginForm.value.username == '' || this.loginForm.value.username == '') {
-      this.message = "Felder sind leer!";
+    this.auth.login(this.loginForm.value).subscribe((data: any = []) => {
+      //Check if there is a response
+      if (data != null) {
+        //Navigate to the dashboard component
+        const redirect = this.auth.redirectUrl ? this.auth.redirectUrl : '/dashboard';
+        this.router.navigate([redirect]);
+        //UID gets stores in session
+        this.auth.setSession(data['data']['UID']);
+      }
+    }, error => {
       this.userError = true;
-    } else {
-
-      this.auth.login(this.loginForm.value).subscribe((data: any = []) => {
-        //console.log(data);
-        if (data != null) {
-          //console.log(data['data']['UID']);
-          const redirect = this.auth.redirectUrl ? this.auth.redirectUrl : '/dashboard';
-          this.router.navigate([redirect]);
-          //console.log(data.UserID);
-          //this.currentUser = data;
-          //console.log(data.UserID);
-          //console.log(data.UID);
-          this.auth.setSession(data['data']['UID']);
-        }
-
-      }, error => {
-        this.message = "Username oder Passwort ist falsch!";
-        this.userError = true;
-        this.ngOnInit();
-      });
-    }
+      this.ngOnInit();
+    });
   }
 
 
