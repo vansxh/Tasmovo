@@ -69,11 +69,14 @@ export class InsertTaskComponent implements OnInit {
   }
 
   onInsertTaskSubmit() {
-    this.taskService.insertTask(this.insertTaskForm.value).subscribe(data => {
-      console.log(data);
-      if (data != null) this.router.navigate(['dashboard']);
-      else alert("Task konnte nicht hinzugefügt werden!");
-    });
+    this.taskService.insertTask(this.insertTaskForm.value).subscribe(
+      (data: any = []) => {
+        if (data['error'] == false) this.router.navigate(['dashboard']);
+      },
+      (error) => {
+        if(error.status = 400) alert("Task konnte nicht hinzugefügt werden!");
+        else this.router.navigate(['dashboard']);
+      });
   }
 
   onEditTaskSubmit() {

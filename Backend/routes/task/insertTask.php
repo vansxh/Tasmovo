@@ -1,29 +1,26 @@
 <?php
 require('../../bootstrap.inc.php');
-$postdata = file_get_contents("php://input");
+
+Input::init();
+if (Input::isEmpty()) die();
+
+$auth->check();
 
 $task = new Task();
 
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
-    if (isset($postdata) && !empty($postdata)) {
-        $request = json_decode($postdata);
+$tName = htmlspecialchars(Input::read('task_name'));
+$notes = htmlspecialchars(Input::read('notes'));
+$deadline = htmlspecialchars(Input::read('deadlineDay')) . " " . htmlspecialchars(Input::read('deadlineHour'));
 
-        $tName = htmlspecialchars($request->{'task_name'});
-        $notes = htmlspecialchars($request->{'notes'});
-        $deadline = htmlspecialchars($request->{'deadlineDay'}) . " " . htmlspecialchars($request->{'deadlineHour'});
-        $created_by = $_SESSION['UID'];
-        /*$gid = htmlspecialchars($request->{'groupID'});
-        $caid = htmlspecialchars($request->{'categoryID'});*/
+$item = $task->insertTask($tName, $notes, $deadline, $_SESSION['UID']/*, $gid, $caid*/);
 
-        if (!empty($tName) && !empty($deadline)) {
-            try {
-                if ($task->insertTask($tName, $notes, $deadline, $created_by/*, $gid, $caid*/)) {
-                    echo(json_encode("done"));
-                    http_response_code(201);
-                } else http_response_code(422);
-            } catch (PDOException $e) {
-                http_response_code(422);
-            }
-        }
-    }
+if(!$item) {
+    (new Response([
+        'error' => true,
+        'message' => 'task could not be added'
+    ]))->send(HttpCode::BAD_REQUEST);
 }
+
+(new Response([
+    'error' => false,
+]))->send(HttpCode::CREATED);
