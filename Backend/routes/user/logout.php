@@ -8,6 +8,8 @@ Input::init();
 //Check if Input is empty
 if (Input::isEmpty()) die();
 
+$auth->loggedIn();
+
 //Check if user is logged in
 if ($_SESSION['loggedIn']) {
     unset($_SESSION['loggedIn']);

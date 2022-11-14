@@ -104,4 +104,12 @@ class Auth
             die();
         }
     }
+
+    //Function to check if you are logged in
+    function loggedIn()
+    {
+        if (!$_SESSION['loggedIn']) {
+            die();
+        }
+    }
 }
