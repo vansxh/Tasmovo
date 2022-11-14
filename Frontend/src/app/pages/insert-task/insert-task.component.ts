@@ -80,11 +80,25 @@ export class InsertTaskComponent implements OnInit {
   }
 
   onEditTaskSubmit() {
-    this.taskService.updateTask(this.insertTaskForm.value).subscribe(data => {
-      console.log(data);
-      if (data != null) this.router.navigate(['dashboard']);
-      else alert("Task konnte nicht bearbeitet werden!");
-    });
+    this.taskService.updateTask(this.insertTaskForm.value).subscribe(
+      (data: any = []) => {
+        if (data['error'] == false) this.router.navigate(['dashboard']);
+      },
+        (error) => {
+          let response = error.status;
+
+          switch (response) {
+            case 403:
+              this.router.navigate(['dashboard']);
+              break;
+            case 400:
+              alert("Task konnte nicht bearbeitet werden!");
+              this.router.navigate(['dashboard']);
+              break;
+            default:
+              this.router.navigate(['dashboard']);
+          }
+        });
   }
 
 }

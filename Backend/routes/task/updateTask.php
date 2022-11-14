@@ -1,31 +1,36 @@
 <?php
 require('../../bootstrap.inc.php');
-$postdata = file_get_contents("php://input");
+
+Input::init();
+if (Input::isEmpty()) die();
+
+$auth->check();
 
 $task = new Task();
 
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
-    if (isset($postdata) && !empty($postdata)) {
-        $request = json_decode($postdata);
+$TAID = htmlspecialchars(Input::read('TAID'));
+$tName = htmlspecialchars(Input::read('task_name'));
+$notes = htmlspecialchars(Input::read('notes'));
+$deadline = htmlspecialchars(Input::read('deadlineDay')) . " " . htmlspecialchars(Input::read('deadlineHour'));
 
-        $TAID = htmlspecialchars($request->{'TAID'});
-        $tName = htmlspecialchars($request->{'task_name'});
-        $notes = htmlspecialchars($request->{'notes'});
-        $deadline = htmlspecialchars($request->{'deadlineDay'}) . " " . htmlspecialchars($request->{'deadlineHour'});
-        /*$gid = htmlspecialchars($request->{'groupID'});
-        $caid = htmlspecialchars($request->{'categoryID'});*/
+$compareTask = $task->getTask($TAID);
 
-        $gotTask = $task->getTask($TAID);
-
-        if (!empty($tName) && !empty($deadline) && $gotTask['created_by'] === $_SESSION['UID']) {
-            try {
-                if ($task->updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/)) {
-                    echo(json_encode("done"));
-                    http_response_code(201);
-                } else http_response_code(422);
-            } catch (PDOException $e) {
-                http_response_code(422);
-            }
-        }
-    }
+if($compareTask['created_by'] != $_SESSION['UID']) {
+    (new Response([
+        'error' => true,
+        'message' => 'wrong user'
+    ]))->send(HttpCode::FORBIDDEN);
 }
+
+$item = $task->updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/);
+
+if (!$item) {
+    (new Response([
+        'error' => true,
+        'message' => 'task could not be updated'
+    ]))->send(HttpCode::BAD_REQUEST);
+}
+
+(new Response([
+    'error' => false,
+]))->send(HttpCode::OKAY);
