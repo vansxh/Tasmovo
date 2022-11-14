@@ -1,14 +1,21 @@
 <?php
 require('../../bootstrap.inc.php');
 
+$auth->check();
+
 $task = new Task();
 
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
-    try {
-        echo($task->getFinishedTasks($_SESSION['UID']));
-    } catch (PDOException $e) {
-        http_response_code(404);
-    }
+$item = $task->getFinishedTasks($_SESSION['UID']);
+
+if (!$item) {
+    (new Response([
+        'error' => true,
+        'message' => 'tasks not found'
+    ]))->send(HttpCode::NOT_FOUND);
 }
 
+(new Response([
+    'error' => false,
+    'data' => $item
+]))->send(HttpCode::OKAY);
 

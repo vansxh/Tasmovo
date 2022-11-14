@@ -30,20 +30,29 @@ export class DashboardComponent implements OnInit {
   }
 
   loadTasks(): void {
-    this.taskService.getNextTasks().subscribe((data: Task[]) => {
-      if (data != null) {
-        this.openTasks = data;
-        for (let t of this.openTasks) {
-          let deadline = t.deadline.split(" ");
-          t.deadlineDay = deadline[0];
-          t.deadlineHour = deadline[1].slice(0, -3);
-        }
-      } else alert("Tasks konnten nicht geladen werden!")
-    });
+    this.taskService.getNextTasks().subscribe(
+      (data: any = []) => {
+        if (data['error'] == false) {
+          this.openTasks = <Task[]>data['data'];
+          for (let t of this.openTasks) {
+            let deadline = t.deadline.split(" ");
+            t.deadlineDay = deadline[0];
+            t.deadlineHour = deadline[1].slice(0, -3);
+          }
+        } else alert("Tasks konnten nicht geladen werden!")
+      },
+        (error) => {
+          if(error.status = 404) alert("Tasks konnten nicht geladen werden!");
+        });
 
-    this.taskService.getFinishedTasks().subscribe((data: Task[]) => {
-      if (data != null) this.finishedTasks = data;
-      else alert("Tasks konnten nicht geladen werden!")
+    this.taskService.getFinishedTasks().subscribe(
+      (data: any = []) => {
+        if (data['error'] == false) {
+          this.finishedTasks = <Task[]>data['data'];
+        } else alert("Tasks konnten nicht geladen werden!")
+      },
+    (error) => {
+      if(error.status = 404) alert("Tasks konnten nicht geladen werden!");
     });
   }
 

@@ -29,7 +29,7 @@ class Task
         //echo(json_encode($result));
         //return $result;
 
-        return json_encode($result);
+        return ($result);
     }
 
     function test($id)
@@ -39,7 +39,7 @@ class Task
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return json_encode($result);
+        return ($result);
     }
 
     function getFinishedTasks($userID)
@@ -52,7 +52,7 @@ class Task
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //print_r($result);
 
-        return json_encode($result);
+        return ($result);
     }
 
     function getTask($TAID)
