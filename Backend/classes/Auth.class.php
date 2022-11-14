@@ -2,12 +2,11 @@
 
 class Auth
 {
-
+    //Function to register a user
     function register($uid, $firstname, $lastname, $username, $password, $mail)
     {
+        //Check if variables are empty
         if (empty($username) || empty($password) || empty($firstname) || empty($lastname) || empty($mail)) {
-            //Felder sind leer
-            //echo ("Felder sind leer!");
             return false;
         } else {
             $stmt = Database::getDb()->prepare("SELECT * FROM User WHERE username = :username");
@@ -20,12 +19,11 @@ class Auth
             $stmt2->execute();
             $resultMail = $stmt2->rowCount();
 
+            //Check if username or mail exists already
             if ($resultUser > 0 || $resultMail > 0) {
-                //User gibt es schon
-                //echo("User gibt es bereits");
                 return false;
             } else {
-                //In DB speichern
+                //Save in database
                 $stmt3 = Database::getDb()->prepare("INSERT INTO User (UID, username, password, mail, first_name, last_name) VALUES(:userid, :username, :pw, :mail, :firstname, :lastname)");
                 $stmt3->bindValue(":userid", $uid);
                 $stmt3->bindValue(":firstname", $firstname);
@@ -39,10 +37,12 @@ class Auth
         }
     }
 
+    //Function for login
     function login($usernameORmail, $password)
     {
+        //Check if variables are empty
         if (empty($usernameORmail) || empty($password)) {
-            //Felder sind leer
+            return false;
         } else {
             $stmt = Database::getDb()->prepare("SELECT * FROM User WHERE username LIKE :usernameORmail OR mail LIKE :usernameORmail");
             $stmt->bindValue(":usernameORmail", $usernameORmail);
@@ -57,26 +57,19 @@ class Auth
             $resultPW = $stmt2->fetchAll(PDO::FETCH_ASSOC);
             $hashedPW = $resultPW[0]['password'];
 
-            /*echo "<pre>";
-            print_r($resultPW);
-            echo "</pre>";*/
-
             $hashedPwString = strval($hashedPW);
             $PwString = strval($password);
 
-            //print_r($hashedPwString);
-            //print_r($PwString);
-
-            if ($resultUser > 0 && $resultUser < 2 && password_verify($PwString, $hashedPwString)) {
-                //Login erfolgreich
+            //Check if you get the right user and if the password is correct
+            if ($resultUser == 1 && password_verify($PwString, $hashedPwString)) {
                 return true;
             } else {
-                //Login fehlgeschlagen
                 return false;
             }
         }
     }
 
+    //Function for getting the user
     function getUserID($usernameORmail)
     {
         $stmt = Database::getDb()->prepare("SELECT * FROM User WHERE username = :usernameORmail OR mail = :usernameORmail LIMIT 1");
@@ -88,6 +81,7 @@ class Auth
         return $result;
     }
 
+    //Function for getting the user of the current session
     function user()
     {
         $stmt = Database::getDb()->prepare("SELECT * FROM User WHERE UID = :UID");
@@ -103,6 +97,7 @@ class Auth
         }
     }
 
+    //Function for checking if there is a user for the current session
     function check()
     {
         if (!$this->user()) {

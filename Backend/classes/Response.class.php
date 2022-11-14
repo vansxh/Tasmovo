@@ -1,5 +1,6 @@
 <?php
 
+//Interface for the response codes
 interface HttpCode
 {
     const OKAY = 200;
@@ -10,6 +11,7 @@ interface HttpCode
 
 class Response
 {
+    //array for the response
     public function __construct(array $data)
     {
         $this->data = array_merge([
@@ -19,6 +21,7 @@ class Response
         ], $data);
     }
 
+    //Function for encoding the array and sending an response code
     public function send($code = 200)
     {
         echo json_encode($this->data);
