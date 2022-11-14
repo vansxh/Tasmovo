@@ -42,11 +42,14 @@ export class RegisterComponent implements OnInit {
       this.message = "Es müssen alle Felder befüllt sein!"
       this.userError = true;
     } else {
-      this.auth.register(this.registerForm.value).subscribe(data => {
-        console.log(data);
-        this.router.navigate(['login']);
-        //this.createdUser = true;
-        this.auth.createdUser = true;
+      this.auth.register(this.registerForm.value).subscribe((data: any = []) => {
+        //console.log(data);
+        if (data['error'] == false){
+          this.router.navigate(['login']);
+          //this.createdUser = true;
+          this.auth.createdUser = true;
+        }
+
       }, error => {
         this.message = "Username oder Mail existiert schon!";
         this.userError = true;
