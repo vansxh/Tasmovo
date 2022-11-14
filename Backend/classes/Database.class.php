@@ -2,7 +2,6 @@
 
 class Database
 {
-
     private static $db;
 
     //Function for initializing the database

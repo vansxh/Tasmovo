@@ -23,8 +23,8 @@ export class AuthenticationService {
     return this.http.post('/Backend/routes/user/login.php', user);
   }
 
-  logout(UID: string) {
-    return this.http.post('/Backend/routes/user/logout.php', UID);
+  logout(message: Array<string>) {
+    return this.http.post('/Backend/routes/user/logout.php', message);
   }
 
   setSession(token: string) {

@@ -26,16 +26,20 @@ export class AppComponent {
   }
 
   loggedIn() {
-    if (this.service.isLoggedIn()) return true;
-    else return false;
+    return this.service.isLoggedIn();
   }
 
   logout() {
     //console.log(this.service.getSession());
-    this.service.logout(this.service.getSession()).subscribe(data => {
-      console.log(data);
-      this.service.deleteToken();
-      window.location.href = window.location.href;
+    this.service.logout(['Logout']).subscribe((data: any = []) => {
+      //console.log(data);
+      if (data['error'] == false) {
+        this.service.deleteToken();
+        window.location.href = window.location.href;
+      }else {
+        alert("Logout failed");
+      }
+
     });
 
   }

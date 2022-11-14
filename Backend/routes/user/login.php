@@ -1,17 +1,22 @@
 <?php
-
+//Required file
 require('../../bootstrap.inc.php');
 
-if ($input->isEmpty()) die();
+//Get the input
+Input::init();
 
-if ($auth->login($input->read('username'), $input->read('password'))) {
-    $result = $auth->getUserID($input->read('username'));
+//Check if Input is empty
+if (Input::isEmpty()) die();
+
+//Check if login is allowed
+if ($auth->login(Input::read('username'), Input::read('password'))) {
+    $result = $auth->getUserID(Input::read('username'));
 
     $_SESSION['loggedIn'] = true;
     $_SESSION['UID'] = $result['UID'];
 
     (new Response([
-        'message' => 'Du hast dich erfolgreich eingeloggt.',
+        'message' => 'Login successful.',
         'data' => $result
     ]))->send(HttpCode::OKAY);
 
@@ -20,6 +25,6 @@ if ($auth->login($input->read('username'), $input->read('password'))) {
 
     (new Response([
         'error' => true,
-        'message' => 'Login fehlgeschlagen',
+        'message' => 'Login failed.',
     ]))->send(HttpCode::BAD_REQUEST);
 }

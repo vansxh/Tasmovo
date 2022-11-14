@@ -2,23 +2,24 @@
 
 class Input
 {
+    private static $input;
+
     //Decoding the JSON from the input of the frontend
-    public function __construct()
+    static function init()
     {
-        $this->data = json_decode(file_get_contents("php://input") ?? '{}');
+        static::$input = json_decode(file_get_contents("php://input") ?? '{}');
     }
 
     //Function for checking if the data is empty
-    public function isEmpty(): bool
+    static function isEmpty(): bool
     {
-        return empty($this->data);
+        return empty(static::$input);
     }
 
     //Function for reading the JSON data
-    public function read($name)
+    static function read($name)
     {
-        return $this->data->{$name} ?? null;
+        return static::$input->{$name} ?? null;
     }
-
 
 }

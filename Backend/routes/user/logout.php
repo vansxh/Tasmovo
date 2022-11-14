@@ -1,20 +1,24 @@
 <?php
-
+//Required file
 require('../../bootstrap.inc.php');
 
-$postdata = file_get_contents("php://input");
-//print_r($postdata);
-//print_r($_SESSION);
-//print_r($_SESSION['UID']);
+//Get the input
+Input::init();
 
+//Check if Input is empty
+if (Input::isEmpty()) die();
 
-if (isset($postdata) && !empty($postdata) && $_SESSION['loggedIn'] === true && isset($_SESSION['UID'])) {
+//Check if user is logged in
+if ($_SESSION['loggedIn']) {
     unset($_SESSION['loggedIn']);
-    unset($_SESSION['UID']);
-    $message = json_encode("Erfolgreich abgemeldet");
-    echo($message);
+
+    (new Response([
+        'error' => false,
+        'message' => 'Logout successful.'
+    ]))->send(HttpCode::OKAY);
 } else {
-    //echo($_SESSION['loggedIn']);
-    //echo($_SESSION['UID']);
-    echo("Fehler aufgetreten");
+    (new Response([
+        'error' => true,
+        'message' => 'Logout failed.'
+    ]))->send(HttpCode::BAD_REQUEST);
 }
