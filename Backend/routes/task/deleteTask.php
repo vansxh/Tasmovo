@@ -1,21 +1,29 @@
 <?php
 require('../../bootstrap.inc.php');
-$TAID = $_GET['TAID'];
+
+$auth->check();
 
 $task = new Task();
+$TAID = $_GET['TAID'];
 
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
-    if (!empty($TAID)) {
-        $gotTask = json_decode($task->getTask($TAID));
-        if ($gotTask->{'created_by'} === $_SESSION['UID']) {
-            try {
-                if ($task->deleteTask($TAID)) {
-                    echo(json_encode("done"));
-                    http_response_code(202);
-                } else http_response_code(422);
-            } catch (PDOException $e) {
-                http_response_code(422);
-            }
-        }
-    }
+$compareTask = $task->getTask($TAID);
+
+if($compareTask['created_by'] != $_SESSION['UID']) {
+    (new Response([
+        'error' => true,
+        'message' => 'wrong user'
+    ]))->send(HttpCode::FORBIDDEN);
 }
+
+$item = $task->deleteTask($TAID);
+
+if (!$item) {
+    (new Response([
+        'error' => true,
+        'message' => 'task could not be deleted'
+    ]))->send(HttpCode::NOT_FOUND);
+}
+
+(new Response([
+    'error' => false,
+]))->send(HttpCode::OKAY);

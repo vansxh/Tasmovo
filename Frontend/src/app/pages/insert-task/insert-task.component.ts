@@ -74,7 +74,7 @@ export class InsertTaskComponent implements OnInit {
         if (data['error'] == false) this.router.navigate(['dashboard']);
       },
       (error) => {
-        if(error.status = 400) alert("Task konnte nicht hinzugefügt werden!");
+        if(error.status == 400) alert("Task konnte nicht hinzugefügt werden!");
         else this.router.navigate(['dashboard']);
       });
   }

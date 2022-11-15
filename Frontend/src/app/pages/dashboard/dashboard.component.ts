@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
         } else alert("Tasks konnten nicht geladen werden!")
       },
         (error) => {
-          if(error.status = 404) alert("Tasks konnten nicht geladen werden!");
+          if(error.status == 404) alert("Tasks konnten nicht geladen werden!");
         });
 
     this.taskService.getFinishedTasks().subscribe(
@@ -55,15 +55,19 @@ export class DashboardComponent implements OnInit {
         } else alert("Tasks konnten nicht geladen werden!")
       },
     (error) => {
-      if(error.status = 404) alert("Tasks konnten nicht geladen werden!");
+      if(error.status == 404) alert("Tasks konnten nicht geladen werden!");
     });
   }
 
   deleteTask(task: Task): void {
-    this.taskService.deleteTask(task.TAID).subscribe(data => {
-      console.log(data);
-      if (data != null) this.loadTasks();
-      else alert("Task konnte nicht gelöscht werden!")
+    this.taskService.deleteTask(task.TAID).subscribe(
+      (data: any = []) => {
+        if (data['error'] == false) this.loadTasks();
+        else alert("Task konnte nicht gelöscht werden!")
+      },
+      (error) => {
+
+        if(error.status == 404) alert("Task konnte nicht gelöscht werden!");
     });
   }
 
