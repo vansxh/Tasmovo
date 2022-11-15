@@ -49,16 +49,16 @@
       </div>
 
       <div class="form-group">
-        <label for="repeatpassword">Confirm Password:</label>
-        <input type="text" formControlName="repeatpassword" placeholder="Password" name="repeatpassword"
-               class="form-control" ngValidateEqual="password" id="repeatpassword">
+        <label for="repeatPassword">Confirm Password:</label>
+        <input type="text" formControlName="repeatpassword" placeholder="Password" name="repeatPassword"
+               class="form-control" ngValidateEqual="password" id="repeatPassword">
       </div>
       <div class="alert alert-danger"
-           *ngIf="registerForm.get('repeatpassword')?.hasError('required') && registerForm.get('repeatpassword')?.touched">
+           *ngIf="registerForm.get('repeatPassword')?.hasError('required') && registerForm.get('repeatPassword')?.touched">
         Please enter your Password
       </div>
       <div class="alert alert-danger"
-           *ngIf="registerForm.get('repeatpassword')?.hasError('notEqual') ">
+           *ngIf="registerForm.get('repeatPassword')?.hasError('notEqual') ">
         Passwords must match
       </div>
 
@@ -71,7 +71,7 @@
         Please enter an Email
       </div>
 
-      <button type="submit" class="btn btn-success">Registrieren</button>
+      <button [disabled]="!registerForm.valid" type="submit" class="btn btn-success">Registrieren</button>
     </form>
   </div>
 </div>

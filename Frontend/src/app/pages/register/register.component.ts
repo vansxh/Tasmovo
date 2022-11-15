@@ -11,13 +11,7 @@ import {AuthenticationService} from 'src/app/services/authentication/authenticat
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private auth: AuthenticationService, private router: Router) {
-
-  }
-
-  model = {
-    password: null,
-    confirmpassword: null
+  constructor(private formBuilder: FormBuilder, private auth: AuthenticationService, private router: Router) {
   }
 
   registerForm!: FormGroup;
@@ -25,42 +19,34 @@ export class RegisterComponent implements OnInit {
   message!: string;
 
   ngOnInit(): void {
-
-    this.registerForm = this.formbuilder.group({
+    this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
-      repeatpassword: ['', Validators.required],
+      repeatPassword: ['', Validators.required],
       mail: ['', [Validators.required, Validators.email]]
     });
   }
 
   onRegisterSubmit() {
-    if (this.registerForm.value.firstName == '' || this.registerForm.value.lastName == '' || this.registerForm.value.username == '' || this.registerForm.value.password == '' || this.registerForm.value.mail == '') {
-      //console.log("Hey");
-      this.message = "Es müssen alle Felder befüllt sein!"
+    this.auth.register(this.registerForm.value).subscribe((data: any = []) => {
+      //Check if there is no response error
+      if (data['error'] == false) {
+        //Navigate to the login component
+        this.router.navigate(['login']);
+        this.auth.createdUser = true;
+      }
+    }, error => {
+      this.message = "Username or email already exists!";
       this.userError = true;
-    } else {
-      this.auth.register(this.registerForm.value).subscribe((data: any = []) => {
-        //console.log(data);
-        if (data['error'] == false){
-          this.router.navigate(['login']);
-          //this.createdUser = true;
-          this.auth.createdUser = true;
-        }
-
-      }, error => {
-        this.message = "Username oder Mail existiert schon!";
-        this.userError = true;
-        this.ngOnInit();
-      });
-    }
+      this.ngOnInit();
+    });
   }
 
+  //Function for only allowing lower case and numbers
   keyPressAlphaNumeric(event: { keyCode: number; preventDefault: () => void; }) {
-
-    var inp = String.fromCharCode(event.keyCode);
+    const inp = String.fromCharCode(event.keyCode);
 
     if (/[a-z0-9]/.test(inp)) {
       return true;
