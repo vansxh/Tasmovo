@@ -11,7 +11,7 @@ export class QuoteService {
   }
 
   getQuote() {
-    return this.http.get<Quote>('http://flock-1902.students.fhstp.ac.at/Backend/routes/quote/getQuote.php');
+    return this.http.get<Quote>('/Backend/routes/quote/getQuote.php');
   }
 
 }

@@ -23,8 +23,11 @@ export class DashboardComponent implements OnInit {
 
     this.loadTasks();
 
-    this.quoteService.getQuote().subscribe((data: Quote) => {
-      this.dailyQuote = data;
+    this.quoteService.getQuote().subscribe(
+      (data: any = []) => {
+          if (data['error'] == false) {
+            this.dailyQuote = <Quote>data['data'];
+          }
     });
 
   }
