@@ -2,13 +2,10 @@
 //Required file
 require('../../bootstrap.inc.php');
 
-//Get the input
-Input::init();
-
 //Check if Input is empty
 if (Input::isEmpty()) die();
 
-$auth->loggedIn();
+$auth->loggedIn(); // check() statt loggedIn()
 
 //Check if user is logged in
 if ($_SESSION['loggedIn']) {

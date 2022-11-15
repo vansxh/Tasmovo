@@ -2,6 +2,7 @@
 
 //Required files
 require('config.inc.php');
+
 //Start sessions for access
 session_start();
 
@@ -12,7 +13,7 @@ spl_autoload_register(function ($class) {
 
 //Initialize the database
 Database::init();
+
 //Declaring objects
 $auth = new Auth();
-//Input::init();
-//$input = new Input();
+Input::init();
