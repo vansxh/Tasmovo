@@ -3,7 +3,6 @@
 class Category
 {
 
-
     function insertCategory($cName, $userID/*, $parent_categoryID, $gid*/)
     {
         $stmt = Database::getDb()->prepare("INSERT INTO Category(category_name, userID) VALUES(:cName, :userID)");
@@ -25,7 +24,7 @@ class Category
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return json_encode($result);
+        return $result;
     }
 
     function getCategoriesByUser($userID)
@@ -37,7 +36,7 @@ class Category
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return json_encode($result);
+        return $result;
     }
 
     function deleteCategory($CAID)

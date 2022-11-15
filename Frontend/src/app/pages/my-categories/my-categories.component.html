@@ -1,1 +1,18 @@
-<p>my-categories works!</p>
+<h1>Meine Kategorien</h1>
+
+<div class="row">
+  <div class="col-md-2">Titel</div>
+</div>
+<div class="row" *ngFor="let c of categories">
+  <div class="col-md-2">{{c.category_name}}</div>
+  <div class="col-md-2">
+    <button class="btn btn-success" (click)="editCategory(c)">Edit</button>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-danger" (click)="deleteCategory(c)">Delete</button>
+  </div>
+</div>
+
+<br>
+
+<button class="btn btn-secondary" (click)="addCategory()">Kategorie erstellen</button>

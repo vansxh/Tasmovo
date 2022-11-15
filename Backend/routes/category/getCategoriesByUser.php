@@ -1,14 +1,22 @@
 <?php
-require('../../config.inc.php');
+require('../../bootstrap.inc.php');
+
+$auth->check();
 
 $category = new Category();
 
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
-    try {
-        echo($category->getCategoriesByUser($_SESSION['UID']));
-    } catch (PDOException $e) {
-        http_response_code(404);
-    }
+$item = $category->getCategoriesByUser($_SESSION['UID']);
+
+if (!$item) {
+    (new Response([
+        'error' => true,
+        'message' => 'categories not found'
+    ]))->send(HttpCode::NOT_FOUND);
 }
+
+(new Response([
+    'error' => false,
+    'data' => $item
+]))->send(HttpCode::OKAY);
 
 
