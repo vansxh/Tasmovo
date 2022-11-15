@@ -21,8 +21,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // load next and finished tasks
     this.loadTasks();
 
+    // get random quote
     this.quoteService.getQuote().subscribe(
       (data: any = []) => {
           if (data['error'] == false) {
@@ -33,10 +35,13 @@ export class DashboardComponent implements OnInit {
   }
 
   loadTasks(): void {
+    // get  next tasks
     this.taskService.getNextTasks().subscribe(
       (data: any = []) => {
         if (data['error'] == false) {
+          // get tasks from data
           this.openTasks = <Task[]>data['data'];
+          // fix deadline for input form
           for (let t of this.openTasks) {
             let deadline = t.deadline.split(" ");
             t.deadlineDay = deadline[0];
@@ -51,6 +56,7 @@ export class DashboardComponent implements OnInit {
     this.taskService.getFinishedTasks().subscribe(
       (data: any = []) => {
         if (data['error'] == false) {
+          // get tasks from data
           this.finishedTasks = <Task[]>data['data'];
         } else alert("Tasks konnten nicht geladen werden!")
       },
@@ -62,6 +68,7 @@ export class DashboardComponent implements OnInit {
   deleteTask(task: Task): void {
     this.taskService.deleteTask(task.TAID).subscribe(
       (data: any = []) => {
+        // update view if deleting was successful
         if (data['error'] == false) this.loadTasks();
         else alert("Task konnte nicht gelöscht werden!")
       },
@@ -81,6 +88,7 @@ export class DashboardComponent implements OnInit {
   finishTask(task: Task): void {
     this.taskService.finishTask(task).subscribe(
       (data: any = []) => {
+        // update view if finishing was successful
         if (data['error'] == false) this.loadTasks();
         else alert("Task konnte nicht abgeschlossen werden!")
       },

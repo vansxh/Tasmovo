@@ -1,11 +1,14 @@
 <?php
+// required file
 require('../../bootstrap.inc.php');
 
+// check if user is logged in
 $auth->check();
 
 $category = new Category();
 $item = $category->getCategory($_GET['CAID']);
 
+// check if category was returned
 if (!$item) {
     (new Response([
         'error' => true,
@@ -13,6 +16,7 @@ if (!$item) {
     ]))->send(HttpCode::NOT_FOUND);
 }
 
+// check if user is allowed to get category
 if ($item['userID'] !== $_SESSION['UID']) {
     (new Response([
         'error' => true,
@@ -20,29 +24,8 @@ if ($item['userID'] !== $_SESSION['UID']) {
     ]))->send(HttpCode::FORBIDDEN);
 }
 
+// if everything was successful
 (new Response([
     'error' => false,
     'data' => $item
 ]))->send(HttpCode::OKAY);
-
-
-
-
-
-
-require('../../config.inc.php');
-$CAID = $_GET['CAID'];
-
-$category = new Category();
-
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
-    if (!empty($CAID)) {
-        try {
-            echo($category->getCategory($CAID));
-        } catch (PDOException $e) {
-            http_response_code(404);
-        }
-    }
-}
-
-

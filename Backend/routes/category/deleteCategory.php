@@ -1,13 +1,17 @@
 <?php
+// required file
 require('../../bootstrap.inc.php');
 
+// check if user is logged in
 $auth->check();
 
 $category = new Category();
 $CAID = $_GET['CAID'];
 
+// get category that should be deleted
 $compareCat = $category->getCategory($CAID);
 
+// check if user is allowed to delete category
 if($compareCat['userID'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
@@ -17,6 +21,7 @@ if($compareCat['userID'] != $_SESSION['UID']) {
 
 $item = $category->deleteCategory($CAID);
 
+// check if category was deleted
 if (!$item) {
     (new Response([
         'error' => true,
@@ -24,22 +29,7 @@ if (!$item) {
     ]))->send(HttpCode::NOT_FOUND);
 }
 
+// if everything was successful
 (new Response([
     'error' => false,
 ]))->send(HttpCode::OKAY);
-
-
-/*
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
-    if (!empty($CAID)) {
-        try {
-            if ($category->deleteCategory($CAID)) {
-                echo(json_encode("done"));
-                http_response_code(202);
-            } else http_response_code(422);
-        } catch (PDOException $e) {
-            http_response_code(422);
-        }
-    }
-}
-*/

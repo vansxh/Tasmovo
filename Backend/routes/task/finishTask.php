@@ -1,16 +1,22 @@
 <?php
+// required file
 require('../../bootstrap.inc.php');
 
+// get input
 Input::init();
+// check if input is empty
 if (Input::isEmpty()) die();
 
+// check if user is logged in
 $auth->check();
 
 $task = new Task();
 $TAID = htmlspecialchars(Input::read('TAID'));
 
+// get task that should be finished
 $compareTask = $task->getTask($TAID);
 
+// check if user is allowed to finish task
 if($compareTask['created_by'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
@@ -20,6 +26,7 @@ if($compareTask['created_by'] != $_SESSION['UID']) {
 
 $item = $task->finishTask($TAID);
 
+// check if task was finished
 if (!$item) {
     (new Response([
         'error' => true,
@@ -27,28 +34,7 @@ if (!$item) {
     ]))->send(HttpCode::NOT_FOUND);
 }
 
+// if everything was successful
 (new Response([
     'error' => false,
 ]))->send(HttpCode::OKAY);
-
-/*
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
-    if (isset($postdata) && !empty($postdata)) {
-        $request = json_decode($postdata);
-
-        $TAID = htmlspecialchars($request->{'TAID'});
-
-        $gotTask = json_decode($task->getTask($TAID));
-
-        if (!empty($TAID) && $gotTask->{'created_by'} === $_SESSION['UID']) {
-            try {
-                if ($task->finishTask($TAID)) {
-                    echo(json_encode("done"));
-                    http_response_code(201);
-                } else http_response_code(422);
-            } catch (PDOException $e) {
-                http_response_code(422);
-            }
-        }
-    }
-}*/

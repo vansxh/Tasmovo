@@ -2,7 +2,7 @@
 
 class Category
 {
-
+    // function for inserting a new category
     function insertCategory($cName, $userID/*, $parent_categoryID, $gid*/)
     {
         $stmt = Database::getDb()->prepare("INSERT INTO Category(category_name, userID) VALUES(:cName, :userID)");
@@ -15,6 +15,7 @@ class Category
         else return false;
     }
 
+    // function for getting one category via ID
     function getCategory($CAID)
     {
         $stmt = Database::getDb()->prepare("SELECT * FROM Category WHERE CAID=:CAID LIMIT 1");
@@ -27,6 +28,7 @@ class Category
         return $result;
     }
 
+    // function for getting all categories of a user
     function getCategoriesByUser($userID)
     {
         $stmt = Database::getDb()->prepare("SELECT * FROM Category WHERE userID=:userID LIMIT 2");
@@ -39,6 +41,7 @@ class Category
         return $result;
     }
 
+    // function for deleting a category via ID
     function deleteCategory($CAID)
     {
         $stmt = Database::getDb()->prepare("DELETE FROM Category WHERE CAID=:CAID LIMIT 1");
@@ -47,6 +50,7 @@ class Category
         else return false;
     }
 
+    // function for updating a category via ID
     function updateCategory($CAID, $cName/*, $parent_categoryID, $gid*/)
     {
         $stmt = Database::getDb()->prepare("UPDATE Category SET category_name=:cName WHERE CAID=:CAID LIMIT 1");

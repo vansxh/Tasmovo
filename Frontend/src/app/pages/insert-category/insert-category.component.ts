@@ -24,13 +24,14 @@ export class InsertCategoryComponent implements OnInit {
 
     const routeParams = this.route.snapshot.params;
 
+    // if CAID is transmitted get category and display values
     if (routeParams['CAID']) {
 
       this.edit = true;
       this.catService.getCategory(routeParams['CAID']).subscribe(
         (data: any = []) => {
-
           if (data['error'] == false) {
+            // get category from data
             this.selectedCategory = <Category>data['data'];
             this.insertCategoryForm.patchValue(this.selectedCategory);
           } else {
@@ -42,6 +43,7 @@ export class InsertCategoryComponent implements OnInit {
 
           switch (response) {
             case 403:
+              // if it's not the user's category
               this.router.navigate(['my-categories']);
               break;
             case 404:
@@ -52,20 +54,6 @@ export class InsertCategoryComponent implements OnInit {
               this.router.navigate(['my-categories']);
           }
         });
-
-
-
-      /*this.catService.getCategory(routeParams['CAID']).subscribe((data) => {
-        if (data != null) {
-          if (data === 'falscher Benutzer') this.router.navigate(['dashboard']);
-          if (typeof data === "object") {
-            this.selectedCategory = <Category>data;
-            this.insertCategoryForm.patchValue(this.selectedCategory);
-            if (routeParams['CAID']) this.edit = true;
-            else this.edit = false;
-          }
-        } else alert("Kategorie konnte nicht geladen werden!");
-      });*/
     }
 
     this.insertCategoryForm = this.formbuilder.group({
@@ -80,25 +68,20 @@ export class InsertCategoryComponent implements OnInit {
 
     this.catService.insertCategory(this.insertCategoryForm.value).subscribe(
       (data: any = []) => {
+        // if category was inserted reload categories
         if (data['error'] == false) this.router.navigate(['my-categories']);
       },
       (error) => {
         if(error.status == 400) alert("Kategorie konnte nicht hinzugefügt werden!");
         else this.router.navigate(['my-categories']);
       });
-
-    /*
-    this.catService.insertCategory(this.insertCategoryForm.value).subscribe(data => {
-      console.log(data);
-      if (data != null) this.router.navigate(['dashboard']);
-      else alert("Kategorie konnte nicht hinzugefügt werden!");
-    });*/
   }
 
   onEditCategorySubmit() {
 
     this.catService.updateCategory(this.insertCategoryForm.value).subscribe(
       (data: any = []) => {
+        // if category was inserted reload categories
         if (data['error'] == false) this.router.navigate(['my-categories']);
       },
       (error) => {
@@ -106,6 +89,7 @@ export class InsertCategoryComponent implements OnInit {
 
         switch (response) {
           case 403:
+            // if it's not the user's category
             this.router.navigate(['my-categories']);
             break;
           case 400:
@@ -116,13 +100,6 @@ export class InsertCategoryComponent implements OnInit {
             this.router.navigate(['my-categories']);
         }
       });
-
-
-    /*
-    this.catService.updateCategory(this.insertCategoryForm.value).subscribe(data => {
-      if (data != null) this.router.navigate(['dashboard']);
-      else alert("Kategorie konnte nicht bearbeitet werden!");
-    });*/
   }
 
 }

@@ -1,19 +1,25 @@
 <?php
+// required file
 require('../../bootstrap.inc.php');
 
+// get input
 Input::init();
+// check if input is empty
 if (Input::isEmpty()) die();
 
+// check if user is logged in
 $auth->check();
 
 $task = new Task();
 
+// get different values from input
 $tName = htmlspecialchars(Input::read('task_name'));
 $notes = htmlspecialchars(Input::read('notes'));
 $deadline = htmlspecialchars(Input::read('deadlineDay')) . " " . htmlspecialchars(Input::read('deadlineHour'));
 
 $item = $task->insertTask($tName, $notes, $deadline, $_SESSION['UID']/*, $gid, $caid*/);
 
+// check if task was inserted
 if(!$item) {
     (new Response([
         'error' => true,
@@ -21,6 +27,7 @@ if(!$item) {
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
+// if everything was successful
 (new Response([
     'error' => false,
 ]))->send(HttpCode::CREATED);

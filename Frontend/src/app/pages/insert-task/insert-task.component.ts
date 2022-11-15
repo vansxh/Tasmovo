@@ -25,17 +25,20 @@ export class InsertTaskComponent implements OnInit {
 
     const routeParams = this.route.snapshot.params;
 
+    // if TAID is transmitted get task and display values
     if (routeParams['TAID']) {
+
       this.edit = true;
       this.taskService.getTask(routeParams['TAID']).subscribe(
         (data: any = []) => {
 
           if (data['error'] == false) {
+            // get task from data
             this.selectedTask = <Task>data['data'];
+            // fix deadline for input form
             let deadline = new Date(this.selectedTask.deadline);
             this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
             this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
-            //console.log(this.selectedTask);
             this.insertTaskForm.patchValue(this.selectedTask);
           } else {
             this.router.navigate(['dashboard']);
@@ -46,6 +49,7 @@ export class InsertTaskComponent implements OnInit {
 
           switch (response) {
             case 403:
+              // if it's not the user's task
               this.router.navigate(['dashboard']);
               break;
             case 404:
@@ -72,6 +76,7 @@ export class InsertTaskComponent implements OnInit {
   onInsertTaskSubmit() {
     this.taskService.insertTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
+        // if task was inserted reload tasks
         if (data['error'] == false) this.router.navigate(['dashboard']);
       },
       (error) => {
@@ -83,6 +88,7 @@ export class InsertTaskComponent implements OnInit {
   onEditTaskSubmit() {
     this.taskService.updateTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
+        // if task was inserted reload tasks
         if (data['error'] == false) this.router.navigate(['dashboard']);
       },
         (error) => {
@@ -90,6 +96,7 @@ export class InsertTaskComponent implements OnInit {
 
           switch (response) {
             case 403:
+              // if it's not the user's task
               this.router.navigate(['dashboard']);
               break;
             case 400:

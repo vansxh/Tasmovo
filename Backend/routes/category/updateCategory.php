@@ -1,18 +1,25 @@
 <?php
+// required file
 require('../../bootstrap.inc.php');
 
+// get input
 Input::init();
+// check if input is empty
 if (Input::isEmpty()) die();
 
+// check if user is logged in
 $auth->check();
 
 $category = new Category();
 
+// get different values from input
 $CAID = htmlspecialchars(Input::read('CAID'));
 $cName = htmlspecialchars(Input::read('category_name'));
 
+// get category that should be updated
 $compareCat = $category->getCategory($CAID);
 
+// check if user is allowed to update category
 if($compareCat['userID'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
@@ -22,6 +29,7 @@ if($compareCat['userID'] != $_SESSION['UID']) {
 
 $item = $category->updateCategory($CAID, $cName/*, $parent_categoryID, $gid*/);
 
+// check if category was updated
 if (!$item) {
     (new Response([
         'error' => true,
@@ -29,34 +37,7 @@ if (!$item) {
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
+// if everything was successful
 (new Response([
     'error' => false,
 ]))->send(HttpCode::OKAY);
-
-
-
-
-
-/*
-if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
-    if (isset($postdata) && !empty($postdata)) {
-        $request = json_decode($postdata);
-
-        $CAID = htmlspecialchars($request->{'CAID'});
-        $cName = htmlspecialchars($request->{'category_name'});
-        $userID = htmlspecialchars($request->{'userID'});
-        /*$parent_categoryID = htmlspecialchars($request->{'category'}->{'parent_categoryID'});
-        $gid = htmlspecialchars($request->{'groupID'});
-
-        if (!empty($cName) && !empty($deadline) && $userID === $_SESSION['UID']) {
-            try {
-                if ($category->updateCategory($CAID, $cName/*, $parent_categoryID, $gid)) {
-                    echo(json_encode("done"));
-                    http_response_code(201);
-                } else http_response_code(422);
-            } catch (PDOException $e) {
-                http_response_code(422);
-            }
-        }
-    }
-}*/

@@ -17,9 +17,11 @@ export class MyCategoriesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // get all categories from a user
     this.catService.getCategoriesByUser().subscribe(
       (data: any = []) => {
         if (data['error'] == false) {
+          // get categories from data
           this.categories = <Category[]>data['data'];
         } else alert("Kategorien konnten nicht geladen werden!")
       },
@@ -32,6 +34,7 @@ export class MyCategoriesComponent implements OnInit {
   deleteCategory(category: Category): void {
     this.catService.deleteCategory(category.CAID).subscribe(
       (data: any = []) => {
+        // update view if deleting was successful
         if (data['error'] == false) this.ngOnInit();
         else alert("Kategorie konnte nicht gelöscht werden!")
       },
