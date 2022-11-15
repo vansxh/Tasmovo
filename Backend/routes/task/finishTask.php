@@ -1,9 +1,37 @@
 <?php
 require('../../bootstrap.inc.php');
-$postdata = file_get_contents("php://input");
+
+Input::init();
+if (Input::isEmpty()) die();
+
+$auth->check();
 
 $task = new Task();
+$TAID = htmlspecialchars(Input::read('TAID'));
 
+$compareTask = $task->getTask($TAID);
+
+if($compareTask['created_by'] != $_SESSION['UID']) {
+    (new Response([
+        'error' => true,
+        'message' => 'wrong user'
+    ]))->send(HttpCode::FORBIDDEN);
+}
+
+$item = $task->finishTask($TAID);
+
+if (!$item) {
+    (new Response([
+        'error' => true,
+        'message' => 'task could not be finished'
+    ]))->send(HttpCode::NOT_FOUND);
+}
+
+(new Response([
+    'error' => false,
+]))->send(HttpCode::OKAY);
+
+/*
 if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
     if (isset($postdata) && !empty($postdata)) {
         $request = json_decode($postdata);
@@ -23,4 +51,4 @@ if (isset($_SESSION['loggedIn']) && isset($_SESSION['UID'])) {
             }
         }
     }
-}
+}*/

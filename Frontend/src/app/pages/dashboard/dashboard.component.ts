@@ -66,7 +66,6 @@ export class DashboardComponent implements OnInit {
         else alert("Task konnte nicht gelöscht werden!")
       },
       (error) => {
-
         if(error.status == 404) alert("Task konnte nicht gelöscht werden!");
     });
   }
@@ -80,9 +79,13 @@ export class DashboardComponent implements OnInit {
   }
 
   finishTask(task: Task): void {
-    this.taskService.finishTask(task).subscribe(data => {
-      if (data != null) this.loadTasks();
-      else alert("Task konnte nicht abgeschlossen werden!")
+    this.taskService.finishTask(task).subscribe(
+      (data: any = []) => {
+        if (data['error'] == false) this.loadTasks();
+        else alert("Task konnte nicht abgeschlossen werden!")
+      },
+      (error) => {
+        if(error.status == 404) alert("Task konnte nicht abgeschlossen werden!");
     });
     ;
   }
