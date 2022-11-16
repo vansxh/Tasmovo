@@ -2,8 +2,13 @@
 // required file
 require('../../bootstrap.inc.php');
 
-// check if input is empty
-if (Input::isEmpty()) die();
+// check if Input is empty
+if (Input::isEmpty()) {
+    (new Response([
+        'error' => true,
+        'message' => 'Input is empty.'
+    ]))->send(HttpCode::BAD_REQUEST);
+}
 
 // check if user is logged in
 $auth->check();
