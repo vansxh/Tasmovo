@@ -6,7 +6,7 @@ require('../../bootstrap.inc.php');
 if (Input::isEmpty()) {
     (new Response([
         'error' => true,
-        'message' => 'Input is empty.'
+        'message' => 'Eingabefelder sind leer.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
@@ -16,10 +16,10 @@ $auth->check();
 $task = new Task();
 
 // get different values from input
-$TAID = htmlspecialchars(Input::read('TAID'));
-$tName = htmlspecialchars(Input::read('task_name'));
-$notes = htmlspecialchars(Input::read('notes'));
-$deadline = htmlspecialchars(Input::read('deadlineDay')) . " " . htmlspecialchars(Input::read('deadlineHour'));
+$TAID = Input::read('TAID');
+$tName = Input::read('task_name');
+$notes = Input::read('notes');
+$deadline = Input::read('deadlineDay') . " " . Input::read('deadlineHour');
 
 // get task that should be updated
 $compareTask = $task->getTask($TAID);
@@ -38,7 +38,7 @@ $item = $task->updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, 
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'task could not be updated'
+        'message' => 'Der User darf diesen Task nicht bearbeiten.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 

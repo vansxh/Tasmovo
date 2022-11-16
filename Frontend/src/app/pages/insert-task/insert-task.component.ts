@@ -6,6 +6,7 @@ import {TaskService} from '../../services/task/task.service';
 import {DatePipe} from '@angular/common';
 import {LOCALE_ID} from '@angular/core';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
+import {GeneralService} from "../../services/general/general.service";
 
 @Component({
   selector: 'app-insert-task',
@@ -14,7 +15,7 @@ import {AuthenticationService} from 'src/app/services/authentication/authenticat
 })
 export class InsertTaskComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService) {
+  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService) {
   }
 
   insertTaskForm!: FormGroup;
@@ -31,8 +32,6 @@ export class InsertTaskComponent implements OnInit {
       this.edit = true;
       this.taskService.getTask(routeParams['TAID']).subscribe(
         (data: any = []) => {
-
-          if (data['error'] == false) {
             // get task from data
             this.selectedTask = <Task>data['data'];
             // fix deadline for input form
@@ -40,25 +39,13 @@ export class InsertTaskComponent implements OnInit {
             this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
             this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
             this.insertTaskForm.patchValue(this.selectedTask);
-          } else {
-            this.router.navigate(['dashboard']);
-          }
         },
-        (error) => {
-          let response = error.status;
-
-          switch (response) {
-            case 403:
-              // if it's not the user's task
-              this.router.navigate(['dashboard']);
-              break;
-            case 404:
-              alert("Task konnte nicht geladen werden!");
-              this.router.navigate(['dashboard']);
-              break;
-            default:
-              this.router.navigate(['dashboard']);
+        (error: any = []) => {
+          if(error['error']['message']) {
+            this.general.specificErrorResponse(error['error']['message'], "dashboard");
+            return;
           }
+          this.general.errorResponse(error['status']);
         });
     }
 
@@ -77,11 +64,14 @@ export class InsertTaskComponent implements OnInit {
     this.taskService.insertTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
         // if task was inserted reload tasks
-        if (data['error'] == false) this.router.navigate(['dashboard']);
+        this.router.navigate(['dashboard']);
       },
-      (error) => {
-        if(error.status == 400) alert("Task konnte nicht hinzugefügt werden!");
-        else this.router.navigate(['dashboard']);
+      (error: any = []) => {
+        if(error['error']['message']) {
+          this.general.specificErrorResponse(error['error']['message'], "dashboard");
+          return;
+        }
+        this.general.errorResponse(error['status']);
       });
   }
 
@@ -89,24 +79,15 @@ export class InsertTaskComponent implements OnInit {
     this.taskService.updateTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
         // if task was inserted reload tasks
-        if (data['error'] == false) this.router.navigate(['dashboard']);
+        this.router.navigate(['dashboard']);
       },
-        (error) => {
-          let response = error.status;
-
-          switch (response) {
-            case 403:
-              // if it's not the user's task
-              this.router.navigate(['dashboard']);
-              break;
-            case 400:
-              alert("Task konnte nicht bearbeitet werden!");
-              this.router.navigate(['dashboard']);
-              break;
-            default:
-              this.router.navigate(['dashboard']);
-          }
-        });
+      (error: any = []) => {
+        if(error['error']['message']) {
+          this.general.specificErrorResponse(error['error']['message'], "dashboard");
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
   }
 
 }

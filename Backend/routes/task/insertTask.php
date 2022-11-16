@@ -6,7 +6,7 @@ require('../../bootstrap.inc.php');
 if (Input::isEmpty()) {
     (new Response([
         'error' => true,
-        'message' => 'Input is empty.'
+        'message' => 'Eingabefelder sind leer.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
@@ -16,9 +16,9 @@ $auth->check();
 $task = new Task();
 
 // get different values from input
-$tName = htmlspecialchars(Input::read('task_name'));
-$notes = htmlspecialchars(Input::read('notes'));
-$deadline = htmlspecialchars(Input::read('deadlineDay')) . " " . htmlspecialchars(Input::read('deadlineHour'));
+$tName = Input::read('task_name');
+$notes = Input::read('notes');
+$deadline = Input::read('deadlineDay') . " " . Input::read('deadlineHour');
 
 $item = $task->insertTask($tName, $notes, $deadline, $_SESSION['UID']/*, $gid, $caid*/);
 
@@ -26,7 +26,7 @@ $item = $task->insertTask($tName, $notes, $deadline, $_SESSION['UID']/*, $gid, $
 if(!$item) {
     (new Response([
         'error' => true,
-        'message' => 'task could not be added'
+        'message' => 'Task konnte nicht hinzugefügt werden.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 

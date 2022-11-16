@@ -6,7 +6,7 @@ require('../../bootstrap.inc.php');
 if (Input::isEmpty()) {
     (new Response([
         'error' => true,
-        'message' => 'Input is empty.'
+        'message' => 'Eingabefelder sind leer.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
@@ -14,7 +14,7 @@ if (Input::isEmpty()) {
 $auth->check();
 
 $task = new Task();
-$TAID = htmlspecialchars(Input::read('TAID'));
+$TAID = Input::read('TAID');
 
 // get task that should be finished
 $compareTask = $task->getTask($TAID);
@@ -23,7 +23,7 @@ $compareTask = $task->getTask($TAID);
 if($compareTask['created_by'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
-        'message' => 'wrong user'
+        'message' => 'Der User darf diesen Task nicht abschließen.'
     ]))->send(HttpCode::FORBIDDEN);
 }
 
@@ -33,7 +33,7 @@ $item = $task->finishTask($TAID);
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'task could not be finished'
+        'message' => 'Task konnte nicht abgeschlossen werden.'
     ]))->send(HttpCode::NOT_FOUND);
 }
 

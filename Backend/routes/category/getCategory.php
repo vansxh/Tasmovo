@@ -12,7 +12,7 @@ $item = $category->getCategory($_GET['CAID']);
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'category not found'
+        'message' => 'Kategorie wurde nicht gefunden.'
     ]))->send(HttpCode::NOT_FOUND);
 }
 
@@ -20,7 +20,7 @@ if (!$item) {
 if ($item['userID'] !== $_SESSION['UID']) {
     (new Response([
         'error' => true,
-        'message' => 'wrong user'
+        'message' => 'Der User darf diese Kategorie nicht ansehen.'
     ]))->send(HttpCode::FORBIDDEN);
 }
 

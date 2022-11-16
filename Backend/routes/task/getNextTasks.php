@@ -13,7 +13,7 @@ $item = $task->getNextTasks($_SESSION['UID']);
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'tasks not found'
+        'message' => 'Keine nächsten Tasks gefunden.'
     ]))->send(HttpCode::NOT_FOUND);
 }
 

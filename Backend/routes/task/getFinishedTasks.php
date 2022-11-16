@@ -13,7 +13,7 @@ $item = $task->getFinishedTasks($_SESSION['UID']);
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'tasks not found'
+        'message' => 'Keine abgeschlossenen Tasks gefunden.'
     ]))->send(HttpCode::NOT_FOUND);
 }
 

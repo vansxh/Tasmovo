@@ -4,6 +4,7 @@ import {Task} from 'src/app/services/task/task';
 import {QuoteService} from 'src/app/services/quote/quote.service';
 import {Quote} from 'src/app/services/quote/quote';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
+import {GeneralService} from "../../services/general/general.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,7 @@ export class DashboardComponent implements OnInit {
   public finishedTasks!: Task[];
   public dailyQuote!: Quote;
 
-  constructor(private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService) {
+  constructor(private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService) {
   }
 
   ngOnInit(): void {
@@ -27,10 +28,15 @@ export class DashboardComponent implements OnInit {
     // get random quote
     this.quoteService.getQuote().subscribe(
       (data: any = []) => {
-          if (data['error'] == false) {
-            this.dailyQuote = <Quote>data['data'];
+          this.dailyQuote = <Quote>data['data'];
+      },
+      (error: any = []) => {
+          if(error['error']['message']) {
+            alert(error['error']['message']);
+            return;
           }
-    });
+          this.general.errorResponse(error['status']);
+      });
 
   }
 
@@ -38,30 +44,34 @@ export class DashboardComponent implements OnInit {
     // get  next tasks
     this.taskService.getNextTasks().subscribe(
       (data: any = []) => {
-        if (data['error'] == false) {
-          // get tasks from data
-          this.openTasks = <Task[]>data['data'];
-          // fix deadline for input form
-          for (let t of this.openTasks) {
-            let deadline = t.deadline.split(" ");
-            t.deadlineDay = deadline[0];
-            t.deadlineHour = deadline[1].slice(0, -3);
-          }
-        } else alert("Tasks konnten nicht geladen werden!")
+        // get tasks from data
+        this.openTasks = <Task[]>data['data'];
+        // fix deadline for input form
+        for (let t of this.openTasks) {
+          let deadline = t.deadline.split(" ");
+          t.deadlineDay = deadline[0];
+          t.deadlineHour = deadline[1].slice(0, -3);
+        }
       },
-        (error) => {
-          if(error.status == 404) alert("Tasks konnten nicht geladen werden!");
+      (error: any = []) => {
+          if(error['error']['message']) {
+            alert(error['error']['message']);
+            return;
+          }
+          this.general.errorResponse(error['status']);
         });
 
     this.taskService.getFinishedTasks().subscribe(
       (data: any = []) => {
-        if (data['error'] == false) {
-          // get tasks from data
-          this.finishedTasks = <Task[]>data['data'];
-        } else alert("Tasks konnten nicht geladen werden!")
+        // get tasks from data
+        this.finishedTasks = <Task[]>data['data'];
       },
-    (error) => {
-      if(error.status == 404) alert("Tasks konnten nicht geladen werden!");
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
     });
   }
 
@@ -69,11 +79,14 @@ export class DashboardComponent implements OnInit {
     this.taskService.deleteTask(task.TAID).subscribe(
       (data: any = []) => {
         // update view if deleting was successful
-        if (data['error'] == false) this.loadTasks();
-        else alert("Task konnte nicht gelöscht werden!")
+        this.loadTasks();
       },
-      (error) => {
-        if(error.status == 404) alert("Task konnte nicht gelöscht werden!");
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
     });
   }
 
@@ -89,13 +102,16 @@ export class DashboardComponent implements OnInit {
     this.taskService.finishTask(task).subscribe(
       (data: any = []) => {
         // update view if finishing was successful
-        if (data['error'] == false) this.loadTasks();
-        else alert("Task konnte nicht abgeschlossen werden!")
+        this.loadTasks();
       },
-      (error) => {
-        if(error.status == 404) alert("Task konnte nicht abgeschlossen werden!");
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
     });
-    ;
+
   }
 
 }

@@ -6,7 +6,7 @@ require('../../bootstrap.inc.php');
 if (Input::isEmpty()) {
     (new Response([
         'error' => true,
-        'message' => 'Input is empty.'
+        'message' => 'Eingabefelder sind leer.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
@@ -16,8 +16,10 @@ $auth->check();
 $category = new Category();
 
 // get different values from input
-$CAID = htmlspecialchars(Input::read('CAID'));
-$cName = htmlspecialchars(Input::read('category_name'));
+$CAID = Input::read('CAID');
+$cName = Input::read('category_name');
+
+
 
 // get category that should be updated
 $compareCat = $category->getCategory($CAID);
@@ -26,7 +28,7 @@ $compareCat = $category->getCategory($CAID);
 if($compareCat['userID'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
-        'message' => 'wrong user'
+        'message' => 'Der User darf diese Kategorie nicht bearbeiten.'
     ]))->send(HttpCode::FORBIDDEN);
 }
 
@@ -36,7 +38,7 @@ $item = $category->updateCategory($CAID, $cName/*, $parent_categoryID, $gid*/);
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'category could not be updated'
+        'message' => 'Kategorie konnte nicht bearbeitet werden.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 

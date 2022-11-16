@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CategoryService} from '../../services/category/category.service';
 import {Category} from "../../services/category/category";
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
+import {GeneralService} from "../../services/general/general.service";
 
 @Component({
   selector: 'app-my-categories',
@@ -12,7 +13,7 @@ export class MyCategoriesComponent implements OnInit {
 
   public categories!: Category[];
 
-  constructor(private catService: CategoryService, private authService: AuthenticationService) {
+  constructor(private catService: CategoryService, private authService: AuthenticationService, private general: GeneralService) {
   }
 
   ngOnInit(): void {
@@ -20,13 +21,15 @@ export class MyCategoriesComponent implements OnInit {
     // get all categories from a user
     this.catService.getCategoriesByUser().subscribe(
       (data: any = []) => {
-        if (data['error'] == false) {
           // get categories from data
           this.categories = <Category[]>data['data'];
-        } else alert("Kategorien konnten nicht geladen werden!")
       },
-      (error) => {
-        if(error.status == 404) alert("Kategorien konnten nicht geladen werden!");
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
       });
 
   }
@@ -35,11 +38,14 @@ export class MyCategoriesComponent implements OnInit {
     this.catService.deleteCategory(category.CAID).subscribe(
       (data: any = []) => {
         // update view if deleting was successful
-        if (data['error'] == false) this.ngOnInit();
-        else alert("Kategorie konnte nicht gelöscht werden!")
+        this.ngOnInit();
       },
-      (error) => {
-        if(error.status == 404) alert("Kategorie konnte nicht gelöscht werden!");
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
       });
   }
 

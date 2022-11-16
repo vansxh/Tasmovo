@@ -6,7 +6,7 @@ require('../../bootstrap.inc.php');
 if (Input::isEmpty()) {
     (new Response([
         'error' => true,
-        'message' => 'Input is empty.'
+        'message' => 'Eingabefelder sind leer.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
@@ -16,8 +16,8 @@ $auth->check();
 $category = new Category();
 
 // get different values from input
-$CAID = htmlspecialchars(Input::read('CAID'));
-$cName = htmlspecialchars(Input::read('category_name'));
+$CAID = Input::read('CAID');
+$cName = Input::read('category_name');
 
 $item = $category->insertCategory($cName, $_SESSION['UID']/*, $parent_categoryID, $gid*/);
 
@@ -25,7 +25,7 @@ $item = $category->insertCategory($cName, $_SESSION['UID']/*, $parent_categoryID
 if(!$item) {
     (new Response([
         'error' => true,
-        'message' => 'task could not be added'
+        'message' => 'Kategorie konnte nicht hinzugefügt werden.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 

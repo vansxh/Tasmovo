@@ -13,7 +13,7 @@ $item = $category->getCategoriesByUser($_SESSION['UID']);
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'categories not found'
+        'message' => 'Keine Kategorien gefunden.'
     ]))->send(HttpCode::NOT_FOUND);
 }
 

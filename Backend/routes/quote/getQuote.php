@@ -12,7 +12,7 @@ $item = $quote->getQuote();
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'no quote found'
+        'message' => 'Es wurde kein Zitat gefunden.'
     ]))->send(HttpCode::NOT_FOUND);
 }
 

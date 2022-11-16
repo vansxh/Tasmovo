@@ -15,7 +15,7 @@ $compareTask = $task->getTask($TAID);
 if($compareTask['created_by'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
-        'message' => 'wrong user'
+        'message' => 'Der User darf diesen Task nicht löschen.'
     ]))->send(HttpCode::FORBIDDEN);
 }
 
@@ -25,7 +25,7 @@ $item = $task->deleteTask($TAID);
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'task could not be deleted'
+        'message' => 'Task konnte nicht gelöscht werden.'
     ]))->send(HttpCode::NOT_FOUND);
 }
 

@@ -19,6 +19,7 @@ class Input
     //Function for reading the JSON data
     static function read($name)
     {
+        if(static::$input->{$name} == '' || static::$input->{$name} == null) return null;
         return htmlspecialchars(static::$input->{$name}) ?? null;
     }
 

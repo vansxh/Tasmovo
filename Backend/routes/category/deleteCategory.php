@@ -15,7 +15,7 @@ $compareCat = $category->getCategory($CAID);
 if($compareCat['userID'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
-        'message' => 'wrong user'
+        'message' => 'Der User darf diese Kategorie nicht löschen.'
     ]))->send(HttpCode::FORBIDDEN);
 }
 
@@ -25,7 +25,7 @@ $item = $category->deleteCategory($CAID);
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'category could not be deleted'
+        'message' => 'Kategorie konnte nicht gelöscht werden.'
     ]))->send(HttpCode::NOT_FOUND);
 }
 
