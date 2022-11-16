@@ -2,8 +2,6 @@
 // required file
 require('../../bootstrap.inc.php');
 
-// get input
-Input::init();
 // check if input is empty
 if (Input::isEmpty()) die();
 
