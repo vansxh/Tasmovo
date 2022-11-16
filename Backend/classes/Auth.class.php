@@ -103,8 +103,8 @@ class Auth
         if (!$this->user()) {
             (new Response([
                 'error' => true,
-                'message' => 'No user is logged in.'
-            ]))->send(HttpCode::NOT_FOUND);
+                'message' => 'Kein User eingeloggt.'
+            ]))->send(HttpCode::FORBIDDEN);
         }
     }
 }

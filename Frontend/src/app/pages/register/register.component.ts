@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ValidateEqualModule} from 'ng-validate-equal';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
+import {GeneralService} from "../../services/general/general.service";
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ import {AuthenticationService} from 'src/app/services/authentication/authenticat
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthenticationService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private auth: AuthenticationService, private router: Router, private general: GeneralService) {
   }
 
   registerForm!: FormGroup;
@@ -31,15 +32,19 @@ export class RegisterComponent implements OnInit {
 
   onRegisterSubmit() {
     this.auth.register(this.registerForm.value).subscribe((data: any = []) => {
-      //Check if there is no response error
-      if (data['error'] == false) {
-        //Navigate to the login component
-        this.router.navigate(['login']);
-        this.auth.createdUser = true;
+      //Navigate to the login component
+      this.router.navigate(['login']);
+      this.auth.createdUser = true;
+    }, (error: any = []) => {
+      console.log(error['status']);
+      if (error['error']['message'] == "Register failed."){
+        this.message = "Username or email already exists!";
+        this.userError = true;
+        this.ngOnInit();
+        return;
       }
-    }, error => {
-      this.message = "Username or email already exists!";
-      this.userError = true;
+
+      this.general.errorResponse(error['status']);
       this.ngOnInit();
     });
   }
