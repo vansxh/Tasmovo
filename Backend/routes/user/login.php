@@ -6,7 +6,7 @@ require('../../bootstrap.inc.php');
 if (Input::isEmpty()) {
     (new Response([
         'error' => true,
-        'message' => 'Input is empty.'
+        'message' => 'Eingabefelder sind leer.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
@@ -17,7 +17,7 @@ if ($auth->login(Input::read('username'), Input::read('password'))) {
     $_SESSION['UID'] = $result['UID'];
 
     (new Response([
-        'message' => 'Login successful.',
+        'message' => 'Erfolgreich eingeloggt.',
         'data' => $result
     ]))->send(HttpCode::OKAY);
 
@@ -26,6 +26,6 @@ if ($auth->login(Input::read('username'), Input::read('password'))) {
 
     (new Response([
         'error' => true,
-        'message' => 'Login failed.',
+        'message' => 'Username oder Passwort ist falsch.',
     ]))->send(HttpCode::BAD_REQUEST);
 }

@@ -1,39 +1,51 @@
 <div class="col-md-6">
-  <h1 class="text-center">Login</h1>
-  <div class="alert alert-danger" *ngIf="userError">
-    Username oder Passwort ist falsch!
+  <h1 class="text-center">Willkommen zurück!</h1>
+  <div class="alert alert-danger" *ngIf="message">
+    {{message}}
   </div>
   <div class="alert alert-success" *ngIf="createdUser">
     User erfolgreich erstellt!
   </div>
 
   <div>
-    <form [formGroup]="loginForm" novalidate class="form">
+    <form [formGroup]="loginForm" class="form" (ngSubmit)="onLoginSubmit()" autocomplete="off">
       <div class="form-group">
-        <label for="username">Username or Mail:</label>
-        <input type="text" formControlName="username" placeholder="Enter Username or Mail" name="login"
+        <label for="username">Username oder Mail:</label>
+        <input type="text" formControlName="username" placeholder="Username oder Mail" name="login"
                class="form-control" id="username">
       </div>
       <div class="alert alert-danger"
            *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched">
-        Please enter your Username or Mail
+        Bitte geben Sie Ihren Usernamen oder E-Mail ein.
+      </div>
+      <div class="alert alert-danger"
+           *ngIf="loginForm.get('username')?.hasError('maxlength')">
+        Der Username bzw. die E-Mail darf maximal 30 Zeichen lang sein.
       </div>
 
       <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" formControlName="password" placeholder="Password" name="password"
+        <label for="password">Passwort</label>
+        <input type="password" formControlName="password" placeholder="Passwort" name="password"
                class="form-control" id="password">
       </div>
       <div class="alert alert-danger"
            *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
         Please enter your Password
       </div>
+      <div class="alert alert-danger"
+           *ngIf="loginForm.get('password')?.hasError('maxlength')">
+        Das Passwort darf maximal 30 Zeichen lang sein.
+      </div>
+      <div class="alert alert-danger"
+           *ngIf="loginForm.get('password')?.hasError('minlength')">
+        Das Passwort muss mindestens 6 Zeichen lang sein.
+      </div>
 
-      <button [disabled]="!loginForm.valid" class="btn btn-success" (click)="onLoginSubmit()">Einloggen</button>
+      <button [disabled]="!loginForm.valid" type="submit" class="btn btn-success">Einloggen</button>
     </form>
   </div>
   <div class="col-md-6">
     <p></p>
-    Noch keinen Account? <a routerLink="/register">Registrieren</a>
+    Noch keinen Account? <a routerLink="/register">Erstelle einen neuen Account</a>
   </div>
 </div>

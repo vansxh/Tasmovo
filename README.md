@@ -37,6 +37,9 @@ The Backend is located on the flock server provided by the UAS St. Pölten
 * functions/variables in camelCase
 * format: Reformat Code in Code editor
 
+### Responses
+* German
+
 ## DOCS Folder
 This folder contains:
 

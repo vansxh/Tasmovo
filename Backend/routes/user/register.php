@@ -6,14 +6,14 @@ require('../../bootstrap.inc.php');
 if (Input::isEmpty()) {
     (new Response([
         'error' => true,
-        'message' => 'Input is empty.'
+        'message' => 'Eingabefelder sind leer.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
 if ($auth->register(Input::read('UID'), Input::read('firstName'), Input::read('lastName'), Input::read('username'), password_hash(Input::read('password'), PASSWORD_DEFAULT), Input::read('mail'))) {
     (new Response([
         'error' => false,
-        'message' => 'Register successful.',
+        'message' => 'Erfolgreich registriert.',
         'data' => [
             'UID' => Input::read('UID'),
             'firstName' => Input::read('firstName'),
@@ -26,6 +26,6 @@ if ($auth->register(Input::read('UID'), Input::read('firstName'), Input::read('l
 }else{
     (new Response([
         'error' => true,
-        'message' => 'Register failed.'
+        'message' => 'Registrieren fehlgeschlagen.'
     ]))->send(HttpCode::BAD_REQUEST);
 }

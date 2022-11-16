@@ -6,7 +6,7 @@ require('../../bootstrap.inc.php');
 if (Input::isEmpty()) {
     (new Response([
         'error' => true,
-        'message' => 'Input is empty.'
+        'message' => 'Eingabefelder sind leer.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
@@ -17,5 +17,5 @@ unset($_SESSION['loggedIn']);
 
 (new Response([
     'error' => false,
-    'message' => 'Logout successful.'
+    'message' => 'Erfolgreich ausgeloggt.'
 ]))->send(HttpCode::OKAY);

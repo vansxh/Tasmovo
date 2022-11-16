@@ -16,17 +16,16 @@ export class RegisterComponent implements OnInit {
   }
 
   registerForm!: FormGroup;
-  userError!: boolean;
   message!: string;
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      firstName: ['', [Validators.required, Validators.maxLength(30)]],
+      lastName: ['', [Validators.required, Validators.maxLength(30)]],
+      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]],
       repeatPassword: ['', Validators.required],
-      mail: ['', [Validators.required, Validators.email]]
+      mail: ['', [Validators.required, Validators.email, Validators.maxLength(30)]]
     });
   }
 
@@ -36,14 +35,14 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['login']);
       this.auth.createdUser = true;
     }, (error: any = []) => {
-      console.log(error['status']);
-      if (error['error']['message'] == "Register failed."){
-        this.message = "Username or email already exists!";
-        this.userError = true;
+      //Check for specific error
+      if (error['error']['message'] == "Registrieren fehlgeschlagen.") {
+        this.message = "Username oder Email existiert bereits!";
         this.ngOnInit();
         return;
       }
 
+      //Generic error responses
       this.general.errorResponse(error['status']);
       this.ngOnInit();
     });
@@ -51,14 +50,7 @@ export class RegisterComponent implements OnInit {
 
   //Function for only allowing lower case and numbers
   keyPressAlphaNumeric(event: { keyCode: number; preventDefault: () => void; }) {
-    const inp = String.fromCharCode(event.keyCode);
-
-    if (/[a-z0-9]/.test(inp)) {
-      return true;
-    } else {
-      event.preventDefault();
-      return false;
-    }
+    this.general.keyPressAlphaNumeric(event);
   }
 
 }
