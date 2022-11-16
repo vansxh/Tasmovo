@@ -101,15 +101,10 @@ class Auth
     function check()
     {
         if (!$this->user()) {
-            die();
-        }
-    }
-
-    //Function to check if you are logged in
-    function loggedIn()
-    {
-        if (!$_SESSION['loggedIn']) {
-            die();
+            (new Response([
+                'error' => true,
+                'message' => 'No user is logged in.'
+            ]))->send(HttpCode::NOT_FOUND);
         }
     }
 }
