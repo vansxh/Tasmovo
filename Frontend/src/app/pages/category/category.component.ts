@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {Task} from "../../services/task/task";
+import {TaskService} from "../../services/task/task.service";
+import {GeneralService} from "../../services/general/general.service";
 
 @Component({
   selector: 'app-category',
@@ -7,10 +11,29 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CategoryComponent implements OnInit {
 
-  constructor() {
+  constructor(private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) {
   }
 
+  public categoryTasks!: Task[];
+
   ngOnInit(): void {
+    const routeParams = this.route.snapshot.params;
+
+    if (routeParams['CAID']) {
+      // get  next tasks
+      this.taskService.getCategoryTasks(routeParams['CAID']).subscribe(
+        (data: any = []) => {
+          // get tasks from data
+          this.categoryTasks = <Task[]>data['data'];
+        },
+        (error: any = []) => {
+          if(error['error']['message']) {
+            alert(error['error']['message']);
+            return;
+          }
+          this.general.errorResponse(error['status']);
+        });
+    }
   }
 
 }

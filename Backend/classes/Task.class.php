@@ -48,6 +48,20 @@ class Task
         return $result;
     }
 
+    // function for getting the finished tasks of a user
+    function getCategoryTasks($CAID, $userID)
+    {
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE categoryID=:CAID AND created_by=:userID");
+        $stmt->bindValue(":CAID", $CAID);
+        $stmt->bindValue(":userID", $userID);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     // function for getting one task via ID
     function getTask($TAID)
     {

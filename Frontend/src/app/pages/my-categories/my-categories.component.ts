@@ -3,6 +3,7 @@ import {CategoryService} from '../../services/category/category.service';
 import {Category} from "../../services/category/category";
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {GeneralService} from "../../services/general/general.service";
+import {TaskService} from "../../services/task/task.service";
 
 @Component({
   selector: 'app-my-categories',
@@ -55,6 +56,10 @@ export class MyCategoriesComponent implements OnInit {
 
   addCategory(): void {
     this.catService.addCategory();
+  }
+
+  showCategory(category: Category): void {
+    this.catService.showCategory(category.CAID);
   }
 
 }

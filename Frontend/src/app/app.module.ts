@@ -50,6 +50,7 @@ export const routes: Routes = [
   {path: 'insert-category/:CAID', component: InsertCategoryComponent, canActivate: [AuthGuard]},
   {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
   {path: 'category', component: CategoryComponent, canActivate: [AuthGuard]},
+  {path: 'category/:CAID', component: CategoryComponent, canActivate: [AuthGuard]},
   {path: 'my-categories', component: MyCategoriesComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'sub-category', component: SubCategoryComponent, canActivate: [AuthGuard]}

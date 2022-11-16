@@ -48,4 +48,8 @@ export class TaskService {
     return this.http.put('/Backend/routes/task/finishTask.php', task);
   }
 
+  getCategoryTasks(CAID: number) {
+    return this.http.get('/Backend/routes/task/getCategoryTasks.php?CAID=' + CAID);
+  }
+
 }

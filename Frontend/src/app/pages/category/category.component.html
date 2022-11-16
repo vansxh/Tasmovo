@@ -1,1 +1,10 @@
-<p>category works!</p>
+<h2>Nächste Tasks</h2>
+
+<div class="row">
+  <div class="col-md-2">Titel</div>
+  <div class="col-md-2">Deadline</div>
+</div>
+<div class="row" *ngFor="let t of categoryTasks">
+  <div class="col-md-2">{{t.task_name}}</div>
+  <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
+</div>
