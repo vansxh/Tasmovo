@@ -34,6 +34,7 @@ import {TaskComponent} from './pages/task/task.component';
 import {NotDonePipe} from './not-done.pipe';
 import {DonePipe} from './done.pipe';
 import {MatDialogModule} from '@angular/material/dialog';
+import { PopupFinishComponent } from './popups/popup-finish/popup-finish.component';
 
 registerLocaleData(localeAt);
 
@@ -82,7 +83,8 @@ export const routes: Routes = [
     ProfileComponent,
     TaskComponent,
     NotDonePipe,
-    DonePipe
+    DonePipe,
+    PopupFinishComponent
   ],
   imports: [
     BrowserModule,

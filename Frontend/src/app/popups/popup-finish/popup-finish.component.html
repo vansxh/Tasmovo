@@ -1,0 +1,15 @@
+<form [formGroup]="finishForm" class="form" (ngSubmit)="onFinishSubmit()" autocomplete="off">
+  <h1>Super gemacht!</h1>
+  <p>Wie schwierig war dieser Task?</p>
+
+  <p>Wie stressig war dieser Task?</p>
+  <input type="range">
+  <p></p>
+
+  <button [disabled]="!finishForm.valid" type="submit" class="btn btn-success">Abschließen</button>
+  <p></p>
+  <button class="btn btn-primary" (click)="onClose()">Abbrechen</button>
+</form>
+
+
+

@@ -5,6 +5,8 @@ import {QuoteService} from 'src/app/services/quote/quote.service';
 import {Quote} from 'src/app/services/quote/quote';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {GeneralService} from "../../services/general/general.service";
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +19,7 @@ export class DashboardComponent implements OnInit {
   public finishedTasks!: Task[];
   public dailyQuote!: Quote;
 
-  constructor(private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService) {
+  constructor(private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -112,6 +114,13 @@ export class DashboardComponent implements OnInit {
         this.general.errorResponse(error['status']);
     });
 
+  }
+
+  onFinishOpen(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupFinishComponent, dialogConfig);
   }
 
 }
