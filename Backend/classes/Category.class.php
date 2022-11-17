@@ -31,7 +31,7 @@ class Category
     // function for getting all categories of a user
     function getCategoriesByUser($userID)
     {
-        $stmt = Database::getDb()->prepare("SELECT * FROM Category WHERE userID=:userID LIMIT 2");
+        $stmt = Database::getDb()->prepare("SELECT *,(SELECT COUNT(t.TAID) from Task as t WHERE t.categoryID = c.CAID) as 'numberOfTasks', (SELECT COUNT(t.TAID) from Task as t WHERE t.categoryID = c.CAID AND t.statusID = 2) as 'numberOfFinished' FROM Category as c WHERE c.userID=:userID");
         $stmt->bindValue(":userID", $userID);
 
         $stmt->execute();

@@ -31,6 +31,8 @@ import {SubCategoryComponent} from './pages/sub-category/sub-category.component'
 import {ProfileComponent} from './pages/profile/profile.component';
 import {LoggedInGuard} from './guards/logged-in.guard';
 import { TaskComponent } from './pages/task/task.component';
+import { NotDonePipe } from './not-done.pipe';
+import { DonePipe } from './done.pipe';
 
 registerLocaleData(localeAt);
 
@@ -77,7 +79,9 @@ export const routes: Routes = [
     CategoryComponent,
     SubCategoryComponent,
     ProfileComponent,
-    TaskComponent
+    TaskComponent,
+    NotDonePipe,
+    DonePipe
   ],
   imports: [
     BrowserModule,

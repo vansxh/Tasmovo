@@ -5,4 +5,6 @@ export class Category {
   parent_categoryID!: number;
   groupID!: number;
   userID!: number;
+  numberOfTasks!: number;
+  numberOfFinished!: number;
 }
