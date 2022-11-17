@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router, Params, ActivatedRoute} from '@angular/router';
 import {Task} from 'src/app/services/task/task';
 import {TaskService} from '../../services/task/task.service';
@@ -9,6 +9,9 @@ import {AuthenticationService} from 'src/app/services/authentication/authenticat
 import {GeneralService} from "../../services/general/general.service";
 import {Category} from "../../services/category/category";
 import {CategoryService} from "../../services/category/category.service";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+
+
 
 @Component({
   selector: 'app-insert-task',
@@ -17,15 +20,18 @@ import {CategoryService} from "../../services/category/category.service";
 })
 export class InsertTaskComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService, private catService: CategoryService) {
+  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService, private catService: CategoryService, private matDatePicker: MatDatepickerModule) {
   }
 
   insertTaskForm!: FormGroup;
   selectedTask!: Task;
   edit!: boolean;
   categories!: Category[];
+  nowDate!: string;
 
   ngOnInit(): void {
+
+    this.nowDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd', 'de-AT') || '';
 
     const routeParams = this.route.snapshot.params;
 
@@ -69,7 +75,7 @@ export class InsertTaskComponent implements OnInit {
     this.insertTaskForm = this.formbuilder.group({
       TAID: [''],
       task_name: ['', [Validators.required, Validators.maxLength(30)]],
-      deadlineDay: ['', [Validators.required]],
+      deadlineDay: new FormControl(this.datePipe.transform(this.nowDate, 'yyyy-MM-dd', 'de-AT'), [Validators.required]),
       deadlineHour: ['', [Validators.required]],
       notes: [''],
       categoryID: ['']/*,
@@ -78,6 +84,7 @@ export class InsertTaskComponent implements OnInit {
   }
 
   onInsertTaskSubmit() {
+    console.log(this.insertTaskForm.value);
     this.taskService.insertTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
         // if task was inserted reload tasks

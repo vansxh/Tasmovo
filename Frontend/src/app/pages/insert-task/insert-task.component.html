@@ -1,7 +1,7 @@
 <div class="col-md-6">
   <h1 *ngIf="!this.edit" class="text-center">Neuer Task</h1>
   <h1 *ngIf="this.edit" class="text-center">Task bearbeiten</h1>
-  <form [formGroup]="insertTaskForm" novalidate class="form">
+  <form [formGroup]="insertTaskForm" class="form">
 
     <input type="hidden" formControlName="TAID" name="TAID">
 
@@ -19,15 +19,23 @@
       Max Länge: 30 Zeichen
     </div>
 
-    <div class="form-group">
+    <mat-form-field appearance="fill">
+      <mat-label>Datum</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="deadlineDay" min="{{nowDate}}">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!--<div class="form-group">
       <label for="deadlineDay">Datum</label>
       <input type="date" formControlName="deadlineDay" placeholder="Datum auswählen" name="deadlineDay"
-             class="form-control" id="deadlineDay">
+             class="form-control" id="deadlineDay" min="{{nowDate}}">
     </div>
     <div class="alert alert-danger"
          *ngIf="insertTaskForm.get('deadlineDay')?.hasError('required') && insertTaskForm.get('deadlineDay')?.touched">
       Bitte eine Deadline für den Task wählen!
-    </div>
+    </div>-->
     <div class="form-group">
       <label for="deadlineHour">Uhrzeit</label>
       <input type="time" formControlName="deadlineHour" placeholder="Uhrzeit auswählen" name="deadlineHour"

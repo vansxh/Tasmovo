@@ -35,6 +35,10 @@ import {NotDonePipe} from './not-done.pipe';
 import {DonePipe} from './done.pipe';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PopupFinishComponent } from './popups/popup-finish/popup-finish.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MAT_MOMENT_DATE_FORMATS} from "@angular/material-moment-adapter";
 
 registerLocaleData(localeAt);
 
@@ -94,11 +98,28 @@ export const routes: Routes = [
     RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
     BrowserAnimationsModule,
     ValidateEqualModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatMomentDateModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},
-    DatePipe
+    DatePipe,
+    {
+      provide: MAT_MOMENT_DATE_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: ['l', 'LL'],
+        },
+        display: {
+          dateInput: 'L',
+          monthYearLabel: 'MMM YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MMMM YYYY',
+        },
+      },
+    },
   ],
   bootstrap: [AppComponent]
 })
