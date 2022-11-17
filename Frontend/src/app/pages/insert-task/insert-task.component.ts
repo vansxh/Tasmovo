@@ -7,6 +7,8 @@ import {DatePipe} from '@angular/common';
 import {LOCALE_ID} from '@angular/core';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {GeneralService} from "../../services/general/general.service";
+import {Category} from "../../services/category/category";
+import {CategoryService} from "../../services/category/category.service";
 
 @Component({
   selector: 'app-insert-task',
@@ -15,12 +17,13 @@ import {GeneralService} from "../../services/general/general.service";
 })
 export class InsertTaskComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService) {
+  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService, private catService: CategoryService) {
   }
 
   insertTaskForm!: FormGroup;
   selectedTask!: Task;
   edit!: boolean;
+  categories!: Category[];
 
   ngOnInit(): void {
 
@@ -49,13 +52,27 @@ export class InsertTaskComponent implements OnInit {
         });
     }
 
+    // get all categories from a user for dropdown
+    this.catService.getCategoriesByUser().subscribe(
+      (data: any = []) => {
+        // get categories from data
+        this.categories = <Category[]>data['data'];
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
+
     this.insertTaskForm = this.formbuilder.group({
       TAID: [''],
       task_name: ['', [Validators.required, Validators.maxLength(30)]],
       deadlineDay: ['', [Validators.required]],
       deadlineHour: ['', [Validators.required]],
-      notes: ['']/*,
-      categoryID: [''],
+      notes: [''],
+      categoryID: ['']/*,
       groupID: ['']*/
     });
   }

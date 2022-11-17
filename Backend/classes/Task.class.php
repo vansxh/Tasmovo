@@ -4,15 +4,15 @@ class Task
 {
 
     // function for inserting a new task
-    function insertTask($tName, $notes, $deadline, $created_by/*, $gid, $caid*/)
+    function insertTask($tName, $notes, $deadline, $created_by, $caid/*, $gid*/)
     {
-        $stmt = Database::getDb()->prepare("INSERT INTO Task(task_name, notes, deadline, created_by) VALUES(:tName, :notes, :deadline, :created_by)");
+        $stmt = Database::getDb()->prepare("INSERT INTO Task(task_name, notes, deadline, created_by, categoryID) VALUES(:tName, :notes, :deadline, :created_by, :caid)");
         $stmt->bindValue(":tName", $tName);
         $stmt->bindValue(":notes", $notes);
         $stmt->bindValue(":deadline", $deadline);
         $stmt->bindValue(":created_by", $created_by);
-        /*$stmt->bindValue(":gid", $gid);
-        $stmt->bindValue(":caid", $caid);*/
+        $stmt->bindValue(":caid", $caid);
+        /*$stmt->bindValue(":gid", $gid);*/
 
         if ($stmt->execute()) return true;
         else return false;
@@ -85,16 +85,16 @@ class Task
     }
 
     // function for updating a task via ID
-    function updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/)
+    function updateTask($TAID, $tName, $notes, $deadline, $caid/*, $gid*/)
     {
-        $stmt = Database::getDb()->prepare("UPDATE Task SET task_name=:tName, notes=:notes, deadline=:deadline WHERE TAID=:TAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("UPDATE Task SET task_name=:tName, notes=:notes, deadline=:deadline, categoryID=:caid WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
         $stmt->bindValue(":tName", $tName);
         $stmt->bindValue(":notes", $notes);
         $stmt->bindValue(":deadline", $deadline);
+        $stmt->bindValue(":caid", $caid);
         /*$stmt->bindValue(":createdby", $createdby);
-        $stmt->bindValue(":gid", $gid);
-        $stmt->bindValue(":caid", $caid);*/
+        $stmt->bindValue(":gid", $gid);*/
 
         if ($stmt->execute()) return true;
         else return false;

@@ -19,8 +19,9 @@ $task = new Task();
 $tName = Input::read('task_name');
 $notes = Input::read('notes');
 $deadline = Input::read('deadlineDay') . " " . Input::read('deadlineHour');
+$caid = Input::read('categoryID');
 
-$item = $task->insertTask($tName, $notes, $deadline, $_SESSION['UID']/*, $gid, $caid*/);
+$item = $task->insertTask($tName, $notes, $deadline, $_SESSION['UID'], $caid/*, $gid*/);
 
 // check if task was inserted
 if(!$item) {

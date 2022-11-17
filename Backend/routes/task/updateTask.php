@@ -20,6 +20,7 @@ $TAID = Input::read('TAID');
 $tName = Input::read('task_name');
 $notes = Input::read('notes');
 $deadline = Input::read('deadlineDay') . " " . Input::read('deadlineHour');
+$caid = Input::read('categoryID');
 
 // get task that should be updated
 $compareTask = $task->getTask($TAID);
@@ -32,7 +33,7 @@ if($compareTask['created_by'] != $_SESSION['UID']) {
     ]))->send(HttpCode::FORBIDDEN);
 }
 
-$item = $task->updateTask($TAID, $tName, $notes, $deadline/*, $createdby, $gid, $caid*/);
+$item = $task->updateTask($TAID, $tName, $notes, $deadline, $caid/*, $gid*/);
 
 // check if category was updated
 if (!$item) {
