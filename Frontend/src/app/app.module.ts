@@ -30,9 +30,10 @@ import {CategoryComponent} from './pages/category/category.component';
 import {SubCategoryComponent} from './pages/sub-category/sub-category.component';
 import {ProfileComponent} from './pages/profile/profile.component';
 import {LoggedInGuard} from './guards/logged-in.guard';
-import { TaskComponent } from './pages/task/task.component';
-import { NotDonePipe } from './not-done.pipe';
-import { DonePipe } from './done.pipe';
+import {TaskComponent} from './pages/task/task.component';
+import {NotDonePipe} from './not-done.pipe';
+import {DonePipe} from './done.pipe';
+import {MatDialogModule} from '@angular/material/dialog';
 
 registerLocaleData(localeAt);
 
@@ -90,7 +91,8 @@ export const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
     BrowserAnimationsModule,
-    ValidateEqualModule
+    ValidateEqualModule,
+    MatDialogModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},
