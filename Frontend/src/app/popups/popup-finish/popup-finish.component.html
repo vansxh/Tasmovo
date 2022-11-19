@@ -1,12 +1,16 @@
-<form [formGroup]="finishForm" class="form" (ngSubmit)="onFinishSubmit()" autocomplete="off">
-  <h1>Super gemacht!</h1>
+<form [formGroup]="finishForm" class="form" autocomplete="off">
+  <h1>Super gemacht! {{name}}</h1>
   <p>Wie schwierig war dieser Task?</p>
-
+  <mat-button-toggle-group name="expenseID" formControlName="expenseID">
+    <mat-button-toggle value="1">Leicht</mat-button-toggle>
+    <mat-button-toggle value="2">Mittel</mat-button-toggle>
+    <mat-button-toggle value="3">Schwer</mat-button-toggle>
+  </mat-button-toggle-group>
   <p>Wie stressig war dieser Task?</p>
-  <input type="range">
+  <input type="range" min="0" max="10" name="stress_factor" formControlName="stress_factor">
   <p></p>
 
-  <button [disabled]="!finishForm.valid" type="submit" class="btn btn-success">Abschließen</button>
+  <button [disabled]="!finishForm.valid" (click)="onFinishSubmit()" class="btn btn-success">Abschließen</button>
   <p></p>
   <button class="btn btn-primary" (click)="onClose()">Abbrechen</button>
 </form>

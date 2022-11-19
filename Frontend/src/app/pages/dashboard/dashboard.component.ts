@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit {
   }
 
   finishTask(task: Task): void {
-    this.taskService.finishTask(task).subscribe(
+    /*this.taskService.finishTask(task).subscribe(
       (data: any = []) => {
         // update view if finishing was successful
         this.loadTasks();
@@ -112,11 +112,13 @@ export class DashboardComponent implements OnInit {
           return;
         }
         this.general.errorResponse(error['status']);
-    });
+    });*/
+    this.onFinishOpen(task);
 
   }
 
-  onFinishOpen(){
+  onFinishOpen(task: Task){
+    this.taskService.terminateTask = task;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

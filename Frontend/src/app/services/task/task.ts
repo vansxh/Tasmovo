@@ -12,4 +12,6 @@ export class Task {
   created_by!: number;
   groupID!: number;
   categoryID!: number;
+  expenseID!: number;
+  stress_factor!: number;
 }

@@ -12,6 +12,8 @@ export class TaskService {
   constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) {
   }
 
+  terminateTask!: Task;
+
   insertTask(task: Task) {
     return this.http.post('/Backend/routes/task/insertTask.php', task);
   }
