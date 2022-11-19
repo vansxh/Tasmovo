@@ -48,6 +48,34 @@ class Task
         return $result;
     }
 
+    // function for getting all tasks of a user
+    function getUserTasks($userID)
+    {
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE created_by=:userID");
+        $stmt->bindValue(":userID", $userID);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //print_r($result);
+
+        return $result;
+    }
+
+    // function for getting all single tasks of a user (not in a category)
+    function getSingleTasks($userID)
+    {
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE created_by=:userID AND categoryID=NULL");
+        $stmt->bindValue(":userID", $userID);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //print_r($result);
+
+        return $result;
+    }
+
     // function for getting the finished tasks of a user
     function getCategoryTasks($CAID, $userID)
     {

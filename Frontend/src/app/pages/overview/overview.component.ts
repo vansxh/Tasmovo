@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CategoryService} from 'src/app/services/category/category.service';
 import {Category} from 'src/app/services/category/category';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-overview',
@@ -12,40 +13,23 @@ export class OverviewComponent implements OnInit {
 
   public categories!: Category[];
 
-  constructor(private catService: CategoryService, private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService, private router: Router) {
   }
 
   ngOnInit(): void {
 
-    console.log(this.authService.getSession());
-
-    this.catService.getCategoriesByUser().subscribe((data: Category[]) => {
-      if (data != null) {
-        this.categories = data;
-        console.log(this.categories);
-      } else alert("Tasks konnten nicht geladen werden!")
-    });
-
   }
 
-  deleteCategory(category: Category): void {
-    this.catService.deleteCategory(category.CAID).subscribe(data => {
-      console.log(data);
-      if (data != null) this.ngOnInit();
-      else alert("Task konnte nicht gelöscht werden!")
-    });
+  allTasks(): void {
+    this.router.navigate(['/all-tasks']);
   }
 
-  editCategory(category: Category): void {
-    this.catService.editCategory(category.CAID);
-  }
-
-  addCategory(): void {
-    this.catService.addCategory();
+  singleTasks(): void {
+    this.router.navigate(['/single-tasks']);
   }
 
   allCategories(): void {
-    this.catService.allCategories();
+    this.router.navigate(['/my-categories']);
   }
 
 }

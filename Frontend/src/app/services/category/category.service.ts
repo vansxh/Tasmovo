@@ -40,10 +40,6 @@ export class CategoryService {
     this.router.navigate(['/insert-category']);
   }
 
-  allCategories() {
-    this.router.navigate(['/my-categories']);
-  }
-
   showCategory(CAID: number) {
     this.router.navigate(['/category/' + CAID]);
   }

@@ -52,4 +52,11 @@ export class TaskService {
     return this.http.get('/Backend/routes/task/getCategoryTasks.php?CAID=' + CAID);
   }
 
+  getSingleTasks() {
+    return this.http.get('/Backend/routes/task/getSingleTasks.php');
+  }
+
+  getAllTasks() {
+    return this.http.get('/Backend/routes/task/getAllTasks.php');
+  }
 }

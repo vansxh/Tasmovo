@@ -39,6 +39,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MAT_MOMENT_DATE_FORMATS} from "@angular/material-moment-adapter";
+import { SingleTasksComponent } from './pages/single-tasks/single-tasks.component';
+import { AllTasksComponent } from './pages/all-tasks/all-tasks.component';
 
 registerLocaleData(localeAt);
 
@@ -61,6 +63,8 @@ export const routes: Routes = [
   {path: 'category', component: CategoryComponent, canActivate: [AuthGuard]},
   {path: 'category/:CAID', component: CategoryComponent, canActivate: [AuthGuard]},
   {path: 'my-categories', component: MyCategoriesComponent, canActivate: [AuthGuard]},
+  {path: 'all-tasks', component: AllTasksComponent, canActivate: [AuthGuard]},
+  {path: 'single-tasks', component: SingleTasksComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'sub-category', component: SubCategoryComponent, canActivate: [AuthGuard]}
 
@@ -88,7 +92,9 @@ export const routes: Routes = [
     TaskComponent,
     NotDonePipe,
     DonePipe,
-    PopupFinishComponent
+    PopupFinishComponent,
+    SingleTasksComponent,
+    AllTasksComponent
   ],
   imports: [
     BrowserModule,
