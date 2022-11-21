@@ -31,6 +31,11 @@ export class InsertCategoryComponent implements OnInit {
       (data: any = []) => {
         // get categories from data
         this.categories = <Category[]>data['data'];
+        if (routeParams['CAID']) {
+          this.categories = this.categories.filter(function(item) {
+            return item.CAID !== routeParams['CAID'];
+          });
+        }
       },
       (error: any = []) => {
         if(error['error']['message']) {
