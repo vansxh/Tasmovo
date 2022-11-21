@@ -18,7 +18,9 @@ $task = new Task();
 // get different values from input
 $tName = Input::read('task_name');
 $notes = Input::read('notes');
-$deadline = Input::read('deadlineDay') . " " . Input::read('deadlineHour');
+$deadlineDay = date_create(Input::read('deadlineDay'));
+$deadlineDayFormat = date_format($deadlineDay, "Y-m-d");
+$deadline = $deadlineDayFormat . " " . Input::read('deadlineHour');
 $caid = Input::read('categoryID');
 
 $item = $task->insertTask($tName, $notes, $deadline, $_SESSION['UID'], $caid/*, $gid*/);
