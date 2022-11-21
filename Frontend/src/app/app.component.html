@@ -23,7 +23,13 @@
         <a class="nav-link" *ngIf="loggedIn()" routerLink="dashboard" routerLinkActive="active">Dashboard</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" *ngIf="loggedIn()" routerLink="my-categories" routerLinkActive="active">Meine Kategorien</a>
+        <a class="nav-link" *ngIf="loggedIn()" routerLink="overview" routerLinkActive="active">Übersicht</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="loggedIn()" routerLink="timer" routerLinkActive="active">Timer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="loggedIn()" routerLink="calendar" routerLinkActive="active">Kalendar</a>
       </li>
     </ul>
   </div>
