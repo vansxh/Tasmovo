@@ -43,6 +43,7 @@ import { SingleTasksComponent } from './pages/single-tasks/single-tasks.componen
 import { AllTasksComponent } from './pages/all-tasks/all-tasks.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 registerLocaleData(localeAt);
@@ -112,7 +113,8 @@ export const routes: Routes = [
     MatInputModule,
     MatMomentDateModule,
     MatButtonToggleModule,
-    MatTabsModule
+    MatTabsModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},
