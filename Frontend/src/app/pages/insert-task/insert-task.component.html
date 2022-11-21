@@ -60,6 +60,14 @@
       </select>
     </div>
 
+    <div class="form-group">
+      <label for="subcategoryID">Subkategorie (optional):</label>
+      <select formControlName="subcategoryID" placeholder="Kategorie" name="subcategoryID"
+              class="form-control" id="subcategoryID">
+        <option *ngFor="let c of categories" value="{{c.CAID}}">{{c.category_name}}</option>
+      </select>
+    </div>
+
     <button [disabled]="!insertTaskForm.valid" *ngIf="!this.edit" class="btn btn-success"
             (click)="onInsertTaskSubmit()">Task erstellen
     </button>
