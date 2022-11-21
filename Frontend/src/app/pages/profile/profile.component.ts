@@ -5,6 +5,8 @@ import {AuthenticationService} from "../../services/authentication/authenticatio
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
 import {Task} from "../../services/task/task";
+import {CategoryService} from "../../services/category/category.service";
+import {Category} from "../../services/category/category";
 
 @Component({
   selector: 'app-profile',
@@ -13,13 +15,18 @@ import {Task} from "../../services/task/task";
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private auth: AuthenticationService, private taskService: TaskService, private general: GeneralService) {
+  constructor(private auth: AuthenticationService, private taskService: TaskService, private general: GeneralService, private catService: CategoryService) {
   }
+
   /*color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
   value = 50;*/
   allTasks!: Task[];
   finishedTasks!: Task[];
+  allCategories!: Category[];
+  allTasksLength!: number;
+  allFinishedTasksLength!: number;
+  allCategoriesLength!: number;
 
 
   ngOnInit(): void {
@@ -27,9 +34,10 @@ export class ProfileComponent implements OnInit {
       (data: any = []) => {
         // get tasks from data
         this.allTasks = <Task[]>data['data'];
+        this.allTasksLength = this.allTasks.length;
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
@@ -40,13 +48,29 @@ export class ProfileComponent implements OnInit {
       (data: any = []) => {
         // get tasks from data
         this.finishedTasks = <Task[]>data['data'];
+        this.allFinishedTasksLength = this.finishedTasks.length;
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
+      });
+
+    this.catService.getAllCategoriesByUser().subscribe(
+      (data: any = []) => {
+        // get tasks from data
+        this.allCategories = <Category[]>data['data'];
+        this.allCategoriesLength = this.allCategories.length;
+      },
+      (error: any = []) => {
+        if (error['status'] == 404) {
+          this.allCategoriesLength = 0;
+        } else {
+          this.general.errorResponse(error['status']);
+        }
+
       });
   }
 
@@ -56,7 +80,7 @@ export class ProfileComponent implements OnInit {
       if (data['error'] == false) {
         this.auth.deleteToken();
         window.location.href = window.location.href;
-      }else {
+      } else {
         alert("Logout failed");
       }
 

@@ -44,4 +44,8 @@ export class CategoryService {
     this.router.navigate(['/category/' + CAID]);
   }
 
+  getAllCategoriesByUser() {
+    return this.http.get<Category[]>('/Backend/routes/category/getAllCategoriesByUser.php');
+  }
+
 }

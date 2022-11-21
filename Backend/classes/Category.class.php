@@ -61,4 +61,16 @@ class Category
         else return false;
     }
 
+    function getAllCategories($userID)
+    {
+        $stmt = Database::getDb()->prepare("SELECT * FROM Category as c WHERE c.userID=:userID");
+        $stmt->bindValue(":userID", $userID);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
 }
