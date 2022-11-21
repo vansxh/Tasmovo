@@ -1,4 +1,4 @@
-<div>Name:</div>
+<div *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
 <br>
 <img src="assets/default.png" width="10%">
 <br>
@@ -19,18 +19,18 @@
       <div>{{allCategoriesLength}} Kategorien</div>
     </div>
     <br>
-    <div>
+    <div *ngIf="currentUser">
       <div>
-        Benutzername
+        Benutzername: {{currentUser.username}}
       </div>
       <div>
-        Vorname
+        Vorname: {{currentUser.firstName}}
       </div>
       <div>
-        Nachname
+        Nachname: {{currentUser.lastName}}
       </div>
       <div>
-        Stress Limit
+        Stress Limit: {{currentUser.stress_limit}}
       </div>
     </div>
   </mat-tab>

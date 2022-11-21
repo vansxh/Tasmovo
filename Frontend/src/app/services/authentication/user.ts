@@ -7,4 +7,5 @@ export class User {
   password!: string;
   mail!: string;
   login!: string;
+  stress_limit!: number;
 }

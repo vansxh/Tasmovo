@@ -7,6 +7,7 @@ import {GeneralService} from "../../services/general/general.service";
 import {Task} from "../../services/task/task";
 import {CategoryService} from "../../services/category/category.service";
 import {Category} from "../../services/category/category";
+import {User} from "../../services/authentication/user";
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +28,7 @@ export class ProfileComponent implements OnInit {
   allTasksLength!: number;
   allFinishedTasksLength!: number;
   allCategoriesLength!: number;
+  currentUser!: User;
 
 
   ngOnInit(): void {
@@ -70,6 +72,22 @@ export class ProfileComponent implements OnInit {
         } else {
           this.general.errorResponse(error['status']);
         }
+
+      });
+
+    this.auth.getUser().subscribe(
+      (data: any = []) => {
+        // get tasks from data
+        this.currentUser = data['data'];
+        this.currentUser.firstName = data['data']['first_name'];
+        this.currentUser.lastName = data['data']['last_name'];
+      },
+      (error: any = []) => {
+        if (error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
 
       });
   }

@@ -27,6 +27,10 @@ export class AuthenticationService {
     return this.http.post('/Backend/routes/user/logout.php', message);
   }
 
+  getUser(){
+    return this.http.get('/Backend/routes/user/getUser.php');
+  }
+
   setSession(token: string) {
     sessionStorage.setItem('token', token);
   }
