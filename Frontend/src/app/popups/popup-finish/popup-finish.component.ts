@@ -5,6 +5,7 @@ import {DashboardComponent} from "../../pages/dashboard/dashboard.component";
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {GeneralService} from "../../services/general/general.service";
 
 @Component({
   selector: 'app-popup-finish',
@@ -13,7 +14,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 })
 export class PopupFinishComponent implements OnInit {
 
-  constructor(private dialogRefFinish: MatDialogRef<PopupFinishComponent>, private taskService: TaskService, private formBuilder: FormBuilder) {
+  constructor(private dialogRefFinish: MatDialogRef<PopupFinishComponent>, private taskService: TaskService, private formBuilder: FormBuilder, private general: GeneralService) {
   }
 
   finishForm!: FormGroup;
@@ -36,15 +37,31 @@ export class PopupFinishComponent implements OnInit {
 
     this.terminateTask.expenseID = this.finishForm.value.expenseID;
     this.terminateTask.stress_factor = this.finishForm.value.stress_factor;
-    console.log("expenseID: " + this.terminateTask.expenseID);
-    console.log("stress_factor: " + this.terminateTask.stress_factor);
+    console.log(this.terminateTask);
+    //console.log("expenseID: " + this.terminateTask.expenseID);
+    //console.log("stress_factor: " + this.terminateTask.stress_factor);
+    this.taskService.finishTask(this.terminateTask).subscribe(
+      (data: any = []) => {
+        // update view if finishing was successful
+        //this.loadTasks();
+        this.onClose();
+      },
+      (error: any = []) => {
+        if (error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
 
-    this.onClose();
+
+
   }
 
   onClose() {
     //this.accept = false;
     this.dialogRefFinish.close();
+    window.location.href = window.location.href;
   }
 
 }

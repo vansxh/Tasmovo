@@ -129,10 +129,12 @@ class Task
     }
 
     // // function for finishing a task via ID
-    function finishTask($TAID)
+    function finishTask($TAID, $expenseID, $stress_factor)
     {
-        $stmt = Database::getDb()->prepare("UPDATE Task SET statusID=2, end_date=now() WHERE TAID=:TAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("UPDATE Task SET statusID=2, end_date=now(), expenseID=:expenseID, stress_factor=:stressFactor WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
+        $stmt->bindValue(":expenseID", $expenseID);
+        $stmt->bindValue(":stressFactor", $stress_factor);
 
         if ($stmt->execute()) return true;
         else return false;
