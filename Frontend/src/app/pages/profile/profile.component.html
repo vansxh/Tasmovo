@@ -1,1 +1,39 @@
-<p>profile works!</p>
+<div>Name:</div>
+<br>
+<div>Profilbild</div>
+<br>
+<mat-tab-group>
+  <mat-tab label="Stresslevel">
+    <div>Dein Stresslevel diese Woche:</div>
+    <br>
+    <mat-progress-spinner
+      class="example-margin"
+      value="50" mode="determinate" color="primary">
+    </mat-progress-spinner>
+  </mat-tab>
+  <mat-tab label="Info">
+    <div>
+      <div>Tasks</div>
+      <div>fertige Tasks</div>
+      <div>Kategorien</div>
+    </div>
+    <br>
+    <div>
+      <div>
+        Benutzername
+      </div>
+      <div>
+        Vorname
+      </div>
+      <div>
+        Nachname
+      </div>
+      <div>
+        Stress Limit
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+<br>
+<button class="btn btn-primary" (click)="logout()">Abmelden</button>
+

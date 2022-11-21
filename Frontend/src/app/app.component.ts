@@ -15,7 +15,7 @@ export class AppComponent {
 
   constructor(private service: AuthenticationService) {
     if (this.service.isLoggedIn()) {
-      console.log("loggedin");
+      //console.log("loggedin");
       this.loginbtn = false;
       this.logoutbtn = true;
     } else {
@@ -29,7 +29,7 @@ export class AppComponent {
     return this.service.isLoggedIn();
   }
 
-  logout() {
+  /*logout() {
     //console.log(this.service.getSession());
     this.service.logout(['Logout']).subscribe((data: any = []) => {
       //console.log(data);
@@ -42,5 +42,5 @@ export class AppComponent {
 
     });
 
-  }
+  }*/
 }

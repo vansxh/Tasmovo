@@ -9,7 +9,7 @@ import {AuthenticationService} from 'src/app/services/authentication/authenticat
 })
 export class LandingComponent implements OnInit {
 
-  constructor(private auth: AuthenticationService, private router: Router) {
+  constructor() {
   }
 
   ngOnInit(): void {
