@@ -21,6 +21,14 @@
       Max Länge: 30 Zeichen
     </div>
 
+    <div class="form-group">
+      <label for="parent_categoryID">Elternkategorie (optional):</label>
+      <select formControlName="parent_categoryID" placeholder="Elternkategorie" name="parent_categoryID"
+              class="form-control" id="parent_categoryID">
+        <option *ngFor="let c of categories" value="{{c.CAID}}">{{c.category_name}}</option>
+      </select>
+    </div>
+
     <button [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit" class="btn btn-success"
             (click)="onInsertCategorySubmit()">Kategorie erstellen
     </button>

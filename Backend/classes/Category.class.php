@@ -3,13 +3,12 @@
 class Category
 {
     // function for inserting a new category
-    function insertCategory($cName, $userID/*, $parent_categoryID, $gid*/)
+    function insertCategory($cName, $userID, $parent_categoryID)
     {
-        $stmt = Database::getDb()->prepare("INSERT INTO Category(category_name, userID) VALUES(:cName, :userID)");
+        $stmt = Database::getDb()->prepare("INSERT INTO Category(category_name, userID, parent_categoryID) VALUES(:cName, :userID, :parent_categoryID)");
         $stmt->bindValue(":cName", $cName);
         $stmt->bindValue(":userID", $userID);
-        /*$stmt->bindValue(":parent_categoryID", $parent_categoryID);
-        $stmt->bindValue(":gid", $gid);*/
+        $stmt->bindValue(":parent_categoryID", $parent_categoryID);
 
         if ($stmt->execute()) return true;
         else return false;
@@ -51,13 +50,12 @@ class Category
     }
 
     // function for updating a category via ID
-    function updateCategory($CAID, $cName/*, $parent_categoryID, $gid*/)
+    function updateCategory($CAID, $cName, $parent_categoryID)
     {
-        $stmt = Database::getDb()->prepare("UPDATE Category SET category_name=:cName WHERE CAID=:CAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("UPDATE Category SET category_name=:cName, parent_categoryID=:parent_categoryID WHERE CAID=:CAID LIMIT 1");
         $stmt->bindValue(":CAID", $CAID);
         $stmt->bindValue(":cName", $cName);
-        /*$stmt->bindValue(":parent_categoryID", $parent_categoryID);
-        $stmt->bindValue(":gid", $gid);*/
+        $stmt->bindValue(":parent_categoryID", $parent_categoryID);
 
         if ($stmt->execute()) return true;
         else return false;

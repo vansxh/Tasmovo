@@ -20,10 +20,25 @@ export class InsertCategoryComponent implements OnInit {
   insertCategoryForm!: FormGroup;
   selectedCategory!: Category;
   edit!: boolean;
+  categories!: Category[];
 
   ngOnInit(): void {
 
     const routeParams = this.route.snapshot.params;
+
+    // get all categories from a user for dropdown
+    this.catService.getCategoriesByUser().subscribe(
+      (data: any = []) => {
+        // get categories from data
+        this.categories = <Category[]>data['data'];
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
 
     // if CAID is transmitted get category and display values
     if (routeParams['CAID']) {
@@ -47,7 +62,8 @@ export class InsertCategoryComponent implements OnInit {
     this.insertCategoryForm = this.formbuilder.group({
       CAID: [''],
       userID: [''],
-      category_name: ['', [Validators.required, Validators.maxLength(30)]]
+      category_name: ['', [Validators.required, Validators.maxLength(30)]],
+      parent_categoryID: ['']
     });
 
   }

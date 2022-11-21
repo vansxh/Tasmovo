@@ -18,8 +18,7 @@ $category = new Category();
 // get different values from input
 $CAID = Input::read('CAID');
 $cName = Input::read('category_name');
-
-
+$parent_categoryID = Input::read('parent_categoryID');
 
 // get category that should be updated
 $compareCat = $category->getCategory($CAID);
@@ -32,7 +31,7 @@ if($compareCat['userID'] != $_SESSION['UID']) {
     ]))->send(HttpCode::FORBIDDEN);
 }
 
-$item = $category->updateCategory($CAID, $cName/*, $parent_categoryID, $gid*/);
+$item = $category->updateCategory($CAID, $cName, $parent_categoryID);
 
 // check if category was updated
 if (!$item) {

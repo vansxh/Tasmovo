@@ -18,8 +18,9 @@ $category = new Category();
 // get different values from input
 $CAID = Input::read('CAID');
 $cName = Input::read('category_name');
+$parent_categoryID = Input::read('parent_categoryID');
 
-$item = $category->insertCategory($cName, $_SESSION['UID']/*, $parent_categoryID, $gid*/);
+$item = $category->insertCategory($cName, $_SESSION['UID'], $parent_categoryID);
 
 // check if category was inserted
 if(!$item) {

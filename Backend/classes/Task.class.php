@@ -65,7 +65,7 @@ class Task
     // function for getting all single tasks of a user (not in a category)
     function getSingleTasks($userID)
     {
-        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE created_by=:userID AND categoryID=NULL");
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE created_by=:userID AND categoryID IS NULL");
         $stmt->bindValue(":userID", $userID);
 
         $stmt->execute();
