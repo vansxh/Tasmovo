@@ -21,7 +21,8 @@ $notes = Input::read('notes');
 $deadlineDay = date_create(Input::read('deadlineDay'));
 $deadlineDayFormat = date_format($deadlineDay, "Y-m-d");
 $deadline = $deadlineDayFormat . " " . Input::read('deadlineHour');
-$caid = Input::read('categoryID');
+if(Input::read('subcategoryID')) $caid = Input::read('subcategoryID');
+else $caid = Input::read('categoryID');
 
 $item = $task->insertTask($tName, $notes, $deadline, $_SESSION['UID'], $caid/*, $gid*/);
 

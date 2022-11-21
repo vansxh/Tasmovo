@@ -48,4 +48,8 @@ export class CategoryService {
     return this.http.get<Category[]>('/Backend/routes/category/getAllCategoriesByUser.php');
   }
 
+  getAllSubCategories(CAID: number) {
+    return this.http.get<Category[]>('/Backend/routes/category/getAllSubCategories.php?CAID=' + CAID);
+  }
+
 }

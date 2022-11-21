@@ -55,16 +55,16 @@
     <div class="form-group">
       <label for="categoryID">Kategorie (optional):</label>
       <select formControlName="categoryID" placeholder="Kategorie" name="categoryID"
-             class="form-control" id="categoryID">
-        <option *ngFor="let c of categories" value="{{c.CAID}}">{{c.category_name}}</option>
+             class="form-control" id="categoryID" (ngModelChange)="onChangeCategory($event)">
+        <option *ngFor="let c of categories | category" value="{{c.CAID}}">{{c.category_name}}</option>
       </select>
     </div>
 
-    <div class="form-group">
+    <div *ngIf="subcategories != undefined && subcategories.length > 0" class="form-group">
       <label for="subcategoryID">Subkategorie (optional):</label>
       <select formControlName="subcategoryID" placeholder="Kategorie" name="subcategoryID"
               class="form-control" id="subcategoryID">
-        <option *ngFor="let c of categories" value="{{c.CAID}}">{{c.category_name}}</option>
+        <option *ngFor="let c of subcategories" value="{{c.CAID}}">{{c.category_name}}</option>
       </select>
     </div>
 

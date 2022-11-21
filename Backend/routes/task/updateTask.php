@@ -20,7 +20,8 @@ $TAID = Input::read('TAID');
 $tName = Input::read('task_name');
 $notes = Input::read('notes');
 $deadline = Input::read('deadlineDay') . " " . Input::read('deadlineHour');
-$caid = Input::read('categoryID');
+if(Input::read('subcategoryID')) $caid = Input::read('subcategoryID');
+else $caid = Input::read('categoryID');
 
 // get task that should be updated
 $compareTask = $task->getTask($TAID);

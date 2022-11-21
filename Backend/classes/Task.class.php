@@ -93,7 +93,7 @@ class Task
     // function for getting one task via ID
     function getTask($TAID)
     {
-        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE TAID=:TAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("SELECT * ,(SELECT parent_categoryID from Category as c WHERE c.CAID = t.categoryID) as 'parent_categoryID' FROM `Task` as t WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
 
         $stmt->execute();

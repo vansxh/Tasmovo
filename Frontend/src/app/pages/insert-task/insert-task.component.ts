@@ -27,6 +27,7 @@ export class InsertTaskComponent implements OnInit {
   selectedTask!: Task;
   edit!: boolean;
   categories!: Category[];
+  subcategories!: Category[];
   nowDate!: string;
 
   ngOnInit(): void {
@@ -78,8 +79,8 @@ export class InsertTaskComponent implements OnInit {
       deadlineDay: new FormControl(this.datePipe.transform(this.nowDate, 'yyyy-MM-dd', 'de-AT'), [Validators.required]),
       deadlineHour: ['', [Validators.required]],
       notes: [''],
-      categoryID: ['']/*,
-      groupID: ['']*/
+      categoryID: [''],
+      subcategoryID: ['']
     });
   }
 
@@ -108,6 +109,22 @@ export class InsertTaskComponent implements OnInit {
       (error: any = []) => {
         if(error['error']['message']) {
           this.general.specificErrorResponse(error['error']['message'], "dashboard");
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
+  }
+
+  onChangeCategory(event: number) {
+    this.catService.getAllSubCategories(event).subscribe(
+      (data: any = []) => {
+        // get subcategories from data
+        this.subcategories = <Category[]>data['data'];
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          this.subcategories = [];
           return;
         }
         this.general.errorResponse(error['status']);

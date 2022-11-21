@@ -24,7 +24,22 @@ if ($item['created_by'] !== $_SESSION['UID']) {
     ]))->send(HttpCode::FORBIDDEN);
 }
 
-// if everything was successful
+// if the category of the task HAS a parent category
+if($item['parent_categoryID'] !== null) {
+    (new Response([
+        'error' => false,
+        'data' => [
+            'TAID' => $item['TAID'],
+            'task_name' => $item['task_name'],
+            'notes' => $item['notes'],
+            'deadline' => $item['deadline'],
+            'categoryID' => $item['parent_categoryID'],
+            'subcategoryID' => $item['categoryID']
+    ]
+    ]))->send(HttpCode::OKAY);
+}
+
+// if the category of the task DOESN'T HAVE a parent category
 (new Response([
     'error' => false,
     'data' => $item

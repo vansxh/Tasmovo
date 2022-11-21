@@ -73,4 +73,16 @@ class Category
         return $result;
     }
 
+    function getAllSubCategories($parent_categoryID)
+    {
+        $stmt = Database::getDb()->prepare("SELECT * FROM Category WHERE parent_categoryID=:parent_categoryID");
+        $stmt->bindValue(":parent_categoryID", $parent_categoryID);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
 }
