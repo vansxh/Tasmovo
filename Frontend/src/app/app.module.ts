@@ -42,6 +42,7 @@ import {MAT_MOMENT_DATE_FORMATS} from "@angular/material-moment-adapter";
 import { SingleTasksComponent } from './pages/single-tasks/single-tasks.component';
 import { AllTasksComponent } from './pages/all-tasks/all-tasks.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 registerLocaleData(localeAt);
@@ -111,6 +112,7 @@ export const routes: Routes = [
     MatInputModule,
     MatMomentDateModule,
     MatButtonToggleModule,
+    MatTabsModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},
