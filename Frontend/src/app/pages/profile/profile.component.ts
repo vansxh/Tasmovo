@@ -8,6 +8,7 @@ import {Task} from "../../services/task/task";
 import {CategoryService} from "../../services/category/category.service";
 import {Category} from "../../services/category/category";
 import {User} from "../../services/authentication/user";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,7 @@ import {User} from "../../services/authentication/user";
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private auth: AuthenticationService, private taskService: TaskService, private general: GeneralService, private catService: CategoryService) {
+  constructor(private auth: AuthenticationService, private taskService: TaskService, private general: GeneralService, private catService: CategoryService, private formBuilder: FormBuilder) {
   }
 
   /*color: ThemePalette = 'primary';
@@ -29,9 +30,37 @@ export class ProfileComponent implements OnInit {
   allFinishedTasksLength!: number;
   allCategoriesLength!: number;
   currentUser!: User;
+  userForm!: FormGroup;
 
 
   ngOnInit(): void {
+    this.changeForm();
+
+    this.getData();
+  }
+
+  logout() {
+    this.auth.logout(['Logout']).subscribe((data: any = []) => {
+      //console.log(data);
+      if (data['error'] == false) {
+        this.auth.deleteToken();
+        window.location.href = window.location.href;
+      } else {
+        alert("Logout failed");
+      }
+    });
+  }
+
+  changeForm() {
+    this.userForm = this.formBuilder.group({
+      firstName: ['', [Validators.required, Validators.maxLength(30)]],
+      lastName: ['', [Validators.required, Validators.maxLength(30)]],
+      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]]
+    });
+  }
+
+  getData() {
     this.taskService.getAllTasks().subscribe(
       (data: any = []) => {
         // get tasks from data
@@ -90,20 +119,6 @@ export class ProfileComponent implements OnInit {
         this.general.errorResponse(error['status']);
 
       });
-  }
-
-  logout() {
-    this.auth.logout(['Logout']).subscribe((data: any = []) => {
-      //console.log(data);
-      if (data['error'] == false) {
-        this.auth.deleteToken();
-        window.location.href = window.location.href;
-      } else {
-        alert("Logout failed");
-      }
-
-    });
-
   }
 
 }

@@ -10,7 +10,7 @@
       class="example-margin"
       value="50" mode="determinate" color="primary">
     </mat-progress-spinner>
-    <div>Lvl: </div>
+    <div>Lvl:</div>
   </mat-tab>
   <mat-tab label="Info">
     <div>
@@ -20,18 +20,24 @@
     </div>
     <br>
     <div *ngIf="currentUser">
-      <div>
-        Benutzername: {{currentUser.username}}
-      </div>
-      <div>
-        Vorname: {{currentUser.firstName}}
-      </div>
-      <div>
-        Nachname: {{currentUser.lastName}}
-      </div>
-      <div>
-        Stress Limit: {{currentUser.stress_limit}}
-      </div>
+      <form [formGroup]="userForm" class="form" autocomplete="off">
+        <div>
+          Benutzername: {{currentUser.username}}
+          <button class="btn btn-secondary">Ändern</button>
+        </div>
+        <div>
+          Vorname: {{currentUser.firstName}}
+          <button class="btn btn-secondary">Ändern</button>
+        </div>
+        <div>
+          Nachname: {{currentUser.lastName}}
+          <button class="btn btn-secondary">Ändern</button>
+        </div>
+        <div>
+          Stress Limit: {{currentUser.stress_limit}}
+          <button class="btn btn-secondary">Ändern</button>
+        </div>
+      </form>
     </div>
   </mat-tab>
 </mat-tab-group>
