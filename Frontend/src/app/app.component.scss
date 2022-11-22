@@ -1,5 +1,14 @@
+#display-mobile {
+  display: none;
+}
 
+@media (max-width: 576px) {
+  #display-desktop {
+    display: none;
+  }
 
+  #display-mobile {
+    display: block;
+  }
 
-
-
+}

@@ -3,8 +3,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-// Include any default variable overrides here (though functions won't be available)
-
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 
