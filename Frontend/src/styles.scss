@@ -1,7 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
-/* angular-cli file: src/styles.css */
-@import "../node_modules/angular-calendar/css/angular-calendar.css";
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Include any default variable overrides here (though functions won't be available)
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+.bg-primary {
+  background-color: #30245B!important;
+}
