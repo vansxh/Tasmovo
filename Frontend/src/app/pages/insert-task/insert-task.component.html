@@ -22,7 +22,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Datum</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="deadlineDay" min="{{nowDate}}">
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint>MM.DD.YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
