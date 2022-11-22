@@ -67,8 +67,8 @@ export class MyCategoriesComponent implements OnInit {
     this.taskService.getCategoryTasks(category.CAID).subscribe(
       (data: any = []) => {
         // get tasks from data
-        //console.log(data['data'].length);
-        return data['data'].length;
+        console.log(data['data'].length);
+        //return data['data'].length;
         //this.categoryTasks = <Task[]>data['data'];
       },
       (error: any = []) => {
