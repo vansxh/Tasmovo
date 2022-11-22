@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from "@angular/forms";
+import { CommonModule } from '@angular/common';
 
 import {AppComponent} from './app.component';
 import {AddComponent} from './pages/add/add.component';
@@ -46,6 +47,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CategoryPipe } from './pipes/category.pipe';
 import { SubcategoryPipe } from './pipes/subcategory.pipe';
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 registerLocaleData(localeAt);
@@ -103,7 +108,7 @@ export const routes: Routes = [
     SingleTasksComponent,
     AllTasksComponent,
     CategoryPipe,
-    SubcategoryPipe
+    SubcategoryPipe,
   ],
   imports: [
     BrowserModule,
@@ -119,7 +124,14 @@ export const routes: Routes = [
     MatMomentDateModule,
     MatButtonToggleModule,
     MatTabsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    CommonModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    NgbModalModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},
@@ -139,7 +151,8 @@ export const routes: Routes = [
       },
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [CalendarComponent]
 })
 export class AppModule {
 }
