@@ -25,3 +25,8 @@
   <div class="col-md-2">{{t.task_name}}</div>
   <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
 </div>
+
+<div *ngFor="let s of subcategories">
+  <br>
+  <h1 (click)="showCategory(s)">{{s.category_name}}</h1>
+</div>

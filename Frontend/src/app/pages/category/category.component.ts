@@ -3,6 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
+import {Category} from "../../services/category/category";
+import {CategoryService} from "../../services/category/category.service";
 
 @Component({
   selector: 'app-category',
@@ -11,10 +13,11 @@ import {GeneralService} from "../../services/general/general.service";
 })
 export class CategoryComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) {
+  constructor(private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private catService: CategoryService) {
   }
 
   public categoryTasks!: Task[];
+  public subcategories!: Category[];
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.params;
@@ -29,6 +32,21 @@ export class CategoryComponent implements OnInit {
         (error: any = []) => {
           if(error['error']['message']) {
             alert(error['error']['message']);
+            return;
+          }
+          this.general.errorResponse(error['status']);
+        });
+
+      // get all sub categories
+      this.catService.getAllSubCategories(routeParams['CAID']).subscribe(
+        (data: any = []) => {
+          // get subcategories from data
+          this.subcategories = <Category[]>data['data'];
+        },
+        (error: any = []) => {
+          if(error['error']['message']) {
+            alert(error['error']['message']);
+            this.subcategories = [];
             return;
           }
           this.general.errorResponse(error['status']);
@@ -50,6 +68,10 @@ export class CategoryComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
 
+  }
+
+  showCategory(category: Category): void {
+    this.catService.showSubCategory(category.CAID);
   }
 
 }

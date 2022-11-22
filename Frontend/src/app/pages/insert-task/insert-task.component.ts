@@ -85,7 +85,6 @@ export class InsertTaskComponent implements OnInit {
   }
 
   onInsertTaskSubmit() {
-    console.log(this.insertTaskForm.value);
     this.taskService.insertTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
         // if task was inserted reload tasks

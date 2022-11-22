@@ -72,7 +72,8 @@ export const routes: Routes = [
   {path: 'all-tasks', component: AllTasksComponent, canActivate: [AuthGuard]},
   {path: 'single-tasks', component: SingleTasksComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-  {path: 'sub-category', component: SubCategoryComponent, canActivate: [AuthGuard]}
+  {path: 'sub-category', component: SubCategoryComponent, canActivate: [AuthGuard]},
+  {path: 'sub-category/:CAID', component: SubCategoryComponent, canActivate: [AuthGuard]}
 
 ];
 
