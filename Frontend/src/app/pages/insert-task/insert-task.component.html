@@ -6,6 +6,14 @@
     <input type="hidden" formControlName="TAID" name="TAID">
 
     <div class="form-group">
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Titel</mat-label>
+        <input matInput placeholder="Neuer Taskname" formControlName="task_name" id="task_name">
+      </mat-form-field>
+    </div>
+
+    <!--
+    <div class="form-group">
       <label for="task_name">Titel</label>
       <input type="text" formControlName="task_name" placeholder="Neuer Taskname" name="task_name"
              class="form-control" id="task_name">
@@ -17,15 +25,17 @@
     <div class="alert alert-danger"
          *ngIf="insertTaskForm.get('task_name')?.hasError('maxlength') && insertTaskForm.get('task_name')?.touched">
       Max Länge: 30 Zeichen
-    </div>
+    </div>-->
 
-    <mat-form-field appearance="fill">
-      <mat-label>Datum</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="deadlineDay" min="{{nowDate}}">
-      <mat-hint>MM.DD.YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Datum</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="deadlineDay" min="{{nowDate}}">
+        <mat-hint>MM.DD.YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
 
     <!--<div class="form-group">
       <label for="deadlineDay">Datum</label>
