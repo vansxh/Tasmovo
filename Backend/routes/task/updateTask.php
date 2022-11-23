@@ -19,7 +19,10 @@ $task = new Task();
 $TAID = Input::read('TAID');
 $tName = Input::read('task_name');
 $notes = Input::read('notes');
-$deadline = Input::read('deadlineDay') . " " . Input::read('deadlineHour');
+$deadlineDay = date_create(Input::read('deadlineDay'));
+$deadlineDayFormat = date_format($deadlineDay, "Y-m-d");
+$deadlineHour = Input::read('deadlineHour');
+$deadline = $deadlineDayFormat . " " . $deadlineHour;
 if(Input::read('subcategoryID')) $caid = Input::read('subcategoryID');
 else $caid = Input::read('categoryID');
 

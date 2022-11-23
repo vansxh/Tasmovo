@@ -10,6 +10,7 @@ import {GeneralService} from "../../services/general/general.service";
 import {Category} from "../../services/category/category";
 import {CategoryService} from "../../services/category/category.service";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 
 
 
@@ -20,7 +21,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 })
 export class InsertTaskComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService, private catService: CategoryService, private matDatePicker: MatDatepickerModule) {
+  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService, private catService: CategoryService, private matDatePicker: MatDatepickerModule, private matTimePicker: NgxMatTimepickerModule) {
   }
 
   insertTaskForm!: FormGroup;
@@ -29,6 +30,7 @@ export class InsertTaskComponent implements OnInit {
   categories!: Category[];
   subcategories!: Category[];
   nowDate!: string;
+  formatNumber: number = 24;
 
   ngOnInit(): void {
 
@@ -47,7 +49,7 @@ export class InsertTaskComponent implements OnInit {
             // fix deadline for input form
             let deadline = new Date(this.selectedTask.deadline);
             this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
-            this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
+            this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'hh:mm', 'de-AT') || '';
             this.insertTaskForm.patchValue(this.selectedTask);
         },
         (error: any = []) => {
@@ -77,7 +79,7 @@ export class InsertTaskComponent implements OnInit {
       TAID: [''],
       task_name: ['', [Validators.required, Validators.maxLength(30)]],
       deadlineDay: new FormControl(this.datePipe.transform(this.nowDate, 'yyyy-MM-dd', 'de-AT'), [Validators.required]),
-      deadlineHour: ['', [Validators.required]],
+      deadlineHour: ['', Validators.required],
       notes: [''],
       categoryID: [''],
       subcategoryID: ['']

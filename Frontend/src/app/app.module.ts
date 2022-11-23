@@ -52,7 +52,13 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
-
+import { MatTimepickerModule } from 'mat-timepicker';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NGX_MAT_DATE_FORMATS
+} from '@angular-material-components/datetime-picker';
+import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 
 registerLocaleData(localeAt);
 
@@ -132,13 +138,32 @@ export const routes: Routes = [
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    NgbModalModule
+    NgbModalModule,
+    MatTimepickerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},
     DatePipe,
     {
       provide: MAT_MOMENT_DATE_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: ['l', 'LL'],
+        },
+        display: {
+          dateInput: 'L',
+          monthYearLabel: 'MMM YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MMMM YYYY',
+        },
+      },
+    },
+    {
+      provide: NGX_MAT_DATE_FORMATS,
       useValue: {
         parse: {
           dateInput: ['l', 'LL'],

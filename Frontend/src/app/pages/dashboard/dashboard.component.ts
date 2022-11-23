@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
         for (let t of this.openTasks) {
           let deadline = t.deadline.split(" ");
           t.deadlineDay = deadline[0];
-          t.deadlineHour = deadline[1].slice(0, -3);
+          //t.deadlineHour = deadline[1].slice(0, -3);
         }
       },
       (error: any = []) => {

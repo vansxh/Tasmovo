@@ -46,6 +46,25 @@
          *ngIf="insertTaskForm.get('deadlineDay')?.hasError('required') && insertTaskForm.get('deadlineDay')?.touched">
       Bitte eine Deadline für den Task wählen!
     </div>-->
+    <!--
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="example-full-width">
+          <mat-label>Uhrzeit</mat-label>
+          <input formControlName="deadlineHour" placeholder="Uhrzeit auswählen" name="deadlineHour" matTimepicker>
+      </mat-form-field>
+    </div>-->
+
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="example-full-width">
+        <mat-label>Uhrzeit</mat-label>
+        <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="deadlineHour">
+        <ngx-mat-timepicker-toggle matIconSuffix [for]="$any(timepicker)"></ngx-mat-timepicker-toggle>
+        <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
+      </mat-form-field>
+    </div>
+
+
+    <!--
     <div class="form-group">
       <label for="deadlineHour">Uhrzeit</label>
       <input type="time" formControlName="deadlineHour" placeholder="Uhrzeit auswählen" name="deadlineHour"
@@ -55,6 +74,7 @@
          *ngIf="insertTaskForm.get('deadlineHour')?.hasError('required') && insertTaskForm.get('deadlineHour')?.touched">
       Bitte eine Deadline für den Task wählen!
     </div>
+    -->
 
     <div class="form-group">
       <label for="notes">Notizen (optional):</label>
