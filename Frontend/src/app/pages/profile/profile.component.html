@@ -1,46 +1,112 @@
-<div *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
-<br>
-<img src="assets/default.png" width="10%">
-<br>
-<mat-tab-group>
-  <mat-tab label="Stresslevel">
-    <div>Dein Stresslevel diese Woche:</div>
-    <br>
-    <mat-progress-spinner
-      class="example-margin"
-      value="50" mode="determinate" color="primary">
-    </mat-progress-spinner>
-    <div>Lvl:</div>
-  </mat-tab>
-  <mat-tab label="Info">
-    <div>
-      <div>{{allTasksLength}} Tasks</div>
-      <div>{{allFinishedTasksLength}} fertige Tasks</div>
-      <div>{{allCategoriesLength}} Kategorien</div>
-    </div>
-    <br>
-    <div *ngIf="currentUser">
-      <form [formGroup]="userForm" class="form" autocomplete="off">
-        <div>
-          Benutzername: {{currentUser.username}}
-          <button class="btn btn-secondary">Ändern</button>
-        </div>
-        <div>
-          Vorname: {{currentUser.firstName}}
-          <button class="btn btn-secondary">Ändern</button>
-        </div>
-        <div>
-          Nachname: {{currentUser.lastName}}
-          <button class="btn btn-secondary">Ändern</button>
-        </div>
-        <div>
-          Stress Limit: {{currentUser.stress_limit}}
-          <button class="btn btn-secondary">Ändern</button>
-        </div>
-      </form>
-    </div>
-  </mat-tab>
-</mat-tab-group>
-<br>
-<button class="btn btn-primary" (click)="logout()">Abmelden</button>
+<div *ngIf="!isLoading &&userLoaded">
+  <div *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
+  <br>
+  <img src="assets/default.png" width="10%">
+  <br>
+  <mat-tab-group>
+    <mat-tab label="Stresslevel">
+      <div>Dein Stresslevel diese Woche:</div>
+      <br>
+      <mat-progress-spinner
+        class="example-margin"
+        value="50" mode="determinate" color="primary">
+      </mat-progress-spinner>
+      <div>Lvl:</div>
+    </mat-tab>
+    <mat-tab label="Info">
+      <div>
+        <div *ngIf="allTasksLength == 1">{{allTasksLength}} Task</div>
+        <div *ngIf="allTasksLength != 1">{{allTasksLength}} Tasks</div>
+        <div *ngIf="allFinishedTasksLength == 1">{{allFinishedTasksLength}} fertige Task</div>
+        <div *ngIf="allFinishedTasksLength != 1">{{allFinishedTasksLength}} fertige Tasks</div>
+        <div *ngIf="allCategoriesLength == 1">{{allCategoriesLength}} Kategorie</div>
+        <div *ngIf="allCategoriesLength != 1">{{allCategoriesLength}} Kategorien</div>
+      </div>
+      <br>
+      <div *ngIf="currentUser">
+        <form [formGroup]="userForm" class="form" autocomplete="off">
+          <div *ngIf="!changeUsername">
+            Benutzername: {{currentUser.username}}
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeUsername = true">Ändern</button>
+          </div>
+          <div *ngIf="changeUsername">
+            <mat-form-field class="example-full-width">
+              <mat-label></mat-label>
+              <input matInput type="text" [errorStateMatcher]="matcher" formControlName="username"
+                     [defaultValue]="currentUser.username">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="userForm.get('username')?.hasError('required')">
+                Dieses Feld darf nicht leer sein.
+              </mat-error>
+              <mat-error *ngIf="userForm.get('username')?.hasError('maxlength')">
+                Der Username darf maximal 30 Zeichen lang sein.
+              </mat-error>
+              <mat-error *ngIf="userForm.get('username')?.hasError('minlength')">
+                Der Username muss mindestens 4 Zeichen lang sein.
+              </mat-error>
+            </mat-form-field>
 
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="setBooleansFalse()">Speichern</button>
+          </div>
+          <div *ngIf="!changeFirstname">
+            Vorname: {{currentUser.firstName}}
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeFirstname = true">Ändern</button>
+          </div>
+          <div *ngIf="changeFirstname">
+            <mat-form-field class="example-full-width">
+              <mat-label></mat-label>
+              <input matInput type="text" [errorStateMatcher]="matcher" formControlName="firstName">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">
+                Dieses Feld darf nicht leer sein.
+              </mat-error>
+              <mat-error *ngIf="userForm.get('firstName')?.hasError('maxlength')">
+                Der Vorname darf maximal 30 Zeichen lang sein.
+              </mat-error>
+            </mat-form-field>
+
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="setBooleansFalse()">Speichern</button>
+          </div>
+          <div *ngIf="!changeLastname">
+            Nachname: {{currentUser.lastName}}
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeLastname = true">Ändern</button>
+          </div>
+          <div *ngIf="changeLastname">
+            <mat-form-field class="example-full-width">
+              <mat-label></mat-label>
+              <input matInput type="text" [errorStateMatcher]="matcher" formControlName="lastName">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">
+                Dieses Feld darf nicht leer sein.
+              </mat-error>
+              <mat-error *ngIf="userForm.get('lastName')?.hasError('maxlength')">
+                Der Nachname darf maximal 30 Zeichen lang sein.
+              </mat-error>
+            </mat-form-field>
+
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="setBooleansFalse()">Speichern</button>
+          </div>
+          <div *ngIf="!changeStressLimit">
+            Stress Limit: {{currentUser.stress_limit}}
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeStressLimit = true">Ändern</button>
+          </div>
+          <div *ngIf="changeStressLimit">
+            <mat-form-field class="example-full-width">
+              <mat-label></mat-label>
+              <input matInput type="number" [errorStateMatcher]="matcher" formControlName="stressLimit" min="0"
+                     max="100">
+              <mat-error *ngIf="userForm.get('stressLimit')?.hasError('required')">
+                Dieses Feld darf nicht leer sein.
+              </mat-error>
+            </mat-form-field>
+
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="setBooleansFalse()">Speichern</button>
+          </div>
+        </form>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <br>
+  <button class="btn btn-primary" (click)="logout()">Abmelden</button>
+
+</div>

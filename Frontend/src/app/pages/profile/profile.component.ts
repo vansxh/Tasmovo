@@ -1,6 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {ThemePalette} from '@angular/material/core';
-import {ProgressSpinnerMode} from '@angular/material/progress-spinner';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "../../services/authentication/authentication.service";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
@@ -9,45 +7,66 @@ import {CategoryService} from "../../services/category/category.service";
 import {Category} from "../../services/category/category";
 import {User} from "../../services/authentication/user";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ErrorStateMatcher} from '@angular/material/core';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, AfterViewInit{
 
   constructor(private auth: AuthenticationService, private taskService: TaskService, private general: GeneralService, private catService: CategoryService, private formBuilder: FormBuilder) {
   }
 
-  /*color: ThemePalette = 'primary';
-  mode: ProgressSpinnerMode = 'determinate';
-  value = 50;*/
   allTasks!: Task[];
   finishedTasks!: Task[];
   allCategories!: Category[];
   allTasksLength!: number;
   allFinishedTasksLength!: number;
-  allCategoriesLength!: number;
+  allCategoriesLength = 0;
+
   currentUser!: User;
+
+  weeklyAverage!: number;
+
   userForm!: FormGroup;
+  changeUsername!: boolean;
+  changeFirstname!: boolean;
+  changeLastname!: boolean;
+  changeStressLimit!: boolean;
+  matcher!: ErrorStateMatcher;
+
+
+
+  userLoaded!: boolean;
+  isLoading!: boolean;
 
 
   ngOnInit(): void {
-    this.changeForm();
+    this.isLoading = true;
+    this.userLoaded = false;
+    //For error messages
 
+    this.setBooleansFalse();
     this.getData();
+    //this.matcher = new ErrorStateMatcher();
+  }
+
+  ngAfterViewInit(): void {
+    this.isLoading = false;
   }
 
   logout() {
     this.auth.logout(['Logout']).subscribe((data: any = []) => {
-      //console.log(data);
-      if (data['error'] == false) {
-        this.auth.deleteToken();
-        window.location.href = window.location.href;
-      } else {
-        alert("Logout failed");
+      this.auth.deleteToken();
+      window.location.href = window.location.href;
+    }, (error: any = []) => {
+      if (error['error']['message']) {
+        alert(error['error']['message']);
+        return;
       }
+      this.general.errorResponse(error['status']);
     });
   }
 
@@ -56,7 +75,13 @@ export class ProfileComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.maxLength(30)]],
       lastName: ['', [Validators.required, Validators.maxLength(30)]],
       username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(30)]]
+      stressLimit: ['', Validators.required]
+    });
+    this.userForm.setValue({
+      firstName: this.currentUser.firstName,
+      lastName: this.currentUser.lastName,
+      username: this.currentUser.username,
+      stressLimit: this.currentUser.stress_limit
     });
   }
 
@@ -106,19 +131,34 @@ export class ProfileComponent implements OnInit {
 
     this.auth.getUser().subscribe(
       (data: any = []) => {
-        // get tasks from data
-        this.currentUser = data['data'];
-        this.currentUser.firstName = data['data']['first_name'];
-        this.currentUser.lastName = data['data']['last_name'];
+        this.currentUser = <User>data['data'];
+
+        this.changeForm();
+        this.userLoaded = true;
+        //this.matcher = new ErrorStateMatcher();
       },
       (error: any = []) => {
         if (error['error']['message']) {
           alert(error['error']['message']);
+          this.userLoaded = true;
           return;
         }
         this.general.errorResponse(error['status']);
-
+        this.userLoaded = true;
       });
+
   }
+
+  setBooleansFalse() {
+    this.changeFirstname = false;
+    this.changeLastname = false;
+    this.changeUsername = false;
+    this.changeStressLimit = false;
+  }
+
+  onUserFormSubmit(){
+    console.log(this.userForm.value);
+  }
+
 
 }

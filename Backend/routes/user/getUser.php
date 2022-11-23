@@ -9,5 +9,10 @@ $result = $auth->user();
 
 (new Response([
     'message' => 'User erfolgreich abgefragt.',
-    'data' => $result
+    'data' => [
+        'firstName' => $result['first_name'],
+        'lastName' => $result['last_name'],
+        'username' => $result['username'],
+        'stress_limit' => $result['stress_limit']
+    ]
 ]))->send(HttpCode::OKAY);
