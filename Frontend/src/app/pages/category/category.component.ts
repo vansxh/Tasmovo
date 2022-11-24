@@ -18,12 +18,15 @@ export class CategoryComponent implements OnInit {
 
   public categoryTasks!: Task[];
   public subcategories!: Category[];
+  public allTasks!: Task[];
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.params;
 
     if (routeParams['CAID']) {
-      // get  next tasks
+
+
+      // get tasks of parent category
       this.taskService.getCategoryTasks(routeParams['CAID']).subscribe(
         (data: any = []) => {
           // get tasks from data
@@ -47,6 +50,20 @@ export class CategoryComponent implements OnInit {
           if(error['error']['message']) {
             alert(error['error']['message']);
             this.subcategories = [];
+            return;
+          }
+          this.general.errorResponse(error['status']);
+        });
+
+      // get all tasks
+      this.taskService.getAllTasks().subscribe(
+        (data: any = []) => {
+          // get tasks from data
+          this.allTasks = <Task[]>data['data'];
+        },
+        (error: any = []) => {
+          if(error['error']['message']) {
+            alert(error['error']['message']);
             return;
           }
           this.general.errorResponse(error['status']);

@@ -50,7 +50,7 @@ import { SubcategoryPipe } from './pipes/subcategory.pipe';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbModalModule, NgbProgressbarModule} from '@ng-bootstrap/ng-bootstrap';
 import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
 import { MatTimepickerModule } from 'mat-timepicker';
 import {
@@ -59,6 +59,7 @@ import {
   NGX_MAT_DATE_FORMATS
 } from '@angular-material-components/datetime-picker';
 import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
+import { OfCategoryPipe } from './pipes/of-category.pipe';
 
 registerLocaleData(localeAt);
 
@@ -116,6 +117,7 @@ export const routes: Routes = [
     AllTasksComponent,
     CategoryPipe,
     SubcategoryPipe,
+    OfCategoryPipe,
   ],
   imports: [
     BrowserModule,
@@ -143,7 +145,8 @@ export const routes: Routes = [
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
-    NgxMatTimepickerModule
+    NgxMatTimepickerModule,
+    NgbProgressbarModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},
