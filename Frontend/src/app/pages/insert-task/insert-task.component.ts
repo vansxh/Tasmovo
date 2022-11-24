@@ -49,7 +49,7 @@ export class InsertTaskComponent implements OnInit {
             // fix deadline for input form
             let deadline = new Date(this.selectedTask.deadline);
             this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
-            this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'hh:mm', 'de-AT') || '';
+            this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
             this.insertTaskForm.patchValue(this.selectedTask);
         },
         (error: any = []) => {
@@ -78,7 +78,7 @@ export class InsertTaskComponent implements OnInit {
     this.insertTaskForm = this.formbuilder.group({
       TAID: [''],
       task_name: ['', [Validators.required, Validators.maxLength(30)]],
-      deadlineDay: new FormControl(this.datePipe.transform(this.nowDate, 'yyyy-MM-dd', 'de-AT'), [Validators.required]),
+      deadlineDay: new FormControl(this.datePipe.transform(this.nowDate, 'yyyy-MM-DD', 'de-AT'), [Validators.required]),
       deadlineHour: ['', Validators.required],
       notes: [''],
       categoryID: [''],
@@ -87,6 +87,7 @@ export class InsertTaskComponent implements OnInit {
   }
 
   onInsertTaskSubmit() {
+    this.insertTaskForm.value.deadlineDay = this.insertTaskForm.value.deadlineDay.format('yyyy-MM-DD');
     this.taskService.insertTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
         // if task was inserted reload tasks
@@ -102,6 +103,7 @@ export class InsertTaskComponent implements OnInit {
   }
 
   onEditTaskSubmit() {
+    this.insertTaskForm.value.deadlineDay = this.insertTaskForm.value.deadlineDay.format('yyyy-MM-DD');
     this.taskService.updateTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
         // if task was inserted reload tasks

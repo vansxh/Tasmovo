@@ -16,12 +16,12 @@ $auth->check();
 $task = new Task();
 
 // get different values from input
+$TAID = Input::read('TAID');
 $tName = Input::read('task_name');
 $notes = Input::read('notes');
-$deadlineDay = date_create(Input::read('deadlineDay'));
-$deadlineDayFormat = date_format($deadlineDay, "Y-m-d");
+$deadlineDay = Input::read('deadlineDay');
 $deadlineHour = Input::read('deadlineHour');
-$deadline = $deadlineDayFormat . " " . $deadlineHour;
+$deadline = $deadlineDay . " " . $deadlineHour;
 if(Input::read('subcategoryID')) $caid = Input::read('subcategoryID');
 else $caid = Input::read('categoryID');
 
