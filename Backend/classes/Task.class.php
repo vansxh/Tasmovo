@@ -140,4 +140,17 @@ class Task
         else return false;
     }
 
+    // function for getting Tasks according to Deadline
+    function getTasksByDeadline($deadline)
+    {
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE deadline=:deadline");
+        $stmt->bindValue(":deadline", $deadline);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
 }

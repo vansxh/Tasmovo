@@ -10,3 +10,16 @@
 .igx-calendar{
   border-radius: 4px;
 }
+
+h3 {
+  margin: 0 0 10px;
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+
+.cal-month-view .cal-day-cell:not(:last-child) {
+  border-right: none!important;;
+}

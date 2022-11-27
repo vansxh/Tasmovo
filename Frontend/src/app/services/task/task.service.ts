@@ -42,6 +42,14 @@ export class TaskService {
     return this.http.get('/Backend/routes/task/getTask.php?TAID=' + TAID);
   }
 
+  getTasksByDeadline(deadline: number) {
+    return this.http.get('/Backend/routes/task/getTasksByDeadline.php?deadline=' + deadline);
+  }
+
+  openCalendarDetail() {
+    this.router.navigate(['/calendar-detail']);
+  }
+
   updateTask(task: Task) {
     return this.http.put('/Backend/routes/task/updateTask.php', task);
   }

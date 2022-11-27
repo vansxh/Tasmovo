@@ -1,53 +1,37 @@
 <div class="row text-center">
-  <div class="col-md-4">
-
-      <div
-        class="btn btn-outline-secondary"
-        mwlCalendarToday
-        [(viewDate)]="viewDate"
-      >
-        Today
-      </div>
-
-
+  <div class="row" *ngFor="let t of openTasks">
+    <div class="col-md-2">{{t.task_name}}</div>
+    <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
+    <div class="col-md-2">
+      <button class="btn btn-success" (click)="openSingleTask(t)">Edit</button>
+    </div>
   </div>
   <div class="col-md-4">
-    <div
-      class="btn btn-primary"
-      mwlCalendarPreviousView
-      [view]="view"
-      [(viewDate)]="viewDate"
-      (viewDateChange)="closeOpenMonthViewDay()"
-    ><i class="fa fa-chevron-left"></i>
-
+    <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+      Today
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+      <i class="fa fa-chevron-left"></i>
     </div>
     <b>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</b>
-
     <div
-      class="btn btn-primary"
-      mwlCalendarNextView
-      [view]="view"
-      [(viewDate)]="viewDate"
-      (viewDateChange)="closeOpenMonthViewDay()"
-    ><i class="fa fa-chevron-right"></i>
-
+      class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+      <i class="fa fa-chevron-right"></i>
     </div>
   </div>
-
 </div>
-<br />
+
+<div class="alert alert-info">
+  Click on a day or time slot on the view.
+  <strong *ngIf="clickedDate">You clicked on this time: {{ clickedDate | date:'mediumDate' }}
+  </strong>
+</div>
+
 <div [ngSwitch]="view">
-  <mwl-calendar-month-view
-    *ngSwitchCase="CalendarView.Month"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    [activeDayIsOpen]="activeDayIsOpen"
-    (dayClicked)="dayClicked($event.day)"
-    (eventClicked)="handleEvent('Clicked', $event.event)"
-    (eventTimesChanged)="eventTimesChanged($event)"
-  >
+  <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+                            (dayClicked)="openCalendarDetail()">
+    <div class="cal-cell-top ng-star-inserted">hallo</div>
   </mwl-calendar-month-view>
-
-
 </div>
