@@ -27,7 +27,8 @@
         <form [formGroup]="userForm" class="form" autocomplete="off">
           <div *ngIf="!changeUsername">
             Benutzername: {{currentUser.username}}
-            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeUsername = true">Ändern</button>
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true">Ändern
+            </button>
           </div>
           <div *ngIf="changeUsername">
             <mat-form-field class="example-full-width">
@@ -50,7 +51,9 @@
           </div>
           <div *ngIf="!changeFirstname">
             Vorname: {{currentUser.firstName}}
-            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeFirstname = true">Ändern</button>
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
+              Ändern
+            </button>
           </div>
           <div *ngIf="changeFirstname">
             <mat-form-field class="example-full-width">
@@ -69,7 +72,8 @@
           </div>
           <div *ngIf="!changeLastname">
             Nachname: {{currentUser.lastName}}
-            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeLastname = true">Ändern</button>
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true">Ändern
+            </button>
           </div>
           <div *ngIf="changeLastname">
             <mat-form-field class="example-full-width">
@@ -88,7 +92,9 @@
           </div>
           <div *ngIf="!changeStressLimit">
             Stress Limit: {{currentUser.stress_limit}}
-            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeStressLimit = true">Ändern</button>
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
+              Ändern
+            </button>
           </div>
           <div *ngIf="changeStressLimit">
             <mat-form-field class="example-full-width">
@@ -102,6 +108,10 @@
 
             <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="setBooleansFalse()">Speichern</button>
           </div>
+          <button
+            *ngIf="changeFirstname == true || changeLastname == true || changeUsername == true || changeStressLimit == true"
+            (click)="setBooleansFalse(); changeForm()" class=" btn btn-primary">Verwerfen
+          </button>
         </form>
       </div>
     </mat-tab>
