@@ -42,7 +42,7 @@ export class TaskService {
     return this.http.get('/Backend/routes/task/getTask.php?TAID=' + TAID);
   }
 
-  getTasksByDeadline(deadline: number) {
+  getTasksByDeadline(deadline: string) {
     return this.http.get('/Backend/routes/task/getTasksByDeadline.php?deadline=' + deadline);
   }
 
