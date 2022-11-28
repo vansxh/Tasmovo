@@ -107,4 +107,25 @@ class Auth
             ]))->send(HttpCode::FORBIDDEN);
         }
     }
+
+    function updateUser($firstName, $lastName, $username, $stress_limit)
+    {
+        $stmt = Database::getDb()->prepare("UPDATE User SET first_name = :firstName, last_name = :lastName, username = :username, stress_limit = :stressLimit WHERE UID = :UID LIMIT 1");
+        $stmt->bindValue(":UID", $_SESSION['UID']);
+        $stmt->bindValue(":firstName", $firstName);
+        $stmt->bindValue(":lastName", $lastName);
+        $stmt->bindValue(":username", $username);
+        $stmt->bindValue(":stressLimit", $stress_limit);
+
+        $stmt->execute();
+
+        $result = $stmt->rowCount();
+
+        if ($result == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }
