@@ -40,24 +40,11 @@ export class CalendarComponent {
 
   ngOnInit(): void {
 
-    const routeParams = this.route.snapshot.params;
 
-    // if deadline is transmitted get task and display values
-    if (routeParams['deadline']) {
-      // get  next tasks
-      this.taskService.getTasksByDeadline(routeParams['deadline']).subscribe(
-        (data: any = []) => {
-          // get tasks from data
-          this.openTasks = <Task[]>data['data'];
-        },
-        (error: any = []) => {
-          if (error['error']['message']) {
-            alert(error['error']['message']);
-            return;
-          }
-          this.general.errorResponse(error['status']);
-        });
-    }
+  }
+
+  changeToDayView() {
+    this.taskService.changeToDayView(this.datePipe.transform(this.clickedDate,'yyyy-MM-dd', 'de-AT')||'');
   }
 
   setView(view: CalendarView) {

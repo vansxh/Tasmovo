@@ -49,8 +49,8 @@
 
 <div [ngSwitch]="view">
   <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-                           (dayClicked)="clickedDate = $event.day.date"
-                           (dayClicked)="setView(CalendarView.Day); setViewDate(clickedDate)"
+                           (dayClicked)="clickedDate = $event.day.date; changeToDayView()"
+
                            [class.active]="view === CalendarView.Day">
   </mwl-calendar-month-view>
   <mwl-calendar-week-view
@@ -65,8 +65,5 @@
     [events]="events"
   >
   </mwl-calendar-day-view>
-  <div class="row" *ngFor="let t of openTasks">
-    <div class="col-md-2">{{t.task_name}}</div>
-    <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
-  </div>
+
 </div>

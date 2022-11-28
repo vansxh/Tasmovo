@@ -60,6 +60,7 @@ import {
 } from '@angular-material-components/datetime-picker';
 import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import { OfCategoryPipe } from './pipes/of-category.pipe';
+import { CalendarDetailComponent } from './pages/calendar-detail/calendar-detail.component';
 
 registerLocaleData(localeAt);
 
@@ -86,7 +87,9 @@ export const routes: Routes = [
   {path: 'single-tasks', component: SingleTasksComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'sub-category', component: SubCategoryComponent, canActivate: [AuthGuard]},
-  {path: 'sub-category/:CAID', component: SubCategoryComponent, canActivate: [AuthGuard]}
+  {path: 'sub-category/:CAID', component: SubCategoryComponent, canActivate: [AuthGuard]},
+  {path: 'calendar-detail', component: CalendarDetailComponent, canActivate: [AuthGuard]},
+  {path: 'calendar-detail/:date', component: CalendarDetailComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -117,6 +120,7 @@ export const routes: Routes = [
     CategoryPipe,
     SubcategoryPipe,
     OfCategoryPipe,
+    CalendarDetailComponent,
   ],
   imports: [
     BrowserModule,

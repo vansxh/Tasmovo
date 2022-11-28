@@ -46,6 +46,10 @@ export class TaskService {
     return this.http.get('/Backend/routes/task/getTasksByDeadline.php?deadline=' + deadline);
   }
 
+  changeToDayView(date: string) {
+    this.router.navigate(['/calendar-detail/' + date]);
+  }
+
   updateTask(task: Task) {
     return this.http.put('/Backend/routes/task/updateTask.php', task);
   }
