@@ -6,8 +6,9 @@ require('../../bootstrap.inc.php');
 $auth->check();
 
 $stress = new Stresstracking();
+$today = date('Y-m-d');
 
-$result = $stress->getWeeklyAvg('01.01.2022','07.01.2022');
+$result = $stress->getWeeklyAvg($today);
 
 (new Response([
     'message' => 'Average erfolgreich bekommen.',
