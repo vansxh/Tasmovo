@@ -143,7 +143,7 @@ class Task
     // function for getting Tasks according to Deadline
     function getTasksByDeadline($deadline)
     {
-        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE deadline=:deadline");
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE Date(deadline)=:deadline");
         $stmt->bindValue(":deadline", $deadline);
 
         $stmt->execute();

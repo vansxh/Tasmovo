@@ -3,6 +3,21 @@ import { CalendarEvent, CalendarView, CalendarMonthViewDay,} from 'angular-calen
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
+import {Router, Params, ActivatedRoute} from '@angular/router';
+import {DatePipe} from '@angular/common';
+import {LOCALE_ID} from '@angular/core';
+import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
+import {
+  isSameMonth,
+  isSameDay,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  startOfDay,
+  endOfDay,
+  format,
+} from 'date-fns';
 
 @Component({
   selector: 'app-calendar',
@@ -13,24 +28,36 @@ import {GeneralService} from "../../services/general/general.service";
 export class CalendarComponent {
 
   view: CalendarView = CalendarView.Month;
-
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
   events: CalendarEvent[] = [];
-
   clickedDate: Date = new Date();
-
   public openTasks!: Task[];
-
   activeDayIsOpen: boolean = true;
+  insertEvent!: CalendarEvent;
 
-  constructor(private taskService: TaskService, private general: GeneralService) {}
+  constructor(private taskService: TaskService, private general: GeneralService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService) {}
 
   ngOnInit(): void {
-    // load next tasks
-    this.loadTasks();
+
+    const routeParams = this.route.snapshot.params;
+
+    // if deadline is transmitted get task and display values
+    if (routeParams['deadline']) {
+      // get  next tasks
+      this.taskService.getTasksByDeadline(routeParams['deadline']).subscribe(
+        (data: any = []) => {
+          // get tasks from data
+          this.openTasks = <Task[]>data['data'];
+        },
+        (error: any = []) => {
+          if (error['error']['message']) {
+            alert(error['error']['message']);
+            return;
+          }
+          this.general.errorResponse(error['status']);
+        });
+    }
   }
 
   setView(view: CalendarView) {
@@ -39,32 +66,6 @@ export class CalendarComponent {
 
   setViewDate(viewDate: Date) {
     this.viewDate = viewDate;
-  }
-
-  loadTasks(): void {
-    // get  next tasks
-    this.taskService.getNextTasks().subscribe(
-      (data: any = []) => {
-        // get tasks from data
-        this.openTasks = <Task[]>data['data'];
-        // fix deadline for input form
-        for (let t of this.openTasks) {
-          let deadline = t.deadline.split(" ");
-          t.deadlineDay = deadline[0];
-          //t.deadlineHour = deadline[1].slice(0, -3);
-        }
-      },
-      (error: any = []) => {
-        if (error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
-  }
-
-  openSingleTask(task: Task): void {
-    //this.taskService.getTaskToDeadline(task.TAID);
   }
 
   closeOpenMonthViewDay() {

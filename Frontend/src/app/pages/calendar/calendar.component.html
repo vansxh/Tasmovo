@@ -65,4 +65,8 @@
     [events]="events"
   >
   </mwl-calendar-day-view>
+  <div class="row" *ngFor="let t of openTasks">
+    <div class="col-md-2">{{t.task_name}}</div>
+    <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
+  </div>
 </div>
