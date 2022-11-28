@@ -9,9 +9,9 @@
       <br>
       <mat-progress-spinner
         class="example-margin"
-        value="50" mode="determinate" color="primary">
+        value="{{weeklyAverage*100}}" mode="determinate" color="primary">
       </mat-progress-spinner>
-      <div>Lvl:</div>
+      <div>Lvl: {{weeklyAverage}} / 10</div>
     </mat-tab>
     <mat-tab label="Info">
       <div>

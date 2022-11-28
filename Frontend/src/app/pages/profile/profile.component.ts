@@ -8,15 +8,16 @@ import {Category} from "../../services/category/category";
 import {User} from "../../services/authentication/user";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ErrorStateMatcher} from '@angular/material/core';
+import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit, AfterViewInit{
+export class ProfileComponent implements OnInit, AfterViewInit {
 
-  constructor(private auth: AuthenticationService, private taskService: TaskService, private general: GeneralService, private catService: CategoryService, private formBuilder: FormBuilder) {
+  constructor(private auth: AuthenticationService, private taskService: TaskService, private general: GeneralService, private catService: CategoryService, private formBuilder: FormBuilder, private stress: StresstrackingService) {
   }
 
   allTasks!: Task[];
@@ -38,7 +39,6 @@ export class ProfileComponent implements OnInit, AfterViewInit{
   matcher!: ErrorStateMatcher;
 
 
-
   userLoaded!: boolean;
   isLoading!: boolean;
 
@@ -49,6 +49,7 @@ export class ProfileComponent implements OnInit, AfterViewInit{
     //For error messages
 
     this.setBooleansFalse();
+    this.getWeeklyAvg();
     this.getData();
     //this.matcher = new ErrorStateMatcher();
   }
@@ -149,6 +150,20 @@ export class ProfileComponent implements OnInit, AfterViewInit{
 
   }
 
+  getWeeklyAvg() {
+    this.stress.getWeeklyAvg().subscribe((data: any = []) => {
+      //console.log(data['data']['0']['Average']);
+      this.weeklyAverage = data['data']['0']['Average'];
+      //console.log(this.weeklyAverage);
+    }, (error: any = []) => {
+      if (error['error']['message']) {
+        alert(error['error']['message']);
+        return;
+      }
+      this.general.errorResponse(error['status']);
+    });
+  }
+
   setBooleansFalse() {
     this.changeFirstname = false;
     this.changeLastname = false;
@@ -156,7 +171,7 @@ export class ProfileComponent implements OnInit, AfterViewInit{
     this.changeStressLimit = false;
   }
 
-  onUserFormSubmit(){
+  onUserFormSubmit() {
     console.log(this.userForm.value);
   }
 
