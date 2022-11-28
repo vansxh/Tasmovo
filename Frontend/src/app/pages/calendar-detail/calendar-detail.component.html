@@ -1,0 +1,27 @@
+<h2>Offen</h2>
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-2">Titel</div>
+  <div class="col-md-2">Deadline</div>
+</div>
+<div class="row" *ngFor="let t of deadlineTasks | notDone"> <!-- uses custom pipe notDone -->
+  <div class="col-md-2">
+    <button class="btn btn-primary" (click)="finishTask(t)">Finish</button>
+  </div>
+  <div class="col-md-2">{{t.task_name}}</div>
+  <div class="col-md-2">{{t.deadline | date: 'shortTime'}}</div>
+</div>
+
+<br>
+
+<h2>Erledigt</h2>
+
+<div class="row">
+  <div class="col-md-2">Titel</div>
+  <div class="col-md-2">Deadline</div>
+</div>
+<div class="row" *ngFor="let t of deadlineTasks | done"> <!-- uses custom pipe done -->
+  <div class="col-md-2">{{t.task_name}}</div>
+  <div class="col-md-2">{{t.deadline | date: 'shortTime'}}</div>
+</div>
