@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
-import { CalendarEvent, CalendarView} from 'angular-calendar';
+import { CalendarEvent, CalendarView, CalendarMonthViewDay,} from 'angular-calendar';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
@@ -20,20 +20,26 @@ export class CalendarComponent {
 
   events: CalendarEvent[] = [];
 
-  public clickedDate: Date | undefined;
+  clickedDate: Date = new Date();
 
   public openTasks!: Task[];
 
-  constructor(private taskService: TaskService, private general: GeneralService) {
-  }
+  activeDayIsOpen: boolean = true;
+
+  constructor(private taskService: TaskService, private general: GeneralService) {}
 
   ngOnInit(): void {
-
     // load next tasks
     this.loadTasks();
   }
 
+  setView(view: CalendarView) {
+    this.view = view;
+  }
 
+  setViewDate(viewDate: Date) {
+    this.viewDate = viewDate;
+  }
 
   loadTasks(): void {
     // get  next tasks
@@ -57,13 +63,14 @@ export class CalendarComponent {
       });
   }
 
-  openCalendarDetail(): void {
-    this.taskService.openCalendarDetail();
-  }
-
   openSingleTask(task: Task): void {
     //this.taskService.getTaskToDeadline(task.TAID);
   }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+
 
 }
 

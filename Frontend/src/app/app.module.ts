@@ -60,7 +60,6 @@ import {
 } from '@angular-material-components/datetime-picker';
 import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import { OfCategoryPipe } from './pipes/of-category.pipe';
-import { CalendarDetailComponent } from './pages/calendar-detail/calendar-detail.component';
 
 registerLocaleData(localeAt);
 
@@ -80,8 +79,6 @@ export const routes: Routes = [
   {path: 'insert-category', component: InsertCategoryComponent, canActivate: [AuthGuard]},
   {path: 'insert-category/:CAID', component: InsertCategoryComponent, canActivate: [AuthGuard]},
   {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
-  {path: 'calendar-detail', component: CalendarDetailComponent, canActivate: [AuthGuard]},
-  {path: 'calendar-detail/:date', component: CalendarDetailComponent, canActivate: [AuthGuard]},
   {path: 'category', component: CategoryComponent, canActivate: [AuthGuard]},
   {path: 'category/:CAID', component: CategoryComponent, canActivate: [AuthGuard]},
   {path: 'my-categories', component: MyCategoriesComponent, canActivate: [AuthGuard]},
@@ -90,7 +87,6 @@ export const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'sub-category', component: SubCategoryComponent, canActivate: [AuthGuard]},
   {path: 'sub-category/:CAID', component: SubCategoryComponent, canActivate: [AuthGuard]}
-
 ];
 
 @NgModule({
@@ -121,7 +117,6 @@ export const routes: Routes = [
     CategoryPipe,
     SubcategoryPipe,
     OfCategoryPipe,
-    CalendarDetailComponent,
   ],
   imports: [
     BrowserModule,
