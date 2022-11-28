@@ -154,6 +154,11 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.stress.getWeeklyAvg().subscribe((data: any = []) => {
       //console.log(data['data']['0']['Average']);
       this.weeklyAverage = data['data']['0']['Average'];
+      if (this.weeklyAverage == 10.00){
+        this.weeklyAverage = 10;
+      }else if (this.weeklyAverage == 0.00){
+        this.weeklyAverage = 0;
+      }
       //console.log(this.weeklyAverage);
     }, (error: any = []) => {
       if (error['error']['message']) {
