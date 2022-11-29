@@ -5,6 +5,8 @@ import {TimerService} from "../../services/timer/timer.service";
 import {GeneralService} from "../../services/general/general.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ErrorStateMatcher} from "@angular/material/core";
+import DevExpress from "devextreme";
+import data = DevExpress.data;
 
 @Component({
   selector: 'app-timer',
@@ -79,7 +81,9 @@ export class TimerComponent implements OnInit {
   }
 
   startTimer(){
-
+    this.timer.createTimer(this.rewardForm.value).subscribe(data =>{
+      console.log(data);
+    });
   }
 
   stopTimer(){
