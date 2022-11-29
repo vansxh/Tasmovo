@@ -61,6 +61,7 @@ import {
 import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import { OfCategoryPipe } from './pipes/of-category.pipe';
 import { CalendarDetailComponent } from './pages/calendar-detail/calendar-detail.component';
+import { SwiperModule } from 'swiper/angular';
 
 registerLocaleData(localeAt);
 
@@ -149,7 +150,8 @@ export const routes: Routes = [
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     NgxMatTimepickerModule,
-    NgbProgressbarModule
+    NgbProgressbarModule,
+    SwiperModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},

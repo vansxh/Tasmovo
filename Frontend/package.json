@@ -30,6 +30,8 @@
     "angularx-flatpickr": "^7.0.0",
     "bootstrap": "^5.2.3",
     "date-fns": "^2.29.3",
+    "devextreme": "22.1.6",
+    "devextreme-angular": "22.1.6",
     "flatpickr": "^4.6.13",
     "igniteui-angular": "^14.2.7",
     "mat-timepicker": "^5.1.7",
@@ -37,6 +39,7 @@
     "ng-validate-equal": "^6.0.1",
     "ngx-mat-timepicker": "^14.0.5",
     "rxjs": "~7.5.0",
+    "swiper": "^8.4.5",
     "tslib": "^2.3.0",
     "uuid": "^9.0.0",
     "zone.js": "~0.11.4"

@@ -1,15 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
 import {Category} from "../../services/category/category";
 import {CategoryService} from "../../services/category/category.service";
+import {SwiperComponent} from "swiper/angular";
+
+// import Swiper core and required modules
+import SwiperCore, {A11y, Navigation, Pagination, Scrollbar} from 'swiper';
+
+// install Swiper modules
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+  styleUrls: ['./category.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CategoryComponent implements OnInit {
 
@@ -89,6 +97,10 @@ export class CategoryComponent implements OnInit {
 
   showCategory(category: Category): void {
     this.catService.showSubCategory(category.CAID);
+  }
+
+  onSlideChange(swiper: any) {
+      console.log(swiper);
   }
 
 }
