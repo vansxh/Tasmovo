@@ -67,6 +67,6 @@ export class TaskService {
   }
 
   getAllTasks() {
-    return this.http.get<Task[]>('/Backend/routes/task/getAllTasks.php');
+    return this.http.get('/Backend/routes/task/getAllTasks.php');
   }
 }
