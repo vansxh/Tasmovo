@@ -7,6 +7,15 @@
   </div>
   <div>
     <form [formGroup]="rewardForm" novalidate class="form">
+      <mat-form-field class="example-full-width">
+        <mat-label></mat-label>
+        <input matInput type="number" [errorStateMatcher]="matcher" formControlName="stressLimit" min="0"
+               max="100">
+        <mat-error *ngIf="rewardForm.get('stressLimit')?.hasError('required')">
+          Dieses Feld darf nicht leer sein.
+        </mat-error>
+      </mat-form-field>
+
     <label for="reward">Belohnung</label>
     <select formControlName="reward" placeholder="Auswahl" name="reward"
             class="form-control" id="reward">
@@ -18,4 +27,8 @@
   <div>
     <button [disabled]="!rewardForm.valid" class="btn btn-secondary">Start</button>
   </div>
+</div>
+
+<div>
+
 </div>

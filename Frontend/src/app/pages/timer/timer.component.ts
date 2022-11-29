@@ -4,6 +4,7 @@ import {Reward} from "../../services/timer/Reward";
 import {TimerService} from "../../services/timer/timer.service";
 import {GeneralService} from "../../services/general/general.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ErrorStateMatcher} from "@angular/material/core";
 
 @Component({
   selector: 'app-timer',
@@ -22,6 +23,8 @@ export class TimerComponent implements OnInit {
   timerEnd: boolean | undefined;
 
   rewards!: Reward[];
+
+  matcher!: ErrorStateMatcher;
 
   ngOnInit(): void {
     this.startState();
