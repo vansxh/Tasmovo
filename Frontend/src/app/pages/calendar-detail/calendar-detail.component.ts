@@ -85,6 +85,7 @@ loadTasks(): void {
     },
     (error: any = []) => {
       if (error['error']['message']) {
+        this.deadlineTasks = [];
         alert(error['error']['message']);
         return;
       }

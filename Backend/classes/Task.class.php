@@ -141,10 +141,11 @@ class Task
     }
 
     // function for getting Tasks according to Deadline
-    function getTasksByDeadline($deadline)
+    function getTasksByDeadline($userID, $deadline)
     {
-        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE Date(deadline)=:deadline");
+        $stmt = Database::getDb()->prepare("SELECT * FROM Task WHERE Date(deadline)=:deadline AND created_by=:userID");
         $stmt->bindValue(":deadline", $deadline);
+        $stmt->bindValue(":userID", $userID);
 
         $stmt->execute();
 

@@ -8,7 +8,7 @@ $auth->check();
 $task = new Task();
 $deadline = $_GET['deadline'];
 
-$item = $task->getTasksByDeadline($deadline);
+$item = $task->getTasksByDeadline($_SESSION['UID'], $deadline);
 
 // check if tasks were returned
 if (!$item) {
