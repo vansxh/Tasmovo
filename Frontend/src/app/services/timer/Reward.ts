@@ -1,4 +1,4 @@
 export class Reward {
-  RID!: string;
+  RID!: number;
   reward!: string;
 }

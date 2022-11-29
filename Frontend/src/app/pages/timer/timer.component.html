@@ -9,19 +9,45 @@
     <form [formGroup]="rewardForm" novalidate class="form">
       <mat-form-field class="example-full-width">
         <mat-label></mat-label>
-        <input matInput type="number" [errorStateMatcher]="matcher" formControlName="stressLimit" min="0"
-               max="100">
-        <mat-error *ngIf="rewardForm.get('stressLimit')?.hasError('required')">
+        <input matInput type="number" [errorStateMatcher]="matcher" formControlName="hours"
+               onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;">
+        <mat-error *ngIf="rewardForm.get('hours')?.hasError('required')">
           Dieses Feld darf nicht leer sein.
         </mat-error>
+        <mat-error *ngIf="rewardForm.get('hours')?.hasError('max')">
+          Dieses Feld darf nicht größer als 24 sein.
+        </mat-error>
+        <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
+          Dieses Feld darf nicht kleiner als 0 sein.
+        </mat-error>
       </mat-form-field>
-
-    <label for="reward">Belohnung</label>
-    <select formControlName="reward" placeholder="Auswahl" name="reward"
-            class="form-control" id="reward">
-      <option value="" disabled selected>Wähle deine Belohnung aus</option>
-      <option *ngFor="let r of rewards" value="{{r.RID}}">{{r.reward}}</option>
-    </select>
+      :
+      <mat-form-field class="example-full-width">
+        <mat-label></mat-label>
+        <input matInput type="number" [errorStateMatcher]="matcher" formControlName="minutes"
+               onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;">
+        <mat-error *ngIf="rewardForm.get('minutes')?.hasError('required')">
+          Dieses Feld darf nicht leer sein.
+        </mat-error>
+        <mat-error *ngIf="rewardForm.get('minutes')?.hasError('max')">
+          Dieses Feld darf maximal 59 betragen.
+        </mat-error>
+        <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
+          Dieses Feld darf nicht kleiner oder gleich 0 sein.
+        </mat-error>
+      </mat-form-field>
+      :
+      <mat-form-field class="example-full-width">
+        <mat-label></mat-label>
+        <input matInput type="number" formControlName="seconds" [readonly]="true">
+      </mat-form-field>
+      <br>
+      <label for="rewardID">Belohnung</label>
+      <select formControlName="rewardID" name="reward"
+              class="form-control" id="rewardID">
+        <option value="" disabled selected>Wähle deine Belohnung aus</option>
+        <option *ngFor="let r of rewards" value="{{r.RID}}">{{r.reward}}</option>
+      </select>
     </form>
   </div>
   <div>
@@ -29,6 +55,10 @@
   </div>
 </div>
 
-<div>
+<div *ngIf="whileTimer">
+
+</div>
+
+<div *ngIf="timerEnd">
 
 </div>

@@ -29,40 +29,65 @@ export class TimerComponent implements OnInit {
   ngOnInit(): void {
     this.startState();
     this.getRewards();
-
-    this.rewardForm = this.formBuilder.group({
-      reward: ['', Validators.required]
-    });
   }
 
-  startState(){
+  startState() {
     this.timerStart = true;
     this.whileTimer = false;
     this.timerEnd = false;
+
+    this.initForm();
   }
 
-  whileState(){
+  whileState() {
     this.timerStart = false;
     this.whileTimer = true;
     this.timerEnd = false;
   }
 
-  finishState(){
+  finishState() {
     this.timerStart = false;
     this.whileTimer = false;
     this.timerEnd = true;
   }
 
-  getRewards(){
-    this.timer.getRewards().subscribe((data: any = []) =>{
+  getRewards() {
+    this.timer.getRewards().subscribe((data: any = []) => {
       this.rewards = <Reward[]>data['data'];
-    },(error: any = []) =>{
-      if(error['error']['message']) {
+    }, (error: any = []) => {
+      if (error['error']['message']) {
         alert(error['error']['message']);
         return;
       }
       this.general.errorResponse(error['status']);
     });
+  }
+
+  initForm() {
+    this.rewardForm = this.formBuilder.group({
+      rewardID: ['', Validators.required],
+      hours: ['', [Validators.required, Validators.max(24), Validators.min(0)]],
+      minutes: ['', [Validators.required, Validators.max(59), Validators.min(1)]],
+      seconds: ['', Validators.required]
+    });
+    this.rewardForm.setValue({
+      rewardID: '',
+      hours: '00',
+      minutes: '00',
+      seconds: '00'
+    });
+  }
+
+  startTimer(){
+
+  }
+
+  stopTimer(){
+
+  }
+
+  getCurrentTimer(){
+
   }
 
 }
