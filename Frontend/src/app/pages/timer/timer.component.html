@@ -1,1 +1,21 @@
-<p>timer works!</p>
+<div *ngIf="timerStart">
+  <div>
+    <h1>Timer</h1>
+  </div>
+  <div>
+    <img src="assets/timer.svg" alt="Timer">
+  </div>
+  <div>
+    <form [formGroup]="rewardForm" novalidate class="form">
+    <label for="reward">Belohnung</label>
+    <select formControlName="reward" placeholder="Auswahl" name="reward"
+            class="form-control" id="reward">
+      <option value="" disabled selected>Wähle deine Belohnung aus</option>
+      <option *ngFor="let r of rewards" value="{{r.RID}}">{{r.reward}}</option>
+    </select>
+    </form>
+  </div>
+  <div>
+    <button [disabled]="!rewardForm.valid" class="btn btn-secondary">Start</button>
+  </div>
+</div>
