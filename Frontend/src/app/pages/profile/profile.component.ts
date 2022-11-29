@@ -154,9 +154,9 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.stress.getWeeklyAvg().subscribe((data: any = []) => {
       //console.log(data['data']['0']['Average']);
       this.weeklyAverage = data['data']['0']['Average'];
-      if (this.weeklyAverage == 10.00){
+      if (this.weeklyAverage == 10.00) {
         this.weeklyAverage = 10;
-      }else if (this.weeklyAverage == 0.00){
+      } else if (this.weeklyAverage == 0.00 || this.weeklyAverage == null) {
         this.weeklyAverage = 0;
       }
       //console.log(this.weeklyAverage);
@@ -177,7 +177,17 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   onUserFormSubmit() {
-    console.log(this.userForm.value);
+    //console.log(this.userForm.value);
+    this.auth.updateUser(this.userForm.value).subscribe((data: any = []) => {
+      this.ngOnInit();
+      this.ngAfterViewInit();
+    }, (error: any = []) => {
+      if (error['error']['message']) {
+        alert(error['error']['message']);
+        return;
+      }
+      this.general.errorResponse(error['status']);
+    });
   }
 
 

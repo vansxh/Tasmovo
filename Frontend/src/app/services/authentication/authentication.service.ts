@@ -31,6 +31,10 @@ export class AuthenticationService {
     return this.http.get('/Backend/routes/user/getUser.php');
   }
 
+  updateUser(user: User){
+    return this.http.put('/Backend/routes/user/updateUser.php', user);
+  }
+
   setSession(token: string) {
     sessionStorage.setItem('token', token);
   }

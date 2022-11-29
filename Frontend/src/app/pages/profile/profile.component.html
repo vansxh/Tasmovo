@@ -47,7 +47,7 @@
               </mat-error>
             </mat-form-field>
 
-            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="setBooleansFalse()">Speichern</button>
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="onUserFormSubmit()">Speichern</button>
           </div>
           <div *ngIf="!changeFirstname">
             Vorname: {{currentUser.firstName}}
@@ -68,7 +68,7 @@
               </mat-error>
             </mat-form-field>
 
-            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="setBooleansFalse()">Speichern</button>
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="onUserFormSubmit()">Speichern</button>
           </div>
           <div *ngIf="!changeLastname">
             Nachname: {{currentUser.lastName}}
@@ -88,7 +88,7 @@
               </mat-error>
             </mat-form-field>
 
-            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="setBooleansFalse()">Speichern</button>
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="onUserFormSubmit()">Speichern</button>
           </div>
           <div *ngIf="!changeStressLimit">
             Stress Limit: {{currentUser.stress_limit}}
@@ -106,7 +106,7 @@
               </mat-error>
             </mat-form-field>
 
-            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="setBooleansFalse()">Speichern</button>
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="onUserFormSubmit()">Speichern</button>
           </div>
           <button
             *ngIf="changeFirstname == true || changeLastname == true || changeUsername == true || changeStressLimit == true"
