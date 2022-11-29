@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Task} from './task';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../authentication/authentication.service';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -66,7 +67,7 @@ export class TaskService {
     return this.http.get('/Backend/routes/task/getSingleTasks.php');
   }
 
-  getAllTasks() {
-    return this.http.get('/Backend/routes/task/getAllTasks.php');
+  getAllTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>('/Backend/routes/task/getAllTasks.php');
   }
 }
