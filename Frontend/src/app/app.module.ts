@@ -48,7 +48,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CategoryPipe } from './pipes/category.pipe';
 import { SubcategoryPipe } from './pipes/subcategory.pipe';
 import { FlatpickrModule } from 'angularx-flatpickr';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
+import {CalendarDateFormatter, CalendarModule, DateAdapter} from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import {NgbModalModule, NgbProgressbarModule} from '@ng-bootstrap/ng-bootstrap';
 import {ErrorStateMatcher, ShowOnDirtyErrorStateMatcher} from "@angular/material/core";
