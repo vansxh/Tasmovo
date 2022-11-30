@@ -5,13 +5,14 @@ import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
 import {Category} from "../../services/category/category";
 import {CategoryService} from "../../services/category/category.service";
+import { BehaviorSubject } from 'rxjs';
 import {SwiperComponent} from "swiper/angular";
 
 // import Swiper core and required modules
-import SwiperCore, {A11y, Navigation, Pagination, Scrollbar} from 'swiper';
+import SwiperCore, { Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual } from 'swiper';
 
 // install Swiper modules
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
+SwiperCore.use([Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual]);
 
 @Component({
   selector: 'app-category',
@@ -27,8 +28,14 @@ export class CategoryComponent implements OnInit {
   public categoryTasks!: Task[];
   public subcategories!: Category[];
   public allTasks!: Task[];
+  slides$ = new BehaviorSubject<string[]>(['']);
 
   ngOnInit(): void {
+
+    this.slides$.next(
+      Array.from({ length: 600 }).map((el, index) => `Slide ${index + 1}`)
+    );
+
     const routeParams = this.route.snapshot.params;
 
     if (routeParams['CAID']) {
