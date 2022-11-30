@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -11,16 +13,15 @@ $theme-colors: (
   "danger": #ff4136
 );
 
+$web-font-path: "https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap" !default;
+
 // Bootstrap and its default variables
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import url($web-font-path);
 
 .bg-primary {
   background-color: #30245B!important;
-}
-
-.h1{
-  font-family: "Ubuntu", bold;
 }
 
 .btn-circle.btn-xl {
@@ -30,4 +31,12 @@ $theme-colors: (
   border-radius: 60px;
   font-size: 15px;
   text-align: center;
+}
+
+.balken{
+  width: 100%;
+  height: 6em;
+  background: #E6E1F1;
+  margin: 0;
+  padding: 0;
 }
