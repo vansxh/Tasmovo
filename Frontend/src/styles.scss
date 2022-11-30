@@ -3,6 +3,11 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+@font-face {
+  font-family: Delicious;
+  src: url('Frontend/src/assets')
+  format("opentype");
+}
 
 // Your variable overrides
 $theme-colors: (
