@@ -3,6 +3,7 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
 // Your variable overrides
 $theme-colors: (
   "primary": #0074d9,
@@ -16,4 +17,8 @@ $theme-colors: (
 
 .bg-primary {
   background-color: #30245B!important;
+}
+
+.h1{
+  font-family: "Ubuntu", bold;
 }
