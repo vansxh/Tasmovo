@@ -8,9 +8,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 // Your variable overrides
 $theme-colors: (
-  "primary": #0074d9,
-  "secondary":#000000,
-  "danger": #ff4136
+  "primary": #30235B,
+  "secondary": #634C9A,
+  "success": #9F92C6,
+  "info": #D0C7EC,
+  "warning": #000000,
+  "danger": #000000,
+  "light": #ffffff,
+  "dark": #D9D9D9
 );
 
 $web-font-path: "https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap" !default;
@@ -25,9 +30,10 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&displa
 }
 
 .btn-circle.btn-xl {
-  width: 100px;
-  height: 100px;
+  width: 40px;
+  height: 40px;
   padding: 13px 18px;
+  border: none;
   border-radius: 60px;
   font-size: 15px;
   text-align: center;
