@@ -75,6 +75,7 @@ export class CategoryComponent implements OnInit {
         (data: any = []) => {
           // get tasks from data
           this.allTasks = <Task[]>data['data'];
+          console.log(this.allTasks);
         },
         (error: any = []) => {
           if(error['error']['message']) {
@@ -84,6 +85,7 @@ export class CategoryComponent implements OnInit {
           this.general.errorResponse(error['status']);
         });
     }
+
   }
 
   finishTask(task: Task): void {
