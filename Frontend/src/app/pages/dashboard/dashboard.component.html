@@ -4,26 +4,28 @@
 
 <h2>Nächste Tasks</h2>
 
-<div class="row">
+<div class="shadow p-3 mb-2 bg-white">
+<!--<div class="row">
   <div class="col-md-2">Titel</div>
   <div class="col-md-2">Deadline</div>
-</div>
+</div>-->
 <div class="row" *ngFor="let t of openTasks">
+  <div class="col-md-2">
+    <button class="btn-circle btn-xl" (click)="finishTask(t)">Finish</button>
+  </div>
   <div class="col-md-2">{{t.task_name}}</div>
   <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
-  <div class="col-md-2">
+  <!--<div class="col-md-2">
     <button class="btn btn-success" (click)="editTask(t)">Edit</button>
   </div>
   <div class="col-md-2">
     <button class="btn btn-danger" (click)="deleteTask(t)">Delete</button>
-  </div>
-  <div class="col-md-2">
-    <button class="btn btn-primary" (click)="finishTask(t)">Finish</button>
-  </div>
+  </div>-->
+</div>
 </div>
 
 <br>
-<h2>Abgeschlossene Tasks</h2>
+<!--<h2>Abgeschlossene Tasks</h2>
 <div class="row">
   <div class="col-md-2">Titel</div>
   <div class="col-md-2">Abgeschlossen am</div>
@@ -31,10 +33,20 @@
 <div style="color:darkgray;" class="row" *ngFor="let t of finishedTasks">
   <div class="col-md-2">{{t.task_name}}</div>
   <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
-</div>
+</div>-->
 
 <br>
 
-<button class="btn btn-secondary" (click)="addTask()">Task erstellen</button>
+<div class="d-flex flex-column justify-content-center align-items-center shadow p-3 mb-2 bg-white">
+  <div>Dein Stresslevel diese Woche:</div>
+  <br>
+  <mat-progress-spinner
+    class="example-margin"
+    value="{{weeklyAverage*10}}" mode="determinate" color="primary">
+  </mat-progress-spinner>
+  <div>Lvl: {{weeklyAverage}} / 10</div>
+</div>
+
+<!--<button class="btn btn-secondary" (click)="addTask()">Task erstellen</button>-->
 
 <!--<button class="btn btn-primary" (click)="onFinishOpen()">PopUp</button>-->

@@ -7,6 +7,8 @@ import {AuthenticationService} from 'src/app/services/authentication/authenticat
 import {GeneralService} from "../../services/general/general.service";
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
+import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
+
 
 @Component({
   selector: 'app-dashboard',
@@ -18,12 +20,12 @@ export class DashboardComponent implements OnInit {
   public openTasks!: Task[];
   public finishedTasks!: Task[];
   public dailyQuote!: Quote;
+  weeklyAverage!: number;
 
-  constructor(private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog) {
+  constructor(private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog, private stress: StresstrackingService) {
   }
 
   ngOnInit(): void {
-
     // load next and finished tasks
     this.loadTasks();
 
@@ -39,6 +41,8 @@ export class DashboardComponent implements OnInit {
           }
           this.general.errorResponse(error['status']);
       });
+
+    this.getWeeklyAvg();
 
   }
 
@@ -123,6 +127,25 @@ export class DashboardComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(PopupFinishComponent, dialogConfig);
+  }
+
+  getWeeklyAvg() {
+    this.stress.getWeeklyAvg().subscribe((data: any = []) => {
+      //console.log(data['data']['0']['Average']);
+      this.weeklyAverage = data['data']['0']['Average'];
+      if (this.weeklyAverage == 10.00) {
+        this.weeklyAverage = 10;
+      } else if (this.weeklyAverage == 0.00 || this.weeklyAverage == null) {
+        this.weeklyAverage = 0;
+      }
+      //console.log(this.weeklyAverage);
+    }, (error: any = []) => {
+      if (error['error']['message']) {
+        alert(error['error']['message']);
+        return;
+      }
+      this.general.errorResponse(error['status']);
+    });
   }
 
 }
