@@ -57,14 +57,15 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void{
     this.viewDate = new Date();
     this.getAllNextTasks();
-    this.getAllFinishedTasks();
-
+    //this.getAllFinishedTasks();
+    console.log(this.events);
   }
 
   getAllNextTasks(){
-    this.taskService.getNextTasks().subscribe(
+    this.taskService.getAllTasks().subscribe(
       (data: any = []) => {
         this.allTasks = <Task[]>data['data'];
+        this.allTasks.sort(function(a, b){return a.statusID - b.statusID});
         console.log(this.allTasks);
         this.allTasks.forEach((item)=>{
           this.events.push({
@@ -72,7 +73,7 @@ export class CalendarComponent implements OnInit {
             start:new Date(item.deadline),
             end:new Date(item.deadline),
             title:item.task_name,
-            color: colors['main'],
+            color: item.statusID == 1 ? colors['main'] : colors['done'],
             //actions: this.actions
           })
         });
@@ -114,6 +115,7 @@ export class CalendarComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
   }
+
   changeToDayView() {
     this.taskService.changeToDayView(this.datePipe.transform(this.clickedDate,'yyyy-MM-dd', 'de-AT')||'');
   }

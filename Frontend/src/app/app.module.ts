@@ -63,6 +63,15 @@ import { OfCategoryPipe } from './pipes/of-category.pipe';
 import { CalendarDetailComponent } from './pages/calendar-detail/calendar-detail.component';
 import { SwiperModule } from 'swiper/angular';
 import { PopupAddComponent } from './popups/popup-add/popup-add.component';
+import {CalendarNativeDateFormatter, DateFormatterParams} from 'angular-calendar';
+
+class CustomDateFormatter extends CalendarNativeDateFormatter {
+
+  public override monthViewColumnHeader({date, locale}: DateFormatterParams): string {
+    return new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date);
+  }
+
+}
 
 registerLocaleData(localeAt);
 
@@ -186,7 +195,8 @@ export const routes: Routes = [
         },
       },
     },
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    {provide: CalendarDateFormatter, useClass: CustomDateFormatter}
   ],
   bootstrap: [AppComponent],
   exports: [CalendarComponent]

@@ -21,7 +21,7 @@
                            (dayClicked)="clickedDate = $event.day.date; changeToDayView()"
                            [class.active]="view === CalendarView.Day"
                             [cellTemplate]="myTemplate"
-                            [headerTemplate]="myHeaderTemplate">
+                            [weekStartsOn] = "1">
   </mwl-calendar-month-view>
   <mwl-calendar-week-view
     *ngSwitchCase="CalendarView.Week"
@@ -38,7 +38,7 @@
 </div>
 <br>
 <div>
-  <button class="btn btn-outline-secondary mx-auto d-block mb-4" mwlCalendarToday [(viewDate)]="viewDate">
+  <button (click)="changeToDayView()" class="btn btn-outline-secondary mx-auto d-block mb-4" mwlCalendarToday [(viewDate)]="viewDate">
     Heute
   </button>
 </div>
@@ -96,28 +96,5 @@
       (mwlClick)="eventClicked.emit({ event: event, sourceEvent: $event })"
       [attr.aria-hidden]="{} | calendarA11y: 'hideMonthCellEvents'"
     ></div>
-  </div>
-</ng-template>
-
-<ng-template
-  #myHeaderTemplate
-  let-days="days"
-  let-locale="locale"
-  let-trackByWeekDayHeaderDate="trackByWeekDayHeaderDate"
->
-  <div class="cal-cell-row cal-header" role="row">
-    <div
-      class="cal-cell"
-      *ngFor="let day of days; trackBy: trackByWeekDayHeaderDate"
-      [class.cal-past]="day.isPast"
-      [class.cal-today]="day.isToday"
-      [class.cal-future]="day.isFuture"
-      [class.cal-weekend]="day.isWeekend"
-      [ngClass]="day.cssClass"
-      tabindex="0"
-      role="columnheader"
-    >
-      {{ day.date | date: 'E' }}
-    </div>
   </div>
 </ng-template>
