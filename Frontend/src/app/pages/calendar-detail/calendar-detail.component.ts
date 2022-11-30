@@ -38,38 +38,56 @@ export class CalendarDetailComponent implements OnInit {
     this.today = new Date(routeParams['date']).getDate();
     this.year = new Date(routeParams['date']).getFullYear();
     this.month = new Date(routeParams['date']).getMonth();
-    // using a 0 param in the day slot of Date() gives you the last day automatically. fantastic.
+    // get number of days in month
     this.daysInMonth = new Date(this.year, this.month+1, 0).getDate();
 
-    const tbl = document.getElementById('calendar') || document.createElement('div');
-    //  clear whatever table currently exists before creating the new one
-    tbl.innerHTML = '';
+    const calendar = document.getElementById('calendar') || document.createElement('div');
+    //  clear calendar
+    calendar.innerHTML = '';
 
     // create a div for each day of the month
     for (let date = 1; date <= this.daysInMonth; date++) {
 
       const div = document.createElement('div');
 
-      div.setAttribute('id', 'day-' + date);
-
       div.classList.add('day');
-      const span = document.createElement('span');
+      div.classList.add(date + '');
+      const p1 = document.createElement('p');
       // set the text in the div to the weekday and day
-      const divText = document.createTextNode(new Date(this.year, this.month, date).toLocaleString('de-at', {  weekday: 'short' }) + date + '');
-      span.appendChild(divText);
-      div.appendChild(span);
-      tbl.appendChild(div);
+      const p1Text = document.createTextNode(new Date(this.year, this.month, date).toLocaleString('de-at', {  weekday: 'short' }));
+      p1.classList.add('day');
+      p1.classList.add(date + '');
+      const p2 = document.createElement('p');
+      const p2Text = document.createTextNode(date + '');
+      p2.classList.add('day');
+      p2.classList.add(date + '');
+      // add everything to the calendar
+      p1.appendChild(p1Text);
+      p2.appendChild(p2Text);
+      div.appendChild(p1);
+      div.appendChild(p2);
+      calendar.appendChild(div);
     }
-
     const classname = document.getElementsByClassName('day');
+
+    // function for event listener
     const addEditEvent = (e:any) => {
+      // remove selected class from all elements
+      for (let i = 0; i < classname.length; i++) {
+        classname[i].classList.remove('selected');
+      }
       // set the date clicked for getting all tasks with this deadline
-      console.log(e.target.innerHTML);
-      this.selectedDate.setDate(parseInt(e.target.innerHTML.slice(2), 10));
-      console.log(this.selectedDate);
+      this.selectedDate.setDate(parseInt(e.target.className.slice(4), 10));
+      // set selected class for selected day
+      const wholeDay = document.getElementsByClassName(e.target.className);
+      for (let i = 0; i < wholeDay.length; i++) {
+        wholeDay[i].classList.add('selected');
+      }
+      // load tasks of selected day
       this.loadTasks();
     }
 
+    // add event listener
     for (let i = 0; i < classname.length; i++) {
       classname[i].addEventListener('click', addEditEvent, false);
     }

@@ -1,0 +1,29 @@
+#calendar {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  gap: 50px;
+  overflow-x: auto;
+}
+
+#calendar::-webkit-scrollbar {
+  display: none;
+}
+
+.day div {
+  position: absolute;
+  flex-shrink: 0;
+  padding: 40px;
+}
+
+.day p {
+  margin: auto;
+}
+
+.day.selected p{
+  background-color: #30235B;
+  color: #ffffff;
+}
