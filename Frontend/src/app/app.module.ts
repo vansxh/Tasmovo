@@ -62,6 +62,7 @@ import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import { OfCategoryPipe } from './pipes/of-category.pipe';
 import { CalendarDetailComponent } from './pages/calendar-detail/calendar-detail.component';
 import { SwiperModule } from 'swiper/angular';
+import { PopupAddComponent } from './popups/popup-add/popup-add.component';
 
 registerLocaleData(localeAt);
 
@@ -122,6 +123,7 @@ export const routes: Routes = [
     SubcategoryPipe,
     OfCategoryPipe,
     CalendarDetailComponent,
+    PopupAddComponent,
   ],
   imports: [
     BrowserModule,

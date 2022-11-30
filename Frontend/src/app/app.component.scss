@@ -8,6 +8,12 @@
   display: none;
 }
 
+#display-plus {
+  position: fixed;
+  top: 80%;
+  left: 85%;
+}
+
 @media (max-width: 768px) {
   #display-desktop {
     display: none;
@@ -15,6 +21,10 @@
 
   #display-mobile {
     display: block;
+  }
+
+  #display-plus {
+    display: none;
   }
 
 }
