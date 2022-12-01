@@ -70,4 +70,12 @@ export class TaskService {
   getAllTasks(): Observable<Task[]> {
     return this.http.get<Task[]>('/Backend/routes/task/getAllTasks.php');
   }
+
+  getPlannedTasks(date: string) {
+    return this.http.get<Task[]>('/Backend/routes/task/getPlannedTasks.php?date=' + date);
+  }
+
+  updatePlannedTask(task: Task) {
+    return this.http.put('/Backend/routes/task/updatePlannedTask.php', task);
+  }
 }

@@ -154,4 +154,30 @@ class Task
         return $result;
     }
 
+    // function for getting tasks planned for My Day
+    function getPlannedTasks($userID, $date)
+    {
+        $stmt = Database::getDb()->prepare("SELECT * FROM MyDay as md INNER JOIN Task as t ON md.taskID=t.TAID WHERE md.planned_date=:date AND t.created_by=:userID");
+        $stmt->bindValue(":date", $date);
+        $stmt->bindValue(":userID", $userID);
+
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    // function for updating a planned task in My Day
+    function updatePlannedTask($TAID, $start_time, $end_time)
+    {
+        $stmt = Database::getDb()->prepare("UPDATE MyDay SET start_time=:start_time, end_time=:end_time WHERE taskID=:TAID LIMIT 1");
+        $stmt->bindValue(":TAID", $TAID);
+        $stmt->bindValue(":start_time", $start_time);
+        $stmt->bindValue(":end_time", $end_time);
+
+        if ($stmt->execute()) return true;
+        else return false;
+    }
+
 }
