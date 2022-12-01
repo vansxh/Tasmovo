@@ -14,8 +14,13 @@
   left: 85%;
 }
 
+#display-heading {
+  height: 4.5em;
+  padding-left: 12%;
+}
+
 @media (max-width: 768px) {
-  #display-desktop {
+  #display-desktop, #display-plus {
     display: none;
   }
 
@@ -23,10 +28,9 @@
     display: block;
   }
 
-  #display-plus {
+  #display-heading {
     display: none;
   }
-
 }
 
 @import "swiper/swiper-bundle.css";
