@@ -32,4 +32,8 @@ export class OverviewComponent implements OnInit {
     this.router.navigate(['/my-categories']);
   }
 
+  myDay(): void {
+    this.router.navigate(['/my-day']);
+  }
+
 }
