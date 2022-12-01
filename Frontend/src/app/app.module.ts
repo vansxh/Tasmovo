@@ -64,6 +64,7 @@ import { CalendarDetailComponent } from './pages/calendar-detail/calendar-detail
 import { SwiperModule } from 'swiper/angular';
 import { PopupAddComponent } from './popups/popup-add/popup-add.component';
 import {CalendarNativeDateFormatter, DateFormatterParams} from 'angular-calendar';
+import { MyDayComponent } from './pages/my-day/my-day.component';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -100,7 +101,8 @@ export const routes: Routes = [
   {path: 'sub-category', component: SubCategoryComponent, canActivate: [AuthGuard]},
   {path: 'sub-category/:CAID', component: SubCategoryComponent, canActivate: [AuthGuard]},
   {path: 'calendar-detail', component: CalendarDetailComponent, canActivate: [AuthGuard]},
-  {path: 'calendar-detail/:date', component: CalendarDetailComponent, canActivate: [AuthGuard]}
+  {path: 'calendar-detail/:date', component: CalendarDetailComponent, canActivate: [AuthGuard]},
+  {path: 'my-day', component: MyDayComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
@@ -133,6 +135,7 @@ export const routes: Routes = [
     OfCategoryPipe,
     CalendarDetailComponent,
     PopupAddComponent,
+    MyDayComponent,
   ],
   imports: [
     BrowserModule,

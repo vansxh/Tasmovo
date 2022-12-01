@@ -34,7 +34,7 @@ export class CalendarDetailComponent implements OnInit {
       this.loadTasks();
     }
 
-    // set the calendars year and month to todays date by default
+    // set the calendars year and month to the selected date
     this.today = new Date(routeParams['date']).getDate();
     this.year = new Date(routeParams['date']).getFullYear();
     this.month = new Date(routeParams['date']).getMonth();
@@ -68,6 +68,13 @@ export class CalendarDetailComponent implements OnInit {
       div.appendChild(p2);
       calendar.appendChild(div);
     }
+
+    // add selected class to day that was selected in calendar overview
+    const selected = document.getElementsByClassName(this.today.toString());
+    for (let i = 0; i < selected.length; i++) {
+      selected[i].classList.add('selected');
+    }
+
     const classname = document.getElementsByClassName('day');
 
     // function for event listener
