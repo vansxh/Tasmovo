@@ -78,4 +78,8 @@ export class TaskService {
   updatePlannedTask(task: Task) {
     return this.http.put('/Backend/routes/task/updatePlannedTask.php', task);
   }
+
+  deletePlannedTask(TAID: any) {
+    return this.http.delete('/Backend/routes/task/deletePlannedTask.php?TAID=' + TAID);
+  }
 }

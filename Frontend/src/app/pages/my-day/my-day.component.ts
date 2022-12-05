@@ -38,18 +38,21 @@ export class MyDayComponent {
 
   actions: CalendarEventAction[] = [
     {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
+      label: '<p> löschen</p>',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
+        console.log(event.id);
+        this.taskService.deletePlannedTask(event.id).subscribe(
+          (data: any = []) => {
+          },
+          (error: any = []) => {
+            if(error['error']['message']) {
+              alert(error['error']['message']);
+              return;
+            }
+            this.general.errorResponse(error['status']);
+          });
       },
     },
   ];
@@ -73,6 +76,7 @@ export class MyDayComponent {
       (data: any = []) => {
         this.plannedTasks = <Task[]>data['data'];
         console.log(this.plannedTasks);
+        this.events = [];
         this.plannedTasks.forEach((item)=>{
           this.events.push({
             id: item.TAID,
@@ -80,6 +84,7 @@ export class MyDayComponent {
             end:new Date(item.planned_date + ' ' + item.end_time),
             title:item.task_name,
             color: colors['main'],
+            actions: this.actions,
             resizable: {
               beforeStart: true,
               afterEnd: true,
@@ -100,8 +105,27 @@ export class MyDayComponent {
       });
   }
 
-  changeDay() {
-    this.viewDate.setDate(new Date().getDate()+1);
+  changeDay(day: number) {
+    const todayBtn = document.getElementById('todayBtn');
+    const tomorrowBtn = document.getElementById('tomorrowBtn');
+    if(day === 1) {
+      this.viewDate= new Date();
+      if(todayBtn && tomorrowBtn) {
+        todayBtn.classList.remove('btn-outline-primary');
+        todayBtn.classList.add('btn-primary');
+        tomorrowBtn.classList.remove('btn-primary');
+        tomorrowBtn.classList.add('btn-outline-primary');
+      }
+    } else if(day === 2) {
+      this.viewDate.setDate(new Date().getDate() + 1);
+      if(todayBtn && tomorrowBtn) {
+        todayBtn.classList.remove('btn-primary');
+        todayBtn.classList.add('btn-outline-primary');
+        tomorrowBtn.classList.remove('btn-outline-primary');
+        tomorrowBtn.classList.add('btn-primary');
+      }
+    }
+    this.getAllPlannedTasks();
   }
 
   eventTimesChanged({ event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
@@ -117,7 +141,6 @@ export class MyDayComponent {
       return iEvent;
     });
 
-   // !!! FIX ME !!!
     if(event.id === undefined) this.updateTask.TAID = 0;
     else if(typeof event.id == 'number') this.updateTask.TAID = event.id;
     else if(typeof event.id == 'string') {
@@ -128,20 +151,16 @@ export class MyDayComponent {
     this.updateTask.start_time = this.datePipe.transform(newStart,'HH:mm', 'de-AT')||'';
     this.updateTask.end_time = this.datePipe.transform(newEnd,'HH:mm', 'de-AT')||'';
     console.log(this.updateTask);
-    this.taskService.updatePlannedTask(this.updateTask);
+    this.taskService.updatePlannedTask(this.updateTask).subscribe(
+      (data: any = []) => {
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
 
-    this.handleEvent('Dropped or resized', event);
   }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    console.log(action, event);
-    if(action == 'Dropped or resized') {
-
-    }
-  }
-
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
-  }
-
 }
