@@ -43,13 +43,13 @@
 
   <div class="col">
 <div class="d-flex flex-column justify-content-center align-items-center shadow p-3 mb-2 bg-white">
-  <div>Dein Stresslevel diese Woche:</div>
+  <div>Dein heutiges Stresslevel:</div>
   <br>
   <mat-progress-spinner
     class="example-margin"
-    value="{{weeklyAverage*10}}" mode="determinate" color="primary">
+    value="{{(weeklyAverage/stressLimit)*100}}" mode="determinate" color="primary">
   </mat-progress-spinner>
-  <div>Lvl: {{weeklyAverage}} / 10</div>
+  <div>Lvl: {{weeklyAverage}} / {{stressLimit}}</div>
 </div>
     </div>
 

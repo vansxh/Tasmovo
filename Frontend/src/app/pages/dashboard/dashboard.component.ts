@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   public finishedTasks!: Task[];
   public dailyQuote!: Quote;
   weeklyAverage!: number;
+  stressLimit!: number;
 
   constructor(private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog, private stress: StresstrackingService) {
   }
@@ -45,6 +46,7 @@ export class DashboardComponent implements OnInit {
       });
 
     this.getWeeklyAvg();
+    this.getStresslimit();
 
   }
 
@@ -132,21 +134,34 @@ export class DashboardComponent implements OnInit {
   }
 
   getWeeklyAvg() {
-    this.stress.getWeeklyAvg().subscribe((data: any = []) => {
+    this.stress.getDailyStresslevel().subscribe((data: any = []) => {
       //console.log(data['data']['0']['Average']);
-      this.weeklyAverage = data['data']['0']['Average'];
-      if (this.weeklyAverage == 10.00) {
+      this.weeklyAverage = data['data']['daily_stresslevel'];
+      /*if (this.weeklyAverage == 10.00) {
         this.weeklyAverage = 10;
       } else if (this.weeklyAverage == 0.00 || this.weeklyAverage == null) {
         this.weeklyAverage = 0;
-      }
-      //console.log(this.weeklyAverage);
+      }*/
+      console.log(this.weeklyAverage);
     }, (error: any = []) => {
       if (error['error']['message']) {
         alert(error['error']['message']);
         return;
       }
       this.general.errorResponse(error['status']);
+    });
+  }
+
+  getStresslimit() {
+    this.stress.getStresslimit().subscribe((data: any = []) => {
+      this.stressLimit = data['data']['stress_limit'];
+      console.log((this.weeklyAverage/this.stressLimit)*100);
+    }, (error: any = []) => {
+      if (error['error']['message']) {
+      alert(error['error']['message']);
+      return;
+    }
+    this.general.errorResponse(error['status']);
     });
   }
 

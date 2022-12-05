@@ -6,6 +6,7 @@ import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {GeneralService} from "../../services/general/general.service";
+import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
 
 @Component({
   selector: 'app-popup-finish',
@@ -14,7 +15,7 @@ import {GeneralService} from "../../services/general/general.service";
 })
 export class PopupFinishComponent implements OnInit {
 
-  constructor(private dialogRefFinish: MatDialogRef<PopupFinishComponent>, private taskService: TaskService, private formBuilder: FormBuilder, private general: GeneralService) {
+  constructor(private dialogRefFinish: MatDialogRef<PopupFinishComponent>, private taskService: TaskService, private formBuilder: FormBuilder, private general: GeneralService, private stress: StresstrackingService) {
   }
 
   finishForm!: FormGroup;
@@ -44,6 +45,17 @@ export class PopupFinishComponent implements OnInit {
       (data: any = []) => {
         // update view if finishing was successful
         //this.loadTasks();
+      },
+      (error: any = []) => {
+        if (error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
+
+    this.stress.updateDailyStresslevel(this.terminateTask).subscribe(
+      (data: any = []) => {
         this.onClose();
       },
       (error: any = []) => {

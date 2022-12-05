@@ -15,4 +15,54 @@ class Stresstracking
 
         return $result;
     }
+
+    /*function getDailyAvg(){
+        $stmt = Database::getDb()->prepare("SELECT SUM(stress_factor) AS 'Sum' FROM Task WHERE created_by=:UID AND DATE(end_date)= CURRENT_DATE LIMIT 1");
+        $stmt->bindValue(":UID", $_SESSION['UID']);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }*/
+
+    function getDailyStresslevel(){
+        $stmt = Database::getDb()->prepare("SELECT daily_stresslevel FROM User WHERE UID=:UID LIMIT 1");
+        $stmt->bindValue(":UID", $_SESSION['UID']);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    function getStresslimit(){
+        $stmt = Database::getDb()->prepare("SELECT stress_limit FROM User WHERE UID=:UID LIMIT 1");
+        $stmt->bindValue(":UID", $_SESSION['UID']);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    function updateDailyStresslevel($daily_stresslevel)
+    {
+        $stmt1 = Database::getDb()->prepare("SELECT daily_stresslevel FROM User WHERE UID=:UID LIMIT 1");
+        $stmt1->bindValue(":UID", $_SESSION['UID']);
+        $stmt1->execute();
+        $result = $stmt1->fetch(PDO::FETCH_ASSOC);
+
+       $daily_stresslevel += $result['daily_stresslevel'];
+
+        $stmt2 = Database::getDb()->prepare("UPDATE User SET daily_stresslevel=:daily_stresslevel WHERE UID=:UID LIMIT 1");
+        $stmt2->bindValue(":UID", $_SESSION['UID']);
+        $stmt2->bindValue(":daily_stresslevel", $daily_stresslevel);
+
+        if ($stmt2->execute()) return true;
+        else return false;
+    }
 }
