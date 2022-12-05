@@ -7,6 +7,18 @@ import {TaskService} from "../../services/task/task.service";
 import {DatePipe} from '@angular/common';
 import {GeneralService} from "../../services/general/general.service";
 import { ChangeDetectorRef } from '@angular/core';
+import { WeekViewHourSegment } from 'calendar-utils';
+import { addDays, addMinutes, endOfWeek } from 'date-fns';
+import { finalize, takeUntil } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
+
+function floorToNearest(amount: number, precision: number) {
+  return Math.floor(amount / precision) * precision;
+}
+
+function ceilToNearest(amount: number, precision: number) {
+  return Math.ceil(amount / precision) * precision;
+}
 
 const colors: Record<string, EventColor> = {
   main: {
@@ -32,6 +44,8 @@ export class MyDayComponent {
   CalendarView = CalendarView;
 
   viewDate!: Date;
+  dragToCreateActive = false;
+  weekStartsOn: 0 = 0;
 
   plannedTasks!: Task[];
   updateTask!: Task;
@@ -161,6 +175,62 @@ export class MyDayComponent {
         }
         this.general.errorResponse(error['status']);
       });
-
   }
+
+  startDragToCreate(
+    segment: WeekViewHourSegment,
+    mouseDownEvent: MouseEvent,
+    segmentElement: HTMLElement
+  ) {
+    const dragToSelectEvent: CalendarEvent = {
+      id: this.events.length,
+      title: 'Task',
+      start: segment.date,
+      meta: {
+        tmpEvent: true,
+      },
+    };
+    this.events = [...this.events, dragToSelectEvent];
+    const segmentPosition = segmentElement.getBoundingClientRect();
+    this.dragToCreateActive = true;
+    const endOfView = endOfWeek(this.viewDate, {
+      weekStartsOn: this.weekStartsOn,
+    });
+
+    fromEvent(document, 'mousemove')
+      .pipe(
+        finalize(() => {
+          delete dragToSelectEvent.meta.tmpEvent;
+          this.dragToCreateActive = false;
+          this.refreshEvents();
+        }),
+        takeUntil(fromEvent(document, 'mouseup'))
+      )
+      .subscribe((mouseMoveEvent: any) => {
+        const minutesDiff = ceilToNearest(
+          mouseMoveEvent.clientY - segmentPosition.top,
+          30
+        );
+
+        const daysDiff =
+          floorToNearest(
+            mouseMoveEvent.clientX - segmentPosition.left,
+            segmentPosition.width
+          ) / segmentPosition.width;
+
+        const newEnd = addDays(addMinutes(segment.date, minutesDiff), daysDiff);
+        if (newEnd > segment.date && newEnd < endOfView) {
+          dragToSelectEvent.end = newEnd;
+        }
+        console.log(dragToSelectEvent);
+        this.refreshEvents();
+      });
+  }
+
+  private refreshEvents() {
+    this.events = [...this.events];
+    this.cd.detectChanges();
+  }
+
+
 }
