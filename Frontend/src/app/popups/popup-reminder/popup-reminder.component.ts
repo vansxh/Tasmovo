@@ -4,6 +4,7 @@ import {GeneralService} from "../../services/general/general.service";
 import {Task} from "../../services/task/task";
 import {MatDialogRef} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
 
 
 @Component({
@@ -13,7 +14,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class PopupReminderComponent implements OnInit {
 
-  constructor(private dialogRefFinish: MatDialogRef<PopupReminderComponent>, private taskService: TaskService, private formBuilder: FormBuilder) {
+  constructor(private dialogRefFinish: MatDialogRef<PopupReminderComponent>, private stress: StresstrackingService, private taskService: TaskService, private formBuilder: FormBuilder) {
     this.timer(1);
   }
   name = "Angular " + VERSION.major;
@@ -34,6 +35,10 @@ export class PopupReminderComponent implements OnInit {
     //this.accept = false;
     this.dialogRefFinish.close();
     window.location.href = window.location.href;
+  }
+
+  resetDailyStresslevel(): void {
+    this.stress.resetDailyStresslevel(0);
   }
 
   timer(minute: number) {

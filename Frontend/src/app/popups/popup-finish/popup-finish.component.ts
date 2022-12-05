@@ -70,6 +70,7 @@ export class PopupFinishComponent implements OnInit {
 
   }
 
+
   onClose() {
     //this.accept = false;
     this.dialogRefFinish.close();
