@@ -65,6 +65,7 @@ import { SwiperModule } from 'swiper/angular';
 import { PopupAddComponent } from './popups/popup-add/popup-add.component';
 import {CalendarNativeDateFormatter, DateFormatterParams} from 'angular-calendar';
 import { MyDayComponent } from './pages/my-day/my-day.component';
+import { PopupReminderComponent } from './popups/popup-reminder/popup-reminder.component';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -136,6 +137,7 @@ export const routes: Routes = [
     CalendarDetailComponent,
     PopupAddComponent,
     MyDayComponent,
+    PopupReminderComponent,
   ],
   imports: [
     BrowserModule,
