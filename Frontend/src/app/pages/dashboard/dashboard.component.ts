@@ -8,6 +8,8 @@ import {GeneralService} from "../../services/general/general.service";
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
+import {PopupReminderComponent} from "../../popups/popup-reminder/popup-reminder.component";
+import {PopupAddComponent} from "../../popups/popup-add/popup-add.component";
 
 
 @Component({
@@ -146,6 +148,17 @@ export class DashboardComponent implements OnInit {
       }
       this.general.errorResponse(error['status']);
     });
+  }
+
+  break(): void {
+    this.onBreakOpen();
+  }
+
+  onBreakOpen(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupReminderComponent, dialogConfig);
   }
 
 }

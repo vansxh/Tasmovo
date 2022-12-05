@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, VERSION} from '@angular/core';
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
 import {Task} from "../../services/task/task";
 import {MatDialogRef} from "@angular/material/dialog";
-import {DashboardComponent} from "../../pages/dashboard/dashboard.component";
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+
 
 @Component({
   selector: 'app-popup-reminder',
@@ -13,42 +13,56 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 })
 export class PopupReminderComponent implements OnInit {
 
-  constructor(private dialogRefFinish: MatDialogRef<PopupReminderComponent>, private taskService: TaskService, private general: GeneralService) {
+  constructor(private dialogRefFinish: MatDialogRef<PopupReminderComponent>, private taskService: TaskService, private formBuilder: FormBuilder) {
+    this.timer(1);
   }
-  terminateTask!: Task;
-  name!: number;
-
+  name = "Angular " + VERSION.major;
+  display: any;
+  finishForm!: FormGroup;
+  input = document.getElementById('reset-stress') as HTMLInputElement | null;
   //accept!: boolean;
+  btnState: boolean=true;
 
   ngOnInit(): void {
-    this.terminateTask = this.taskService.terminateTask;
-    this.name = this.terminateTask.TAID;
-  }
-
-  onFinishSubmit() {
-
-    console.log(this.terminateTask);
-    //console.log("expenseID: " + this.terminateTask.expenseID);
-    //console.log("stress_factor: " + this.terminateTask.stress_factor);
-    this.taskService.finishTask(this.terminateTask).subscribe(
-      (data: any = []) => {
-        // update view if finishing was successful
-        //this.loadTasks();
-        this.onClose();
-      },
-      (error: any = []) => {
-        if (error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
+    this.finishForm = this.formBuilder.group({
+      expenseID: ['', Validators.required],
+      stress_factor: ['', Validators.required]
+    });
   }
 
   onClose() {
     //this.accept = false;
     this.dialogRefFinish.close();
     window.location.href = window.location.href;
+  }
+
+  timer(minute: number) {
+    // let minute = 1;
+    let seconds: number = minute * 60;
+    let textSec: any = "0";
+    let statSec: number = 60;
+
+    const prefix = minute < 10 ? "0" : "";
+
+    const timer = setInterval(() => {
+      seconds--;
+      if (statSec != 0) statSec--;
+      else statSec = 59;
+
+      if (statSec < 10) {
+        textSec = "0" + statSec;
+      } else textSec = statSec;
+
+      this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
+
+      if (seconds == 0) {
+        console.log("finished");
+        clearInterval(timer);
+        this.btnState = false;
+      } else {
+        this.btnState = true;
+      }
+    }, 1000);
   }
 
 }
