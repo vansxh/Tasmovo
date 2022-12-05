@@ -14,7 +14,7 @@ import {StresstrackingService} from "../../services/stresstracking/stresstrackin
 })
 export class PopupReminderComponent implements OnInit {
 
-  constructor(private dialogRefFinish: MatDialogRef<PopupReminderComponent>, private stress: StresstrackingService, private taskService: TaskService, private formBuilder: FormBuilder) {
+  constructor(private dialogRefFinish: MatDialogRef<PopupReminderComponent>, private stress: StresstrackingService, private taskService: TaskService, private formBuilder: FormBuilder, private general: GeneralService) {
     this.timer(1);
   }
   name = "Angular " + VERSION.major;
@@ -38,7 +38,16 @@ export class PopupReminderComponent implements OnInit {
   }
 
   resetDailyStresslevel(): void {
-    this.stress.resetDailyStresslevel(0);
+    this.stress.resetDailyStresslevel(0).subscribe(
+      (data: any = []) => {
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
   }
 
   timer(minute: number) {

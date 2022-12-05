@@ -6,7 +6,7 @@ require('../../bootstrap.inc.php');
 if (Input::isEmpty()) {
     (new Response([
         'error' => true,
-        'message' => 'Stresslimit konnte nicht geändert werden.'
+        'message' => 'Stresslevel konnte nicht zurückgesetzt werden.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
@@ -17,6 +17,7 @@ $stress = new Stresstracking();
 
 // get different values from input
 $daily_stresslevel =  Input::read('stress_factor');
+print_r($daily_stresslevel);
 
 $item = $stress->resetDailyStresslevel($daily_stresslevel);
 
@@ -24,7 +25,7 @@ $item = $stress->resetDailyStresslevel($daily_stresslevel);
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'Stresslimit konnte nicht geändert werden.'
+        'message' => 'Stresslevel konnte nicht zurückgesetzt werden.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 

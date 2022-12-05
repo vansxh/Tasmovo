@@ -26,8 +26,8 @@ export class StresstrackingService {
     return this.http.put('/Backend/routes/stresstracking/updateDailyStresslevel.php', task);
   }
 
-  resetDailyStresslevel(stresslevel: number) {
-    return this.http.put('/Backend/routes/stresstracking/resetDailyStresslevel.php', stresslevel);
+  resetDailyStresslevel(stress_factor: number) {
+    return this.http.get('/Backend/routes/stresstracking/resetDailyStresslevel.php?stress_factor=' + stress_factor);
   }
 
 }

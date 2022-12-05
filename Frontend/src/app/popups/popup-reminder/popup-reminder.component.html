@@ -2,7 +2,7 @@
   <h1>Oje!</h1>
   <p>Du hast dein Stresslevel überschritten</p>
 
-  <button class="btn btn-primary" id="reset-stress" [disabled]="btnState" (click)="resetDailyStresslevel()">Stresslevel zurücksetzen</button>
+  <button class="btn btn-primary" id="reset-stress" (click)="resetDailyStresslevel()">Stresslevel zurücksetzen</button>
   <button class="btn btn-primary" id="divide-stress" [disabled]="btnState">Stresslevel halbieren</button>
 
   <p *ngIf="btnState">{{display}}</p>
