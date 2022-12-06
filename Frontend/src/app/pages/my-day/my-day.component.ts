@@ -11,6 +11,9 @@ import { WeekViewHourSegment } from 'calendar-utils';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
+import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {PopupMydayComponent} from "../../popups/popup-myday/popup-myday.component";
 
 function floorToNearest(amount: number, precision: number) {
   return Math.floor(amount / precision) * precision;
@@ -46,9 +49,12 @@ export class MyDayComponent {
   viewDate!: Date;
   dragToCreateActive = false;
   weekStartsOn: 0 = 0;
+  dragToSelectEvent!: CalendarEvent;
 
   plannedTasks!: Task[];
   updateTask!: Task;
+  newTask!: Task;
+  mouseArea: any;
 
   actions: CalendarEventAction[] = [
     {
@@ -77,12 +83,16 @@ export class MyDayComponent {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private taskService: TaskService, private datePipe: DatePipe, private general: GeneralService, private cd: ChangeDetectorRef) {}
+  constructor(private dialog: MatDialog, private taskService: TaskService, private datePipe: DatePipe, private general: GeneralService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void{
     this.updateTask = new Task();
+    this.newTask = new Task();
     this.viewDate = new Date();
     this.getAllPlannedTasks();
+
+    document.getElementsByTagName('h1')[0].innerText = "Mein Tag";
+    this.mouseArea =  document.getElementById('myDay');
   }
 
   getAllPlannedTasks(){
@@ -182,7 +192,7 @@ export class MyDayComponent {
     mouseDownEvent: MouseEvent,
     segmentElement: HTMLElement
   ) {
-    const dragToSelectEvent: CalendarEvent = {
+    this.dragToSelectEvent = {
       id: this.events.length,
       title: 'Task',
       start: segment.date,
@@ -190,7 +200,7 @@ export class MyDayComponent {
         tmpEvent: true,
       },
     };
-    this.events = [...this.events, dragToSelectEvent];
+    this.events = [...this.events, this.dragToSelectEvent];
     const segmentPosition = segmentElement.getBoundingClientRect();
     this.dragToCreateActive = true;
     const endOfView = endOfWeek(this.viewDate, {
@@ -200,7 +210,7 @@ export class MyDayComponent {
     fromEvent(document, 'mousemove')
       .pipe(
         finalize(() => {
-          delete dragToSelectEvent.meta.tmpEvent;
+          delete this.dragToSelectEvent.meta.tmpEvent;
           this.dragToCreateActive = false;
           this.refreshEvents();
         }),
@@ -220,11 +230,17 @@ export class MyDayComponent {
 
         const newEnd = addDays(addMinutes(segment.date, minutesDiff), daysDiff);
         if (newEnd > segment.date && newEnd < endOfView) {
-          dragToSelectEvent.end = newEnd;
+          this.dragToSelectEvent.end = newEnd;
         }
-        console.log(dragToSelectEvent);
         this.refreshEvents();
       });
+
+    fromEvent(this.mouseArea, 'mouseup').subscribe( () => {
+      this.newTask.start_time = this.datePipe.transform(this.dragToSelectEvent.start, 'HH:mm', 'de-AT') || '';
+      this.newTask.end_time = this.datePipe.transform(this.dragToSelectEvent.end, 'HH:mm', 'de-AT') || '';
+      this.newTask.planned_date = this.datePipe.transform(this.viewDate, 'yyyy-MM-dd', 'de-AT') || '';
+      this.onAddOpen(this.newTask);
+    });
   }
 
   private refreshEvents() {
@@ -232,5 +248,12 @@ export class MyDayComponent {
     this.cd.detectChanges();
   }
 
+  onAddOpen(task: Task){
+    this.taskService.addDailyTask = task;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupMydayComponent, dialogConfig);
+  }
 
 }

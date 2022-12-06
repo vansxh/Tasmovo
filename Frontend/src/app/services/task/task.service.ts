@@ -4,6 +4,7 @@ import {Task} from './task';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Observable} from "rxjs";
+import { CalendarEvent } from 'angular-calendar';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class TaskService {
   }
 
   terminateTask!: Task;
+  addDailyTask!: Task;
 
   insertTask(task: Task) {
     return this.http.post('/Backend/routes/task/insertTask.php', task);
