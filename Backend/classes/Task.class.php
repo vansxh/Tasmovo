@@ -189,4 +189,17 @@ class Task
         else return false;
     }
 
+    // function for inserting a new planned task in My Day
+    function insertPlannedTask($TAID, $start_time, $end_time, $planned_date)
+    {
+        $stmt = Database::getDb()->prepare("INSERT INTO MyDay(taskID, start_time, end_time, planned_date) VALUES(:TAID, :start_time, :end_time, :planned_date)");
+        $stmt->bindValue(":TAID", $TAID);
+        $stmt->bindValue(":start_time", $start_time);
+        $stmt->bindValue(":end_time", $end_time);
+        $stmt->bindValue(":planned_date", $planned_date);
+
+        if ($stmt->execute()) return true;
+        else return false;
+    }
+
 }

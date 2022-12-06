@@ -1,5 +1,8 @@
 <?php
-// required file
+/**
+ * @var Auth $auth
+ */
+
 require('../../bootstrap.inc.php');
 
 // check if Input is empty
@@ -17,7 +20,8 @@ $stress = new Stresstracking();
 
 // get different values from input
 $daily_stresslevel =  Input::read('stress_factor');
-print_r($daily_stresslevel);
+//var_dump($daily_stresslevel);
+//exit;
 
 $item = $stress->resetDailyStresslevel($daily_stresslevel);
 

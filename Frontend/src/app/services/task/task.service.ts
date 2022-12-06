@@ -15,7 +15,7 @@ export class TaskService {
   }
 
   terminateTask!: Task;
-  addDailyTask!: Task;
+  plannedTask!: Task;
 
   insertTask(task: Task) {
     return this.http.post('/Backend/routes/task/insertTask.php', task);
@@ -83,5 +83,9 @@ export class TaskService {
 
   deletePlannedTask(TAID: any) {
     return this.http.delete('/Backend/routes/task/deletePlannedTask.php?TAID=' + TAID);
+  }
+
+  insertPlannedTask(task: Task) {
+    return this.http.post('/Backend/routes/task/insertPlannedTask.php', task);
   }
 }

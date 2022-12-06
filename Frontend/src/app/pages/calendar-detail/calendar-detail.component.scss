@@ -13,17 +13,17 @@
   display: none;
 }
 
-.day div {
+:host ::ng-deep .day div {
   position: absolute;
   flex-shrink: 0;
   padding: 40px;
 }
 
-.day p {
+:host ::ng-deep .day p {
   margin: auto;
 }
 
-.day.selected p{
+:host ::ng-deep .day.selected {
   background-color: #30235B;
   color: #ffffff;
 }

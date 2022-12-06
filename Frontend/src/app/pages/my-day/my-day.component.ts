@@ -249,7 +249,7 @@ export class MyDayComponent {
   }
 
   onAddOpen(task: Task){
-    this.taskService.addDailyTask = task;
+    this.taskService.plannedTask = task;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
