@@ -1,18 +1,18 @@
-<form [formGroup]="finishForm" class="form" autocomplete="off">
-  <h1>Super gemacht!</h1>
+<form [formGroup]="finishForm" class="form d-flex flex-column justify-content-center align-items-center mx-5 my-3" autocomplete="off">
+  <h1 class="p-0">Super gemacht!</h1>
   <p>Wie schwierig war dieser Task?</p>
-  <mat-button-toggle-group name="expenseID" formControlName="expenseID">
-    <mat-button-toggle value="1">Leicht</mat-button-toggle>
-    <mat-button-toggle value="2">Mittel</mat-button-toggle>
-    <mat-button-toggle value="3">Schwer</mat-button-toggle>
+  <mat-button-toggle-group class="d-flex" name="expenseID" formControlName="expenseID">
+    <mat-button-toggle class="btn btn-info" value="1">Leicht</mat-button-toggle>
+    <mat-button-toggle class="btn btn-success" value="2">Mittel</mat-button-toggle>
+    <mat-button-toggle class="btn btn-secondary" value="3">Schwer</mat-button-toggle>
   </mat-button-toggle-group>
+  <br>
   <p>Wie stressig war dieser Task?</p>
   <input type="range" min="0" max="10" name="stress_factor" formControlName="stress_factor">
-  <p></p>
+  <br>
 
-  <button [disabled]="!finishForm.valid" (click)="onFinishSubmit()" class="btn btn-success">Abschließen</button>
-  <p></p>
-  <button class="btn btn-primary" (click)="onClose()">Abbrechen</button>
+  <button [disabled]="!finishForm.valid" (click)="onFinishSubmit()" class="btn btn-primary w-50 mb-1">Abschließen</button>
+  <button class="btn btn-light border w-50" (click)="onClose()">Abbrechen</button>
 </form>
 
 
