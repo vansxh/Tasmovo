@@ -1,7 +1,7 @@
 <div id="calendar"></div>
 
 <br>
-
+<!--
 <h2>Offen</h2>
 
 <div class="row">
@@ -9,7 +9,7 @@
   <div class="col-md-2">Titel</div>
   <div class="col-md-2">Deadline</div>
 </div>
-<div class="row" *ngFor="let t of deadlineTasks | notDone"> <!-- uses custom pipe notDone -->
+<div class="row" *ngFor="let t of deadlineTasks | notDone">
   <div class="col-md-2">
     <button class="btn btn-primary" (click)="finishTask(t)">Finish</button>
   </div>
@@ -25,7 +25,39 @@
   <div class="col-md-2">Titel</div>
   <div class="col-md-2">Deadline</div>
 </div>
-<div class="row" *ngFor="let t of deadlineTasks | done"> <!-- uses custom pipe done -->
+<div class="row" *ngFor="let t of deadlineTasks | done">
   <div class="col-md-2">{{t.task_name}}</div>
   <div class="col-md-2">{{t.deadline | date: 'shortTime'}}</div>
+</div>
+-->
+<div class="row mt-5">
+  <div class="col">
+    <div class="shadow p-3 mb-2 bg-white">
+      <h2 class="text-center mb-4 text.primary font-weight-bold">Offen</h2>
+      <div class="row border-bottom justify-content-center" *ngFor="let t of deadlineTasks | notDone"> <!-- uses custom pipe notDone -->
+        <div class="col-md-2 my-2">
+          <button class="btn-circle btn-xl bg-info" (click)="finishTask(t)"></button>
+        </div>
+        <div class="col-md-2 d-flex align-items-center my-2">{{t.task_name}}</div>
+        <div class="col-md-2 d-flex align-items-center my-2">
+          <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'shortTime'}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="shadow p-3 mb-2 bg-white">
+      <h2 class="text-center mb-4">Erledigt</h2>
+      <div class="row border-bottom justify-content-center" *ngFor="let t of deadlineTasks | done"> <!-- uses custom pipe done -->
+        <div class="col-md-2 my-2">
+          <button class="btn-circle btn-xl bg-dark" disabled></button>
+        </div>
+        <div class="col-md-2 d-flex align-items-center my-2 text-done">{{t.task_name}}</div>
+        <div class="col-md-2 d-flex align-items-center my-2">
+          <div class="bg-dark rounded px-1 task-deadline text-done">{{t.deadline | date: 'shortTime'}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
