@@ -1,7 +1,7 @@
 <h1 class="mt-3" *ngIf="dailyQuote">{{dailyQuote.quote}}</h1>
 
-<div class="row mt-5">
-  <div class="col">
+<div class="row my-5">
+  <div class="col-md-6 col-sm-12">
 <h2>Nächste Tasks</h2>
 
 <div class="shadow p-3 mb-2 bg-white">
@@ -10,11 +10,11 @@
   <div class="col-md-2">Deadline</div>
 </div>-->
 <div class="row border-bottom justify-content-center" *ngFor="let t of openTasks">
-  <div class="col-md-2 my-2">
+  <div class="col-2 my-2">
     <button class="btn-circle btn-xl bg-info" (click)="finishTask(t)"></button>
   </div>
-  <div class="col-md-2 d-flex align-items-center my-2">{{t.task_name}}</div>
-  <div class="col-md-2 d-flex align-items-center my-2">
+  <div class="col-2 d-flex align-items-center my-2">{{t.task_name}}</div>
+  <div class="col-2 d-flex align-items-center my-2">
     <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
   </div>
   <!--<div class="col-md-2">
@@ -41,7 +41,7 @@
   <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
 </div>-->
 
-  <div class="col">
+  <div class="col-md-6 col-sm-12">
 <div class="d-flex flex-column justify-content-center align-items-center shadow p-3 mb-2 bg-white">
   <div>Dein heutiges Stresslevel:</div>
   <br>
