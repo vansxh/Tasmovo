@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
+import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-single-tasks',
@@ -10,7 +12,7 @@ import {GeneralService} from "../../services/general/general.service";
 })
 export class SingleTasksComponent implements OnInit {
 
-  constructor(private taskService: TaskService, private general: GeneralService) { }
+  constructor(private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) { }
 
   public singleTasks!: Task[];
 
@@ -34,7 +36,7 @@ export class SingleTasksComponent implements OnInit {
   }
 
   finishTask(task: Task): void {
-    this.taskService.finishTask(task).subscribe(
+    /*this.taskService.finishTask(task).subscribe(
       (data: any = []) => {
         // update view if finishing was successful
         this.ngOnInit();
@@ -45,8 +47,16 @@ export class SingleTasksComponent implements OnInit {
           return;
         }
         this.general.errorResponse(error['status']);
-      });
+      });*/
 
+    this.onFinishOpen(task);
   }
 
+  onFinishOpen(task: Task){
+    this.taskService.terminateTask = task;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupFinishComponent, dialogConfig);
+  }
 }

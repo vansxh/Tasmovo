@@ -30,6 +30,7 @@ export class AllTasksComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
 
+    document.getElementsByTagName("h1")[0].innerText = "Alle Tasks";
   }
 
   finishTask(task: Task): void {

@@ -1,27 +1,40 @@
-<h2>Offen</h2>
-
-<div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-2">Titel</div>
-  <div class="col-md-2">Deadline</div>
+<div class="row mt-4">
+  <div class="text-center mb-1" *ngIf="allTasks">{{(allTasks|done).length}} von {{allTasks.length}} erledigt</div>
+  <div><ngb-progressbar type="light" *ngIf="allTasks" [showValue]="true" [value]="(allTasks | done).length" [max]="allTasks.length">
+  </ngb-progressbar></div>
 </div>
-<div class="row" *ngFor="let t of allTasks | notDone"> <!-- uses custom pipe notDone -->
-  <div class="col-md-2">
-    <button class="btn btn-primary" (click)="finishTask(t)">Finish</button>
+
+<div class="row mt-5">
+  <div class="col">
+    <div class="shadow p-3 mb-2 bg-white">
+      <h2 class="text-center mb-4">Offen</h2>
+      <div class="row border-bottom justify-content-center" *ngFor="let t of allTasks | notDone"> <!-- uses custom pipe notDone -->
+        <div class="col-md-2 my-2">
+          <button class="btn-circle btn-xl bg-info" (click)="finishTask(t)"></button>
+        </div>
+        <div class="col-md-2 d-flex align-items-center my-2">{{t.task_name}}</div>
+        <div class="col-md-2 d-flex align-items-center my-2">
+          <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="col-md-2">{{t.task_name}}</div>
-  <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
-</div>
 
-<br>
+  <br>
 
-<h2>Erledigt</h2>
+  <div class="col">
+    <div class="shadow p-3 mb-2 bg-white">
+      <h2 class="text-center mb-4">Erledigt</h2>
+      <div class="row border-bottom justify-content-center" *ngFor="let t of allTasks | done"> <!-- uses custom pipe done -->
+        <div class="col-md-2 my-2">
+          <button class="btn-circle btn-xl bg-dark" disabled></button>
+        </div>
+        <div class="col-md-2 d-flex align-items-center my-2">{{t.task_name}}</div>
+        <div class="col-md-2 d-flex align-items-center my-2">
+          <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div class="row">
-  <div class="col-md-2">Titel</div>
-  <div class="col-md-2">Deadline</div>
-</div>
-<div class="row" *ngFor="let t of allTasks | done"> <!-- uses custom pipe done -->
-  <div class="col-md-2">{{t.task_name}}</div>
-  <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
 </div>
