@@ -15,7 +15,8 @@ $theme-colors: (
   "warning": #E6E1F1,
   "danger": #000000,
   "light": #ffffff,
-  "dark": #D9D9D9
+  "dark": #D9D9D9,
+  "done": #ADADAD
 );
 
 // Bootstrap and its default variables
@@ -46,9 +47,17 @@ h1{
   font-family: 'Ubuntu', sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 38px;
+  font-size: 42px;
   color: #30235B;
-  padding-top: 0.5em;
+  padding-top: 0.6em;
+}
+
+h2{
+  font-family: 'Source Sans Pro';
+  font-weight: 600;
+  font-style: normal;
+  font-size: 30px;
+  color: #30235B;
 }
 
 body{
