@@ -40,9 +40,9 @@
         <div class="col-md-2 my-2">
           <button class="btn-circle btn-xl bg-dark" disabled></button>
         </div>
-        <div class="col-md-2 d-flex align-items-center my-2">{{t.task_name}}</div>
+        <div class="col-md-2 d-flex align-items-center my-2 text-done">{{t.task_name}}</div>
         <div class="col-md-2 d-flex align-items-center my-2">
-          <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
+          <div class="bg-dark rounded px-1 task-deadline text-done">{{t.deadline | date: 'mediumDate'}}</div>
         </div>
       </div>
     </div>
