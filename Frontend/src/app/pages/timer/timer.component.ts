@@ -31,6 +31,8 @@ export class TimerComponent implements OnInit {
   ngOnInit(): void {
     this.startState();
     this.getRewards();
+
+    document.getElementsByTagName("h1")[0].innerText = "Timer";
   }
 
   startState() {

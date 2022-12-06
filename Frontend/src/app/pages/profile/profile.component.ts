@@ -52,6 +52,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.getWeeklyAvg();
     this.getData();
     //this.matcher = new ErrorStateMatcher();
+
+    document.getElementsByTagName("h1")[0].innerText = "Profil";
   }
 
   ngAfterViewInit(): void {

@@ -48,6 +48,8 @@ export class DashboardComponent implements OnInit {
     this.getWeeklyAvg();
     this.getStresslimit();
 
+    document.getElementsByTagName("h1")[0].innerText = "";
+
   }
 
   loadTasks(): void {

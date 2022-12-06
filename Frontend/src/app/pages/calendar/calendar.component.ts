@@ -59,6 +59,8 @@ export class CalendarComponent implements OnInit {
     this.getAllNextTasks();
     //this.getAllFinishedTasks();
     console.log(this.events);
+
+    document.getElementsByTagName("h1")[0].innerText = "Kalender";
   }
 
   getAllNextTasks(){

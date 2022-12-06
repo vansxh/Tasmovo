@@ -99,6 +99,8 @@ export class CalendarDetailComponent implements OnInit {
       classname[i].addEventListener('click', addEditEvent, false);
     }
 
+    document.getElementsByTagName("h1")[0].innerText = "Kalender";
+
   }
 
 loadTasks(): void {

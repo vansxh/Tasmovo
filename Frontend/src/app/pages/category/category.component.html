@@ -6,7 +6,44 @@
   class="my-swiper"
 >
   <ng-template swiperSlide>
-      <div *ngIf="categoryTasks" class="row extraMargin">{{(categoryTasks|done).length}} von {{categoryTasks.length}} erledigt</div>
+    <div class="row mt-4">
+      <div class="text-center mb-1" *ngIf="categoryTasks">{{(categoryTasks|done).length}} von {{categoryTasks.length}} erledigt</div>
+      <div><ngb-progressbar type="light" *ngIf="categoryTasks" [showValue]="true" [value]="(categoryTasks | done).length" [max]="categoryTasks.length"></ngb-progressbar></div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col">
+        <div class="shadow p-3 mb-2 bg-white">
+          <h2 class="text-center mb-4">Offen</h2>
+          <div class="row border-bottom justify-content-center" *ngFor="let t of categoryTasks | notDone"> <!-- uses custom pipe notDone -->
+            <div class="col-md-2 my-2">
+              <button class="btn-circle btn-xl bg-info" (click)="finishTask(t)"></button>
+            </div>
+            <div class="col-md-2 d-flex align-items-center my-2">{{t.task_name}}</div>
+            <div class="col-md-2 d-flex align-items-center my-2">
+              <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="shadow p-3 mb-2 bg-white">
+          <h2 class="text-center mb-4">Erledigt</h2>
+          <div class="row border-bottom justify-content-center" *ngFor="let t of categoryTasks | done"> <!-- uses custom pipe done -->
+            <div class="col-md-2 my-2">
+              <button class="btn-circle btn-xl bg-dark" disabled></button>
+            </div>
+            <div class="col-md-2 d-flex align-items-center my-2">{{t.task_name}}</div>
+            <div class="col-md-2 d-flex align-items-center my-2">
+              <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+      <!--<div *ngIf="categoryTasks" class="row extraMargin">{{(categoryTasks|done).length}} von {{categoryTasks.length}} erledigt</div>
       <p><ngb-progressbar *ngIf="categoryTasks" [showValue]="true" [value]="(categoryTasks | done).length" [max]="categoryTasks.length"></ngb-progressbar></p>
     <h2>Offen</h2>
 
@@ -15,8 +52,8 @@
       <div class="col-md-2">Titel</div>
       <div class="col-md-2">Deadline</div>
     </div>
-    <div class="row" *ngFor="let t of categoryTasks | notDone"> <!-- uses custom pipe notDone -->
-      <div class="col-md-2">
+    <div class="row" *ngFor="let t of categoryTasks | notDone"> --><!-- uses custom pipe notDone -->
+      <!--<div class="col-md-2">
         <button class="btn btn-primary" (click)="finishTask(t)">Finish</button>
       </div>
       <div class="col-md-2">{{t.task_name}}</div>
@@ -31,25 +68,59 @@
       <div class="col-md-2">Titel</div>
       <div class="col-md-2">Deadline</div>
     </div>
-    <div class="row" *ngFor="let t of categoryTasks | done"> <!-- uses custom pipe done -->
-      <div class="col-md-2">{{t.task_name}}</div>
+    <div class="row" *ngFor="let t of categoryTasks | done"> --><!-- uses custom pipe done -->
+      <!--<div class="col-md-2">{{t.task_name}}</div>
       <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
-    </div>
+    </div>-->
   </ng-template>
   <ng-template swiperSlide *ngFor="let s of subcategories">
     <div class="swiper-slide-container">
       <br>
       <h1 (click)="showCategory(s)">{{s.category_name}}</h1>
-      <div *ngIf="allTasks" class="row extraMargin">{{(allTasks | ofCategory:s.CAID | done).length}} von {{(allTasks | ofCategory:s.CAID).length}} erledigt</div>
-      <p><ngb-progressbar *ngIf="allTasks" [showValue]="true" [value]="(allTasks | ofCategory:s.CAID | done).length" [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar></p>
-      <h2>Offen</h2>
+      <div class="text-center mb-1" *ngIf="allTasks" class="row extraMargin">{{(allTasks | ofCategory:s.CAID | done).length}} von {{(allTasks | ofCategory:s.CAID).length}} erledigt</div>
+      <div><ngb-progressbar *ngIf="allTasks" [showValue]="true" [value]="(allTasks | ofCategory:s.CAID | done).length" [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar></div>
+
+      <div class="row mt-5">
+        <div class="col">
+          <div class="shadow p-3 mb-2 bg-white">
+            <h2 class="text-center mb-4">Offen</h2>
+            <div class="row border-bottom justify-content-center" *ngFor="let t of allTasks | ofCategory:s.CAID | notDone"> <!-- uses custom pipe notDone -->
+              <div class="col-md-2 my-2">
+                <button class="btn-circle btn-xl bg-info" (click)="finishTask(t)"></button>
+              </div>
+              <div class="col-md-2 d-flex align-items-center my-2">{{t.task_name}}</div>
+              <div class="col-md-2 d-flex align-items-center my-2">
+                <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="shadow p-3 mb-2 bg-white">
+            <h2 class="text-center mb-4">Erledigt</h2>
+            <div class="row border-bottom justify-content-center" *ngFor="let t of allTasks | ofCategory:s.CAID | done"> <!-- uses custom pipe done -->
+              <div class="col-md-2 my-2">
+                <button class="btn-circle btn-xl bg-dark" disabled></button>
+              </div>
+              <div class="col-md-2 d-flex align-items-center my-2">{{t.task_name}}</div>
+              <div class="col-md-2 d-flex align-items-center my-2">
+                <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!--<h2>Offen</h2>
 
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-2">Titel</div>
         <div class="col-md-2">Deadline</div>
       </div>
-      <div class="row" *ngFor="let t of allTasks | ofCategory:s.CAID | notDone"> <!-- uses custom pipe notDone -->
+      <div class="row" *ngFor="let t of allTasks | ofCategory:s.CAID | notDone">
         <div class="col-md-2">
           <button class="btn btn-primary" (click)="finishTask(t)">Finish</button>
         </div>
@@ -57,18 +128,18 @@
         <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
       </div>
 
-      <br>
+      <br>-->
 
-      <h2>Erledigt</h2>
+      <!--<h2>Erledigt</h2>
 
       <div class="row">
         <div class="col-md-2">Titel</div>
         <div class="col-md-2">Deadline</div>
       </div>
-      <div class="row" *ngFor="let t of allTasks | ofCategory:s.CAID | done"> <!-- uses custom pipe done -->
+      <div class="row" *ngFor="let t of allTasks | ofCategory:s.CAID | done">
         <div class="col-md-2">{{t.task_name}}</div>
         <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
-      </div>
+      </div>-->
     </div>
   </ng-template>
 </swiper>

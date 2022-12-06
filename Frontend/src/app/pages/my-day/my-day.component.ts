@@ -83,6 +83,8 @@ export class MyDayComponent {
     this.updateTask = new Task();
     this.viewDate = new Date();
     this.getAllPlannedTasks();
+
+    document.getElementsByTagName("h1")[0].innerText = "Mein Tag";
   }
 
   getAllPlannedTasks(){
