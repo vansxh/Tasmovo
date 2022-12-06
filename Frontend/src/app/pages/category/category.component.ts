@@ -86,6 +86,8 @@ export class CategoryComponent implements OnInit {
         });
     }
 
+    document.getElementsByTagName("h1")[0].innerText = "Meine Kategorien";
+
   }
 
   finishTask(task: Task): void {

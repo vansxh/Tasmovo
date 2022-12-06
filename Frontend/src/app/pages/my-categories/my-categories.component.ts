@@ -34,6 +34,8 @@ export class MyCategoriesComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
 
+    document.getElementsByTagName("h1")[0].innerText = "Meine Kategorien";
+
   }
 
   deleteCategory(category: Category): void {

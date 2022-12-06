@@ -17,6 +17,7 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.getElementsByTagName("h1")[0].innerText = "Übersicht";
 
   }
 
