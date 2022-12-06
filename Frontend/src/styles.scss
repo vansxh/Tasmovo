@@ -18,12 +18,10 @@ $theme-colors: (
   "dark": #D9D9D9
 );
 
-$web-font-path: "https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap" !default;
-
 // Bootstrap and its default variables
 @import "node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
-@import url($web-font-path);
+
 
 .bg-primary {
   background-color: #30245B!important;
