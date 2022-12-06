@@ -29,6 +29,8 @@ export class SingleTasksComponent implements OnInit {
           }
           this.general.errorResponse(error['status']);
         });
+
+      document.getElementsByTagName("h1")[0].innerText = "Unkategorisiert";
   }
 
   finishTask(task: Task): void {

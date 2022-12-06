@@ -26,10 +26,20 @@
 
   #display-mobile {
     display: block;
+
   }
 
   #display-heading {
     display: none;
+  }
+
+  #nav-mobile {
+    position: fixed;
+    bottom: 0;
+    height: 65px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
   }
 }
 
@@ -70,3 +80,5 @@
   height: 100%;
   object-fit: cover;
 }
+
+
