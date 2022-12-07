@@ -26,7 +26,6 @@
 
   #display-mobile {
     display: block;
-
   }
 
   #display-heading {
@@ -36,10 +35,13 @@
   #nav-mobile {
     position: fixed;
     bottom: 0;
-    height: 65px;
+
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    background-image: url("../assets/nav.svg");
+    background-repeat: no-repeat, no-repeat;
+    background-size: cover;
   }
 }
 

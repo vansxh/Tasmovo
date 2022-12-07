@@ -19,16 +19,14 @@ export class PopupReminderComponent implements OnInit {
   }
   name = "Angular " + VERSION.major;
   display: any;
-  finishForm!: FormGroup;
+
   input = document.getElementById('reset-stress') as HTMLInputElement | null;
   //accept!: boolean;
   btnState: boolean=true;
+  weeklyAverage!: number;
 
   ngOnInit(): void {
-    this.finishForm = this.formBuilder.group({
-      expenseID: ['', Validators.required],
-      stress_factor: ['', Validators.required]
-    });
+
   }
 
   onClose() {
@@ -48,11 +46,32 @@ export class PopupReminderComponent implements OnInit {
         }
         this.general.errorResponse(error['status']);
       });
+    this.dialogRefFinish.close();
+    window.location.href = window.location.href
+  }
+
+  modifyDailyStresslevel(): void {
+    this.stress.getDailyStresslevel().subscribe((data: any = []) => {
+      //console.log(data['data']['0']['Average']);
+      this.weeklyAverage = data['data']['daily_stresslevel'];
+    this.stress.resetDailyStresslevel(this.weeklyAverage/2).subscribe(
+      (data: any = []) => {
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
+    this.dialogRefFinish.close();
+    window.location.href = window.location.href
+  });
   }
 
   timer(minute: number) {
-    // let minute = 1;
-    let seconds: number = minute * 60;
+    // set Time
+    let seconds: number = minute * 300;
     let textSec: any = "0";
     let statSec: number = 60;
 
@@ -70,7 +89,7 @@ export class PopupReminderComponent implements OnInit {
       this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
 
       if (seconds == 0) {
-        console.log("finished");
+        //console.log("finished");
         clearInterval(timer);
         this.btnState = false;
       } else {
@@ -78,5 +97,4 @@ export class PopupReminderComponent implements OnInit {
       }
     }, 1000);
   }
-
 }

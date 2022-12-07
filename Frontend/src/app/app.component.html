@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-12 w-100 bg-warning" id="display-heading" *ngIf="loggedIn()">
+  <div class="col-12 w-100 bg-warning border-radius-rounded" id="display-heading" *ngIf="loggedIn()">
     <h1>Heading</h1>
   </div>
   <div class="col-md-1" id="display-desktop" *ngIf="loggedIn()">
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="col-12" id="display-mobile" *ngIf="loggedIn()">
-    <nav class="navbar bg-primary justify-content-center" id="nav-mobile">
+    <nav class="navbar justify-content-center" id="nav-mobile">
       <ul class="nav">
         <li class="nav-item">
           <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
@@ -59,6 +59,11 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="overview" routerLinkActive="active">
             <img src="assets/list.svg" width="70%" alt="List Icon">
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link d-flex justify-content-center" routerLink="add" routerLinkActive="active">
+            <img src="assets/add.svg" width="30%" alt="Add Icon">
           </a>
         </li>
         <li class="nav-item">

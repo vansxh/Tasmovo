@@ -67,11 +67,11 @@ class Stresstracking
     }
 
     function resetDailyStresslevel($daily_stresslevel){
-        $stmt2 = Database::getDb()->prepare("UPDATE User SET daily_stresslevel=:daily_stresslevel WHERE UID=:UID LIMIT 1");
-        $stmt2->bindValue(":UID", $_SESSION['UID']);
-        $stmt2->bindValue(":daily_stresslevel", (int)$daily_stresslevel);
+        $stmt = Database::getDb()->prepare("UPDATE User SET daily_stresslevel=:daily_stresslevel WHERE UID=:UID LIMIT 1");
+        $stmt->bindValue(":UID", $_SESSION['UID']);
+        $stmt->bindValue(":daily_stresslevel", (int)$daily_stresslevel);
 
-        if ($stmt2->execute()) return true;
+        if ($stmt->execute()) return true;
         else return false;
     }
 }
