@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-12 d-flex align-items-center w-100 bg-warning" id="display-heading" *ngIf="loggedIn()">
+  <div class="col-12 w-100 bg-warning" id="display-heading" *ngIf="loggedIn()">
     <h1>Heading</h1>
   </div>
   <div class="col-md-1" id="display-desktop" *ngIf="loggedIn()">
@@ -38,8 +38,13 @@
       </ul>
     </nav>
   </div>
-  <div class="col-md-11 col-sm-12">
+  <div class="col-md-11 col-sm-12" *ngIf="loggedIn()">
     <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div class="col-12" *ngIf="!loggedIn()">
+    <div class="container-fluid p-0">
       <router-outlet></router-outlet>
     </div>
   </div>
