@@ -61,25 +61,24 @@ export class PopupMydayComponent implements OnInit {
   }
 
   onAddTaskSumbmit() {
+    // get values from form
     this.newTask.start_time = this.addPlannedTaskForm.value.start_time;
     this.newTask.end_time = this.addPlannedTaskForm.value.end_time;
     this.newTask.TAID = this.addPlannedTaskForm.value.taskID;
     this.newTask.planned_date = this.taskService.plannedTask.planned_date;
-    console.log(this.newTask);
 
     this.taskService.insertPlannedTask(this.addPlannedTaskForm.value).subscribe(
       (data: any = []) => {
-        this.dialogRefFinish.close();
-        window.location.reload();
+        this.onClose();
       },
       (error: any = []) => {
         if(error['error']['message']) {
-          this.general.errorResponse(error['error']['message']);
-          this.dialogRefFinish.close();
-          window.location.reload();
+          alert(error['error']['message']);
+          this.onClose();
           return;
         }
         this.general.errorResponse(error['status']);
+        this.onClose();
       });
   }
 

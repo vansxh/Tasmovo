@@ -56,13 +56,13 @@ export class MyDayComponent {
   newTask!: Task;
   mouseArea: any;
 
+  // Event Action that will be added to all events to delete them from MyDay
   actions: CalendarEventAction[] = [
     {
       label: '<p> löschen</p>',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
-        console.log(event.id);
         this.taskService.deletePlannedTask(event.id).subscribe(
           (data: any = []) => {
           },
@@ -91,15 +91,18 @@ export class MyDayComponent {
     this.viewDate = new Date();
     this.getAllPlannedTasks();
 
+    // change heading
     document.getElementsByTagName('h1')[0].innerText = "Mein Tag";
+
+    // get area of calendar for adding events through mousemove and mouseup
     this.mouseArea =  document.getElementById('myDay');
   }
 
   getAllPlannedTasks(){
     this.taskService.getPlannedTasks(this.datePipe.transform(this.viewDate,'yyyy-MM-dd', 'de-AT')||'').subscribe(
       (data: any = []) => {
+        // get planned tasks and push them into event array with all values needed
         this.plannedTasks = <Task[]>data['data'];
-        console.log(this.plannedTasks);
         this.events = [];
         this.plannedTasks.forEach((item)=>{
           this.events.push({
@@ -118,7 +121,6 @@ export class MyDayComponent {
         });
         this.viewDate = new Date();
         this.cd.detectChanges();
-        console.log(this.events);
       },
       (error: any = []) => {
         if(error['error']['message']) {
@@ -129,9 +131,12 @@ export class MyDayComponent {
       });
   }
 
+  // change between today and tomorrow
   changeDay(day: number) {
+    // get buttons for changing between days
     const todayBtn = document.getElementById('todayBtn');
     const tomorrowBtn = document.getElementById('tomorrowBtn');
+    // if today was clicked
     if(day === 1) {
       this.viewDate= new Date();
       if(todayBtn && tomorrowBtn) {
@@ -140,6 +145,7 @@ export class MyDayComponent {
         tomorrowBtn.classList.remove('btn-primary');
         tomorrowBtn.classList.add('btn-outline-primary');
       }
+    // if tomorrow was clicked
     } else if(day === 2) {
       this.viewDate.setDate(new Date().getDate() + 1);
       if(todayBtn && tomorrowBtn) {
@@ -149,11 +155,12 @@ export class MyDayComponent {
         tomorrowBtn.classList.add('btn-primary');
       }
     }
+    // reload tasks with changed date
     this.getAllPlannedTasks();
   }
 
+  // if a planned task is dragged to another time
   eventTimesChanged({ event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
-
    this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -165,16 +172,17 @@ export class MyDayComponent {
       return iEvent;
     });
 
+   // get taskID depending on type of event.id since it could be undefined, number or string
     if(event.id === undefined) this.updateTask.TAID = 0;
     else if(typeof event.id == 'number') this.updateTask.TAID = event.id;
     else if(typeof event.id == 'string') {
       this.updateTask.TAID = parseInt(event.id);
     }
     else this.updateTask.TAID = 0;
-    //this.updateTask.TAID = event.id == undefined ? 0 : typeof event.id == 'number' ? event.id : 'string' ? parseInt(event.id) : 0;
+    // set new start and end time after event was dragged
     this.updateTask.start_time = this.datePipe.transform(newStart,'HH:mm', 'de-AT')||'';
     this.updateTask.end_time = this.datePipe.transform(newEnd,'HH:mm', 'de-AT')||'';
-    console.log(this.updateTask);
+    // update start and end time of planned task in database
     this.taskService.updatePlannedTask(this.updateTask).subscribe(
       (data: any = []) => {
       },
@@ -187,11 +195,13 @@ export class MyDayComponent {
       });
   }
 
+  // for adding new events through dragging
   startDragToCreate(
     segment: WeekViewHourSegment,
     mouseDownEvent: MouseEvent,
     segmentElement: HTMLElement
   ) {
+    // add placeholder event for display while dragging
     this.dragToSelectEvent = {
       id: this.events.length,
       title: 'Task',
@@ -207,6 +217,7 @@ export class MyDayComponent {
       weekStartsOn: this.weekStartsOn,
     });
 
+    // for updating start and end time of placeholder event while dragging
     fromEvent(document, 'mousemove')
       .pipe(
         finalize(() => {
@@ -235,10 +246,13 @@ export class MyDayComponent {
         this.refreshEvents();
       });
 
+    // if mouseup while mouse is on calendar -> pop-up for inserting new planned task
     fromEvent(this.mouseArea, 'mouseup').subscribe( () => {
+      // get all needed values
       this.newTask.start_time = this.datePipe.transform(this.dragToSelectEvent.start, 'HH:mm', 'de-AT') || '';
       this.newTask.end_time = this.datePipe.transform(this.dragToSelectEvent.end, 'HH:mm', 'de-AT') || '';
       this.newTask.planned_date = this.datePipe.transform(this.viewDate, 'yyyy-MM-dd', 'de-AT') || '';
+      // open pop-up with selected values
       this.onAddOpen(this.newTask);
     });
   }
@@ -249,6 +263,7 @@ export class MyDayComponent {
   }
 
   onAddOpen(task: Task){
+    // save selected values in service for displaying in pop-up
     this.taskService.plannedTask = task;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
