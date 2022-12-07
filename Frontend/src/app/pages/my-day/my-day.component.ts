@@ -18,6 +18,7 @@ import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.compo
 interface MyEvent extends CalendarEvent {
   deadline?: string;
   category?: string;
+  taskID?: number;
 }
 
 function floorToNearest(amount: number, precision: number) {
@@ -63,6 +64,7 @@ export class MyDayComponent {
   newTask!: Task;
   mouseArea: any;
   finishedTask!: Task;
+  selectedTask!: Task;
 
   // Event Action that will be added to all events to delete them from MyDay
   actions: CalendarEventAction[] = [
@@ -98,6 +100,7 @@ export class MyDayComponent {
     this.newTask = new Task();
     this.viewDate = new Date();
     this.finishedTask = new Task();
+    this.selectedTask = new Task();
     this.getAllPlannedTasks();
 
     // change heading
@@ -115,7 +118,7 @@ export class MyDayComponent {
         this.events = [];
         this.plannedTasks.forEach((item)=>{
           this.events.push({
-            id: item.TAID,
+            id: item.MID,
             start:new Date(item.planned_date + ' ' + item.start_time),
             end:new Date(item.planned_date + ' ' + item.end_time),
             title:item.task_name,
@@ -127,7 +130,8 @@ export class MyDayComponent {
             },
             draggable: true,
             deadline: this.datePipe.transform(item.deadline,'EEE, d.M. H:mm', 'de-AT')||'',
-            category: item.category
+            category: item.category,
+            taskID: item.TAID
           })
         });
         this.viewDate = new Date();
@@ -184,12 +188,12 @@ export class MyDayComponent {
     });
 
     // get taskID depending on type of event.id since it could be undefined, number or string
-    if(event.id === undefined) this.updateTask.TAID = 0;
-    else if(typeof event.id == 'number') this.updateTask.TAID = event.id;
+    if(event.id === undefined) this.updateTask.MID = 0;
+    else if(typeof event.id == 'number') this.updateTask.MID = event.id;
     else if(typeof event.id == 'string') {
-      this.updateTask.TAID = parseInt(event.id);
+      this.updateTask.MID = parseInt(event.id);
     }
-    else this.updateTask.TAID = 0;
+    else this.updateTask.MID = 0;
     // set new start and end time after event was dragged
     this.updateTask.start_time = this.datePipe.transform(newStart,'HH:mm', 'de-AT')||'';
     this.updateTask.end_time = this.datePipe.transform(newEnd,'HH:mm', 'de-AT')||'';
@@ -261,6 +265,7 @@ export class MyDayComponent {
     // if mouseup while mouse is on calendar -> pop-up for inserting new planned task
     fromEvent(this.mouseArea, 'mouseup').subscribe( () => {
       // get all needed values
+      this.newTask.TAID = 0;
       this.newTask.start_time = this.datePipe.transform(this.dragToSelectEvent.start, 'HH:mm', 'de-AT') || '';
       this.newTask.end_time = this.datePipe.transform(this.dragToSelectEvent.end, 'HH:mm', 'de-AT') || '';
       this.newTask.planned_date = this.datePipe.transform(this.viewDate, 'yyyy-MM-dd', 'de-AT') || '';
@@ -296,4 +301,21 @@ export class MyDayComponent {
     this.dialog.open(PopupFinishComponent, dialogConfig);
   }
 
+  editPlannedTask(event: any) {
+    this.selectedTask.MID = event.event.id;
+    this.selectedTask.TAID = event.event.taskID;
+    this.selectedTask.start_time = this.datePipe.transform(event.event.start,'HH:mm', 'de-AT')||'';
+    this.selectedTask.end_time = this.datePipe.transform(event.event.end,'HH:mm', 'de-AT')||'';
+    this.selectedTask.planned_date = this.datePipe.transform(this.viewDate, 'yyyy-MM-dd', 'de-AT') || '';
+    this.onEditOpen(this.selectedTask);
+  }
+
+  onEditOpen(task: Task) {
+    // save values of selected task in service for displaying in pop-up
+    this.taskService.plannedTask = task;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupMydayComponent, dialogConfig);
+  }
 }

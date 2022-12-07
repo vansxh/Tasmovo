@@ -34,6 +34,7 @@
     [refresh]="refresh"
     [hourSegmentTemplate]="dayViewHourSegmentTemplate"
     (eventTimesChanged)="eventTimesChanged($event)"
+    (eventClicked)="editPlannedTask($event)"
     [eventTitleTemplate]="customEventTitle"
   >
   </mwl-calendar-day-view>

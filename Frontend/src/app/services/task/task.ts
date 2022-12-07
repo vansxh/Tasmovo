@@ -19,4 +19,5 @@ export class Task {
   start_time!: string;
   end_time!: string;
   category!: string;
+  MID!: number;
 }

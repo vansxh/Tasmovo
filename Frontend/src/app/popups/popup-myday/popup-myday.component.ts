@@ -21,6 +21,7 @@ export class PopupMydayComponent implements OnInit {
   tasks!: Task[];
   addPlannedTaskForm!: FormGroup;
   newTask!: Task;
+  plannedTask!: Task;
 
   ngOnInit(): void {
 
@@ -50,13 +51,17 @@ export class PopupMydayComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
 
-    this.planned_date = this.datePipe.transform(new Date(this.taskService.plannedTask.planned_date), 'EEEE, d. MMM', 'de-AT') || '';
+    this.plannedTask = this.taskService.plannedTask;
+    console.log(this.plannedTask);
+    this.planned_date = this.datePipe.transform(new Date(this.plannedTask.planned_date), 'EEEE, d. MMM', 'de-AT') || '';
 
     this.addPlannedTaskForm = this.formbuilder.group({
-      start_time: [this.taskService.plannedTask.start_time, Validators.required],
-      end_time: [this.taskService.plannedTask.end_time, Validators.required],
-      taskID: ['', Validators.required]
+      start_time: ['', Validators.required],
+      end_time: ['', Validators.required],
+      TAID: ['', Validators.required]
     });
+
+    this.addPlannedTaskForm.patchValue(this.plannedTask);
 
   }
 
@@ -64,8 +69,8 @@ export class PopupMydayComponent implements OnInit {
     // get values from form
     this.newTask.start_time = this.addPlannedTaskForm.value.start_time;
     this.newTask.end_time = this.addPlannedTaskForm.value.end_time;
-    this.newTask.TAID = this.addPlannedTaskForm.value.taskID;
-    this.newTask.planned_date = this.taskService.plannedTask.planned_date;
+    this.newTask.TAID = this.addPlannedTaskForm.value.TAID;
+    this.newTask.planned_date = this.plannedTask.planned_date;
 
     this.taskService.insertPlannedTask(this.newTask).subscribe(
       (data: any = []) => {
@@ -79,6 +84,29 @@ export class PopupMydayComponent implements OnInit {
         }
         this.general.errorResponse(error['status']);
         this.onClose();
+      });
+  }
+
+  onEditTaskSumbmit(){
+    // get values from form
+    this.newTask.start_time = this.addPlannedTaskForm.value.start_time;
+    this.newTask.end_time = this.addPlannedTaskForm.value.end_time;
+    this.newTask.TAID = this.addPlannedTaskForm.value.TAID;
+    this.newTask.planned_date = this.taskService.plannedTask.planned_date;
+    this.newTask.MID = this.taskService.plannedTask.MID;
+
+    this.taskService.updatePlannedTask(this.newTask).subscribe(
+      (data: any = []) => {
+        //this.onClose();
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          //this.onClose();
+          return;
+        }
+        this.general.errorResponse(error['status']);
+        //this.onClose();
       });
   }
 

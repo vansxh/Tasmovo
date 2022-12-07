@@ -15,15 +15,16 @@
   <br>
 
   <div class="form-group">
-    <label for="taskID">Task hinzufügen</label>
-    <select formControlName="taskID" name="taskID"
-            class="form-control" id="taskID">
+    <label for="TAID">Task hinzufügen</label>
+    <select formControlName="TAID" name="TAID"
+            class="form-control" id="TAID">
       <option value="" disabled selected>Task</option>
       <option *ngFor="let t of tasks | notDone" value="{{t.TAID}}">{{t.task_name}}</option>
     </select>
   </div>
 
-  <button [disabled]="!addPlannedTaskForm.valid" (click)="onAddTaskSumbmit()" class="btn btn-primary">Speichern</button>
+  <button *ngIf="this.plannedTask.TAID === 0" [disabled]="!addPlannedTaskForm.valid" (click)="onAddTaskSumbmit()" class="btn btn-primary">Speichern</button>
+  <button *ngIf="this.plannedTask.TAID !== 0" [disabled]="!addPlannedTaskForm.valid" (click)="onEditTaskSumbmit()" class="btn btn-primary">Bearbeiten</button>
   <br>
   <button class="btn btn-primary" (click)="onClose()">Abbrechen</button>
 </form>

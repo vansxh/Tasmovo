@@ -46,6 +46,7 @@ export class InsertTaskComponent implements OnInit {
         (data: any = []) => {
             // get task from data
             this.selectedTask = <Task>data['data'];
+            console.log(this.selectedTask);
             // fix deadline for input form
             let deadline = new Date(this.selectedTask.deadline);
             this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';

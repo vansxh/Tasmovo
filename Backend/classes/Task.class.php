@@ -169,12 +169,14 @@ class Task
     }
 
     // function for updating a planned task in My Day
-    function updatePlannedTask($TAID, $start_time, $end_time)
+    function updatePlannedTask($MID, $TAID, $start_time, $end_time, $planned_date)
     {
-        $stmt = Database::getDb()->prepare("UPDATE MyDay SET start_time=:start_time, end_time=:end_time WHERE taskID=:TAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("UPDATE MyDay SET taskID=:TAID, start_time=:start_time, end_time=:end_time, planned_date=:planned_date WHERE MID=:MID LIMIT 1");
+        $stmt->bindValue(":MID", $MID);
         $stmt->bindValue(":TAID", $TAID);
         $stmt->bindValue(":start_time", $start_time);
         $stmt->bindValue(":end_time", $end_time);
+        $stmt->bindValue(":planned_date", $planned_date);
 
         if ($stmt->execute()) return true;
         else return false;
