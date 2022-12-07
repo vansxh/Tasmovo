@@ -1,0 +1,25 @@
+.switch-screen, .switch-screen-full {
+  min-height: 100vh;
+}
+
+.switch-screen-small {
+  display: none;
+}
+
+.login-screen {
+  //min-height: 100vh;
+}
+
+.input-text {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .switch-screen {
+    display: none!important;
+  }
+
+  .switch-screen-small {
+    display: block;
+  }
+}

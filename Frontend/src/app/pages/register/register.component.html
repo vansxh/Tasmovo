@@ -1,118 +1,123 @@
-<div class="col-md-6">
+<div class="row m-0 switch-screen-full">
+  <div class="switch-screen col-md-5 d-flex flex-column justify-content-center align-items-center bg-login">
+    <img src="assets/logo.png" alt="Logo" width="30%">
+    <h2 class="text-light fw-light mt-5">Bereits registriert?</h2>
+    <a class="text-decoration-none text-light fw-light" routerLink="/login">Jetzt einloggen</a><br>
+    <button class="btn btn-light text-primary fw-bolder mt-3 w-25" routerLink="/login">Login</button>
+  </div>
+<div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center align-items-center">
   <h1 class="text-center">Registrierung</h1>
 
   <div class="alert alert-danger" *ngIf="message">
     {{message}}
   </div>
 
-  <div>
+  <div class="mt-5 w-md-50 w-sm-75">
     <form [formGroup]="registerForm" class="form" (ngSubmit)="onRegisterSubmit()" autocomplete="off">
       <div class="form-group">
-        <label for="firstName">Vorname</label>
+        <label class="input-text" for="firstName">Vorname</label>
         <input type="text" formControlName="firstName" placeholder="Vorname" name="firstName"
                class="form-control" id="firstName">
       </div>
-
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched">
-        Bitte geben Sie Ihren Vornamen ein.
+        <span>Bitte geben Sie Ihren Vornamen ein.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('firstName')?.hasError('maxlength')">
-        Der Vorname darf maximal 30 Zeichen lang sein.
+        <span>Der Vorname darf maximal 30 Zeichen lang sein.</span>
       </div>
 
-
-      <div class="form-group">
-        <label for="lastName">Nachname</label>
+      <div class="form-group mt-3">
+        <label class="input-text" for="lastName">Nachname</label>
         <input type="text" formControlName="lastName" placeholder="Nachname" name="lastName"
                class="form-control" id="lastName">
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('lastName')?.hasError('required') && registerForm.get('lastName')?.touched">
-        Bitte geben Sie Ihren Nachnamen ein.
+        <span>Bitte geben Sie Ihren Nachnamen ein.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('lastName')?.hasError('maxlength')">
-        Der Nachname darf maximal 30 Zeichen lang sein.
+        <span>Der Nachname darf maximal 30 Zeichen lang sein.</span>
       </div>
 
-
-      <div class="form-group">
-        <label for="mail">E-Mail</label>
+      <div class="form-group mt-3">
+        <label class="input-text" for="mail">E-Mail</label>
         <input type="email" formControlName="mail" placeholder="example@gmail.com" name="mail" class="form-control"
                id="mail">
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('mail')?.hasError('required') && registerForm.get('mail')?.touched">
-        Bitte geben Sie eine Email ein.
+        <span>Bitte geben Sie eine Email ein.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('mail')?.hasError('email')">
-        Die Eingabe muss eine gültige Email sein.
+        <span>Die Eingabe muss eine gültige Email sein.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('mail')?.hasError('maxlength')">
-        Die Email darf maximal 30 Zeichen lang sein.
+        <span>Die Email darf maximal 30 Zeichen lang sein.</span>
       </div>
 
-      <div class="form-group">
-        <label for="username">Benutzername</label>
-        <input type="text" formControlName="username" placeholder="Username nur mit Kleinbuchstaben und Ziffern"
+      <div class="form-group mt-3">
+        <label class="input-text" for="username">Benutzername</label>
+        <input type="text" formControlName="username" placeholder="Benutzername"
                name="username"
                class="form-control" id="username" (keypress)="keyPressAlphaNumeric($event)">
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('username')?.hasError('required') && registerForm.get('username')?.touched">
-        Bitte geben Sie einen Usernamen ein.
+        <span>Bitte geben Sie einen Usernamen ein.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('username')?.hasError('maxlength')">
-        Der Username darf maximal 30 Zeichen lang sein.
+        <span>Der Username darf maximal 30 Zeichen lang sein.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('username')?.hasError('minlength')">
-        Der Username muss mindestens 4 Zeichen lang sein.
+        <span>Der Username muss mindestens 4 Zeichen lang sein.</span>
       </div>
 
-      <div class="form-group">
-        <label for="password">Passwort (Mindestens 6 Zeichen)</label>
+      <div class="form-group mt-3">
+        <label class="input-text" for="password">Passwort (Mindestens 6 Zeichen)</label>
         <input type="text" formControlName="password" placeholder="Passwort" name="password"
                class="form-control" id="password">
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
-        Bitte geben Sie ein Passwort ein.
+        <span>Bitte geben Sie ein Passwort ein.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('password')?.hasError('maxlength')">
-        Das Passwort darf maximal 30 Zeichen lang sein.
+        <span>Das Passwort darf maximal 30 Zeichen lang sein.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('password')?.hasError('minlength')">
-        Das Passwort muss mindestens 6 Zeichen lang sein.
+        <span>Das Passwort muss mindestens 6 Zeichen lang sein.</span>
       </div>
 
-      <div class="form-group">
-        <label for="repeatPassword">Passwort wiederholen</label>
+      <div class="form-group mt-3">
+        <label class="input-text" for="repeatPassword">Passwort wiederholen</label>
         <input type="text" formControlName="repeatPassword" placeholder="Passwort" name="repeatPassword"
                class="form-control" ngValidateEqual="password" id="repeatPassword">
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('repeatPassword')?.hasError('required') && registerForm.get('repeatPassword')?.touched">
-        Bitte wiederholen sie Ihr Passwort.
+        <span>Bitte wiederholen sie Ihr Passwort.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="registerForm.get('repeatPassword')?.hasError('notEqual') ">
-        Das Passwort stimmt nicht überein.
+        <span>Das Passwort stimmt nicht überein.</span>
       </div>
-
-      <button [disabled]="!registerForm.valid" type="submit" class="btn btn-success">Registrieren</button>
-
+      <div class="text-center mt-4">
+        <button [disabled]="!registerForm.valid" type="submit" class="btn btn-primary w-50">Registrieren</button>
+      </div>
     </form>
   </div>
-  <div class="col-md-6">
-    <p></p>
-    Bereits registriert? <a routerLink="/login">Login</a>
+  <div class="col-sm-12 switch-screen-small mt-3 text-center">
+    <span class="fw-light mt-5">Bereits registriert?</span>
+    <h6><a class="text-decoration-none text-primary fw-normal" routerLink="/login">Jetzt einloggen</a></h6><br>
   </div>
+</div>
 </div>

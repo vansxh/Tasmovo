@@ -1,5 +1,5 @@
-<div class="row m-0">
-<div class="col-md-7 d-flex flex-column justify-content-center align-items-center">
+<div class="row m-0 switch-screen-full">
+<div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center align-items-center login-screen">
   <h1 class="text-center">Willkommen zurück!</h1>
   <div class="alert alert-danger" *ngIf="message">
     {{message}}
@@ -8,51 +8,53 @@
     User erfolgreich erstellt!
   </div>
 
-  <div class="mt-4">
+  <div class="mt-5 w-md-50 w-sm-75">
     <form [formGroup]="loginForm" class="form" (ngSubmit)="onLoginSubmit()" autocomplete="off">
       <div class="form-group">
-        <label for="username">Username oder Mail:</label>
+        <label class="input-text" for="username">Benutzername oder E-Mail:</label>
         <input type="text" formControlName="username" placeholder="Username oder Mail" name="login"
                class="form-control" id="username">
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched">
-        Bitte geben Sie Ihren Usernamen oder E-Mail ein.
+        <span>Bitte geben Sie Ihren Benutzernamen oder Ihre E-Mail ein.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="loginForm.get('username')?.hasError('maxlength')">
-        Der Username bzw. die E-Mail darf maximal 30 Zeichen lang sein.
+        <span>Der Benutzername bzw. die E-Mail darf maximal 30 Zeichen lang sein.</span>
       </div>
 
-      <div class="form-group">
-        <label for="password">Passwort</label>
+      <div class="form-group mt-3">
+        <label class="input-text" for="password">Passwort</label>
         <input type="password" formControlName="password" placeholder="Passwort" name="password"
                class="form-control" id="password">
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
-        Please enter your Password
+        <span>Bitte geben Sie Ihr Passwort ein</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="loginForm.get('password')?.hasError('maxlength')">
-        Das Passwort darf maximal 30 Zeichen lang sein.
+        <span>Das Passwort darf maximal 30 Zeichen lang sein.</span>
       </div>
-      <div class="alert alert-danger"
+      <div class="alert p-0"
            *ngIf="loginForm.get('password')?.hasError('minlength')">
-        Das Passwort muss mindestens 6 Zeichen lang sein.
+        <span>Das Passwort muss mindestens 6 Zeichen lang sein.</span>
       </div>
-
-      <button [disabled]="!loginForm.valid" type="submit" class="btn btn-success">Einloggen</button>
+      <div class="text-center mt-4">
+      <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary w-50">Einloggen</button>
+      </div>
     </form>
   </div>
 </div>
-<div class="col-md-5 bg-login d-flex flex-column justify-content-center align-items-center switch-screen">
-  <img src="assets/logo.png" alt="Logo" width="30%">
-  <div class="mt-5">
-    <h2 class="text-light">Noch keinen Account?</h2>
-    <span><a routerLink="/register">Erstelle jetzt einen neuen Account</a></span>
-    <button class="btn btn-light text-primary">Registrieren</button>
+  <div class="col-sm-12 switch-screen-small mt-3 text-center">
+    <span class="fw-light mt-5">Noch keinen Account? </span>
+    <h6><a class="text-decoration-none text-primary fw-normal" routerLink="/register">Erstelle jetzt einen neuen Account</a></h6><br>
   </div>
+<div class="switch-screen col-md-5 d-flex flex-column justify-content-center align-items-center bg-login">
+  <img src="assets/logo.png" alt="Logo" width="30%">
+    <h2 class="text-light fw-light mt-5">Noch keinen Account?</h2>
+    <a class="text-decoration-none text-light fw-light" routerLink="/register">Erstelle jetzt einen neuen Account</a><br>
+    <button class="btn btn-light text-primary fw-bolder mt-3" routerLink="/register">Registrieren</button>
 </div>
-
 </div>
