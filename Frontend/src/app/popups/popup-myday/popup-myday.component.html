@@ -19,7 +19,7 @@
     <select formControlName="taskID" name="taskID"
             class="form-control" id="taskID">
       <option value="" disabled selected>Task</option>
-      <option *ngFor="let t of tasks" value="{{t.TAID}}">{{t.task_name}}</option>
+      <option *ngFor="let t of tasks | notDone" value="{{t.TAID}}">{{t.task_name}}</option>
     </select>
   </div>
 

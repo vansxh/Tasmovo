@@ -157,7 +157,7 @@ class Task
     // function for getting tasks planned for My Day
     function getPlannedTasks($userID, $date)
     {
-        $stmt = Database::getDb()->prepare("SELECT * FROM MyDay as md INNER JOIN Task as t ON md.taskID=t.TAID WHERE md.planned_date=:date AND t.created_by=:userID");
+        $stmt = Database::getDb()->prepare("SELECT * ,(SELECT c.category_name from Category as c WHERE c.CAID=t.categoryID) as 'category' FROM MyDay as md INNER JOIN Task as t ON md.taskID=t.TAID WHERE md.planned_date=:date AND t.created_by=:userID");
         $stmt->bindValue(":date", $date);
         $stmt->bindValue(":userID", $userID);
 

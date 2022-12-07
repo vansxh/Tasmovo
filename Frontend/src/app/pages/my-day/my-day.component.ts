@@ -11,9 +11,14 @@ import { WeekViewHourSegment } from 'calendar-utils';
 import { addDays, addMinutes, endOfWeek } from 'date-fns';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
-import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {PopupMydayComponent} from "../../popups/popup-myday/popup-myday.component";
+import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
+
+interface MyEvent extends CalendarEvent {
+  deadline?: string;
+  category?: string;
+}
 
 function floorToNearest(amount: number, precision: number) {
   return Math.floor(amount / precision) * precision;
@@ -27,6 +32,7 @@ const colors: Record<string, EventColor> = {
   main: {
     primary: '#634C9A',
     secondary: '#ffffff',
+    secondaryText: '#634C9A',
   },
   done: {
     primary: '#9F92C6',
@@ -40,6 +46,7 @@ const colors: Record<string, EventColor> = {
   styleUrls: ['./my-day.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class MyDayComponent {
 
   view: CalendarView = CalendarView.Day;
@@ -49,12 +56,13 @@ export class MyDayComponent {
   viewDate!: Date;
   dragToCreateActive = false;
   weekStartsOn: 0 = 0;
-  dragToSelectEvent!: CalendarEvent;
+  dragToSelectEvent!: MyEvent;
 
   plannedTasks!: Task[];
   updateTask!: Task;
   newTask!: Task;
   mouseArea: any;
+  finishedTask!: Task;
 
   // Event Action that will be added to all events to delete them from MyDay
   actions: CalendarEventAction[] = [
@@ -79,7 +87,7 @@ export class MyDayComponent {
 
   refresh = new Subject<void>();
 
-  events: CalendarEvent[] = [];
+  events: MyEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
@@ -89,6 +97,7 @@ export class MyDayComponent {
     this.updateTask = new Task();
     this.newTask = new Task();
     this.viewDate = new Date();
+    this.finishedTask = new Task();
     this.getAllPlannedTasks();
 
     // change heading
@@ -117,6 +126,8 @@ export class MyDayComponent {
               afterEnd: true,
             },
             draggable: true,
+            deadline: this.datePipe.transform(item.deadline,'EEE, d.M. H:mm', 'de-AT')||'',
+            category: item.category
           })
         });
         this.viewDate = new Date();
@@ -145,7 +156,7 @@ export class MyDayComponent {
         tomorrowBtn.classList.remove('btn-primary');
         tomorrowBtn.classList.add('btn-outline-primary');
       }
-    // if tomorrow was clicked
+      // if tomorrow was clicked
     } else if(day === 2) {
       this.viewDate.setDate(new Date().getDate() + 1);
       if(todayBtn && tomorrowBtn) {
@@ -161,7 +172,7 @@ export class MyDayComponent {
 
   // if a planned task is dragged to another time
   eventTimesChanged({ event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
-   this.events = this.events.map((iEvent) => {
+    this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
           ...event,
@@ -172,7 +183,7 @@ export class MyDayComponent {
       return iEvent;
     });
 
-   // get taskID depending on type of event.id since it could be undefined, number or string
+    // get taskID depending on type of event.id since it could be undefined, number or string
     if(event.id === undefined) this.updateTask.TAID = 0;
     else if(typeof event.id == 'number') this.updateTask.TAID = event.id;
     else if(typeof event.id == 'string') {
@@ -270,6 +281,19 @@ export class MyDayComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(PopupMydayComponent, dialogConfig);
+  }
+
+  finishTask(event: any) {
+    this.finishedTask.TAID = event.id;
+    this.onFinishOpen(this.finishedTask);
+  }
+
+  onFinishOpen(task: Task){
+    this.taskService.terminateTask = task;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupFinishComponent, dialogConfig);
   }
 
 }

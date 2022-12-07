@@ -2,19 +2,19 @@
   <div class="col-md-4">
     <div class="btn-group">
       <div id="todayBtn"
-        class="btn btn-primary"
-        mwlCalendarToday
-        [(viewDate)]="viewDate"
-        (click) = "changeDay(1)"
+           class="btn btn-primary"
+           mwlCalendarToday
+           [(viewDate)]="viewDate"
+           (click) = "changeDay(1)"
       >
         Heute
       </div>
       <div id="tomorrowBtn"
-        class="btn btn-outline-primary"
-        mwlCalendarNextView
-        [view]="view"
-        [(viewDate)]="viewDate"
-        (click) = "changeDay(2)"
+           class="btn btn-outline-primary"
+           mwlCalendarNextView
+           [view]="view"
+           [(viewDate)]="viewDate"
+           (click) = "changeDay(2)"
 
       >
         Morgen
@@ -34,6 +34,7 @@
     [refresh]="refresh"
     [hourSegmentTemplate]="dayViewHourSegmentTemplate"
     (eventTimesChanged)="eventTimesChanged($event)"
+    [eventTitleTemplate]="customEventTitle"
   >
   </mwl-calendar-day-view>
 </div>
@@ -60,3 +61,16 @@
   </div>
 </ng-template>
 
+<ng-template #customEventTitle let-event="event" let-view="view">
+      <div
+        class="cal-event-title"
+        [attr.aria-hidden]="{} | calendarA11y: 'hideEventTitle'"
+      >
+        <div>
+          <h2>{{event.title}}</h2>
+          <p *ngIf="event.deadline">bis {{event.deadline}} Uhr</p>
+          <p *ngIf="event.category">Kategorie: {{event.category}}</p>
+        </div>
+        <button class="btn-circle btn-xl bg-info" (click)="finishTask(event)"></button>
+      </div>
+</ng-template>
