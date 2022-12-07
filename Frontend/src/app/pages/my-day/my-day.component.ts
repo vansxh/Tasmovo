@@ -206,6 +206,7 @@ export class MyDayComponent {
       id: this.events.length,
       title: 'Task',
       start: segment.date,
+      color: colors['main'],
       meta: {
         tmpEvent: true,
       },

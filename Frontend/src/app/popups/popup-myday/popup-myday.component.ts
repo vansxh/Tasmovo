@@ -67,7 +67,7 @@ export class PopupMydayComponent implements OnInit {
     this.newTask.TAID = this.addPlannedTaskForm.value.taskID;
     this.newTask.planned_date = this.taskService.plannedTask.planned_date;
 
-    this.taskService.insertPlannedTask(this.addPlannedTaskForm.value).subscribe(
+    this.taskService.insertPlannedTask(this.newTask).subscribe(
       (data: any = []) => {
         this.onClose();
       },
