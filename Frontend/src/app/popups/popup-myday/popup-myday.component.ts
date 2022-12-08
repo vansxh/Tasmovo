@@ -89,24 +89,24 @@ export class PopupMydayComponent implements OnInit {
 
   onEditTaskSumbmit(){
     // get values from form
-    this.newTask.start_time = this.addPlannedTaskForm.value.start_time;
-    this.newTask.end_time = this.addPlannedTaskForm.value.end_time;
-    this.newTask.TAID = this.addPlannedTaskForm.value.TAID;
-    this.newTask.planned_date = this.taskService.plannedTask.planned_date;
-    this.newTask.MID = this.taskService.plannedTask.MID;
+    this.plannedTask.start_time = this.addPlannedTaskForm.value.start_time;
+    this.plannedTask.end_time = this.addPlannedTaskForm.value.end_time;
+    this.plannedTask.TAID = this.addPlannedTaskForm.value.TAID;
+    this.plannedTask.planned_date = this.taskService.plannedTask.planned_date;
+    this.plannedTask.MID = this.taskService.plannedTask.MID;
 
-    this.taskService.updatePlannedTask(this.newTask).subscribe(
+    this.taskService.updatePlannedTask(this.plannedTask).subscribe(
       (data: any = []) => {
-        //this.onClose();
+        this.onClose();
       },
       (error: any = []) => {
         if(error['error']['message']) {
           alert(error['error']['message']);
-          //this.onClose();
+          this.onClose();
           return;
         }
         this.general.errorResponse(error['status']);
-        //this.onClose();
+        this.onClose();
       });
   }
 

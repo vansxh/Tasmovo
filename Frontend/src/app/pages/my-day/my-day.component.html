@@ -33,7 +33,7 @@
     [events]="events"
     [refresh]="refresh"
     [hourSegmentTemplate]="dayViewHourSegmentTemplate"
-    (eventTimesChanged)="eventTimesChanged($event)"
+    (eventTimesChanged)="eventTimesChanged($event, $event)"
     (eventClicked)="editPlannedTask($event)"
     [eventTitleTemplate]="customEventTitle"
   >

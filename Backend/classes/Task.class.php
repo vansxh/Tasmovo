@@ -183,10 +183,10 @@ class Task
     }
 
     // function for deleting a planned task from My Day
-    function deletePlannedTask($TAID)
+    function deletePlannedTask($MID)
     {
-        $stmt = Database::getDb()->prepare("DELETE FROM MyDay WHERE taskID=:TAID LIMIT 1");
-        $stmt->bindValue(":TAID", $TAID);
+        $stmt = Database::getDb()->prepare("DELETE FROM MyDay WHERE MID=:MID LIMIT 1");
+        $stmt->bindValue(":MID", $MID);
         if ($stmt->execute()) return true;
         else return false;
     }

@@ -6,10 +6,9 @@ require('../../bootstrap.inc.php');
 $auth->check();
 
 $task = new Task();
-$TAID = $_GET['TAID'];
-print_r($TAID);
+$MID = $_GET['MID'];
 
-$item = $task->deletePlannedTask($TAID);
+$item = $task->deletePlannedTask($MID);
 
 // check if task was deleted
 if (!$item) {

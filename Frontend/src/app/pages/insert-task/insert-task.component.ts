@@ -12,8 +12,6 @@ import {CategoryService} from "../../services/category/category.service";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 
-
-
 @Component({
   selector: 'app-insert-task',
   templateUrl: './insert-task.component.html',

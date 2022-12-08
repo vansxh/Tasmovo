@@ -175,7 +175,7 @@ export class MyDayComponent {
   }
 
   // if a planned task is dragged to another time
-  eventTimesChanged({ event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({ event, newStart, newEnd,}: CalendarEventTimesChangedEvent, newEvent: any): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
         return {
@@ -187,16 +187,18 @@ export class MyDayComponent {
       return iEvent;
     });
 
-    // get taskID depending on type of event.id since it could be undefined, number or string
+    // get MID depending on type of event.id since it could be undefined, number or string
     if(event.id === undefined) this.updateTask.MID = 0;
     else if(typeof event.id == 'number') this.updateTask.MID = event.id;
     else if(typeof event.id == 'string') {
       this.updateTask.MID = parseInt(event.id);
     }
     else this.updateTask.MID = 0;
+    this.updateTask.TAID = newEvent.event.taskID;
     // set new start and end time after event was dragged
     this.updateTask.start_time = this.datePipe.transform(newStart,'HH:mm', 'de-AT')||'';
     this.updateTask.end_time = this.datePipe.transform(newEnd,'HH:mm', 'de-AT')||'';
+    this.updateTask.planned_date = this.datePipe.transform(this.viewDate, 'yyyy-MM-dd', 'de-AT') || '';
     // update start and end time of planned task in database
     this.taskService.updatePlannedTask(this.updateTask).subscribe(
       (data: any = []) => {
