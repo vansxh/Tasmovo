@@ -45,8 +45,9 @@ export class DashboardComponent implements OnInit {
           this.general.errorResponse(error['status']);
       });
 
-    this.getWeeklyAvg();
+    this.getDailyStresslevel();
     this.getStresslimit();
+    //this.onBreakOpen();
 
     document.getElementsByTagName("h1")[0].innerText = "";
 
@@ -135,7 +136,7 @@ export class DashboardComponent implements OnInit {
     this.dialog.open(PopupFinishComponent, dialogConfig);
   }
 
-  getWeeklyAvg() {
+  getDailyStresslevel() {
     this.stress.getDailyStresslevel().subscribe((data: any = []) => {
       //console.log(data['data']['0']['Average']);
       this.weeklyAverage = data['data']['daily_stresslevel'];
@@ -172,10 +173,12 @@ export class DashboardComponent implements OnInit {
   }
 
   onBreakOpen(){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    this.dialog.open(PopupReminderComponent, dialogConfig);
+    //if (this.getDailyStresslevel() >= this.getStresslimit()) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      this.dialog.open(PopupReminderComponent, dialogConfig);
+    //}
   }
 
 }

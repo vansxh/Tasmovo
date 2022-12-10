@@ -1,11 +1,11 @@
 <div class="row mt-4">
   <div class="text-center mb-1" *ngIf="singleTasks">{{(singleTasks|done).length}} von {{singleTasks.length}} erledigt</div>
-  <div><ngb-progressbar type="light" *ngIf="singleTasks" [showValue]="true" [value]="(singleTasks | done).length" [max]="singleTasks.length">
+  <div><ngb-progressbar type="primary" *ngIf="singleTasks" [showValue]="true" [value]="(singleTasks | done).length" [max]="singleTasks.length">
   </ngb-progressbar></div>
 </div>
 
 <div class="row mt-5">
-  <div class="col">
+  <div class="col-lg col-md">
     <div class="shadow p-3 mb-2 bg-white">
       <h2 class="text-center mb-4">Offen</h2>
       <!--<div class="row">
@@ -15,11 +15,11 @@
       </div>-->
       <div class="row border-bottom justify-content-center" *ngFor="let t of singleTasks | notDone">
         <!-- uses custom pipe notDone -->
-        <div class="col-md-2 my-2">
+        <div class="col-2 my-2">
           <button class="btn-circle btn-xl bg-info" (click)="finishTask(t)"></button>
         </div>
-        <div class="col-md-2 d-flex align-items-center my-2">{{t.task_name}}</div>
-        <div class="col-md-2 d-flex align-items-center my-2">
+        <div class="col-2 d-flex align-items-center my-2">{{t.task_name}}</div>
+        <div class="col-2 d-flex align-items-center my-2">
           <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
         </div>
       </div>
@@ -28,7 +28,7 @@
 
   <br>
 
-  <div class="col">
+  <div class="col-lg col-md">
     <div class="shadow p-3 mb-2 bg-white">
       <h2 class="text-center mb-4">Erledigt</h2>
       <!--<div class="row">
@@ -37,11 +37,11 @@
       </div>-->
       <div class="row border-bottom justify-content-center" *ngFor="let t of singleTasks | done">
         <!-- uses custom pipe done -->
-        <div class="col-md-2 my-2">
+        <div class="col-2 my-2">
           <button class="btn-circle btn-xl bg-dark" disabled></button>
         </div>
-        <div class="col-md-2 d-flex align-items-center my-2 text-done">{{t.task_name}}</div>
-        <div class="col-md-2 d-flex align-items-center my-2">
+        <div class="col-2 d-flex align-items-center my-2 text-done">{{t.task_name}}</div>
+        <div class="col-2 d-flex align-items-center my-2">
           <div class="bg-dark rounded px-1 task-deadline text-done">{{t.deadline | date: 'mediumDate'}}</div>
         </div>
       </div>
