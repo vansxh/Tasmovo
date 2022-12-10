@@ -21,9 +21,13 @@
 
 :host ::ng-deep .day p {
   margin: auto;
+  text-align: center;
 }
 
 :host ::ng-deep .day.selected {
   background-color: #30235B;
   color: #ffffff;
+  text-align: center;
+  padding: 1px 7px;
+  border-radius: 10px;
 }

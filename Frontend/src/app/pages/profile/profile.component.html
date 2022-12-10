@@ -14,20 +14,25 @@
       <div>Lvl: {{weeklyAverage}} / 10</div>
     </mat-tab>
     <mat-tab label="Info">
-      <div>
-        <div *ngIf="allTasksLength == 1">{{allTasksLength}} Task</div>
-        <div *ngIf="allTasksLength != 1">{{allTasksLength}} Tasks</div>
-        <div *ngIf="allFinishedTasksLength == 1">{{allFinishedTasksLength}} fertige Task</div>
-        <div *ngIf="allFinishedTasksLength != 1">{{allFinishedTasksLength}} fertige Tasks</div>
-        <div *ngIf="allCategoriesLength == 1">{{allCategoriesLength}} Kategorie</div>
-        <div *ngIf="allCategoriesLength != 1">{{allCategoriesLength}} Kategorien</div>
+      <div class="row">
+        <div class="col text-center"><b>{{allTasksLength}}</b></div>
+        <div class="col text-center"><b>{{allFinishedTasksLength}}</b></div>
+        <div class="col text-center"><b>{{allCategoriesLength}}</b></div>
+      </div>
+      <div class="row border-bottom border-primary">
+        <div class="col text-center" *ngIf="allTasksLength == 1">Task</div>
+        <div class="col text-center" *ngIf="allTasksLength != 1">Tasks</div>
+        <div class="col text-center" *ngIf="allFinishedTasksLength == 1">fertiger Task</div>
+        <div class="col text-center" *ngIf="allFinishedTasksLength != 1">fertige Tasks</div>
+        <div class="col text-center" *ngIf="allCategoriesLength == 1">Kategorie</div>
+        <div class="col text-center" *ngIf="allCategoriesLength != 1">Kategorien</div>
       </div>
       <br>
       <div *ngIf="currentUser">
         <form [formGroup]="userForm" class="form" autocomplete="off">
           <div *ngIf="!changeUsername">
             Benutzername: {{currentUser.username}}
-            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true">Ändern
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true"><i class="fa fa-edit"></i>
             </button>
           </div>
           <div *ngIf="changeUsername">
@@ -52,7 +57,7 @@
           <div *ngIf="!changeFirstname">
             Vorname: {{currentUser.firstName}}
             <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
-              Ändern
+              <i class="fa fa-edit"></i>
             </button>
           </div>
           <div *ngIf="changeFirstname">
@@ -72,7 +77,7 @@
           </div>
           <div *ngIf="!changeLastname">
             Nachname: {{currentUser.lastName}}
-            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true">Ändern
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true"><i class="fa fa-edit"></i>
             </button>
           </div>
           <div *ngIf="changeLastname">
@@ -93,7 +98,7 @@
           <div *ngIf="!changeStressLimit">
             Stress Limit: {{currentUser.stress_limit}}
             <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
-              Ändern
+              <i class="fa fa-edit"></i>
             </button>
           </div>
           <div *ngIf="changeStressLimit">

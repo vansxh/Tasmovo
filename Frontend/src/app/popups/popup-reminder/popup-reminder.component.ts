@@ -15,7 +15,6 @@ import {StresstrackingService} from "../../services/stresstracking/stresstrackin
 export class PopupReminderComponent implements OnInit {
 
   constructor(private dialogRefFinish: MatDialogRef<PopupReminderComponent>, private stress: StresstrackingService, private taskService: TaskService, private formBuilder: FormBuilder, private general: GeneralService) {
-    this.timer(1);
   }
   name = "Angular " + VERSION.major;
   display: any;
@@ -26,7 +25,7 @@ export class PopupReminderComponent implements OnInit {
   weeklyAverage!: number;
 
   ngOnInit(): void {
-
+    this.timer(1);
   }
 
   onClose() {
