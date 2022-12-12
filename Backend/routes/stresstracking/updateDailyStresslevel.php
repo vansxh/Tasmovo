@@ -1,5 +1,7 @@
 <?php
-// required file
+/**
+ * @var Auth $auth
+ */
 require('../../bootstrap.inc.php');
 
 // check if Input is empty

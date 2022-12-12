@@ -1,5 +1,7 @@
 <?php
-//Required file
+/**
+ * @var Auth $auth
+ */
 require('../../bootstrap.inc.php');
 
 //Check if user is logged in

@@ -76,4 +76,15 @@ class Stresstracking
         if ($stmt->execute()) return true;
         else return false;
     }
+
+    function getStressData(){
+        $stmt = Database::getDb()->prepare("SELECT daily_stresslevel, stress_limit FROM User WHERE UID=:UID LIMIT 1");
+        $stmt->bindValue(":UID", $_SESSION['UID']);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
 }

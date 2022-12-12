@@ -9,9 +9,9 @@ $auth->check();
 
 $stress = new Stresstracking();
 
-$result = $stress->getStresslimit();
+$result = $stress->getStressData();
 
 (new Response([
-    'message' => 'Stresslimit erfolgreich bekommen.',
+    'message' => 'Average erfolgreich bekommen.',
     'data' => $result
 ]))->send(HttpCode::OKAY);
