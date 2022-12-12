@@ -17,4 +17,8 @@ export class TimerService {
     return this.http.post('Backend/routes/timer/createTimer.php', timer);
   }
 
+  getTimer(){
+    return this.http.get('Backend/routes/timer/getTimer.php');
+  }
+
 }

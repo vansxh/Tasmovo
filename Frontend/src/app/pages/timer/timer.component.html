@@ -30,7 +30,7 @@
           Dieses Feld darf maximal 59 betragen.
         </mat-error>
         <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
-          Dieses Feld darf nicht kleiner oder gleich 0 sein.
+          Dieses Feld darf nicht kleiner als 0 sein.
         </mat-error>
       </mat-form-field>
       :
@@ -54,13 +54,13 @@
 
 <div *ngIf="whileTimer">
   <div>
-    Time
+    <countdown [config]="{leftTime: timerSeconds}"></countdown>
   </div>
   <div>
     <img src="assets/standard_boi.gif" width="800" height="600" alt="">
   </div>
   <div>
-    lädt ...
+    {{loadedReward}} lädt ...
   </div>
   <div>
     <button class="btn btn-secondary">Abbrechen</button>

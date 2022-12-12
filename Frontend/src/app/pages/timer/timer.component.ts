@@ -26,11 +26,15 @@ export class TimerComponent implements OnInit {
 
   rewards!: Reward[];
 
+  loadedReward = "Belohnung";
+  timerSeconds = 0;
+
   matcher!: ErrorStateMatcher;
 
   ngOnInit(): void {
     this.startState();
     this.getRewards();
+    this.getCurrentTimer();
 
     document.getElementsByTagName("h1")[0].innerText = "Timer";
   }
@@ -71,29 +75,47 @@ export class TimerComponent implements OnInit {
     this.rewardForm = this.formBuilder.group({
       rewardID: ['', Validators.required],
       hours: ['', [Validators.required, Validators.max(24), Validators.min(0)]],
-      minutes: ['', [Validators.required, Validators.max(59), Validators.min(1)]],
+      minutes: ['', [Validators.required, Validators.max(59), Validators.min(0)]],
       seconds: ['', Validators.required]
     });
     this.rewardForm.setValue({
       rewardID: '',
       hours: '00',
-      minutes: '00',
+      minutes: '30',
       seconds: '00'
     });
   }
 
-  startTimer(){
-    this.timer.createTimer(this.rewardForm.value).subscribe(data =>{
-      console.log(data);
+  startTimer() {
+    this.timer.createTimer(this.rewardForm.value).subscribe((data: any = []) => {
+      this.getCurrentTimer();
+    }, (error: any = []) => {
+      if (error['error']['message']) {
+        alert(error['error']['message']);
+        return;
+      }
+      this.general.errorResponse(error['status']);
     });
   }
 
-  stopTimer(){
+  stopTimer() {
 
   }
 
-  getCurrentTimer(){
+  getCurrentTimer() {
+    this.timer.getTimer().subscribe((data: any = []) => {
+      this.loadedReward = data['data']['reward'];
+      this.timerSeconds = data['data']['duration'];
 
+      this.whileState();
+    }, (error: any = []) => {
+      /*if (error['error']['message']) {
+        alert(error['error']['message']);
+        return;
+      }
+      this.general.errorResponse(error['status']);*/
+      this.startState();
+    });
   }
 
 }

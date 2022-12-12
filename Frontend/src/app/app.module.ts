@@ -67,6 +67,7 @@ import {CalendarNativeDateFormatter, DateFormatterParams} from 'angular-calendar
 import { MyDayComponent } from './pages/my-day/my-day.component';
 import { PopupReminderComponent } from './popups/popup-reminder/popup-reminder.component';
 import { PopupMydayComponent } from './popups/popup-myday/popup-myday.component';
+import { CountdownModule } from 'ngx-countdown';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -169,7 +170,8 @@ export const routes: Routes = [
     NgxMatNativeDateModule,
     NgxMatTimepickerModule,
     NgbProgressbarModule,
-    SwiperModule
+    SwiperModule,
+    CountdownModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},

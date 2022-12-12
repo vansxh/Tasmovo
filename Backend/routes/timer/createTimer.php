@@ -23,7 +23,7 @@ if ($timer->createTimer(Input::read('rewardID'), $duration)) {
     (new Response([
         'error' => false,
         'message' => 'Timer erfolgreich erstellt.'
-    ]))->send(HttpCode::OKAY);
+    ]))->send(HttpCode::CREATED);
 } else {
     (new Response([
         'error' => true,

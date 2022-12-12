@@ -23,6 +23,11 @@ class Timer
 
     function getTimer()
     {
+        $stmt = Database::getDb()->prepare("SELECT * FROM Timer INNER JOIN Reward ON rewardID = RID WHERE userID = :userID ORDER BY TIID LIMIT 1");
+        $stmt->bindValue(":userID", $_SESSION['UID']);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        return $result;
     }
 }
