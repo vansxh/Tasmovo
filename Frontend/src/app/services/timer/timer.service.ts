@@ -21,4 +21,8 @@ export class TimerService {
     return this.http.get('Backend/routes/timer/getTimer.php');
   }
 
+  deleteTimer(){
+    return this.http.delete('Backend/routes/timer/deleteTimer.php');
+  }
+
 }

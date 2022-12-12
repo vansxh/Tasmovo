@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {start} from "@popperjs/core";
 import {Reward} from "../../services/timer/Reward";
 import {TimerService} from "../../services/timer/timer.service";
 import {GeneralService} from "../../services/general/general.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ErrorStateMatcher} from "@angular/material/core";
 import DevExpress from "devextreme";
-import data = DevExpress.data;
+import {CountdownEvent, CountdownStatus} from "ngx-countdown";
 
 @Component({
   selector: 'app-timer',
@@ -99,7 +98,15 @@ export class TimerComponent implements OnInit {
   }
 
   stopTimer() {
-
+    this.timer.deleteTimer().subscribe((data: any = []) =>{
+      this.ngOnInit();
+    }, (error: any = []) =>{
+      if (error['error']['message']) {
+        alert(error['error']['message']);
+        return;
+      }
+      this.general.errorResponse(error['status']);
+    });
   }
 
   getCurrentTimer() {
@@ -109,13 +116,14 @@ export class TimerComponent implements OnInit {
 
       this.whileState();
     }, (error: any = []) => {
-      /*if (error['error']['message']) {
-        alert(error['error']['message']);
-        return;
-      }
-      this.general.errorResponse(error['status']);*/
       this.startState();
     });
+  }
+
+  handleEvent(e: CountdownEvent) {
+    if(e.status == CountdownStatus.done){
+      this.finishState();
+    }
   }
 
 }

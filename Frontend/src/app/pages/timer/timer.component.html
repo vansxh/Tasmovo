@@ -54,7 +54,7 @@
 
 <div *ngIf="whileTimer">
   <div>
-    <countdown [config]="{leftTime: timerSeconds}"></countdown>
+    <countdown #cd [config]="{leftTime: timerSeconds}" (event)="handleEvent($event)"></countdown>
   </div>
   <div>
     <img src="assets/standard_boi.gif" width="800" height="600" alt="">
@@ -63,21 +63,21 @@
     {{loadedReward}} lädt ...
   </div>
   <div>
-    <button class="btn btn-secondary">Abbrechen</button>
+    <button class="btn btn-secondary" (click)="cd.stop(); stopTimer()">Abbrechen</button>
   </div>
 </div>
 
 <div *ngIf="timerEnd">
   <div>
-    Time
+    <countdown [config]="{leftTime: 0}"></countdown>
   </div>
   <div>
-    Bild
+    <img src="assets/FinishedTimer.png" width="800" height="600" alt="">
   </div>
   <div>
     Belohnug geladen!
   </div>
   <div>
-    <button class="btn btn-secondary">Neuer Timer</button>
+    <button class="btn btn-secondary" (click)="getRewards();startState()">Neuer Timer</button>
   </div>
 </div>
