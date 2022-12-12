@@ -48,7 +48,6 @@ export class AppComponent {
   }
 
   getLocation() {
-    console.log(window.location.pathname);
     return window.location.pathname;
   }
 
