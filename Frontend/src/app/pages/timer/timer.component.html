@@ -48,22 +48,22 @@
     </form>
   </div>
   <div>
-    <button [disabled]="!rewardForm.valid" class="btn btn-secondary" (click)="startTimer()">Start</button>
+    <button [disabled]="!rewardForm.valid" class="btn btn-primary" (click)="startTimer()">Start</button>
   </div>
 </div>
 
-<div *ngIf="whileTimer">
+<div *ngIf="whileTimer" class="col-sm-12 switch-screen-small mt-3 text-center">
   <div>
-    <countdown #cd [config]="{leftTime: timerSeconds}" (event)="handleEvent($event)"></countdown>
+    <countdown #cd [config]="{leftTime: timerSeconds}" (event)="handleEvent($event)" class="timer"></countdown>
   </div>
   <div>
-    <img src="assets/standard_boi.gif" width="800" height="600" alt="">
+    <img src="assets/standard_boi.gif" width="90%" alt="">
   </div>
   <div>
     {{loadedReward}} lädt ...
   </div>
   <div>
-    <button class="btn btn-secondary" (click)="cd.stop(); stopTimer()">Abbrechen</button>
+    <button class="btn btn-primary" (click)="cd.stop(); stopTimer()">Abbrechen</button>
   </div>
 </div>
 
@@ -78,6 +78,6 @@
     Belohnug geladen!
   </div>
   <div>
-    <button class="btn btn-secondary" (click)="getRewards();startState()">Neuer Timer</button>
+    <button class="btn btn-primary" (click)="getRewards();startState()">Neuer Timer</button>
   </div>
 </div>
