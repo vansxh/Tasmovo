@@ -2,15 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
-import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {MatDialogRef} from "@angular/material/dialog";
 import {DatePipe} from '@angular/common';
+
+export function endTimeValidator(): ValidatorFn {
+  return (formGroup: AbstractControl): ValidationErrors | null => {
+    const startControl = formGroup.get('start_time');
+    const endControl = formGroup.get('end_time');
+
+    const start_time = startControl?.value;
+
+    const end_time = endControl?.value;
+    const forbidden = end_time < start_time;
+    return forbidden ? {endTimeBeforeStartTime: {value: end_time}} : null;
+  };
+}
 
 @Component({
   selector: 'app-popup-myday',
   templateUrl: './popup-myday.component.html',
   styleUrls: ['./popup-myday.component.scss']
 })
+
 export class PopupMydayComponent implements OnInit {
 
   constructor(private datePipe: DatePipe, private dialogRefFinish: MatDialogRef<PopupMydayComponent>, private formbuilder: FormBuilder, private taskService: TaskService, private general: GeneralService) { }
@@ -30,6 +44,9 @@ export class PopupMydayComponent implements OnInit {
       start_time: ['', Validators.required],
       end_time: ['', Validators.required],
       TAID: ['', Validators.required]
+    },
+{
+        validator: [endTimeValidator()]
     });
 
     this.newTask = new Task();
@@ -114,6 +131,10 @@ export class PopupMydayComponent implements OnInit {
   onClose() {
     this.dialogRefFinish.close();
     window.location.reload();
+  }
+
+  sendHelpPls() {
+    console.log(this.addPlannedTaskForm.getError('endTimeBeforeStartTime'));
   }
 
 }

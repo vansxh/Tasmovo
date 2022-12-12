@@ -2,6 +2,10 @@
 
 <form [formGroup]="addPlannedTaskForm" class="form">
 
+  <span *ngIf="this.addPlannedTaskForm.controls['end_time'].touched && this.addPlannedTaskForm.getError('endTimeBeforeStartTime')">
+      Ende kann nicht vor Start liegen!
+  </span>
+
   <div class="form-group">
     <input type="time" formControlName="start_time" placeholder="Startzeit auswählen" name="start_time"
            class="form-control" id="start_time">
