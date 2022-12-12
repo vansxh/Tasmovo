@@ -2,9 +2,6 @@
   <div>
     <img src="assets/timer.svg" alt="Timer">
   </div>
-  <!--<div>
-    <img src="assets/standard_boi.gif" width="800" height="600" alt="">
-  </div>-->
   <div>
     <form [formGroup]="rewardForm" novalidate class="form">
       <mat-form-field class="example-full-width">
@@ -56,9 +53,31 @@
 </div>
 
 <div *ngIf="whileTimer">
-
+  <div>
+    Time
+  </div>
+  <div>
+    <img src="assets/standard_boi.gif" width="800" height="600" alt="">
+  </div>
+  <div>
+    lädt ...
+  </div>
+  <div>
+    <button class="btn btn-secondary">Abbrechen</button>
+  </div>
 </div>
 
 <div *ngIf="timerEnd">
-
+  <div>
+    Time
+  </div>
+  <div>
+    Bild
+  </div>
+  <div>
+    Belohnug geladen!
+  </div>
+  <div>
+    <button class="btn btn-secondary">Neuer Timer</button>
+  </div>
 </div>
