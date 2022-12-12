@@ -14,6 +14,7 @@ import { fromEvent } from 'rxjs';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {PopupMydayComponent} from "../../popups/popup-myday/popup-myday.component";
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
+import {MyDayService} from "../../services/my-day/my-day.service";
 
 interface MyEvent extends CalendarEvent {
   deadline?: string;
@@ -36,8 +37,9 @@ const colors: Record<string, EventColor> = {
     secondaryText: '#634C9A',
   },
   done: {
-    primary: '#9F92C6',
+    primary: '#ADADAD',
     secondary: '#ffffff',
+    secondaryText: '#ADADAD'
   },
 };
 
@@ -54,7 +56,7 @@ export class MyDayComponent {
 
   CalendarView = CalendarView;
 
-  viewDate!: Date;
+  public viewDate!: Date;
   dragToCreateActive = false;
   weekStartsOn: 0 = 0;
   dragToSelectEvent!: MyEvent;
@@ -65,6 +67,7 @@ export class MyDayComponent {
   mouseArea: any;
   finishedTask!: Task;
   selectedTask!: Task;
+  finish!: boolean;
 
   // Event Action that will be added to all events to delete them from MyDay
   actions: CalendarEventAction[] = [
@@ -93,12 +96,12 @@ export class MyDayComponent {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private dialog: MatDialog, private taskService: TaskService, private datePipe: DatePipe, private general: GeneralService, private cd: ChangeDetectorRef) {}
+  constructor(private myDayService: MyDayService, private dialog: MatDialog, private taskService: TaskService, private datePipe: DatePipe, private general: GeneralService, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void{
     this.updateTask = new Task();
     this.newTask = new Task();
-    this.viewDate = new Date();
+    this.viewDate = this.myDayService.viewDate;
     this.finishedTask = new Task();
     this.selectedTask = new Task();
     this.getAllPlannedTasks();
@@ -111,7 +114,8 @@ export class MyDayComponent {
   }
 
   getAllPlannedTasks(){
-    this.taskService.getPlannedTasks(this.datePipe.transform(this.viewDate,'yyyy-MM-dd', 'de-AT')||'').subscribe(
+    this.finish = false;
+    this.taskService.getPlannedTasks(this.myDayService.viewDateString()).subscribe(
       (data: any = []) => {
         // get planned tasks and push them into event array with all values needed
         this.plannedTasks = <Task[]>data['data'];
@@ -122,7 +126,7 @@ export class MyDayComponent {
             start:new Date(item.planned_date + ' ' + item.start_time),
             end:new Date(item.planned_date + ' ' + item.end_time),
             title:item.task_name,
-            color: colors['main'],
+            color: (item.statusID == 1 ? colors['main'] : colors['done']),
             actions: this.actions,
             resizable: {
               beforeStart: true,
@@ -134,7 +138,7 @@ export class MyDayComponent {
             taskID: item.TAID
           })
         });
-        this.viewDate = new Date();
+        this.viewDate = this.myDayService.viewDate;
         this.cd.detectChanges();
       },
       (error: any = []) => {
@@ -153,7 +157,7 @@ export class MyDayComponent {
     const tomorrowBtn = document.getElementById('tomorrowBtn');
     // if today was clicked
     if(day === 1) {
-      this.viewDate= new Date();
+      this.myDayService.viewDate = new Date();
       if(todayBtn && tomorrowBtn) {
         todayBtn.classList.remove('btn-outline-primary');
         todayBtn.classList.add('btn-primary');
@@ -162,7 +166,7 @@ export class MyDayComponent {
       }
       // if tomorrow was clicked
     } else if(day === 2) {
-      this.viewDate.setDate(new Date().getDate() + 1);
+      this.myDayService.viewDate.setDate(new Date().getDate() + 1);
       if(todayBtn && tomorrowBtn) {
         todayBtn.classList.remove('btn-primary');
         todayBtn.classList.add('btn-outline-primary');
@@ -198,7 +202,7 @@ export class MyDayComponent {
     // set new start and end time after event was dragged
     this.updateTask.start_time = this.datePipe.transform(newStart,'HH:mm', 'de-AT')||'';
     this.updateTask.end_time = this.datePipe.transform(newEnd,'HH:mm', 'de-AT')||'';
-    this.updateTask.planned_date = this.datePipe.transform(this.viewDate, 'yyyy-MM-dd', 'de-AT') || '';
+    this.updateTask.planned_date = this.myDayService.viewDateString();
     // update start and end time of planned task in database
     this.taskService.updatePlannedTask(this.updateTask).subscribe(
       (data: any = []) => {
@@ -231,7 +235,7 @@ export class MyDayComponent {
     this.events = [...this.events, this.dragToSelectEvent];
     const segmentPosition = segmentElement.getBoundingClientRect();
     this.dragToCreateActive = true;
-    const endOfView = endOfWeek(this.viewDate, {
+    const endOfView = endOfWeek(this.myDayService.viewDate, {
       weekStartsOn: this.weekStartsOn,
     });
 
@@ -270,7 +274,7 @@ export class MyDayComponent {
       this.newTask.TAID = 0;
       this.newTask.start_time = this.datePipe.transform(this.dragToSelectEvent.start, 'HH:mm', 'de-AT') || '';
       this.newTask.end_time = this.datePipe.transform(this.dragToSelectEvent.end, 'HH:mm', 'de-AT') || '';
-      this.newTask.planned_date = this.datePipe.transform(this.viewDate, 'yyyy-MM-dd', 'de-AT') || '';
+      this.newTask.planned_date = this.myDayService.viewDateString();
       // open pop-up with selected values
       this.onAddOpen(this.newTask);
     });
@@ -282,16 +286,19 @@ export class MyDayComponent {
   }
 
   onAddOpen(task: Task){
-    // save selected values in service for displaying in pop-up
-    this.taskService.plannedTask = task;
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    this.dialog.open(PopupMydayComponent, dialogConfig);
+      // save selected values in service for displaying in pop-up
+      this.taskService.plannedTask = task;
+      console.log(task);
+      console.log(this.taskService.plannedTask);
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      this.dialog.open(PopupMydayComponent, dialogConfig);
   }
 
   finishTask(event: any) {
-    this.finishedTask.TAID = event.id;
+    this.finish = true;
+    this.finishedTask.TAID = event.taskID;
     this.onFinishOpen(this.finishedTask);
   }
 
@@ -304,20 +311,23 @@ export class MyDayComponent {
   }
 
   editPlannedTask(event: any) {
-    this.selectedTask.MID = event.event.id;
-    this.selectedTask.TAID = event.event.taskID;
-    this.selectedTask.start_time = this.datePipe.transform(event.event.start,'HH:mm', 'de-AT')||'';
-    this.selectedTask.end_time = this.datePipe.transform(event.event.end,'HH:mm', 'de-AT')||'';
-    this.selectedTask.planned_date = this.datePipe.transform(this.viewDate, 'yyyy-MM-dd', 'de-AT') || '';
-    this.onEditOpen(this.selectedTask);
+      this.selectedTask.MID = event.event.id;
+      this.selectedTask.TAID = event.event.taskID;
+      this.selectedTask.start_time = this.datePipe.transform(event.event.start, 'HH:mm', 'de-AT') || '';
+      this.selectedTask.end_time = this.datePipe.transform(event.event.end, 'HH:mm', 'de-AT') || '';
+      this.selectedTask.planned_date = this.myDayService.viewDateString();
+      this.onEditOpen(this.selectedTask);
   }
 
   onEditOpen(task: Task) {
-    // save values of selected task in service for displaying in pop-up
-    this.taskService.plannedTask = task;
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    this.dialog.open(PopupMydayComponent, dialogConfig);
+    if(!this.finish) {
+      // save values of selected task in service for displaying in pop-up
+      this.taskService.plannedTask = task;
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      this.dialog.open(PopupMydayComponent, dialogConfig);
+    }
   }
+
 }

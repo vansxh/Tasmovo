@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {MatDialogRef} from "@angular/material/dialog";
 import {DatePipe} from '@angular/common';
 
@@ -23,7 +23,14 @@ export class PopupMydayComponent implements OnInit {
   newTask!: Task;
   plannedTask!: Task;
 
+
   ngOnInit(): void {
+
+    this.addPlannedTaskForm = this.formbuilder.group({
+      start_time: ['', Validators.required],
+      end_time: ['', Validators.required],
+      TAID: ['', Validators.required]
+    });
 
     this.newTask = new Task();
 
@@ -54,12 +61,6 @@ export class PopupMydayComponent implements OnInit {
     this.plannedTask = this.taskService.plannedTask;
     console.log(this.plannedTask);
     this.planned_date = this.datePipe.transform(new Date(this.plannedTask.planned_date), 'EEEE, d. MMM', 'de-AT') || '';
-
-    this.addPlannedTaskForm = this.formbuilder.group({
-      start_time: ['', Validators.required],
-      end_time: ['', Validators.required],
-      TAID: ['', Validators.required]
-    });
 
     this.addPlannedTaskForm.patchValue(this.plannedTask);
 

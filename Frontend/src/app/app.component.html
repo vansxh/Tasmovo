@@ -81,8 +81,20 @@
   </div>
 
   <div id="display-plus">
-    <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn()">
+    <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()!='/my-day' && getLocation()!='/insert-task' && getLocation()!='/insert-category'" >
       <img src="assets/add.svg" width="70px" alt="Add Icon">
+    </a>
+
+    <a class="nav-link nav-item" (click)="addPlannedTaskOpen()" *ngIf="loggedIn() && getLocation()=='/my-day'" >
+      <img src="assets/my-day.svg" width="70px" alt="Add Icon">
+    </a>
+
+    <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()=='/insert-task'" >
+      <img src="assets/my-day.svg" width="70px" alt="Add Icon">
+    </a>
+
+    <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()=='/insert-category'" >
+      <img src="assets/my-day.svg" width="70px" alt="Add Icon">
     </a>
   </div>
 

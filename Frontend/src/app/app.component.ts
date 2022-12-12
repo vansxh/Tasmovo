@@ -4,6 +4,10 @@ import {Task} from "./services/task/task";
 import {PopupFinishComponent} from "./popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {PopupAddComponent} from "./popups/popup-add/popup-add.component";
+import {TaskService} from './services/task/task.service';
+import {PopupMydayComponent} from "./popups/popup-myday/popup-myday.component";
+import {MyDayComponent} from "./pages/my-day/my-day.component";
+import {MyDayService} from "./services/my-day/my-day.service";
 
 @Component({
   selector: 'app-root',
@@ -15,8 +19,9 @@ export class AppComponent {
 
   loginbtn!: boolean;
   logoutbtn!: boolean;
+  newPlannedTask!: Task;
 
-  constructor(private service: AuthenticationService, private dialog: MatDialog) {
+  constructor(private service: AuthenticationService, private dialog: MatDialog, private taskService: TaskService, private myDayService: MyDayService) {
     if (this.service.isLoggedIn()) {
       this.loginbtn = false;
       this.logoutbtn = true;
@@ -24,6 +29,7 @@ export class AppComponent {
       this.loginbtn = true;
       this.logoutbtn = false;
     }
+    this.newPlannedTask = new Task();
   }
 
   loggedIn() {
@@ -40,4 +46,20 @@ export class AppComponent {
     dialogConfig.autoFocus = true;
     this.dialog.open(PopupAddComponent, dialogConfig);
   }
+
+  getLocation() {
+    console.log(window.location.pathname);
+    return window.location.pathname;
+  }
+
+  addPlannedTaskOpen(): void {
+    this.newPlannedTask.TAID = 0;
+    this.newPlannedTask.planned_date = this.myDayService.viewDateString();
+    this.taskService.plannedTask = this.newPlannedTask;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupMydayComponent, dialogConfig);
+  }
+
 }

@@ -72,6 +72,6 @@
           <p *ngIf="event.deadline">bis {{event.deadline}} Uhr</p>
           <p *ngIf="event.category">Kategorie: {{event.category}}</p>
         </div>
-        <button class="btn-circle btn-xl bg-info" (click)="finishTask(event)"></button>
+        <button *ngIf="event.statusID == 1" class="btn-circle btn-xl bg-info" (click)="finishTask(event)"></button>
       </div>
 </ng-template>
