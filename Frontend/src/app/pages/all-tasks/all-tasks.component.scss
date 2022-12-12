@@ -6,3 +6,30 @@ ngb-progressbar {
   border: #30235B 5px solid;
   border-radius: 20px!important;
 }
+
+.doneBtn-1 {
+  background-color: #D0C7EC;
+}
+
+.doneBtn-2 {
+  background-color: #9F92C6;
+}
+
+.doneBtn-3 {
+  background-color: #634C9A;
+}
+
+.doneBtn-Img {
+  background-image: url("../../../assets/check.svg");
+  background-size: 70%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.task-bottom {
+  border-bottom: 1px red solid;
+}
+
+.task-bottom:last-child {
+  border-bottom: none;
+}

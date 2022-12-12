@@ -80,21 +80,27 @@
     </nav>
   </div>
 
+  <div class="row">
+    <div class="col-12" id="header-mobile">
+      hallo
+    </div>
+  </div>
+
   <div id="display-plus">
     <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()!='/my-day' && getLocation()!='/insert-task' && getLocation()!='/insert-category'" >
       <img src="assets/add.svg" width="70px" alt="Add Icon">
     </a>
 
     <a class="nav-link nav-item" (click)="addPlannedTaskOpen()" *ngIf="loggedIn() && getLocation()=='/my-day'" >
-      <img src="assets/my-day.svg" width="70px" alt="Add Icon">
+      <img src="assets/my-day-btn.svg" width="70px" alt="My Day Icon">
     </a>
 
     <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()=='/insert-task'" >
-      <img src="assets/my-day.svg" width="70px" alt="Add Icon">
+      <img src="assets/check-btn.svg" width="70px" alt="Check Icon">
     </a>
 
     <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()=='/insert-category'" >
-      <img src="assets/my-day.svg" width="70px" alt="Add Icon">
+      <img src="assets/check-btn.svg" width="70px" alt="Check Icon">
     </a>
   </div>
 

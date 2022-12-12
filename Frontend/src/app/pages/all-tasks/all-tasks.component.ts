@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
+import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-all-tasks',
@@ -10,7 +12,7 @@ import {GeneralService} from "../../services/general/general.service";
 })
 export class AllTasksComponent implements OnInit {
 
-  constructor(private taskService: TaskService, private general: GeneralService) { }
+  constructor(private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) { }
 
   public allTasks!: Task[];
 
@@ -38,6 +40,7 @@ export class AllTasksComponent implements OnInit {
       (data: any = []) => {
         // update view if finishing was successful
         this.ngOnInit();
+        this.onFinishOpen(task);
       },
       (error: any = []) => {
         if(error['error']['message']) {
@@ -46,7 +49,13 @@ export class AllTasksComponent implements OnInit {
         }
         this.general.errorResponse(error['status']);
       });
+    }
 
+  onFinishOpen(task: Task){
+    this.taskService.terminateTask = task;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupFinishComponent, dialogConfig);
   }
-
 }
