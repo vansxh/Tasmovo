@@ -1,4 +1,12 @@
+.task-bottom {
+  border-bottom: 1px #dee2e6 solid;
+}
+
+.task-bottom:last-child {
+  border-bottom: none;
+}
 
 @media (max-width: 768px) {
 
 }
+
