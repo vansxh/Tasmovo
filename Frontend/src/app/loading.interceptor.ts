@@ -3,9 +3,9 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor, HttpResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import {LoaderService} from "./services/loader/loader.service";
 
@@ -16,14 +16,22 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   constructor(private loadingService: LoaderService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log('caught')
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
+
     this.totalRequests++;
-    this.loadingService.setLoading(true);
+    let lock = false;
+    // only display spinner if loading lasts longer than 100ms, credit to Luki
+    setTimeout(() => {
+      console.log("true");
+      if (!lock && this.totalRequests === 1) this.loadingService.setLoading(true)
+    }, 100)
+
     return next.handle(request).pipe(
       finalize(() => {
         this.totalRequests--;
+        console.log("false");
         if (this.totalRequests == 0) {
+          lock = true;
           this.loadingService.setLoading(false);
         }
       })
