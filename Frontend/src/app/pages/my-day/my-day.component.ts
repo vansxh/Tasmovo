@@ -20,6 +20,7 @@ interface MyEvent extends CalendarEvent {
   deadline?: string;
   category?: string;
   taskID?: number;
+  statusID?: number;
 }
 
 function floorToNearest(amount: number, precision: number) {
@@ -135,7 +136,8 @@ export class MyDayComponent {
             draggable: true,
             deadline: this.datePipe.transform(item.deadline,'EEE, d.M. H:mm', 'de-AT')||'',
             category: item.category,
-            taskID: item.TAID
+            taskID: item.TAID,
+            statusID: item.statusID
           })
         });
         this.viewDate = this.myDayService.viewDate;
