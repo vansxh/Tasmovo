@@ -1,3 +1,4 @@
+<div class="d-flex justify-content-center">
 <div class="col-md-6">
   <h1 *ngIf="!this.edit" class="text-center">Neuer Task</h1>
   <h1 *ngIf="this.edit" class="text-center">Task bearbeiten</h1>
@@ -6,8 +7,8 @@
     <input type="hidden" formControlName="TAID" name="TAID">
 
     <div class="form-group">
-      <mat-form-field appearance="fill" class="example-full-width">
-        <mat-label>Titel</mat-label>
+      <label for="task_name">Titel</label>
+      <mat-form-field appearance="outline" class="w-100">
         <input matInput placeholder="Neuer Taskname" formControlName="task_name" id="task_name">
       </mat-form-field>
     </div>
@@ -27,15 +28,19 @@
       Max Länge: 30 Zeichen
     </div>-->
 
+    <div class="row">
+
+      <div class="col">
     <div class="form-group">
-      <mat-form-field appearance="fill" class="example-full-width">
-        <mat-label>Datum</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="deadlineDay" min="{{nowDate}}">
+      <label for="deadline">Datum</label>
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput [matDatepicker]="picker" formControlName="deadlineDay" min="{{nowDate}}" id="deadline">
         <mat-hint>DD.MM.YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
+      </div>
 
     <!--<div class="form-group">
       <label for="deadlineDay">Datum</label>
@@ -54,15 +59,18 @@
       </mat-form-field>
     </div>-->
 
+      <div class="col">
     <div class="form-group">
-      <mat-form-field appearance="fill" class="example-full-width">
-        <mat-label>Uhrzeit</mat-label>
-        <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="deadlineHour">
+      <label for="time">Uhrzeit</label>
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="deadlineHour" id="time">
         <ngx-mat-timepicker-toggle matIconSuffix [for]="$any(timepicker)"></ngx-mat-timepicker-toggle>
         <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
       </mat-form-field>
     </div>
+      </div>
 
+    </div>
 
     <!--
     <div class="form-group">
@@ -78,9 +86,16 @@
 
     <div class="form-group">
       <label for="notes">Notizen (optional):</label>
+      <mat-form-field appearance="outline" class="w-100">
+        <input matInput placeholder="Notizen" formControlName="notes" id="notes">
+      </mat-form-field>
+    </div>
+
+    <!--<div class="form-group">
+      <label for="notes">Notizen (optional):</label>
       <input type="text" formControlName="notes" placeholder="Notizen" name="notes"
              class="form-control" id="notes">
-    </div>
+    </div>-->
 
     <div class="form-group">
       <label for="categoryID">Kategorie (optional):</label>
@@ -90,6 +105,7 @@
         <option *ngFor="let c of categories | category" value="{{c.CAID}}">{{c.category_name}}</option>
       </select>
     </div>
+
 
     <div *ngIf="subcategories != undefined && subcategories.length > 0" class="form-group">
       <label for="subcategoryID">Subkategorie (optional):</label>
@@ -107,4 +123,5 @@
       Task bearbeiten
     </button>
   </form>
+</div>
 </div>

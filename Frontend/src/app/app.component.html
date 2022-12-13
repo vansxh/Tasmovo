@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row header-mobile">
   <div class="col-12 w-100 bg-warning" id="display-heading" *ngIf="loggedIn()">
     <h1>Heading</h1>
   </div>
@@ -38,8 +38,14 @@
       </ul>
     </nav>
   </div>
+  <!--<div class="row">
+    <div class="col-12" id="header-mobile">
+      hallo
+    </div>
+  </div>-->
   <div class="col-md-11 col-sm-12" *ngIf="loggedIn()">
     <div class="container">
+
       <router-outlet></router-outlet>
     </div>
   </div>
@@ -62,7 +68,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link d-flex justify-content-center" routerLink="add" routerLinkActive="active">
+          <a class="nav-link d-flex justify-content-center" (click)="addPopup()">
             <img src="assets/add.svg" width="30%" alt="Add Icon">
           </a>
         </li>
@@ -79,12 +85,6 @@
       </ul>
     </nav>
   </div>
-
-  <!--<div class="row">
-    <div class="col-12" id="header-mobile">
-      hallo
-    </div>
-  </div>-->
 
   <div id="display-plus">
     <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()!='/my-day' && getLocation()!='/insert-task' && getLocation()!='/insert-category'" >

@@ -12,6 +12,7 @@
   position: fixed;
   top: 80%;
   left: 85%;
+  z-index: 2;
 }
 
 #display-heading {
@@ -27,6 +28,7 @@
 
   #display-mobile {
     display: block;
+    z-index: 1;
   }
 
   #display-heading {
@@ -44,11 +46,11 @@
     background-size: cover;
   }
 
-  #header-mobile {
+  .header-mobile {
     height: 300px;
     background-image: url("../assets/bg-mobile.png");;
-    background-size: cover;
-    background-position: center;
+    background-size: contain;
+    background-position: top;
     background-repeat: no-repeat;
   }
 }
