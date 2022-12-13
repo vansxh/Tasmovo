@@ -1,60 +1,60 @@
-<div class="row header-mobile">
-  <div class="col-12 w-100 bg-warning" id="display-heading" *ngIf="loggedIn()">
+<div class="header-mobile">
+  <div class="w-100 bg-warning" id="display-heading" *ngIf="loggedIn()">
     <h1>Heading</h1>
   </div>
-  <div class="col-md-1" id="display-desktop" *ngIf="loggedIn()">
-    <nav class="navbar bg-primary h-100 justify-content-center" id="navbar-desktop">
-      <ul class ="nav navbar-nav ml-5">
-        <li class ="nav-item text-center py-3">
-          <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
-            <img src="assets/home.svg" width="60%" alt="Home Icon">
-          </a>
-        </li>
-        <li class ="nav-item text-center py-3">
-          <a class="nav-link" routerLink="overview" routerLinkActive="active">
-            <img src="assets/list.svg" width="60%" alt="List Icon">
-          </a>
-        </li>
-        <li class ="nav-item text-center py-3">
-          <a class="nav-link" routerLink="timer" routerLinkActive="active">
-            <img src="assets/hourglass.svg" width="60%" alt="Timer Icon">
-          </a>
-        </li>
-        <li class ="nav-item text-center py-3">
-          <a class="nav-link" routerLink="calendar" routerLinkActive="active">
-            <img src="assets/calendar.svg" width="60%" alt="Calendar Icon">
-          </a>
-        </li>
-        <li class ="nav-item text-center py-3 pt-4 mt-4 border-top">
-          <a class="nav-link ">
-            <img src="assets/settings.svg" width="70%" alt="Settings Icon">
-          </a>
-        </li>
-        <li class ="nav-item text-center py-2">
-          <a class="nav-link" routerLink="profile" routerLinkActive="active">
-            <img src="assets/profile.svg" width="60%" alt="Profile Icon">
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-  <!--<div class="row">
-    <div class="col-12" id="header-mobile">
-      hallo
+    <div class="" id="display-desktop" *ngIf="loggedIn()">
+      <nav class="navbar bg-primary h-100 justify-content-center" id="navbar-desktop">
+        <ul class ="nav navbar-nav ml-5">
+          <li class ="nav-item text-center py-3">
+            <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
+              <img src="assets/home.svg" width="60%" alt="Home Icon">
+            </a>
+          </li>
+          <li class ="nav-item text-center py-3">
+            <a class="nav-link" routerLink="overview" routerLinkActive="active">
+              <img src="assets/list.svg" width="60%" alt="List Icon">
+            </a>
+          </li>
+          <li class ="nav-item text-center py-3">
+            <a class="nav-link" routerLink="timer" routerLinkActive="active">
+              <img src="assets/hourglass.svg" width="60%" alt="Timer Icon">
+            </a>
+          </li>
+          <li class ="nav-item text-center py-3">
+            <a class="nav-link" routerLink="calendar" routerLinkActive="active">
+              <img src="assets/calendar.svg" width="60%" alt="Calendar Icon">
+            </a>
+          </li>
+          <li class ="nav-item text-center py-3 pt-4 mt-4 border-top">
+            <a class="nav-link ">
+              <img src="assets/settings.svg" width="70%" alt="Settings Icon">
+            </a>
+          </li>
+          <li class ="nav-item text-center py-2">
+            <a class="nav-link" routerLink="profile" routerLinkActive="active">
+              <img src="assets/profile.svg" width="60%" alt="Profile Icon">
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
-  </div>-->
-  <div class="col-md-11 col-sm-12" *ngIf="loggedIn()">
-    <div class="container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-11 offset-md-1 col-sm-12" *ngIf="loggedIn()">
 
-      <router-outlet></router-outlet>
+          <router-outlet></router-outlet>
+
+      </div>
     </div>
   </div>
-  <div class="col-12" *ngIf="!loggedIn()">
-    <div class="container-fluid p-0">
-      <router-outlet></router-outlet>
+  <div class="row" *ngIf="!loggedIn()">
+    <div class="col-12">
+      <div class="container-fluid p-0">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
-  <div class="col-12" id="display-mobile" *ngIf="loggedIn()">
+  <div class="" id="display-mobile" *ngIf="loggedIn()">
     <nav class="navbar justify-content-center" id="nav-mobile">
       <ul class="nav">
         <li class="nav-item">
