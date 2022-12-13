@@ -8,11 +8,32 @@
   display: none;
 }
 
+
 #display-plus {
   position: fixed;
   top: 80%;
   left: 85%;
   z-index: 2;
+}
+
+.btnImg {
+  width: 80px;
+}
+
+.btnImg:hover{
+  width: 110px;
+}
+
+.containerWhile{
+  position: relative;
+
+}
+
+.containerCenterWhile{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #display-heading {
