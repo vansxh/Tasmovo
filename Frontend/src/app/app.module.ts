@@ -8,7 +8,7 @@ import {AppComponent} from './app.component';
 import {AddComponent} from './pages/add/add.component';
 import {ViewComponent} from './pages/view/view.component';
 import {RouterModule, Routes} from '@angular/router';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {InsertTaskComponent} from './pages/insert-task/insert-task.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -68,6 +68,8 @@ import { MyDayComponent } from './pages/my-day/my-day.component';
 import { PopupReminderComponent } from './popups/popup-reminder/popup-reminder.component';
 import { PopupMydayComponent } from './popups/popup-myday/popup-myday.component';
 import { CountdownModule } from 'ngx-countdown';
+import { SpinnerComponent } from './spinner/spinner.component';
+import {LoadingInterceptor} from "./loading.interceptor";
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -141,6 +143,7 @@ export const routes: Routes = [
     MyDayComponent,
     PopupReminderComponent,
     PopupMydayComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -205,7 +208,10 @@ export const routes: Routes = [
       },
     },
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
-    {provide: CalendarDateFormatter, useClass: CustomDateFormatter}
+    {provide: CalendarDateFormatter, useClass: CustomDateFormatter},
+    {
+      provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+    }
   ],
   bootstrap: [AppComponent],
   exports: [CalendarComponent]
