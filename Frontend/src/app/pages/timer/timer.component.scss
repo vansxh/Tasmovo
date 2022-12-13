@@ -6,3 +6,133 @@
   color: #30235B !important;
   padding-top: 0.6em !important;
 }
+.containerWhile{
+  position: relative;
+
+}
+
+.containerCenterWhile{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.container{
+  position: relative;
+  text-align: center;
+}
+
+.containerCenter{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+:host ::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+  text-align: center;
+  width: 50px;
+  font-weight: bold;
+  font-size: 36px;
+}
+
+.coluns{
+  font-size: 36px;
+}
+
+.rewardForm{
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.rewardText{
+  padding-right: 141px;
+}
+
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.select {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+  width: 294px;
+}    .select select {
+       font-size: 16px;
+       font-family: Roboto, "Helvetica Neue", sans-serif;
+       display: inline-block;
+       width: 100%;
+       cursor: pointer;
+       padding: 10px 10px;
+       outline: 0;
+       border: 0px solid #000000;
+       border-radius: 0px;
+       background: #e6e2f2;
+       color: #30235b;
+       appearance: none;
+       -webkit-appearance: none;
+       -moz-appearance: none;
+     }
+.select select::-ms-expand {
+  display: none;
+}
+.select select:hover,
+.select select:focus {
+  color: #30235b;
+  background: #e6e2f2;
+}
+.select select:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.select_arrow {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  width: 12px;
+  height: 12px;
+  border: solid #30235b;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.select select:hover ~ .select_arrow,
+.select select:focus ~ .select_arrow {
+  border-color: #30235b;
+}
+.select select:disabled ~ .select_arrow {
+  border-top-color: #30235b;
+}
+
+.image{
+  width: 411px;
+}
+
+@media (max-width: 768px) {
+  .image{
+    width: auto;
+  }
+}

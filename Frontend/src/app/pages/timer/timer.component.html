@@ -1,64 +1,80 @@
-<div *ngIf="timerStart">
-  <div>
-    <img src="assets/timer.svg" alt="Timer">
+<div *ngIf="timerStart" class="col-sm-12 switch-screen-small mt-3 text-center">
+  <div class="container">
+    <img src="assets/timer.svg" alt="Timer" class="image">
+    <div class="containerCenter">
+      <form [formGroup]="rewardForm" novalidate>
+        <mat-form-field [hideRequiredMarker]="true">
+          <mat-label></mat-label>
+          <input matInput type="number" [errorStateMatcher]="matcher" formControlName="hours"
+                 onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;">
+          <mat-error *ngIf="rewardForm.get('hours')?.hasError('required')">
+            Dieses Feld darf nicht leer sein.
+          </mat-error>
+          <mat-error *ngIf="rewardForm.get('hours')?.hasError('max')">
+            Dieses Feld darf nicht größer als 24 sein.
+          </mat-error>
+          <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
+            Dieses Feld darf nicht kleiner als 0 sein.
+          </mat-error>
+        </mat-form-field>
+        <span class="coluns">:</span>
+        <mat-form-field [hideRequiredMarker]="true">
+          <mat-label></mat-label>
+          <input matInput type="number" [errorStateMatcher]="matcher" formControlName="minutes"
+                 onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;">
+          <mat-error *ngIf="rewardForm.get('minutes')?.hasError('required')">
+            Dieses Feld darf nicht leer sein.
+          </mat-error>
+          <mat-error *ngIf="rewardForm.get('minutes')?.hasError('max')">
+            Dieses Feld darf maximal 59 betragen.
+          </mat-error>
+          <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
+            Dieses Feld darf nicht kleiner als 0 sein.
+          </mat-error>
+        </mat-form-field>
+        <span class="coluns">:</span>
+        <mat-form-field [hideRequiredMarker]="true">
+          <mat-label></mat-label>
+          <input matInput type="number" formControlName="seconds" [readonly]="true">
+        </mat-form-field>
+      </form>
+    </div>
   </div>
   <div>
-    <form [formGroup]="rewardForm" novalidate class="form">
-      <mat-form-field class="example-full-width">
-        <mat-label></mat-label>
-        <input matInput type="number" [errorStateMatcher]="matcher" formControlName="hours"
-               onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;">
-        <mat-error *ngIf="rewardForm.get('hours')?.hasError('required')">
-          Dieses Feld darf nicht leer sein.
-        </mat-error>
-        <mat-error *ngIf="rewardForm.get('hours')?.hasError('max')">
-          Dieses Feld darf nicht größer als 24 sein.
-        </mat-error>
-        <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
-          Dieses Feld darf nicht kleiner als 0 sein.
-        </mat-error>
-      </mat-form-field>
-      :
-      <mat-form-field class="example-full-width">
-        <mat-label></mat-label>
-        <input matInput type="number" [errorStateMatcher]="matcher" formControlName="minutes"
-               onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;">
-        <mat-error *ngIf="rewardForm.get('minutes')?.hasError('required')">
-          Dieses Feld darf nicht leer sein.
-        </mat-error>
-        <mat-error *ngIf="rewardForm.get('minutes')?.hasError('max')">
-          Dieses Feld darf maximal 59 betragen.
-        </mat-error>
-        <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
-          Dieses Feld darf nicht kleiner als 0 sein.
-        </mat-error>
-      </mat-form-field>
-      :
-      <mat-form-field class="example-full-width">
-        <mat-label></mat-label>
-        <input matInput type="number" formControlName="seconds" [readonly]="true">
-      </mat-form-field>
+    <form [formGroup]="rewardForm" novalidate class="rewardForm">
+      <label for="rewardID" class="rewardText">Belohnung</label>
       <br>
-      <label for="rewardID">Belohnung</label>
-      <select formControlName="rewardID" name="reward"
-              class="form-control" id="rewardID">
-        <option value="" disabled selected>Wähle deine Belohnung aus</option>
-        <option *ngFor="let r of rewards" value="{{r.RID}}">{{r.reward}}</option>
-      </select>
+      <div class="select">
+        <select formControlName="rewardID" name="reward"
+                id="rewardID">
+          <option value="" disabled selected>Wähle deine Belohnung aus</option>
+          <option *ngFor="let r of rewards" value="{{r.RID}}">{{r.reward}}</option>
+        </select>
+        <div class="select_arrow"></div>
+      </div>
     </form>
   </div>
   <div>
-    <button [disabled]="!rewardForm.valid" class="btn btn-primary" (click)="startTimer()">Start</button>
+    <button [disabled]="!rewardForm.valid" class="btn btn-primary"
+            style="width: 259px; margin-top: 50px; font-size: 20px" (click)="startTimer()">Start
+    </button>
   </div>
 </div>
+
 
 <div *ngIf="whileTimer" class="col-sm-12 switch-screen-small mt-3 text-center">
   <div>
     <countdown #cd [config]="{leftTime: timerSeconds}" (event)="handleEvent($event)" class="timer"></countdown>
   </div>
-  <div>
-    <img src="assets/standard_boi.gif" width="90%" alt="">
-  </div>
+    <div>
+      <div class="containerWhile">
+        <img src="assets/standard_boi.gif" alt="">
+        <div class="containerCenterWhile">
+          <img src="assets/timer-border.svg" width="490px">
+        </div>
+      </div>
+
+    </div>
   <div>
     {{loadedReward}} lädt ...
   </div>
