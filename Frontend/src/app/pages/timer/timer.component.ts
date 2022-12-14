@@ -30,6 +30,8 @@ export class TimerComponent implements OnInit {
 
   matcher!: ErrorStateMatcher;
 
+  degrees = 0;
+
   ngOnInit(): void {
     this.startState();
     this.getRewards();
@@ -124,6 +126,12 @@ export class TimerComponent implements OnInit {
     if(e.status == CountdownStatus.done){
       this.finishState();
     }
+  }
+
+  spinImage(){
+    let rand = Math.random()*360;
+    rand = Math.floor(rand);
+    this.degrees = rand;
   }
 
 }
