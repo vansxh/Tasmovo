@@ -82,7 +82,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
 registerLocaleData(localeAt);
 
 export const routes: Routes = [
-  {path: '', component: LandingComponent, pathMatch: 'full'},
+  {path: '', component: LandingComponent, pathMatch: 'full', canActivate: [LoggedInGuard]},
   {path: 'view', component: ViewComponent, canActivate: [AuthGuard]},
   {path: 'add', component: AddComponent, canActivate: [AuthGuard]},
   {path: 'insert-task', component: InsertTaskComponent, canActivate: [AuthGuard]},
