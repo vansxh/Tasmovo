@@ -10,6 +10,7 @@ import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.compo
 import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
 import {PopupReminderComponent} from "../../popups/popup-reminder/popup-reminder.component";
 import {PopupAddComponent} from "../../popups/popup-add/popup-add.component";
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit {
   dailyStresslevel!: number;
   stressLimit!: number;
 
-  constructor(private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog, private stress: StresstrackingService) {
+  constructor(private router: Router, private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog, private stress: StresstrackingService) {
   }
 
   ngOnInit(): void {
@@ -181,4 +182,11 @@ export class DashboardComponent implements OnInit {
     //}
   }
 
+  myCategories() {
+    this.router.navigate(['/my-categories']);
+  }
+
+  myDay() {
+    this.router.navigate(['/my-day']);
+  }
 }
