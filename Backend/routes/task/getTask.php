@@ -34,7 +34,11 @@ if($item['parent_categoryID'] !== null) {
             'notes' => $item['notes'],
             'deadline' => $item['deadline'],
             'categoryID' => $item['parent_categoryID'],
-            'subcategoryID' => $item['categoryID']
+            'subcategoryID' => $item['categoryID'],
+            'expense' => $item['expense'],
+            'stress_factor' => $item['stress_factor'],
+            'created_date' => $item['created_date'],
+            'updated_date' => $item['updated_date']
     ]
     ]))->send(HttpCode::OKAY);
 }

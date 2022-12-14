@@ -11,6 +11,7 @@ import {Category} from "../../services/category/category";
 import {CategoryService} from "../../services/category/category.service";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-insert-task',
@@ -50,6 +51,7 @@ export class InsertTaskComponent implements OnInit {
             this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
             this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
             this.insertTaskForm.patchValue(this.selectedTask);
+            this.nowDate = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
         },
         (error: any = []) => {
           if(error['error']['message']) {
@@ -102,7 +104,7 @@ export class InsertTaskComponent implements OnInit {
   }
 
   onEditTaskSubmit() {
-    this.insertTaskForm.value.deadlineDay = this.insertTaskForm.value.deadlineDay.format('yyyy-MM-DD');
+    this.insertTaskForm.value.deadlineDay = (moment(this.insertTaskForm.value.deadlineDay)).format('yyyy-MM-DD');
     this.taskService.updateTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
         // if task was inserted reload tasks

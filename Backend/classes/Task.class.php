@@ -93,7 +93,7 @@ class Task
     // function for getting one task via ID
     function getTask($TAID)
     {
-        $stmt = Database::getDb()->prepare("SELECT * ,(SELECT parent_categoryID from Category as c WHERE c.CAID = t.categoryID) as 'parent_categoryID' FROM `Task` as t WHERE TAID=:TAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("SELECT * ,(SELECT parent_categoryID from Category as c WHERE c.CAID = t.categoryID) as 'parent_categoryID', (SELECT difficulty_level from Expense as e WHERE e.EID = t.expenseID) as 'expense' FROM `Task` as t WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
 
         $stmt->execute();
@@ -115,7 +115,7 @@ class Task
     // function for updating a task via ID
     function updateTask($TAID, $tName, $notes, $deadline, $caid/*, $gid*/)
     {
-        $stmt = Database::getDb()->prepare("UPDATE Task SET task_name=:tName, notes=:notes, deadline=:deadline, categoryID=:caid WHERE TAID=:TAID LIMIT 1");
+        $stmt = Database::getDb()->prepare("UPDATE Task SET task_name=:tName, notes=:notes, deadline=:deadline, categoryID=:caid, updated_date=now() WHERE TAID=:TAID LIMIT 1");
         $stmt->bindValue(":TAID", $TAID);
         $stmt->bindValue(":tName", $tName);
         $stmt->bindValue(":notes", $notes);
@@ -135,6 +135,16 @@ class Task
         $stmt->bindValue(":TAID", $TAID);
         $stmt->bindValue(":expenseID", $expenseID);
         $stmt->bindValue(":stressFactor", $stress_factor);
+
+        if ($stmt->execute()) return true;
+        else return false;
+    }
+
+    // // function for finishing a task via ID
+    function unfinishTask($TAID)
+    {
+        $stmt = Database::getDb()->prepare("UPDATE Task SET statusID=1, end_date=null, expenseID=null, stress_factor=null WHERE TAID=:TAID LIMIT 1");
+        $stmt->bindValue(":TAID", $TAID);
 
         if ($stmt->execute()) return true;
         else return false;

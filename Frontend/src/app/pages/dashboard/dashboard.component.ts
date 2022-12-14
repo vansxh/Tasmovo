@@ -108,6 +108,10 @@ export class DashboardComponent implements OnInit {
     this.taskService.editTask(task.TAID);
   }
 
+  detailsTask(task: Task): void {
+    this.taskService.detailsTask(task.TAID);
+  }
+
   addTask(): void {
     this.taskService.addTask();
   }

@@ -14,6 +14,7 @@ export class Task {
   categoryID!: number;
   subcategoryID!: number;
   expenseID!: number;
+  expense!: string;
   stress_factor!: number;
   planned_date!: string;
   start_time!: string;

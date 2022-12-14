@@ -1,1 +1,27 @@
-<p>task works!</p>
+<h1>{{task.task_name}}</h1>
+
+<p>{{task.deadline | date: 'EEE, d.M.y'}}</p>
+<p>{{task.deadline | date: 'HH:mm'}} Uhr</p>
+
+<button *ngIf="task.statusID == 1" (click)="finishTask()">Erledigen</button>
+<button *ngIf="task.statusID == 2" (click)="unfinishTask()">Erledigt</button>
+
+<div *ngIf="task.notes">
+  <h2>Notizen</h2>
+  <p>{{task.notes}}</p>
+</div>
+
+<div *ngIf="task.expense">
+  <h2>Schwierigkeitsgrad</h2>
+  <p>{{task.expense}}</p>
+</div>
+
+<div *ngIf="task.stress_factor">
+  <h2>Stresslevel</h2>
+  <p>{{task.stress_factor}}/10</p>
+</div>
+
+<div>
+  <p>Erstellt: {{task.created_date | date: 'd.M.y'}}</p>
+  <p *ngIf="task.updated_date">Zuletzt geändert: {{task.updated_date | date: 'd.M.y'}}</p>
+</div>

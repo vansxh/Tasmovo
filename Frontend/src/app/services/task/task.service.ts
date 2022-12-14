@@ -37,6 +37,10 @@ export class TaskService {
     this.router.navigate(['/insert-task/' + TAID]);
   }
 
+  detailsTask(TAID: number) {
+    this.router.navigate(['/task/' + TAID]);
+  }
+
   addTask() {
     this.router.navigate(['/insert-task']);
   }
@@ -59,6 +63,10 @@ export class TaskService {
 
   finishTask(task: Task) {
     return this.http.put('/Backend/routes/task/finishTask.php', task);
+  }
+
+  unfinishTask(task: Task) {
+    return this.http.put('/Backend/routes/task/unfinishTask.php', task);
   }
 
   getCategoryTasks(CAID: number) {

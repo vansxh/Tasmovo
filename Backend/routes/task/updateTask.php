@@ -38,11 +38,11 @@ if($compareTask['created_by'] != $_SESSION['UID']) {
 
 $item = $task->updateTask($TAID, $tName, $notes, $deadline, $caid/*, $gid*/);
 
-// check if category was updated
+// check if task was updated
 if (!$item) {
     (new Response([
         'error' => true,
-        'message' => 'Der User darf diesen Task nicht bearbeiten.'
+        'message' => 'Der Task konnte nicht bearbeitet werden.'
     ]))->send(HttpCode::BAD_REQUEST);
 }
 

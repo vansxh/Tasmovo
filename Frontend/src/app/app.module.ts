@@ -108,6 +108,7 @@ export const routes: Routes = [
   {path: 'calendar-detail', component: CalendarDetailComponent, canActivate: [AuthGuard]},
   {path: 'calendar-detail/:date', component: CalendarDetailComponent, canActivate: [AuthGuard]},
   {path: 'my-day', component: MyDayComponent, canActivate: [AuthGuard]},
+  {path: 'task/:TAID', component: TaskComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
