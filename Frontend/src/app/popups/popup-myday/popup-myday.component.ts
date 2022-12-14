@@ -80,6 +80,13 @@ export class PopupMydayComponent implements OnInit {
     this.planned_date = this.datePipe.transform(new Date(this.plannedTask.planned_date), 'EEEE, d. MMM', 'de-AT') || '';
 
     this.addPlannedTaskForm.patchValue(this.plannedTask);
+    if(this.plannedTask.TAID == 0) {
+      this.addPlannedTaskForm.setValue({
+        TAID: '',
+        start_time: this.plannedTask.start_time,
+        end_time: this.plannedTask.end_time
+      });
+    }
 
   }
 
