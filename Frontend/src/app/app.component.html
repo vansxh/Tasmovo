@@ -2,42 +2,47 @@
   <div class="w-100 bg-warning" id="display-heading" *ngIf="loggedIn()">
     <h1>Heading</h1>
   </div>
-    <div class="" id="display-desktop" *ngIf="loggedIn()">
-      <nav class="navbar bg-primary h-100 justify-content-center" id="navbar-desktop">
-        <ul class ="nav navbar-nav ml-5">
-          <li class ="nav-item text-center py-3">
-            <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
-              <img src="assets/home.svg" width="60%" alt="Home Icon">
-            </a>
-          </li>
-          <li class ="nav-item text-center py-3">
-            <a class="nav-link" routerLink="overview" routerLinkActive="active">
-              <img src="assets/list.svg" width="60%" alt="List Icon">
-            </a>
-          </li>
-          <li class ="nav-item text-center py-3">
-            <a class="nav-link" routerLink="timer" routerLinkActive="active">
-              <img src="assets/hourglass.svg" width="60%" alt="Timer Icon">
-            </a>
-          </li>
-          <li class ="nav-item text-center py-3">
-            <a class="nav-link" routerLink="calendar" routerLinkActive="active">
-              <img src="assets/calendar.svg" width="60%" alt="Calendar Icon">
-            </a>
-          </li>
-          <li class ="nav-item text-center py-3 pt-4 mt-4 border-top">
-            <a class="nav-link ">
-              <img src="assets/settings.svg" width="70%" alt="Settings Icon">
-            </a>
-          </li>
-          <li class ="nav-item text-center py-2">
-            <a class="nav-link" routerLink="profile" routerLinkActive="active">
-              <img src="assets/profile.svg" width="60%" alt="Profile Icon">
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+  <div class="" id="display-desktop" *ngIf="loggedIn()">
+    <nav class="navbar bg-primary h-100 justify-content-center" id="navbar-desktop">
+      <ul class ="nav navbar-nav ml-5">
+        <li class ="nav-item text-center py-3">
+          <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
+            <img src="assets/home.svg" width="60%" alt="Home Icon">
+          </a>
+        </li>
+        <li class ="nav-item text-center py-3">
+          <a class="nav-link" routerLink="overview" routerLinkActive="active">
+            <img src="assets/list.svg" width="60%" alt="List Icon">
+          </a>
+        </li>
+        <li class ="nav-item text-center py-3">
+          <a class="nav-link" routerLink="timer" routerLinkActive="active">
+            <img src="assets/hourglass.svg" width="60%" alt="Timer Icon">
+          </a>
+        </li>
+        <li class ="nav-item text-center py-3">
+          <a class="nav-link" routerLink="calendar" routerLinkActive="active">
+            <img src="assets/calendar.svg" width="60%" alt="Calendar Icon">
+          </a>
+        </li>
+        <li class ="nav-item text-center py-3 pt-4 mt-4 border-top">
+          <a class="nav-link ">
+            <img src="assets/settings.svg" width="70%" alt="Settings Icon">
+          </a>
+        </li>
+        <li class ="nav-item text-center py-2">
+          <a class="nav-link" routerLink="profile" routerLinkActive="active">
+            <img src="assets/profile.svg" width="60%" alt="Profile Icon">
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="mobile-profilepic">
+    <a class="" routerLink="profile" routerLinkActive="active">
+      <img src="assets/profilpicture.svg" width="95%" alt="Profile Icon">
+    </a>
+  </div>
   <div class="container">
     <div class="row">
       <div class="col-lg-11 offset-lg-1 col-md-12" *ngIf="loggedIn()">
@@ -52,57 +57,6 @@
       </div>
     </div>
   </div>
-  <!--<div class="row d-flex justify-content-center" id="display-mobile" *ngIf="loggedIn()">
-    <div class="col-4 navbar-mobile">
-      <ul class="nav">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
-            <img src="assets/home.svg" width="70%" alt="Home Icon">
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="overview" routerLinkActive="active">
-            <img src="assets/list.svg" width="70%" alt="List Icon">
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="col-4 p-0" id="nav-mobile"></div>
-    <div class="col-4 navbar-mobile"></div>-->
-
-    <!--<nav class="navbar justify-content-center" id="nav-mobile">
-      <ul class="nav">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
-            <img src="assets/home.svg" width="70%" alt="Home Icon">
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="overview" routerLinkActive="active">
-            <img src="assets/list.svg" width="70%" alt="List Icon">
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link d-flex justify-content-center" (click)="addPopup()">
-            <img src="assets/add.svg" width="30%" alt="Add Icon">
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="timer" routerLinkActive="active">
-            <img src="assets/hourglass.svg" width="70%" alt="Timer Icon">
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="calendar" routerLinkActive="active">
-            <img src="assets/calendar.svg" width="70%" alt="Calendar Icon">
-          </a>
-        </li>
-      </ul>
-    </nav>-->
-  <!--</div>-->
-<!--<div>
-  <img width="100%" height="50px" src="assets/nav-mobile.png">
-</div>-->
   <div id="nav-mobile" *ngIf="loggedIn()">
     <nav class="d-flex justify-content-center align-items-center">
       <ul class="nav">
@@ -117,7 +71,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-center add-btn-pos">
+          <a class="nav-link text-center add-btn-pos" (click)="addPopup()">
             <img src="assets/add.svg" width="40%" alt="Add Icon">
           </a>
         </li>

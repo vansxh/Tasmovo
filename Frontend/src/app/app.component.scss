@@ -45,6 +45,10 @@
   display: none;
 }
 
+.mobile-profilepic {
+  display: none;
+}
+
 
 @media (max-width: 768px) {
   #display-desktop, #display-plus {
@@ -84,6 +88,13 @@
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
+  }
+
+  .mobile-profilepic {
+    display: block;
+    position: fixed;
+    top: 2%;
+    right: 3%;
   }
 }
 
