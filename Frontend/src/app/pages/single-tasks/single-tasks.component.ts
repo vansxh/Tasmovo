@@ -35,28 +35,16 @@ export class SingleTasksComponent implements OnInit {
       document.getElementsByTagName("h1")[0].innerText = "Unkategorisiert";
   }
 
-  finishTask(task: Task): void {
-    /*this.taskService.finishTask(task).subscribe(
-      (data: any = []) => {
-        // update view if finishing was successful
-        this.ngOnInit();
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });*/
-
-    this.onFinishOpen(task);
+  detailsTask(task: Task): void {
+    this.taskService.detailsTask(task.TAID);
   }
 
-  onFinishOpen(task: Task){
+  finishTask(task: Task): void {
     this.taskService.terminateTask = task;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(PopupFinishComponent, dialogConfig);
   }
+
 }

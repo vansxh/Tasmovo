@@ -6,6 +6,8 @@ import {GeneralService} from "../../services/general/general.service";
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {routes} from "../../app.module";
 import {DatePipe} from "@angular/common";
+import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-calendar-detail',
@@ -22,7 +24,7 @@ export class CalendarDetailComponent implements OnInit {
   public selectedDate!: Date;
 
 
-  constructor(private taskService: TaskService, private general: GeneralService, private router: Router, private datePipe: DatePipe, private route: ActivatedRoute, private authService: AuthenticationService) {}
+  constructor(private dialog: MatDialog, private taskService: TaskService, private general: GeneralService, private router: Router, private datePipe: DatePipe, private route: ActivatedRoute, private authService: AuthenticationService) {}
 
   ngOnInit(): void {
 
@@ -103,37 +105,33 @@ export class CalendarDetailComponent implements OnInit {
 
   }
 
-loadTasks(): void {
-  // get  next tasks
-  this.taskService.getTasksByDeadline(this.datePipe.transform(this.selectedDate,'yyyy-MM-dd', 'de-AT')||'').subscribe(
-    (data: any = []) => {
-      // get tasks from data
-      this.deadlineTasks = <Task[]>data['data'];
-    },
-    (error: any = []) => {
-      if (error['error']['message']) {
-        this.deadlineTasks = [];
-        alert(error['error']['message']);
-        return;
-      }
-      this.general.errorResponse(error['status']);
-    });
-}
-
-  finishTask(task: Task): void {
-    this.taskService.finishTask(task).subscribe(
+  loadTasks(): void {
+    // get  next tasks
+    this.taskService.getTasksByDeadline(this.datePipe.transform(this.selectedDate,'yyyy-MM-dd', 'de-AT')||'').subscribe(
       (data: any = []) => {
-        // update view if finishing was successful
-        this.ngOnInit();
+        // get tasks from data
+        this.deadlineTasks = <Task[]>data['data'];
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
+          this.deadlineTasks = [];
           alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
       });
+  }
 
+  detailsTask(task: Task): void {
+    this.taskService.detailsTask(task.TAID);
+  }
+
+  finishTask(task: Task): void {
+    this.taskService.terminateTask = task;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupFinishComponent, dialogConfig);
   }
 
 }

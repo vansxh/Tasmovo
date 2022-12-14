@@ -10,6 +10,8 @@ import {SwiperComponent} from "swiper/angular";
 
 // import Swiper core and required modules
 import SwiperCore, { Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual } from 'swiper';
+import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 
 // install Swiper modules
 SwiperCore.use([Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual]);
@@ -22,7 +24,7 @@ SwiperCore.use([Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual]);
 })
 export class CategoryComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private catService: CategoryService) {
+  constructor(private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private catService: CategoryService) {
   }
 
   public categoryTasks!: Task[];
@@ -91,19 +93,15 @@ export class CategoryComponent implements OnInit {
   }
 
   finishTask(task: Task): void {
-    this.taskService.finishTask(task).subscribe(
-      (data: any = []) => {
-        // update view if finishing was successful
-        this.ngOnInit();
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
+    this.taskService.terminateTask = task;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupFinishComponent, dialogConfig);
+  }
 
+  detailsTask(task: Task): void {
+    this.taskService.detailsTask(task.TAID);
   }
 
   showCategory(category: Category): void {

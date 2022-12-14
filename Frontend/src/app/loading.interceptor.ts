@@ -22,14 +22,14 @@ export class LoadingInterceptor implements HttpInterceptor {
     let lock = false;
     // only display spinner if loading lasts longer than 100ms, credit to Luki
     setTimeout(() => {
-      console.log("true");
+      //console.log("true");
       if (!lock && this.totalRequests === 1) this.loadingService.setLoading(true)
     }, 100)
 
     return next.handle(request).pipe(
       finalize(() => {
         this.totalRequests--;
-        console.log("false");
+        //console.log("false");
         if (this.totalRequests == 0) {
           lock = true;
           this.loadingService.setLoading(false);

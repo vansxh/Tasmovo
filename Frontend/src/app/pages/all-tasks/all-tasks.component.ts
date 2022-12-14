@@ -35,27 +35,16 @@ export class AllTasksComponent implements OnInit {
     document.getElementsByTagName("h1")[0].innerText = "Alle Tasks";
   }
 
-  finishTask(task: Task): void {
-    this.taskService.finishTask(task).subscribe(
-      (data: any = []) => {
-        // update view if finishing was successful
-        this.ngOnInit();
-        this.onFinishOpen(task);
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
-    }
+  detailsTask(task: Task): void {
+    this.taskService.detailsTask(task.TAID);
+  }
 
-  onFinishOpen(task: Task){
+  finishTask(task: Task): void {
     this.taskService.terminateTask = task;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(PopupFinishComponent, dialogConfig);
-  }
+    }
+
 }

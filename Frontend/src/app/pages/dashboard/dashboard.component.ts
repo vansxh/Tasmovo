@@ -117,23 +117,6 @@ export class DashboardComponent implements OnInit {
   }
 
   finishTask(task: Task): void {
-    /*this.taskService.finishTask(task).subscribe(
-      (data: any = []) => {
-        // update view if finishing was successful
-        this.loadTasks();
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-    });*/
-    this.onFinishOpen(task);
-
-  }
-
-  onFinishOpen(task: Task){
     this.taskService.terminateTask = task;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

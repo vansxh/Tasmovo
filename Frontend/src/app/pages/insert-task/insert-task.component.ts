@@ -108,7 +108,7 @@ export class InsertTaskComponent implements OnInit {
     this.taskService.updateTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
         // if task was inserted reload tasks
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/task/' + this.insertTaskForm.value.TAID]);
       },
       (error: any = []) => {
         if(error['error']['message']) {

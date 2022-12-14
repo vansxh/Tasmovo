@@ -5,6 +5,7 @@ import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -13,7 +14,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 })
 export class TaskComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) { }
+  constructor(private router: Router, private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) { }
 
   task!: Task;
 
@@ -64,6 +65,25 @@ export class TaskComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
 
+  }
+
+  editTask(): void {
+    this.taskService.editTask(this.task.TAID);
+  }
+
+  deleteTask(): void {
+    this.taskService.deleteTask(this.task.TAID).subscribe(
+      (data: any = []) => {
+        // update view if deleting was successful
+        this.router.navigate(['/dashboard']);
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
   }
 
 }
