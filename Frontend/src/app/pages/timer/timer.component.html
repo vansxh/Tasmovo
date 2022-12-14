@@ -69,39 +69,43 @@
   </div>
 </div>
 
-
 <div *ngIf="whileTimer" class="col-sm-12 switch-screen-small mt-3 text-center">
   <div>
     <countdown #cd [config]="{leftTime: timerSeconds}" (event)="handleEvent($event)" class="timer"></countdown>
   </div>
   <div>
     <div class="containerWhile">
-      <img src="assets/standard_boi.gif" alt="">
+      <img src="assets/standard_boi.gif" class="gif">
       <div class="containerCenterWhile">
-        <img src="assets/timer-border.svg" width="490px">
+        <img src="assets/timer-border.svg" class="imgBorder">
       </div>
     </div>
 
   </div>
-  <div>
+  <div class="loadText">
     {{loadedReward}} lädt ...
   </div>
   <div>
-    <button class="btn btn-primary" (click)="cd.stop(); stopTimer()">Abbrechen</button>
+    <button class="btn btn-primary buttonStart" (click)="cd.stop(); stopTimer()">Abbrechen</button>
   </div>
 </div>
 
-<div *ngIf="timerEnd">
+<div *ngIf="timerEnd" class="col-sm-12 switch-screen-small mt-3 text-center">
   <div>
-    <countdown [config]="{leftTime: 0}"></countdown>
+    <countdown [config]="{leftTime: 0}" class="timer"></countdown>
   </div>
   <div>
-    <img src="assets/FinishedTimer.png" width="800" height="600" alt="">
+    <div class="containerWhile">
+      <img src="assets/FinishedTimer.png" class="gif">
+      <div class="containerCenterWhile">
+        <img src="assets/timer-border.svg" class="imgBorder">
+      </div>
+    </div>
   </div>
-  <div>
+  <div class="loadText">
     Belohnug geladen!
   </div>
   <div>
-    <button class="btn btn-primary" (click)="getRewards();startState()">Neuer Timer</button>
+    <button class="btn btn-primary buttonStart" (click)="getRewards();startState()">Neuer Timer</button>
   </div>
 </div>
