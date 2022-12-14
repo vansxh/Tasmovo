@@ -47,4 +47,8 @@ export class AllTasksComponent implements OnInit {
     this.dialog.open(PopupFinishComponent, dialogConfig);
     }
 
+  scroll(el: HTMLElement) {
+    el.scrollIntoView({behavior: 'smooth'});
+  }
+
 }

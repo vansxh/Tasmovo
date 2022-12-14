@@ -103,3 +103,17 @@ span{
 .task-bottom:last-child {
   border-bottom: none;
 }
+
+.mobile-heading {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-heading {
+    display: block;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+}
