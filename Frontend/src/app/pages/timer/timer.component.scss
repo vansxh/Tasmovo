@@ -1,30 +1,14 @@
-:host ::ng-deep .timer > span{
-  font-family: Ubuntu, sans-serif !important;
-  font-weight: 700 !important;
-  font-style: normal !important;
-  font-size: 42px !important;
-  color: #30235B !important;
-  padding-top: 0.6em !important;
-}
-.containerWhile{
-  position: relative;
+//General
 
-}
+//Web
 
-.containerCenterWhile{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-
-.container{
+//startState
+.container {
   position: relative;
   text-align: center;
 }
 
-.containerCenter{
+.containerCenter {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -40,28 +24,26 @@ input[type=number]::-webkit-outer-spin-button {
   display: none;
 }
 
-:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
   text-align: center;
   width: 50px;
   font-weight: bold;
   font-size: 36px;
 }
 
-.coluns{
+.coluns {
   font-size: 36px;
 }
 
-.rewardForm{
+.rewardForm {
   font-size: 32px;
   font-weight: bold;
   margin-top: 40px;
 }
 
-.rewardText{
+.rewardText {
   padding-right: 141px;
 }
-
-
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -78,34 +60,40 @@ input[type=number] {
   display: inline-block;
   margin-bottom: 15px;
   width: 294px;
-}    .select select {
-       font-size: 16px;
-       font-family: Roboto, "Helvetica Neue", sans-serif;
-       display: inline-block;
-       width: 100%;
-       cursor: pointer;
-       padding: 10px 10px;
-       outline: 0;
-       border: 0px solid #000000;
-       border-radius: 0px;
-       background: #e6e2f2;
-       color: #30235b;
-       appearance: none;
-       -webkit-appearance: none;
-       -moz-appearance: none;
-     }
+}
+
+.select select {
+  font-size: 16px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  padding: 10px 10px;
+  outline: 0;
+  border: 0px solid #000000;
+  border-radius: 0px;
+  background: #e6e2f2;
+  color: #30235b;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
 .select select::-ms-expand {
   display: none;
 }
+
 .select select:hover,
 .select select:focus {
   color: #30235b;
   background: #e6e2f2;
 }
+
 .select select:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
+
 .select_arrow {
   position: absolute;
   top: 20px;
@@ -119,50 +107,79 @@ input[type=number] {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+
 .select select:hover ~ .select_arrow,
 .select select:focus ~ .select_arrow {
   border-color: #30235b;
 }
+
 .select select:disabled ~ .select_arrow {
   border-top-color: #30235b;
 }
 
-.image{
+.image {
   width: 411px;
 }
 
-.buttonStart{
+.buttonStart {
   width: 259px;
   margin-top: 50px;
   font-size: 20px;
 }
 
+//whileState
+:host ::ng-deep .timer > span {
+  font-family: Ubuntu, sans-serif !important;
+  font-weight: 700 !important;
+  font-style: normal !important;
+  font-size: 42px !important;
+  color: #30235B !important;
+  padding-top: 0.6em !important;
+}
+
+.containerWhile {
+  position: relative;
+
+}
+
+.containerCenterWhile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+//finishState
+
+//Mobile
 @media (max-width: 768px) {
-  .image{
+  //startState
+  .image {
     width: auto;
   }
-  :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+  :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
     text-align: center;
     width: 40px;
     font-weight: bold;
     font-size: 24px;
   }
-  .coluns{
+  .coluns {
     font-size: 24px;
   }
-  .rewardText{
+  .rewardText {
     padding-right: 103px;
   }
-  .rewardForm{
+  .rewardForm {
     font-size: 20px;
     font-weight: bold;
     margin-top: 40px;
   }
-  .select{
+  .select {
     width: 198px;
-  }    .select select {
-         font-size: 13px;
-       }
+  }
+  .select select {
+    font-size: 13px;
+  }
   .select_arrow {
     position: absolute;
     top: 11px;
@@ -176,14 +193,14 @@ input[type=number] {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
   }
-
 }
 
 @media (max-width: 340px) {
-  .image{
+  //startState
+  .image {
     width: 240px;
   }
-  :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+  :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
     text-align: center;
     width: 30px;
     font-weight: bold;

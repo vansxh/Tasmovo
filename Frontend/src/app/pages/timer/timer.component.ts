@@ -122,12 +122,14 @@ export class TimerComponent implements OnInit {
     });
   }
 
+  //Check if Timer is finished
   handleEvent(e: CountdownEvent) {
     if(e.status == CountdownStatus.done){
       this.finishState();
     }
   }
 
+  //Random rotation of image on startState
   spinImage(){
     let rand = Math.random()*360;
     rand = Math.floor(rand);
