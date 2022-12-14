@@ -59,8 +59,10 @@
     </form>
   </div>
   <div>
-    <button [disabled]="!rewardForm.valid || rewardForm.get('hours')?.value == 0 && rewardForm.get('minutes')?.value == 0" class="btn btn-primary"
-            style="width: 259px; margin-top: 50px; font-size: 20px" (click)="startTimer()">Start
+    <button
+      [disabled]="!rewardForm.valid || rewardForm.get('hours')?.value == 0 && rewardForm.get('minutes')?.value == 0"
+      class="btn btn-primary buttonStart"
+      (click)="startTimer()">Start
     </button>
   </div>
 </div>

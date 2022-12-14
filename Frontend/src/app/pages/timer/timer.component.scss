@@ -131,8 +131,62 @@ input[type=number] {
   width: 411px;
 }
 
+.buttonStart{
+  width: 259px;
+  margin-top: 50px;
+  font-size: 20px;
+}
+
 @media (max-width: 768px) {
   .image{
     width: auto;
+  }
+  :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+    text-align: center;
+    width: 40px;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  .coluns{
+    font-size: 24px;
+  }
+  .rewardText{
+    padding-right: 103px;
+  }
+  .rewardForm{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 40px;
+  }
+  .select{
+    width: 198px;
+  }    .select select {
+         font-size: 13px;
+       }
+  .select_arrow {
+    position: absolute;
+    top: 11px;
+    right: 9px;
+    width: 12px;
+    height: 12px;
+    border: solid #30235b;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+
+}
+
+@media (max-width: 340px) {
+  .image{
+    width: 240px;
+  }
+  :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+    text-align: center;
+    width: 30px;
+    font-weight: bold;
+    font-size: 24px;
   }
 }
