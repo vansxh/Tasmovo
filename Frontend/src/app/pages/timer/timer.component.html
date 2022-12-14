@@ -6,7 +6,9 @@
         <mat-form-field [hideRequiredMarker]="true">
           <mat-label></mat-label>
           <input matInput type="number" [errorStateMatcher]="matcher" formControlName="hours"
-                 onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;">
+                 onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;
+                 if(parseInt(this.value,10)===0)this.value='00';
+                 if(parseInt(this.value,10)>23)this.value='23';">
           <mat-error *ngIf="rewardForm.get('hours')?.hasError('required')">
             Dieses Feld darf nicht leer sein.
           </mat-error>
@@ -21,7 +23,9 @@
         <mat-form-field [hideRequiredMarker]="true">
           <mat-label></mat-label>
           <input matInput type="number" [errorStateMatcher]="matcher" formControlName="minutes"
-                 onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;">
+                 onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;
+                 if(parseInt(this.value,10)===0)this.value='00';
+                 if(parseInt(this.value,10)>59)this.value='59';">
           <mat-error *ngIf="rewardForm.get('minutes')?.hasError('required')">
             Dieses Feld darf nicht leer sein.
           </mat-error>
@@ -55,7 +59,7 @@
     </form>
   </div>
   <div>
-    <button [disabled]="!rewardForm.valid" class="btn btn-primary"
+    <button [disabled]="!rewardForm.valid || rewardForm.get('hours')?.value == 0 && rewardForm.get('minutes')?.value == 0" class="btn btn-primary"
             style="width: 259px; margin-top: 50px; font-size: 20px" (click)="startTimer()">Start
     </button>
   </div>
@@ -66,15 +70,15 @@
   <div>
     <countdown #cd [config]="{leftTime: timerSeconds}" (event)="handleEvent($event)" class="timer"></countdown>
   </div>
-    <div>
-      <div class="containerWhile">
-        <img src="assets/standard_boi.gif" alt="">
-        <div class="containerCenterWhile">
-          <img src="assets/timer-border.svg" width="490px">
-        </div>
+  <div>
+    <div class="containerWhile">
+      <img src="assets/standard_boi.gif" alt="">
+      <div class="containerCenterWhile">
+        <img src="assets/timer-border.svg" width="490px">
       </div>
-
     </div>
+
+  </div>
   <div>
     {{loadedReward}} lädt ...
   </div>
