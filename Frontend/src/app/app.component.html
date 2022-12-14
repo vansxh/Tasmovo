@@ -40,10 +40,8 @@
     </div>
   <div class="container">
     <div class="row">
-      <div class="col-md-11 offset-md-1 col-sm-12" *ngIf="loggedIn()">
-
+      <div class="col-lg-11 offset-lg-1 col-md-12" *ngIf="loggedIn()">
           <router-outlet></router-outlet>
-
       </div>
     </div>
   </div>
@@ -54,8 +52,25 @@
       </div>
     </div>
   </div>
-  <div class="" id="display-mobile" *ngIf="loggedIn()">
-    <nav class="navbar justify-content-center" id="nav-mobile">
+  <!--<div class="row d-flex justify-content-center" id="display-mobile" *ngIf="loggedIn()">
+    <div class="col-4 navbar-mobile">
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
+            <img src="assets/home.svg" width="70%" alt="Home Icon">
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="overview" routerLinkActive="active">
+            <img src="assets/list.svg" width="70%" alt="List Icon">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-4 p-0" id="nav-mobile"></div>
+    <div class="col-4 navbar-mobile"></div>-->
+
+    <!--<nav class="navbar justify-content-center" id="nav-mobile">
       <ul class="nav">
         <li class="nav-item">
           <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
@@ -83,6 +98,40 @@
           </a>
         </li>
       </ul>
+    </nav>-->
+  <!--</div>-->
+<!--<div>
+  <img width="100%" height="50px" src="assets/nav-mobile.png">
+</div>-->
+  <div id="nav-mobile" *ngIf="loggedIn()">
+    <nav class="d-flex justify-content-center align-items-center">
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
+            <img src="assets/home.svg" width="90%" alt="Home Icon">
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="overview" routerLinkActive="active">
+            <img src="assets/list.svg" width="90%" alt="List Icon">
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center add-btn-pos">
+            <img src="assets/add.svg" width="40%" alt="Add Icon">
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="timer" routerLinkActive="active">
+            <img src="assets/hourglass.svg" width="90%" alt="Timer Icon">
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="calendar" routerLinkActive="active">
+            <img src="assets/calendar.svg" width="90%" alt="Calendar Icon">
+          </a>
+        </li>
+      </ul>
     </nav>
   </div>
 
@@ -95,17 +144,29 @@
       </div>
     </div>
 
-    <a class="nav-link nav-item" (click)="addPlannedTaskOpen()" *ngIf="loggedIn() && getLocation()=='/my-day'" >
-      <img src="assets/my-day-btn.svg" width="70px" alt="My Day Icon">
-    </a>
+    <div class="containerWhile">
+      <div class="containerCenterWhile">
+        <a class="nav-link nav-item" (click)="addPlannedTaskOpen()" *ngIf="loggedIn() && getLocation()=='/my-day'" >
+          <img src="assets/my-day-btn-alternative.svg" width="70px" alt="My Day Icon">
+        </a>
+      </div>
+    </div>
 
-    <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()=='/insert-task'" >
-      <img src="assets/check-btn.svg" width="70px" alt="Check Icon">
-    </a>
+    <div class="containerWhile">
+      <div class="containerCenterWhile">
+        <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()=='/insert-task'" >
+          <img src="assets/check-btn-alternative.svg" class="btnImg" alt="Check Icon">
+        </a>
+      </div>
+    </div>
 
-    <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()=='/insert-category'" >
-      <img src="assets/check-btn.svg" width="70px" alt="Check Icon">
-    </a>
+    <div class="containerWhile">
+      <div class="containerCenterWhile">
+        <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()=='/insert-category'" >
+          <img src="assets/check-btn.svg" class="btnImg" alt="Check Icon">
+        </a>
+      </div>
+    </div>
   </div>
 
 </div>
