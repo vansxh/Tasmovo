@@ -167,6 +167,15 @@ span{
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
+//styling of elements only meant for web or mobile
+.display-web-only {
+  display: block;
+}
+
+.display-mobile-only {
+  display: none;
+}
+
 //styling of devices with max width 768px
 @media (max-width: 768px) {
   .mobile-heading {
@@ -175,5 +184,13 @@ span{
 
   h1 {
     font-size: 32px;
+  }
+
+  .display-web-only {
+    display: none;
+  }
+
+  .display-mobile-only {
+    display: block;
   }
 }
