@@ -97,23 +97,25 @@
              class="form-control" id="notes">
     </div>-->
 
-    <div class="form-group">
+    <div class="form-group select">
       <label for="categoryID">Kategorie (optional):</label>
       <select formControlName="categoryID" name="categoryID"
-             class="form-control" id="categoryID" (ngModelChange)="onChangeCategory($event)">
-        <option value="" disabled selected>Kategorie</option>
+             class="form-control container-shadow" id="categoryID" (ngModelChange)="onChangeCategory($event)">
+        <option value="" disabled selected></option>
         <option *ngFor="let c of categories | category" value="{{c.CAID}}">{{c.category_name}}</option>
       </select>
+      <div class="select_arrow"></div>
     </div>
 
 
-    <div *ngIf="subcategories != undefined && subcategories.length > 0" class="form-group">
+    <div *ngIf="subcategories != undefined && subcategories.length > 0" class="form-group select">
       <label for="subcategoryID">Subkategorie (optional):</label>
       <select formControlName="subcategoryID" name="subcategoryID"
-              class="form-control" id="subcategoryID">
-        <option value="" disabled selected>Kategorie</option>
+              class="form-control container-shadow" id="subcategoryID">
+        <option value="" disabled selected></option>
         <option *ngFor="let c of subcategories" value="{{c.CAID}}">{{c.category_name}}</option>
       </select>
+      <div class="select_arrow"></div>
     </div>
 
     <button [disabled]="!insertTaskForm.valid" *ngIf="!this.edit" class="btn btn-success"
