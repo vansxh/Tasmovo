@@ -33,6 +33,8 @@ export class AllTasksComponent implements OnInit {
       });
 
     document.getElementsByTagName("h1")[0].innerText = "Alle Tasks";
+    this.checkWindowSize();
+    window.addEventListener("resize", this.checkWindowSize);
   }
 
   detailsTask(task: Task): void {
@@ -64,6 +66,15 @@ export class AllTasksComponent implements OnInit {
     if (element) {
       const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({top: y, behavior: 'smooth'});
+    }
+  }
+
+  checkWindowSize() {
+    const progressbar = document.getElementById("progressbar-head")!;
+    if(window.innerWidth <= 768) {
+      progressbar.classList.add("fixed-top");
+    } else {
+      progressbar.classList.remove("fixed-top");
     }
   }
 

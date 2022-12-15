@@ -14,6 +14,14 @@
   font-weight: 600;
 }
 
+span{
+  font-family: 'Source Sans Pro';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 15px;
+  color: #30235B;
+}
+
 @media (max-width: 768px) {
   .switch-screen {
     display: none!important;

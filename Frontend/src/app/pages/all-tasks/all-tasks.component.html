@@ -1,7 +1,7 @@
 <div>
   <h1 class="mobile-heading text-center fixed-top">Alle Tasks</h1>
 
-<div class="row mt-4 progressbar-heading fixed-top">
+<div class="row mt-4 progressbar-heading" id="progressbar-head">
   <div class="text-center mb-1 text-primary" *ngIf="allTasks">{{(allTasks|done).length}} von {{allTasks.length}} erledigt</div>
   <div><ngb-progressbar type="primary" *ngIf="allTasks" [showValue]="true" [value]="(allTasks | done).length" [max]="allTasks.length">
   </ngb-progressbar></div>
