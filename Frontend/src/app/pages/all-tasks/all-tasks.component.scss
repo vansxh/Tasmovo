@@ -42,9 +42,12 @@ ngb-progressbar {
   display: none!important;
 }
 
+.display-web-only {
+  display: block;
+}
+
 @media (max-width: 768px) {
   .header-mobile {
-    position: relative;
     height: 220px;
     width: 100%;
     background-image: url("/../../../assets/header-top1.png");
@@ -54,6 +57,7 @@ ngb-progressbar {
   }
 
   ngb-progressbar {
+    top: 50px;
     height: 1rem !important;
   }
 
@@ -63,5 +67,22 @@ ngb-progressbar {
 
   #btn-scroll {
     display: flex!important;
+  }
+
+  .progressbar-heading {
+    top: 50px;
+  }
+
+  .btn-heading {
+    top: 130px;
+  }
+
+  .distance-top {
+    margin-top: 200px;
+    z-index: -2!important;
+  }
+
+  .display-web-only {
+    display: none;
   }
 }

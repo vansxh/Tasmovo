@@ -7,8 +7,14 @@
     <input type="hidden" formControlName="TAID" name="TAID">
 
     <div class="form-group">
+      <label class="input-text" for="username">Benutzername oder E-Mail:</label>
+      <input type="text" formControlName="username" placeholder="Username oder Mail" name="login"
+             class="form-control container-shadow" id="username">
+    </div>
+
+    <div class="form-group">
       <label for="task_name">Titel</label>
-      <mat-form-field appearance="outline" class="w-100">
+      <mat-form-field appearance="standard" class="w-100 container-shadow">
         <input matInput placeholder="Neuer Taskname" formControlName="task_name" id="task_name">
       </mat-form-field>
     </div>
@@ -63,7 +69,7 @@
     <div class="form-group">
       <label for="time">Uhrzeit</label>
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="deadlineHour" id="time">
+        <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="deadlineHour" id="time" class="timepicker">
         <ngx-mat-timepicker-toggle matIconSuffix [for]="$any(timepicker)"></ngx-mat-timepicker-toggle>
         <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
       </mat-form-field>

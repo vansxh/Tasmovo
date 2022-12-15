@@ -47,8 +47,24 @@ export class AllTasksComponent implements OnInit {
     this.dialog.open(PopupFinishComponent, dialogConfig);
     }
 
-  scroll(el: HTMLElement) {
-    el.scrollIntoView({behavior: 'smooth'});
+  scrollToNotDone() {
+    const id = 'notDone-container';
+    const yOffset = -200;
+    const element = document.getElementById(id);
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({top: y, behavior: 'smooth'});
+    }
+  }
+
+  scrollToDone() {
+    const id = 'done-container';
+    const yOffset = -200;
+    const element = document.getElementById(id);
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({top: y, behavior: 'smooth'});
+    }
   }
 
 }

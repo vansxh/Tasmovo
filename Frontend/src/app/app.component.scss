@@ -82,12 +82,15 @@
   }
 
   .header-mobile {
+    position: fixed;
+    top: 0;
     height: 190px;
     width: 100%;
     background-image: url("../assets/header-top1.png");
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
+    z-index: -1;
   }
 
   .mobile-profilepic {

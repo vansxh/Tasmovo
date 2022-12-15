@@ -1,28 +1,28 @@
 <div>
-  <h1 class="mobile-heading text-center">Alle Tasks</h1>
+  <h1 class="mobile-heading text-center fixed-top">Alle Tasks</h1>
 
-<div class="row mt-4">
+<div class="row mt-4 progressbar-heading fixed-top">
   <div class="text-center mb-1 text-primary" *ngIf="allTasks">{{(allTasks|done).length}} von {{allTasks.length}} erledigt</div>
   <div><ngb-progressbar type="primary" *ngIf="allTasks" [showValue]="true" [value]="(allTasks | done).length" [max]="allTasks.length">
   </ngb-progressbar></div>
 </div>
 
-  <div id="btn-scroll" class="d-flex justify-content-center">
+  <div id="btn-scroll" class="d-flex justify-content-center btn-heading fixed-top">
 <div class="btn-group w-75 mt-4">
-  <div class="btn btn-primary" (click)="scroll(tasksNotDone)">
+  <div class="btn btn-primary" (click)="scrollToNotDone()">
     Offen
   </div>
-  <div class="btn btn-light btn-outline-primary" (click)="scroll(tasksDone)">
+  <div class="btn btn-light btn-outline-primary" (click)="scrollToDone()">
     Erledigt
   </div>
 </div>
 </div>
 </div>
 
-<div class="row mt-5">
-  <div class="col-3-lg col-md" #tasksNotDone>
+<div class="row distance-top">
+  <div class="col-3-lg col-md" id="notDone-container">
     <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
-      <h2 class="text-center mb-4">Offen</h2>
+      <h2 class="text-center mb-4 display-web-only">Offen</h2>
       <div class="row justify-content-center task-bottom" *ngFor="let t of allTasks | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
         <div class="col-2 my-2">
           <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
@@ -37,7 +37,7 @@
 
   <br>
 
-  <div class="col-3-lg col-md" #tasksDone>
+  <div class="col-3-lg col-md" id="done-container">
     <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
       <h2 class="text-center mb-4">Erledigt</h2>
       <div class="row justify-content-center task-bottom" *ngFor="let t of allTasks | done" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
