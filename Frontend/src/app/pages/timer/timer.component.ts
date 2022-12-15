@@ -23,6 +23,11 @@ export class TimerComponent implements OnInit {
   whileTimer: boolean | undefined;
   timerEnd: boolean | undefined;
 
+  snack!: boolean;
+  kaffee!: boolean;
+  spazieren!: boolean;
+  nap!: boolean;
+
   rewards!: Reward[];
 
   loadedReward = "Belohnung";
