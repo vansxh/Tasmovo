@@ -12,6 +12,7 @@ import {SwiperComponent} from "swiper/angular";
 import SwiperCore, { Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual } from 'swiper';
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import Swiper from "swiper";
 
 // install Swiper modules
 SwiperCore.use([Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual]);
@@ -33,6 +34,18 @@ export class CategoryComponent implements OnInit {
   slides$ = new BehaviorSubject<string[]>(['']);
 
   ngOnInit(): void {
+
+    var swiper = new Swiper('#banner .swiper-container', {
+      pagination: true,
+      slidesPerView: 1,
+      centeredSlides: true,
+      spaceBetween: 30,
+      loop: true,
+      navigation: {
+        nextEl: '#banner .swiper-button-next',
+        prevEl: '#banner .swiper-button-prev',
+      }
+    });
 
     this.slides$.next(
       Array.from({ length: 600 }).map((el, index) => `Slide ${index + 1}`)

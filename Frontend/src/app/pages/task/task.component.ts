@@ -29,6 +29,8 @@ export class TaskComponent implements OnInit {
         (data: any = []) => {
           // get task from data
           this.task = <Task>data['data'];
+          // change heading
+          document.getElementsByTagName('h1')[0].innerText = this.task.task_name;
         },
         (error: any = []) => {
           if(error['error']['message']) {
