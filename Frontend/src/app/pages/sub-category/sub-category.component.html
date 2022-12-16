@@ -1,27 +1,56 @@
-<h2>Offen</h2>
+<div>
+  <h1 class="mobile-heading text-center top-fixed">Sub-Kategoriename</h1>
 
-<div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-2">Titel</div>
-  <div class="col-md-2">Deadline</div>
-</div>
-<div class="row" *ngFor="let t of categoryTasks | notDone"> <!-- uses custom pipe notDone -->
-  <div class="col-md-2">
-    <button class="btn btn-primary" (click)="finishTask(t)">Finish</button>
+  <div class="row my-4 progressbar-heading" id="progressbar-head">
+    <div class="text-center mb-1 text-primary" *ngIf="categoryTasks">{{(categoryTasks|done).length}} von {{categoryTasks.length}} erledigt</div>
+    <div><ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length" [max]="categoryTasks.length">
+    </ngb-progressbar></div>
   </div>
-  <div class="col-md-2">{{t.task_name}}</div>
-  <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
+
+  <div id="btn-scroll" class="d-flex justify-content-center btn-heading top-fixed">
+    <div class="btn-group w-75 mt-4">
+      <div class="btn btn-primary w-50" id="notDone-btn" (click)="scrollToNotDone()" (click) = "changeDay(1)">
+        Offen
+      </div>
+      <div class="btn btn-light btn-outline-primary w-50" id="done-btn" (click)="scrollToDone()" (click) = "changeDay(2)">
+        Erledigt
+      </div>
+    </div>
+  </div>
 </div>
 
-<br>
+<div class="row distance-top">
+  <div class="col-3-lg col-md" id="notDone-container">
+    <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
+      <h2 class="text-center mb-4 display-web-only">Offen</h2>
+      <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
+        <div class="col-2 my-2">
+          <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
+        </div>
+        <div class="col-4 d-flex align-items-center my-2">{{t.task_name}}</div>
+        <div class="col-3 d-flex align-items-center justify-content-end my-2">
+          <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<h2>Erledigt</h2>
+  <br>
 
-<div class="row">
-  <div class="col-md-2">Titel</div>
-  <div class="col-md-2">Deadline</div>
+  <div class="col-3-lg col-md" id="done-container">
+    <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
+      <h2 class="text-center mb-4">Erledigt</h2>
+      <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | done" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
+        <div class="col-2 my-2">
+          <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
+        </div>
+        <div class="col-4 d-flex align-items-center my-2 text-done">{{t.task_name}}</div>
+        <div class="col-3 d-flex align-items-center justify-content-end my-2">
+          <div class="bg-dark rounded px-1 task-deadline text-light">{{t.deadline | date: 'mediumDate'}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
-<div class="row" *ngFor="let t of categoryTasks | done"> <!-- uses custom pipe done -->
-  <div class="col-md-2">{{t.task_name}}</div>
-  <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
-</div>
+

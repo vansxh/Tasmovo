@@ -1,5 +1,5 @@
 <div>
-  <h1 class="mobile-heading text-center fixed-top">Unkategorisiert</h1>
+  <h1 class="mobile-heading text-center top-fixed">Unkategorisiert</h1>
 
   <div class="row my-4 progressbar-heading" id="progressbar-head">
     <div class="text-center mb-1 text-primary" *ngIf="singleTasks">{{(singleTasks|done).length}} von {{singleTasks.length}} erledigt</div>
@@ -7,7 +7,7 @@
     </ngb-progressbar></div>
   </div>
 
-  <div id="btn-scroll" class="d-flex justify-content-center btn-heading fixed-top">
+  <div id="btn-scroll" class="d-flex justify-content-center btn-heading top-fixed">
     <div class="btn-group w-75 mt-4">
       <div class="btn btn-primary w-50" id="notDone-btn" (click)="scrollToNotDone()" (click) = "changeDay(1)">
         Offen

@@ -3,6 +3,8 @@ import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
 import {ActivatedRoute} from "@angular/router";
+import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-sub-category',
@@ -11,7 +13,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SubCategoryComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) {
+  constructor(private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) {
   }
   public categoryTasks!: Task[];
 
@@ -34,22 +36,77 @@ export class SubCategoryComponent implements OnInit {
         });
 
     }
+    document.getElementsByTagName("h1")[0].innerText = "Sub-Kategoriename";
+    this.checkWindowSize();
+    window.addEventListener("resize", this.checkWindowSize);
+  }
+
+  detailsTask(task: Task): void {
+    this.taskService.detailsTask(task.TAID);
   }
 
   finishTask(task: Task): void {
-    this.taskService.finishTask(task).subscribe(
-      (data: any = []) => {
-        // update view if finishing was successful
-        this.ngOnInit();
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
+    this.taskService.terminateTask = task;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupFinishComponent, dialogConfig);
+  }
 
+  scrollToNotDone() {
+    const id = 'notDone-container';
+    const yOffset = -200;
+    const element = document.getElementById(id);
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({top: y, behavior: 'smooth'});
+    }
+  }
+
+  scrollToDone() {
+    const id = 'done-container';
+    const yOffset = -200;
+    const element = document.getElementById(id);
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({top: y, behavior: 'smooth'});
+    }
+  }
+
+  checkWindowSize() {
+    const progressbar = document.getElementById("progressbar-head")!;
+    if(window.innerWidth <= 768) {
+      progressbar.classList.add("top-fixed");
+    } else {
+      progressbar.classList.remove("top-fixed");
+    }
+  }
+
+  changeDay(day: number) {
+    // get buttons for changing between days
+    const notDone = document.getElementById('notDone-btn');
+    const done = document.getElementById('done-btn');
+    // if today was clicked
+    if (day === 1) {
+      if (notDone && done) {
+        notDone.classList.remove('btn-outline-primary');
+        notDone.classList.remove('btn-light');
+        notDone.classList.add('btn-primary');
+        done.classList.remove('btn-primary');
+        done.classList.add('btn-outline-primary');
+        done.classList.add('btn-light');
+      }
+      // if tomorrow was clicked
+    } else if (day === 2) {
+      if (notDone && done) {
+        notDone.classList.remove('btn-primary');
+        notDone.classList.add('btn-outline-primary');
+        notDone.classList.add('btn-light');
+        done.classList.remove('btn-outline-primary');
+        done.classList.remove('btn-light');
+        done.classList.add('btn-primary');
+      }
+    }
   }
 
 }

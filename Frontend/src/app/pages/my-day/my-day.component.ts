@@ -162,9 +162,11 @@ export class MyDayComponent {
       this.myDayService.viewDate = new Date();
       if(todayBtn && tomorrowBtn) {
         todayBtn.classList.remove('btn-outline-primary');
+        todayBtn.classList.remove('btn-light');
         todayBtn.classList.add('btn-primary');
         tomorrowBtn.classList.remove('btn-primary');
         tomorrowBtn.classList.add('btn-outline-primary');
+        tomorrowBtn.classList.add('btn-light');
       }
       // if tomorrow was clicked
     } else if(day === 2) {
@@ -172,8 +174,11 @@ export class MyDayComponent {
       if(todayBtn && tomorrowBtn) {
         todayBtn.classList.remove('btn-primary');
         todayBtn.classList.add('btn-outline-primary');
+        todayBtn.classList.add('btn-light');
         tomorrowBtn.classList.remove('btn-outline-primary');
         tomorrowBtn.classList.add('btn-primary');
+        tomorrowBtn.classList.remove('btn-light');
+
       }
     }
     // reload tasks with changed date

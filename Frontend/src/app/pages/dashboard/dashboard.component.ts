@@ -161,12 +161,10 @@ export class DashboardComponent implements OnInit {
   }
 
   onBreakOpen(){
-    //if (this.getDailyStresslevel() >= this.getStresslimit()) {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
       this.dialog.open(PopupReminderComponent, dialogConfig);
-    //}
   }
 
   myCategories() {

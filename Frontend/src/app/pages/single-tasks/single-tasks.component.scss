@@ -46,6 +46,13 @@ ngb-progressbar {
   display: block;
 }
 
+.top-fixed {
+  position: fixed;
+  top:0;
+  right:0;
+  left:0;
+}
+
 @media (max-width: 768px) {
   ngb-progressbar {
     top: 50px;

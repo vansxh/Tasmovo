@@ -1,3 +1,4 @@
+<h1 class="mobile-heading text-center">Kategoriename</h1>
 <swiper
   [slidesPerView]="2"
   [spaceBetween]="10"
@@ -6,16 +7,14 @@
   class="my-swiper display-web-only"
 >
   <ng-template swiperSlide>
-    <h1>Allgemein</h1>
+    <div class="container-shadow bg-white">
+    <h1 class="text-center">Allgemein</h1>
     <div class="row mt-4">
-      <div class="text-center mb-1" *ngIf="categoryTasks">{{(categoryTasks|done).length}} von {{categoryTasks.length}} erledigt</div>
-      <div><ngb-progressbar type="primary" *ngIf="categoryTasks" [showValue]="true" [value]="(categoryTasks | done).length" [max]="categoryTasks.length"></ngb-progressbar></div>
+      <div><ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length" [max]="categoryTasks.length"></ngb-progressbar></div>
     </div>
 
     <div class="row mt-5">
-      <div class="col-3-lg col-md">
-        <div class="shadow px-3 pt-3 pb-1 mb-2 bg-white">
-          <h2 class="text-center mb-4">Offen</h2>
+      <div class="col-lg col-md">
           <div class="row justify-content-center text-bottom" *ngFor="let t of categoryTasks | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
             <div class="col-2 my-2">
               <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
@@ -25,36 +24,23 @@
               <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-3-lg col-md">
-        <div class="shadow px-3 pt-3 pb-1 mb-2 bg-white">
-          <h2 class="text-center mb-4">Erledigt</h2>
-          <div class="row justify-content-center text-bottom" *ngFor="let t of categoryTasks | done" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
-            <div class="col-2 my-2">
-              <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
-            </div>
-            <div class="col-4 d-flex align-items-center my-2 text-done">{{t.task_name}}</div>
-            <div class="col-3 d-flex align-items-center justify-content-end my-2">
-              <div class="bg-dark rounded px-1 task-deadline text-done">{{t.deadline | date: 'mediumDate'}}</div>
-            </div>
-          </div>
+        <div class="d-flex justify-content-center">
+          <button class="btn bg-primary text-light m-3">Mehr</button>
         </div>
       </div>
 
     </div>
+    </div>
   </ng-template>
   <ng-template swiperSlide *ngFor="let s of subcategories">
+    <div class="container-shadow bg-white">
     <div class="swiper-slide-container">
-      <h1 (click)="showCategory(s)">{{s.category_name}}</h1>
+      <h1 class="text-center" (click)="showCategory(s)">{{s.category_name}}</h1>
       <div class="row mt-4">
-      <div class="text-center mb-1" *ngIf="allTasks">{{(allTasks | ofCategory:s.CAID | done).length}} von {{(allTasks | ofCategory:s.CAID).length}} erledigt</div>
       <div><ngb-progressbar type="primary" *ngIf="allTasks" [showValue]="true" [value]="(allTasks | ofCategory:s.CAID | done).length" [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar></div>
       </div>
       <div class="row mt-5">
         <div class="col-lg col-md">
-          <div class="shadow px-3 pt-3 pb-1 mb-2 bg-white">
-            <h2 class="text-center mb-4">Offen</h2>
             <div class="row justify-content-center text-bottom" *ngFor="let t of allTasks | ofCategory:s.CAID | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
               <div class="col-2 my-2">
                 <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
@@ -64,24 +50,10 @@
                 <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
               </div>
             </div>
+          <div class="d-flex justify-content-center">
+            <button class="btn bg-primary text-light m-3">Mehr</button>
           </div>
         </div>
-
-        <div class="col-lg col-md">
-          <div class="shadow px-3 pt-3 pb-1 mb-2 bg-white">
-            <h2 class="text-center mb-4">Erledigt</h2>
-            <div class="row justify-content-center text-bottom" *ngFor="let t of allTasks | ofCategory:s.CAID | done" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
-              <div class="col-2 my-2">
-                <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
-              </div>
-              <div class="col-4 d-flex align-items-center my-2">{{t.task_name}}</div>
-              <div class="col-3 d-flex align-items-center justify-content-end my-2">
-                <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
       <!--<h2>Offen</h2>
@@ -111,6 +83,7 @@
         <div class="col-md-2">{{t.task_name}}</div>
         <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
       </div>-->
+    </div>
     </div>
   </ng-template>
 </swiper>
@@ -123,16 +96,14 @@
   class="my-swiper display-mobile-only"
 >
   <ng-template swiperSlide>
-    <h1>Allgemein</h1>
-    <div class="row mt-4">
-      <div class="text-center mb-1" *ngIf="categoryTasks">{{(categoryTasks|done).length}} von {{categoryTasks.length}} erledigt</div>
-      <div><ngb-progressbar type="primary" *ngIf="categoryTasks" [showValue]="true" [value]="(categoryTasks | done).length" [max]="categoryTasks.length"></ngb-progressbar></div>
-    </div>
+    <div class="container-shadow bg-white">
+      <h1 class="text-center">Allgemein</h1>
+      <div class="row mt-4">
+        <div><ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length" [max]="categoryTasks.length"></ngb-progressbar></div>
+      </div>
 
-    <div class="row mt-5">
-      <div class="col-3-lg col-md">
-        <div class="shadow px-3 pt-3 pb-1 mb-2 bg-white">
-          <h2 class="text-center mb-4">Offen</h2>
+      <div class="row mt-5">
+        <div class="col-lg col-md">
           <div class="row justify-content-center text-bottom" *ngFor="let t of categoryTasks | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
             <div class="col-2 my-2">
               <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
@@ -142,36 +113,23 @@
               <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-3-lg col-md">
-        <div class="shadow px-3 pt-3 pb-1 mb-2 bg-white">
-          <h2 class="text-center mb-4">Erledigt</h2>
-          <div class="row justify-content-center text-bottom" *ngFor="let t of categoryTasks | done" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
-            <div class="col-2 my-2">
-              <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
-            </div>
-            <div class="col-4 d-flex align-items-center my-2 text-done">{{t.task_name}}</div>
-            <div class="col-3 d-flex align-items-center justify-content-end my-2">
-              <div class="bg-dark rounded px-1 task-deadline text-done">{{t.deadline | date: 'mediumDate'}}</div>
-            </div>
+          <div class="d-flex justify-content-center">
+            <button class="btn bg-primary text-light m-3">Mehr</button>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </ng-template>
   <ng-template swiperSlide *ngFor="let s of subcategories">
-    <div class="swiper-slide-container">
-      <h1 (click)="showCategory(s)">{{s.category_name}}</h1>
-      <div class="row mt-4">
-        <div class="text-center mb-1" *ngIf="allTasks">{{(allTasks | ofCategory:s.CAID | done).length}} von {{(allTasks | ofCategory:s.CAID).length}} erledigt</div>
-        <div><ngb-progressbar type="primary" *ngIf="allTasks" [showValue]="true" [value]="(allTasks | ofCategory:s.CAID | done).length" [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar></div>
-      </div>
-      <div class="row mt-5">
-        <div class="col-lg col-md">
-          <div class="shadow px-3 pt-3 pb-1 mb-2 bg-white">
-            <h2 class="text-center mb-4">Offen</h2>
+    <div class="container-shadow bg-white">
+      <div class="swiper-slide-container">
+        <h1 class="text-center" (click)="showCategory(s)">{{s.category_name}}</h1>
+        <div class="row mt-4">
+          <div><ngb-progressbar type="primary" *ngIf="allTasks" [showValue]="true" [value]="(allTasks | ofCategory:s.CAID | done).length" [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar></div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-lg col-md">
             <div class="row justify-content-center text-bottom" *ngFor="let t of allTasks | ofCategory:s.CAID | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
               <div class="col-2 my-2">
                 <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
@@ -181,53 +139,12 @@
                 <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="col-lg col-md">
-          <div class="shadow px-3 pt-3 pb-1 mb-2 bg-white">
-            <h2 class="text-center mb-4">Erledigt</h2>
-            <div class="row justify-content-center text-bottom" *ngFor="let t of allTasks | ofCategory:s.CAID | done" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
-              <div class="col-2 my-2">
-                <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
-              </div>
-              <div class="col-4 d-flex align-items-center my-2">{{t.task_name}}</div>
-              <div class="col-3 d-flex align-items-center justify-content-end my-2">
-                <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
-              </div>
+            <div class="d-flex justify-content-center">
+              <button class="btn bg-primary text-light m-3">Mehr</button>
             </div>
           </div>
         </div>
-
       </div>
-
-      <!--<h2>Offen</h2>
-
-      <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-2">Titel</div>
-        <div class="col-md-2">Deadline</div>
-      </div>
-      <div class="row" *ngFor="let t of allTasks | ofCategory:s.CAID | notDone">
-        <div class="col-md-2">
-          <button class="btn btn-primary" (click)="finishTask(t)">Finish</button>
-        </div>
-        <div class="col-md-2">{{t.task_name}}</div>
-        <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
-      </div>
-
-      <br>-->
-
-      <!--<h2>Erledigt</h2>
-
-      <div class="row">
-        <div class="col-md-2">Titel</div>
-        <div class="col-md-2">Deadline</div>
-      </div>
-      <div class="row" *ngFor="let t of allTasks | ofCategory:s.CAID | done">
-        <div class="col-md-2">{{t.task_name}}</div>
-        <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
-      </div>-->
     </div>
   </ng-template>
 </swiper>

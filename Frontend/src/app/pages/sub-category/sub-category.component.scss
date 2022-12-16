@@ -1,0 +1,89 @@
+ngb-progressbar {
+  width: 40%;
+  height: 2rem!important;
+  margin: auto;
+  background-color: white!important;
+  border: #30235B 3px solid;
+  border-radius: 20px!important;
+}
+
+.doneBtn-1 {
+  background-color: #D0C7EC;
+}
+
+.doneBtn-2 {
+  background-color: #9F92C6;
+}
+
+.doneBtn-3 {
+  background-color: #634C9A;
+}
+
+.doneBtn-Img {
+  background-image: url("../../../assets/check.svg");
+  background-size: 70%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.task-bottom {
+  border-bottom: 1px #dee2e6 solid;
+}
+
+.task-bottom:last-child {
+  border-bottom: none;
+}
+
+.container-shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+#btn-scroll {
+  display: none!important;
+}
+
+.display-web-only {
+  display: block;
+}
+
+.top-fixed {
+  position: fixed;
+  top:0;
+  right:0;
+  left:0;
+}
+
+@media (max-width: 768px) {
+  ngb-progressbar {
+    top: 50px;
+    height: 1rem !important;
+  }
+
+  .container-shadow {
+    box-shadow: none;
+  }
+
+  #btn-scroll {
+    display: flex!important;
+  }
+
+  .progressbar-heading {
+    top: 50px;
+  }
+
+  .btn-heading {
+    top: 130px;
+  }
+
+  .distance-top {
+    margin-top: 200px;
+  }
+
+  #notDone-container, #done-container {
+    z-index: -2!important;
+  }
+
+  .display-web-only {
+    display: none;
+  }
+}

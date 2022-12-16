@@ -101,7 +101,7 @@ export class CategoryComponent implements OnInit {
         });
     }
 
-    document.getElementsByTagName("h1")[0].innerText = "Meine Kategorien";
+    document.getElementsByTagName("h1")[0].innerText = "Kategoriename";
 
   }
 

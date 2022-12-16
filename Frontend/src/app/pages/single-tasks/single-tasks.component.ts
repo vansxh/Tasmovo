@@ -71,9 +71,9 @@ export class SingleTasksComponent implements OnInit {
   checkWindowSize() {
     const progressbar = document.getElementById("progressbar-head")!;
     if(window.innerWidth <= 768) {
-      progressbar.classList.add("fixed-top");
+      progressbar.classList.add("top-fixed");
     } else {
-      progressbar.classList.remove("fixed-top");
+      progressbar.classList.remove("top-fixed");
     }
   }
 
