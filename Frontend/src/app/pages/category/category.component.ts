@@ -32,6 +32,7 @@ export class CategoryComponent implements OnInit {
   public subcategories!: Category[];
   public allTasks!: Task[];
   slides$ = new BehaviorSubject<string[]>(['']);
+  category!: Category;
 
   ngOnInit(): void {
 
@@ -55,6 +56,20 @@ export class CategoryComponent implements OnInit {
 
     if (routeParams['CAID']) {
 
+      // get info of category
+      this.catService.getCategory(routeParams['CAID']).subscribe(
+        (data: any = []) => {
+          // get tasks from data
+          this.category = <Category>data['data'];
+          document.getElementsByTagName("h1")[0].innerText = this.category.category_name;
+        },
+        (error: any = []) => {
+          if(error['error']['message']) {
+            alert(error['error']['message']);
+            return;
+          }
+          this.general.errorResponse(error['status']);
+        });
 
       // get tasks of parent category
       this.taskService.getCategoryTasks(routeParams['CAID']).subscribe(
@@ -100,8 +115,6 @@ export class CategoryComponent implements OnInit {
           this.general.errorResponse(error['status']);
         });
     }
-
-    document.getElementsByTagName("h1")[0].innerText = "Kategoriename";
 
   }
 

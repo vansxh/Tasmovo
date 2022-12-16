@@ -70,6 +70,7 @@ import { PopupMydayComponent } from './popups/popup-myday/popup-myday.component'
 import { CountdownModule } from 'ngx-countdown';
 import { SpinnerComponent } from './spinner/spinner.component';
 import {LoadingInterceptor} from "./loading.interceptor";
+import { BackButtonDirective } from './back-button.directive';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -145,6 +146,7 @@ export const routes: Routes = [
     PopupReminderComponent,
     PopupMydayComponent,
     SpinnerComponent,
+    BackButtonDirective,
   ],
   imports: [
     BrowserModule,

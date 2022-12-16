@@ -6,6 +6,7 @@ import {GeneralService} from "../../services/general/general.service";
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Router} from '@angular/router';
+import { NavigationService } from '../../services/navigation/navigation.service'
 
 @Component({
   selector: 'app-task',
@@ -14,7 +15,7 @@ import {Router} from '@angular/router';
 })
 export class TaskComponent implements OnInit {
 
-  constructor(private router: Router, private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) { }
+  constructor(private navigation: NavigationService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) { }
 
   task!: Task;
 
@@ -86,6 +87,10 @@ export class TaskComponent implements OnInit {
         }
         this.general.errorResponse(error['status']);
       });
+  }
+
+  back(): void {
+    this.navigation.back()
   }
 
 }
