@@ -31,8 +31,9 @@ export class SingleTasksComponent implements OnInit {
           }
           this.general.errorResponse(error['status']);
         });
-
       document.getElementsByTagName("h1")[0].innerText = "Unkategorisiert";
+      this.checkWindowSize();
+      window.addEventListener("resize", this.checkWindowSize);
   }
 
   detailsTask(task: Task): void {
@@ -45,6 +46,62 @@ export class SingleTasksComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(PopupFinishComponent, dialogConfig);
+  }
+
+  scrollToNotDone() {
+    const id = 'notDone-container';
+    const yOffset = -200;
+    const element = document.getElementById(id);
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({top: y, behavior: 'smooth'});
+    }
+  }
+
+  scrollToDone() {
+    const id = 'done-container';
+    const yOffset = -200;
+    const element = document.getElementById(id);
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({top: y, behavior: 'smooth'});
+    }
+  }
+
+  checkWindowSize() {
+    const progressbar = document.getElementById("progressbar-head")!;
+    if(window.innerWidth <= 768) {
+      progressbar.classList.add("fixed-top");
+    } else {
+      progressbar.classList.remove("fixed-top");
+    }
+  }
+
+  changeDay(day: number) {
+    // get buttons for changing between days
+    const notDone = document.getElementById('notDone-btn');
+    const done = document.getElementById('done-btn');
+    // if today was clicked
+    if (day === 1) {
+      if (notDone && done) {
+        notDone.classList.remove('btn-outline-primary');
+        notDone.classList.remove('btn-light');
+        notDone.classList.add('btn-primary');
+        done.classList.remove('btn-primary');
+        done.classList.add('btn-outline-primary');
+        done.classList.add('btn-light');
+      }
+      // if tomorrow was clicked
+    } else if (day === 2) {
+      if (notDone && done) {
+        notDone.classList.remove('btn-primary');
+        notDone.classList.add('btn-outline-primary');
+        notDone.classList.add('btn-light');
+        done.classList.remove('btn-outline-primary');
+        done.classList.remove('btn-light');
+        done.classList.add('btn-primary');
+      }
+    }
   }
 
 }

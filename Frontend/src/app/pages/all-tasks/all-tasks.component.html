@@ -1,13 +1,13 @@
 <div>
-  <h1 class="mobile-heading text-center fixed-top">Alle Tasks</h1>
+  <h1 class="mobile-heading text-center top-fixed">Alle Tasks</h1>
 
-<div class="row mt-4 progressbar-heading" id="progressbar-head">
+<div class="row my-4 progressbar-heading" id="progressbar-head">
   <div class="text-center mb-1 text-primary" *ngIf="allTasks">{{(allTasks|done).length}} von {{allTasks.length}} erledigt</div>
   <div><ngb-progressbar type="primary" *ngIf="allTasks" [value]="(allTasks | done).length" [max]="allTasks.length">
   </ngb-progressbar></div>
 </div>
 
-  <div id="btn-scroll" class="d-flex justify-content-center btn-heading fixed-top">
+  <div id="btn-scroll" class="d-flex justify-content-center btn-heading top-fixed">
 <div class="btn-group w-75 mt-4">
   <div class="btn btn-primary w-50" id="notDone-btn" (click)="scrollToNotDone()" (click) = "changeDay(1)">
     Offen
