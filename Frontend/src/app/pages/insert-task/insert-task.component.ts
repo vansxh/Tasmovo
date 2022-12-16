@@ -85,6 +85,12 @@ export class InsertTaskComponent implements OnInit {
       categoryID: [''],
       subcategoryID: ['']
     });
+
+    if(this.edit) {
+      document.getElementsByTagName("h1")[0].innerText = "Task bearbeiten";
+    } else {
+      document.getElementsByTagName("h1")[0].innerText = "Neuer Task";
+    }
   }
 
   onInsertTaskSubmit() {

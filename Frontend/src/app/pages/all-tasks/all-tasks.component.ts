@@ -78,4 +78,30 @@ export class AllTasksComponent implements OnInit {
     }
   }
 
+  changeDay(day: number) {
+    // get buttons for changing between days
+    const notDone = document.getElementById('notDone-btn');
+    const done = document.getElementById('done-btn');
+    // if today was clicked
+    if (day === 1) {
+      if (notDone && done) {
+        notDone.classList.remove('btn-outline-primary');
+        notDone.classList.remove('btn-light');
+        notDone.classList.add('btn-primary');
+        done.classList.remove('btn-primary');
+        done.classList.add('btn-outline-primary');
+        done.classList.add('btn-light');
+      }
+      // if tomorrow was clicked
+    } else if (day === 2) {
+      if (notDone && done) {
+        notDone.classList.remove('btn-primary');
+        notDone.classList.add('btn-outline-primary');
+        notDone.classList.add('btn-light');
+        done.classList.remove('btn-outline-primary');
+        done.classList.remove('btn-light');
+        done.classList.add('btn-primary');
+      }
+    }
+  }
 }

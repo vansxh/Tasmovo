@@ -1,33 +1,34 @@
+<div class="d-flex justify-content-center">
 <div class="col-md-6">
-  <h1 *ngIf="!this.edit" class="text-center">Neue Kategorie</h1>
-  <h1 *ngIf="this.edit" class="text-center">Kategorie bearbeiten</h1>
+  <h1 *ngIf="!this.edit" class="mobile-heading text-center">Neue Kategorie</h1>
+  <h1 *ngIf="this.edit" class="mobile-heading text-center">Kategorie bearbeiten</h1>
   <form [formGroup]="insertCategoryForm" novalidate class="form">
 
     <input type="hidden" formControlName="CAID" name="CAID">
-
     <input type="hidden" formControlName="userID" name="userID">
 
-    <div class="form-group">
+    <div class="form-group mt-3">
       <label for="category_name">Titel</label>
-      <input type="text" formControlName="category_name" placeholder="Neuer Kategoriename" name="category_name"
-             class="form-control" id="category_name">
+      <input type="text" formControlName="category_name" name="category_name"
+             class="form-control container-shadow text-field" id="category_name">
     </div>
-    <div class="alert alert-danger"
+    <div class="alert p-0"
          *ngIf="insertCategoryForm.get('category_name')?.hasError('required') && insertCategoryForm.get('category_name')?.touched">
-      Bitte einen Titel für die Kategorie eingeben!
+      <span>Bitte einen Titel für die Kategorie eingeben!</span>
     </div>
-    <div class="alert alert-danger"
+    <div class="alert p-0"
          *ngIf="insertCategoryForm.get('category_name')?.hasError('maxlength') && insertCategoryForm.get('category_name')?.touched">
-      Max Länge: 30 Zeichen
+      <span>Max Länge: 30 Zeichen</span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group select mt-3">
       <label for="parent_categoryID">Elternkategorie (optional):</label>
       <select formControlName="parent_categoryID" placeholder="Elternkategorie" name="parent_categoryID"
-              class="form-control" id="parent_categoryID">
+              class="form-control container-shadow" id="parent_categoryID">
         <option value="" disabled selected></option>
         <option *ngFor="let c of categories | category" value="{{c.CAID}}">{{c.category_name}}</option>
       </select>
+      <div class="select_arrow"></div>
     </div>
 
     <button [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit" class="btn btn-success"
@@ -37,4 +38,5 @@
             (click)="onEditCategorySubmit()">Kategorie bearbeiten
     </button>
   </form>
+</div>
 </div>

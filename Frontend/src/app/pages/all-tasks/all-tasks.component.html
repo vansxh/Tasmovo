@@ -3,16 +3,16 @@
 
 <div class="row mt-4 progressbar-heading" id="progressbar-head">
   <div class="text-center mb-1 text-primary" *ngIf="allTasks">{{(allTasks|done).length}} von {{allTasks.length}} erledigt</div>
-  <div><ngb-progressbar type="primary" *ngIf="allTasks" [showValue]="true" [value]="(allTasks | done).length" [max]="allTasks.length">
+  <div><ngb-progressbar type="primary" *ngIf="allTasks" [value]="(allTasks | done).length" [max]="allTasks.length">
   </ngb-progressbar></div>
 </div>
 
   <div id="btn-scroll" class="d-flex justify-content-center btn-heading fixed-top">
 <div class="btn-group w-75 mt-4">
-  <div class="btn btn-primary" (click)="scrollToNotDone()">
+  <div class="btn btn-primary w-50" id="notDone-btn" (click)="scrollToNotDone()" (click) = "changeDay(1)">
     Offen
   </div>
-  <div class="btn btn-light btn-outline-primary" (click)="scrollToDone()">
+  <div class="btn btn-light btn-outline-primary w-50" id="done-btn" (click)="scrollToDone()" (click) = "changeDay(2)">
     Erledigt
   </div>
 </div>

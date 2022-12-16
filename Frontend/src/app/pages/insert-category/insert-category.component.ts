@@ -71,6 +71,11 @@ export class InsertCategoryComponent implements OnInit {
       parent_categoryID: ['']
     });
 
+    if(this.edit) {
+      document.getElementsByTagName("h1")[0].innerText = "Kategorie bearbeiten";
+    } else {
+      document.getElementsByTagName("h1")[0].innerText = "Neue Kategorie";
+    }
   }
 
   onInsertCategorySubmit() {
