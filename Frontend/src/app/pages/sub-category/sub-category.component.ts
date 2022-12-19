@@ -5,6 +5,8 @@ import {GeneralService} from "../../services/general/general.service";
 import {ActivatedRoute} from "@angular/router";
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {Category} from "../../services/category/category";
+import {CategoryService} from "../../services/category/category.service";
 
 @Component({
   selector: 'app-sub-category',
@@ -13,9 +15,11 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 })
 export class SubCategoryComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) {
+  constructor(private catService: CategoryService, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) {
   }
   public categoryTasks!: Task[];
+  subcategory!: Category;
+  parentCategory!: Category;
 
   ngOnInit(): void {
     const routeParams = this.route.snapshot.params;
@@ -35,10 +39,53 @@ export class SubCategoryComponent implements OnInit {
           this.general.errorResponse(error['status']);
         });
 
+      // get info of subcategory
+      this.catService.getCategory(routeParams['CAID']).subscribe(
+        (data: any = []) => {
+          // get tasks from data
+          this.subcategory = <Category>data['data'];
+          console.log(this.subcategory);
+          document.getElementsByTagName("h1")[0].innerText = this.subcategory.category_name;
+
+          if(this.subcategory.parent_categoryID) {
+            // get info of parent category
+            this.catService.getCategory(this.subcategory.parent_categoryID).subscribe(
+              (data: any = []) => {
+                // get tasks from data
+                this.parentCategory = <Category>data['data'];
+                console.log(this.parentCategory.category_name);
+                document.getElementsByTagName("h1")[0].innerText = this.parentCategory.category_name;
+              },
+              (error: any = []) => {
+                if (error['error']['message']) {
+                  alert(error['error']['message']);
+                  return;
+                }
+                this.general.errorResponse(error['status']);
+              });
+          }
+
+        },
+        (error: any = []) => {
+          if(error['error']['message']) {
+            alert(error['error']['message']);
+            return;
+          }
+          this.general.errorResponse(error['status']);
+        });
+
     }
-    document.getElementsByTagName("h1")[0].innerText = "Sub-Kategoriename";
     this.checkWindowSize();
     window.addEventListener("resize", this.checkWindowSize);
+  }
+
+  getSubcategoryName(): string {
+    console.log(this.subcategory.category_name)
+    if(!this.subcategory.parent_categoryID) {
+      return "Allgemein";
+    } else {
+      return this.subcategory.category_name;
+    }
   }
 
   detailsTask(task: Task): void {

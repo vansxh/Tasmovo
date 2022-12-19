@@ -2,6 +2,7 @@
   <h1 class="mobile-heading text-center top-fixed">Sub-Kategoriename</h1>
 
   <div class="row my-4 progressbar-heading" id="progressbar-head">
+    <h2 class="text-center" *ngIf="subcategory">{{getSubcategoryName()}}</h2>
     <div class="text-center mb-1 text-primary" *ngIf="categoryTasks">{{(categoryTasks|done).length}} von {{categoryTasks.length}} erledigt</div>
     <div><ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length" [max]="categoryTasks.length">
     </ngb-progressbar></div>
@@ -22,7 +23,7 @@
 <div class="row distance-top">
   <div class="col-3-lg col-md" id="notDone-container">
     <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
-      <h2 class="text-center mb-4 display-web-only">Offen</h2>
+      <h3 class="text-center mb-4 display-web-only">Offen</h3>
       <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
         <div class="col-2 my-2">
           <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
@@ -39,7 +40,7 @@
 
   <div class="col-3-lg col-md" id="done-container">
     <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
-      <h2 class="text-center mb-4">Erledigt</h2>
+      <h3 class="text-center mb-4">Erledigt</h3>
       <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | done" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
         <div class="col-2 my-2">
           <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>

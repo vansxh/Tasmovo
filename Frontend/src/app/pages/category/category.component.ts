@@ -56,6 +56,7 @@ export class CategoryComponent implements OnInit {
 
     if (routeParams['CAID']) {
 
+
       // get info of category
       this.catService.getCategory(routeParams['CAID']).subscribe(
         (data: any = []) => {
