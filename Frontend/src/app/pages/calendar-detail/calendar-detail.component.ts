@@ -46,6 +46,7 @@ export class CalendarDetailComponent implements OnInit {
 
     this.calendar = document.getElementById('calendar') || document.createElement('div');
     //  clear calendar
+    this.calendar.innerHTML = '';
 
     // create a div for each day of the month
     for (let date = 1; date <= this.daysInMonth; date++) {
@@ -123,6 +124,16 @@ export class CalendarDetailComponent implements OnInit {
 
   leftScroll() {
     this.calendar.scrollBy(-500,0);
+  }
+
+  prevMonth() {
+    this.taskService.changeToDayView(this.datePipe.transform(this.selectedDate.setMonth(this.month - 1),'yyyy-MM-dd', 'de-AT')||'');
+    this.ngOnInit();
+  }
+
+  nextMonth() {
+    this.taskService.changeToDayView(this.datePipe.transform(this.selectedDate.setMonth(this.month + 1),'yyyy-MM-dd', 'de-AT')||'');
+    this.ngOnInit();
   }
 
   loadTasks(): void {
