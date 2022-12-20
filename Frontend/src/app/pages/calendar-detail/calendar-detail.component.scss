@@ -1,5 +1,4 @@
 #calendar {
-  margin-top: 4rem;
   display: flex;
   flex-direction: row;
   position: relative;
@@ -12,6 +11,10 @@
 
 #calendar::-webkit-scrollbar {
   display: none;
+}
+
+#calendar-container {
+  margin-top: 4rem;
 }
 
 :host ::ng-deep .day div {
