@@ -63,6 +63,10 @@ export class DashboardComponent implements OnInit {
       (data: any = []) => {
         // get tasks from data
         this.plannedTasks = <Task[]>data['data'];
+        this.plannedTasks.forEach((task)=> {
+          task.start_time = task.start_time.slice(0, -3);
+          task.end_time = task.end_time.slice(0, -3);
+        });
       },
       (error: any = []) => {
         if(error['error']['message']) {

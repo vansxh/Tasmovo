@@ -40,6 +40,7 @@
     "ngx-countdown": "^14.0.0",
     "ngx-mat-timepicker": "^14.0.5",
     "rxjs": "~7.5.0",
+    "source-map-support": "^0.5.21",
     "swiper": "^8.4.5",
     "tslib": "^2.3.0",
     "uuid": "^9.0.0",
