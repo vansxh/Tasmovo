@@ -1,6 +1,6 @@
 <button class="btn display-web-only" (click)="this.closePopUp()">X</button>
 
-<h1 class="display-web-only">{{task.task_name}}</h1>
+<h1 *ngIf="task.task_name" id="detail-task-heading" class="display-web-only">{{task.task_name}}</h1>
 
 <p *ngIf="task.deadline">{{task.deadline | date: 'EEE, d.M.y'}}</p>
 <p *ngIf="task.deadline">{{task.deadline | date: 'HH:mm'}} Uhr</p>

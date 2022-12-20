@@ -13,25 +13,24 @@ import {LoaderService} from "./services/loader/loader.service";
 export class LoadingInterceptor implements HttpInterceptor {
 
   private totalRequests = 0;
+  private timeout!: ReturnType<typeof setTimeout>;
 
   constructor(private loadingService: LoaderService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     this.totalRequests++;
-    let lock = false;
     // only display spinner if loading lasts longer than 100ms, credit to Luki
-    setTimeout(() => {
-      //console.log("true");
-      if (!lock && this.totalRequests === 1) this.loadingService.setLoading(true)
-    }, 100)
+    if(this.totalRequests === 1) {
+      this.timeout = setTimeout(() => {
+        this.loadingService.setLoading(true)
+      }, 400)
+    }
 
     return next.handle(request).pipe(
       finalize(() => {
         this.totalRequests--;
-        //console.log("false");
         if (this.totalRequests == 0) {
-          lock = true;
+          clearTimeout(this.timeout);
           this.loadingService.setLoading(false);
         }
       })

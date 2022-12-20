@@ -74,7 +74,10 @@ export class TaskService {
   }
 
   changeToDayView(date: string) {
-    this.router.navigate(['/calendar-detail/' + date]);
+    this.router.navigate(['/calendar-detail/' + date]).then(() => {
+      window.location.reload();
+    });
+
   }
 
   updateTask(task: Task) {

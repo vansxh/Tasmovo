@@ -23,24 +23,28 @@ export class CalendarDetailComponent implements OnInit {
   public daysInMonth!: number;
   public selectedDate!: Date;
   calendar!: HTMLElement;
+  private routeParams!: Params;
 
 
   constructor(private dialog: MatDialog, private taskService: TaskService, private general: GeneralService, private router: Router, private datePipe: DatePipe, private route: ActivatedRoute, private authService: AuthenticationService) {}
 
   ngOnInit(): void {
 
-    const routeParams = this.route.snapshot.params;
+    console.log("ngOnInit aufgerufen")
+
+    this.routeParams = this.route.snapshot.params;
 
     // if deadline is transmitted get task and display values
-    if (routeParams['date']) {
-      this.selectedDate = new Date(routeParams['date']);
+    if (this.routeParams['date']) {
+      console.log(this.routeParams['date']);
+      this.selectedDate = new Date(this.routeParams['date']);
       this.loadTasks();
     }
 
     // set the calendars year and month to the selected date
-    this.today = new Date(routeParams['date']).getDate();
-    this.year = new Date(routeParams['date']).getFullYear();
-    this.month = new Date(routeParams['date']).getMonth();
+    this.today = new Date(this.routeParams['date']).getDate();
+    this.year = new Date(this.routeParams['date']).getFullYear();
+    this.month = new Date(this.routeParams['date']).getMonth();
     // get number of days in month
     this.daysInMonth = new Date(this.year, this.month+1, 0).getDate();
 
@@ -128,11 +132,13 @@ export class CalendarDetailComponent implements OnInit {
 
   prevMonth() {
     this.taskService.changeToDayView(this.datePipe.transform(this.selectedDate.setMonth(this.month - 1),'yyyy-MM-dd', 'de-AT')||'');
+    console.log('zu vorherigem Monat');
     this.ngOnInit();
   }
 
   nextMonth() {
     this.taskService.changeToDayView(this.datePipe.transform(this.selectedDate.setMonth(this.month + 1),'yyyy-MM-dd', 'de-AT')||'');
+    console.log('zu nächstem Monat');
     this.ngOnInit();
   }
 

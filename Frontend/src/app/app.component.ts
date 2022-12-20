@@ -8,6 +8,7 @@ import {TaskService} from './services/task/task.service';
 import {PopupMydayComponent} from "./popups/popup-myday/popup-myday.component";
 import {MyDayComponent} from "./pages/my-day/my-day.component";
 import {MyDayService} from "./services/my-day/my-day.service";
+import {NavigationService} from "./services/navigation/navigation.service";
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent {
   logoutbtn!: boolean;
   newPlannedTask!: Task;
 
-  constructor(private service: AuthenticationService, private dialog: MatDialog, private taskService: TaskService, private myDayService: MyDayService) {
+  constructor(private navigation: NavigationService, private service: AuthenticationService, private dialog: MatDialog, private taskService: TaskService, private myDayService: MyDayService) {
     if (this.service.isLoggedIn()) {
       this.loginbtn = false;
       this.logoutbtn = true;

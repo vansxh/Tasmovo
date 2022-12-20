@@ -16,7 +16,6 @@ export class NavigationService {
       if (event instanceof NavigationEnd) {
         this.history.push(event.urlAfterRedirects)
       }
-      console.log(this.history);
     })
   }
 
