@@ -1,111 +1,113 @@
-<div *ngIf="timerStart" class="col-sm-12 switch-screen-small mt-3 text-center">
-  <div class="container">
-    <img src="assets/timer.svg" alt="Timer" class="image" [ngStyle]="{'transform': 'rotate('+degrees+'deg)'}">
-    <div class="containerCenter">
-      <form [formGroup]="rewardForm" novalidate>
-        <mat-form-field [hideRequiredMarker]="true">
-          <mat-label></mat-label>
-          <input matInput type="number" [errorStateMatcher]="matcher" formControlName="hours"
-                 onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;
+<div class="row p-0">
+  <div *ngIf="timerStart" class="mt-3 text-center">
+    <div class="container">
+      <img src="assets/timer.svg" alt="Timer" class="image" [ngStyle]="{'transform': 'rotate('+degrees+'deg)'}">
+      <div class="containerCenter">
+        <form [formGroup]="rewardForm" novalidate>
+          <mat-form-field [hideRequiredMarker]="true">
+            <mat-label></mat-label>
+            <input matInput type="number" [errorStateMatcher]="matcher" formControlName="hours"
+                   onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;
                  if(parseInt(this.value,10)===0)this.value='00';
                  if(parseInt(this.value,10)>23)this.value='23';"
-                 (change)="spinImage()">
-          <mat-error *ngIf="rewardForm.get('hours')?.hasError('required')">
-            Dieses Feld darf nicht leer sein.
-          </mat-error>
-          <mat-error *ngIf="rewardForm.get('hours')?.hasError('max')">
-            Dieses Feld darf nicht größer als 24 sein.
-          </mat-error>
-          <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
-            Dieses Feld darf nicht kleiner als 0 sein.
-          </mat-error>
-        </mat-form-field>
-        <span class="coluns">:</span>
-        <mat-form-field [hideRequiredMarker]="true">
-          <mat-label></mat-label>
-          <input matInput type="number" [errorStateMatcher]="matcher" formControlName="minutes"
-                 onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;
+                   (change)="spinImage()">
+            <mat-error *ngIf="rewardForm.get('hours')?.hasError('required')">
+              Dieses Feld darf nicht leer sein.
+            </mat-error>
+            <mat-error *ngIf="rewardForm.get('hours')?.hasError('max')">
+              Dieses Feld darf nicht größer als 24 sein.
+            </mat-error>
+            <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
+              Dieses Feld darf nicht kleiner als 0 sein.
+            </mat-error>
+          </mat-form-field>
+          <span class="coluns">:</span>
+          <mat-form-field [hideRequiredMarker]="true">
+            <mat-label></mat-label>
+            <input matInput type="number" [errorStateMatcher]="matcher" formControlName="minutes"
+                   onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;
                  if(parseInt(this.value,10)===0)this.value='00';
                  if(parseInt(this.value,10)>59)this.value='59';"
-                 (change)="spinImage()">
-          <mat-error *ngIf="rewardForm.get('minutes')?.hasError('required')">
-            Dieses Feld darf nicht leer sein.
-          </mat-error>
-          <mat-error *ngIf="rewardForm.get('minutes')?.hasError('max')">
-            Dieses Feld darf maximal 59 betragen.
-          </mat-error>
-          <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
-            Dieses Feld darf nicht kleiner als 0 sein.
-          </mat-error>
-        </mat-form-field>
-        <span class="coluns">:</span>
-        <mat-form-field [hideRequiredMarker]="true">
-          <mat-label></mat-label>
-          <input matInput type="number" formControlName="seconds" [readonly]="true" style="color: #D9D9D9">
-        </mat-form-field>
+                   (change)="spinImage()">
+            <mat-error *ngIf="rewardForm.get('minutes')?.hasError('required')">
+              Dieses Feld darf nicht leer sein.
+            </mat-error>
+            <mat-error *ngIf="rewardForm.get('minutes')?.hasError('max')">
+              Dieses Feld darf maximal 59 betragen.
+            </mat-error>
+            <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
+              Dieses Feld darf nicht kleiner als 0 sein.
+            </mat-error>
+          </mat-form-field>
+          <span class="coluns">:</span>
+          <mat-form-field [hideRequiredMarker]="true">
+            <mat-label></mat-label>
+            <input matInput type="number" formControlName="seconds" [readonly]="true" style="color: #D9D9D9">
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+    <div>
+      <form [formGroup]="rewardForm" novalidate class="rewardForm">
+        <label for="rewardID" class="rewardText">Belohnung</label>
+        <br>
+        <div class="select">
+          <select formControlName="rewardID" name="reward"
+                  id="rewardID" class="container-shadow">
+            <option value="" disabled selected>Wähle deine Belohnung aus</option>
+            <option *ngFor="let r of rewards" value="{{r.RID}}">{{r.reward}}</option>
+          </select>
+          <div class="select_arrow"></div>
+        </div>
       </form>
     </div>
-  </div>
-  <div>
-    <form [formGroup]="rewardForm" novalidate class="rewardForm">
-      <label for="rewardID" class="rewardText">Belohnung</label>
-      <br>
-      <div class="select">
-        <select formControlName="rewardID" name="reward"
-                id="rewardID">
-          <option value="" disabled selected>Wähle deine Belohnung aus</option>
-          <option *ngFor="let r of rewards" value="{{r.RID}}">{{r.reward}}</option>
-        </select>
-        <div class="select_arrow"></div>
-      </div>
-    </form>
-  </div>
-  <div>
-    <button
-      [disabled]="!rewardForm.valid || rewardForm.get('hours')?.value == 0 && rewardForm.get('minutes')?.value == 0"
-      class="btn btn-primary buttonStart"
-      (click)="startTimer()">Start
-    </button>
-  </div>
-</div>
-
-<div *ngIf="whileTimer" class="col-sm-12 switch-screen-small mt-3 text-center">
-  <div>
-    <countdown #cd [config]="{leftTime: timerSeconds}" (event)="handleEvent($event)" class="timer"></countdown>
-  </div>
-  <div>
-    <div class="containerWhile">
-      <img src="assets/standard_boi.gif" class="gif">
-      <div class="containerCenterWhile">
-        <img src="assets/timer-border.png" class="imgBorder">
-      </div>
-    </div>
-
-  </div>
-  <div class="loadText">
-    {{loadedReward}} lädt ...
-  </div>
-  <div>
-    <button class="btn btn-primary buttonStart" (click)="cd.stop(); stopTimer()">Abbrechen</button>
-  </div>
-</div>
-
-<div *ngIf="timerEnd" class="col-sm-12 switch-screen-small mt-3 text-center">
-  <div>
-    <countdown [config]="{leftTime: 0}" class="timer"></countdown>
-  </div>
-  <div>
-    <div class="containerWhile">
-      <img src="assets/FinishedTimer.png" class="gif">
-      <div class="containerCenterWhile">
-        <img src="assets/timer-border.svg" class="imgBorder">
-      </div>
+    <div>
+      <button
+        [disabled]="!rewardForm.valid || rewardForm.get('hours')?.value == 0 && rewardForm.get('minutes')?.value == 0"
+        class="btn btn-primary buttonStart"
+        (click)="startTimer()">Start
+      </button>
     </div>
   </div>
-  <div class="loadText">
-    Belohnug geladen!
+
+  <div *ngIf="whileTimer" class="p-0  mt-3 text-center">
+    <div>
+      <countdown #cd [config]="{leftTime: timerSeconds}" (event)="handleEvent($event)" class="timer"></countdown>
+    </div>
+    <div>
+      <div class="containerWhile">
+        <img src="{{rewardPaths[rewardID]}}" class="gif">
+        <div class="containerCenterWhile">
+          <img src="assets/timer-border.png" class="imgBorder">
+        </div>
+      </div>
+
+    </div>
+    <div class="loadText">
+      {{loadedReward}} lädt ...
+    </div>
+    <div>
+      <button class="btn btn-primary buttonStart" (click)="cd.stop(); stopTimer()">Abbrechen</button>
+    </div>
   </div>
-  <div>
-    <button class="btn btn-primary buttonStart" (click)="getRewards();startState()">Neuer Timer</button>
+
+  <div *ngIf="timerEnd" class=" p-0 mt-3 text-center">
+    <div>
+      <countdown [config]="{leftTime: 0}" class="timer"></countdown>
+    </div>
+    <div>
+      <div class="containerWhile">
+        <img src="{{finishPaths[rewardID]}}" class="gif">
+        <div class="containerCenterWhile">
+          <img src="assets/timer-border.png" class="imgBorder">
+        </div>
+      </div>
+    </div>
+    <div class="loadText">
+      Belohnug geladen!
+    </div>
+    <div>
+      <button class="btn btn-primary buttonStart" (click)="getRewards();startState()">Neuer Timer</button>
+    </div>
   </div>
 </div>

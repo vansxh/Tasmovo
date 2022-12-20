@@ -23,12 +23,15 @@ export class TimerComponent implements OnInit {
   whileTimer: boolean | undefined;
   timerEnd: boolean | undefined;
 
-  snack!: boolean;
+  /*snack!: boolean;
   kaffee!: boolean;
   spazieren!: boolean;
-  nap!: boolean;
+  nap!: boolean;*/
 
   rewards!: Reward[];
+  rewardPaths = ['', 'assets/burger.gif', 'assets/kaffee.gif', 'assets/spazieren.gif', 'assets/powernap.gif', 'assets/geschenk.gif'];
+  finishPaths = ['', 'assets/finishBurger.png', 'assets/finishKaffee.png', 'assets/finishSpazieren.png', 'assets/finishPowernap.png', 'assets/finishGeschenk.png'];
+  rewardID!: number;
 
   loadedReward = "Belohnung";
   timerSeconds = 0;
@@ -105,9 +108,9 @@ export class TimerComponent implements OnInit {
   }
 
   stopTimer() {
-    this.timer.deleteTimer().subscribe((data: any = []) =>{
+    this.timer.deleteTimer().subscribe((data: any = []) => {
       this.ngOnInit();
-    }, (error: any = []) =>{
+    }, (error: any = []) => {
       if (error['error']['message']) {
         alert(error['error']['message']);
         return;
@@ -120,6 +123,7 @@ export class TimerComponent implements OnInit {
     this.timer.getTimer().subscribe((data: any = []) => {
       this.loadedReward = data['data']['reward'];
       this.timerSeconds = data['data']['duration'];
+      this.rewardID = data['data']['rewardID'];
 
       this.whileState();
     }, (error: any = []) => {
@@ -129,14 +133,14 @@ export class TimerComponent implements OnInit {
 
   //Check if Timer is finished
   handleEvent(e: CountdownEvent) {
-    if(e.status == CountdownStatus.done){
+    if (e.status == CountdownStatus.done) {
       this.finishState();
     }
   }
 
   //Random rotation of image on startState
-  spinImage(){
-    let rand = Math.random()*360;
+  spinImage() {
+    let rand = Math.random() * 360;
     rand = Math.floor(rand);
     this.degrees = rand;
   }
