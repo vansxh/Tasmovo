@@ -11,6 +11,8 @@ import {StresstrackingService} from "../../services/stresstracking/stresstrackin
 import {PopupReminderComponent} from "../../popups/popup-reminder/popup-reminder.component";
 import {PopupAddComponent} from "../../popups/popup-add/popup-add.component";
 import {Router} from '@angular/router';
+import {MyDayService} from "../../services/my-day/my-day.service";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
@@ -21,12 +23,12 @@ import {Router} from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   public openTasks!: Task[];
-  public finishedTasks!: Task[];
+  public plannedTasks!: Task[];
   public dailyQuote!: Quote;
   dailyStresslevel!: number;
   stressLimit!: number;
 
-  constructor(private router: Router, private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog, private stress: StresstrackingService) {
+  constructor(private datePipe: DatePipe, private myDayService: MyDayService,private router: Router, private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog, private stress: StresstrackingService) {
   }
 
   ngOnInit(): void {
@@ -55,17 +57,26 @@ export class DashboardComponent implements OnInit {
   }
 
   loadTasks(): void {
+
+    // get planned tasks
+    this.taskService.getPlannedTasks(this.datePipe.transform(new Date(),'yyyy-MM-dd', 'de-AT')||'').subscribe(
+      (data: any = []) => {
+        // get tasks from data
+        this.plannedTasks = <Task[]>data['data'];
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
+
     // get  next tasks
     this.taskService.getNextTasks().subscribe(
       (data: any = []) => {
         // get tasks from data
         this.openTasks = <Task[]>data['data'];
-        // fix deadline for input form
-        for (let t of this.openTasks) {
-          let deadline = t.deadline.split(" ");
-          t.deadlineDay = deadline[0];
-          //t.deadlineHour = deadline[1].slice(0, -3);
-        }
       },
       (error: any = []) => {
           if(error['error']['message']) {
@@ -74,19 +85,6 @@ export class DashboardComponent implements OnInit {
           }
           this.general.errorResponse(error['status']);
         });
-
-    this.taskService.getFinishedTasks().subscribe(
-      (data: any = []) => {
-        // get tasks from data
-        this.finishedTasks = <Task[]>data['data'];
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-    });
   }
 
   deleteTask(task: Task): void {
