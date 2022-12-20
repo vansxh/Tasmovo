@@ -22,6 +22,7 @@ export class CalendarDetailComponent implements OnInit {
   public month!: number;
   public daysInMonth!: number;
   public selectedDate!: Date;
+  calendar!: HTMLElement;
 
 
   constructor(private dialog: MatDialog, private taskService: TaskService, private general: GeneralService, private router: Router, private datePipe: DatePipe, private route: ActivatedRoute, private authService: AuthenticationService) {}
@@ -43,9 +44,8 @@ export class CalendarDetailComponent implements OnInit {
     // get number of days in month
     this.daysInMonth = new Date(this.year, this.month+1, 0).getDate();
 
-    const calendar = document.getElementById('calendar') || document.createElement('div');
+    this.calendar = document.getElementById('calendar') || document.createElement('div');
     //  clear calendar
-    calendar.innerHTML = '';
 
     // create a div for each day of the month
     for (let date = 1; date <= this.daysInMonth; date++) {
@@ -68,7 +68,7 @@ export class CalendarDetailComponent implements OnInit {
       p2.appendChild(p2Text);
       div.appendChild(p1);
       div.appendChild(p2);
-      calendar.appendChild(div);
+      this.calendar.appendChild(div);
     }
 
     // add selected class to day that was selected in calendar overview
@@ -77,10 +77,16 @@ export class CalendarDetailComponent implements OnInit {
       selected[i].classList.add('selected');
     }
 
+    selected[0].scrollIntoView({
+      behavior: 'auto',
+      block: 'center',
+      inline: 'center'
+    });
+
     const classname = document.getElementsByClassName('day');
 
     // function for event listener
-    const addEditEvent = (e:any) => {
+    const newSelectedEvent = (e:any) => {
       // remove selected class from all elements
       for (let i = 0; i < classname.length; i++) {
         classname[i].classList.remove('selected');
@@ -92,17 +98,31 @@ export class CalendarDetailComponent implements OnInit {
       for (let i = 0; i < wholeDay.length; i++) {
         wholeDay[i].classList.add('selected');
       }
+      console.log(wholeDay);
+      wholeDay[0].scrollIntoView({
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center'
+      });
       // load tasks of selected day
       this.loadTasks();
     }
 
     // add event listener
     for (let i = 0; i < classname.length; i++) {
-      classname[i].addEventListener('click', addEditEvent, false);
+      classname[i].addEventListener('click', newSelectedEvent, false);
     }
 
     document.getElementsByTagName("h1")[0].innerText = "Kalender";
 
+  }
+
+  rightScroll() {
+    this.calendar.scrollBy(500,0);
+  }
+
+  leftScroll() {
+    this.calendar.scrollBy(-500,0);
   }
 
   loadTasks(): void {
