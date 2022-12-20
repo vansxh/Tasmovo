@@ -1,3 +1,7 @@
+<button class="btn" (click)="this.closePopUp()">X</button>
+
+<h1 class="display-web-only">{{task.task_name}}</h1>
+
 <p *ngIf="task.deadline">{{task.deadline | date: 'EEE, d.M.y'}}</p>
 <p *ngIf="task.deadline">{{task.deadline | date: 'HH:mm'}} Uhr</p>
 

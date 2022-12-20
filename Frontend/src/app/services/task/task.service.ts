@@ -5,17 +5,21 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Observable} from "rxjs";
 import { CalendarEvent } from 'angular-calendar';
+import {PopupMydayComponent} from "../../popups/popup-myday/popup-myday.component";
+import {TaskComponent} from "../../pages/task/task.component";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) {
+  constructor(private dialog: MatDialog, private http: HttpClient, private router: Router, private authService: AuthenticationService) {
   }
 
   terminateTask!: Task;
   plannedTask!: Task;
+  detailTask!: number;
 
   insertTask(task: Task) {
     return this.http.post('/Backend/routes/task/insertTask.php', task);
@@ -38,7 +42,23 @@ export class TaskService {
   }
 
   detailsTask(TAID: number) {
-    this.router.navigate(['/task/' + TAID]);
+    if(window.innerWidth <= 768) {
+      this.router.navigate(['/task/' + TAID]);
+    } else {
+      this.detailTask = TAID;
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = false;
+      dialogConfig.autoFocus = true;
+      this.dialog.open(TaskComponent, {
+        position: { right: '0', top: '0' },
+        height: '100%',
+        width: '25%'
+      });
+    }
+  }
+
+  closePopUp() {
+    this.dialog.closeAll();
   }
 
   addTask() {

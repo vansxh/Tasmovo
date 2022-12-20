@@ -18,30 +18,33 @@ export class TaskComponent implements OnInit {
   constructor(private navigation: NavigationService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) { }
 
   task!: Task;
+  taskID!: number;
 
   ngOnInit(): void {
 
     const routeParams = this.route.snapshot.params;
 
     if (routeParams['TAID']) {
-
-      // get task
-      this.taskService.getTask(routeParams['TAID']).subscribe(
-        (data: any = []) => {
-          // get task from data
-          this.task = <Task>data['data'];
-          // change heading
-          document.getElementsByTagName('h1')[0].innerText = this.task.task_name;
-        },
-        (error: any = []) => {
-          if(error['error']['message']) {
-            alert(error['error']['message']);
-            return;
-          }
-          this.general.errorResponse(error['status']);
-        });
-
+      this.taskID = routeParams['TAID'];
+    } else {
+      this.taskID = this.taskService.detailTask;
     }
+
+    // get task
+    this.taskService.getTask(this.taskID).subscribe(
+      (data: any = []) => {
+        // get task from data
+        this.task = <Task>data['data'];
+        // change heading
+        document.getElementsByTagName('h1')[0].innerText = this.task.task_name;
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
 
   }
 
@@ -91,6 +94,10 @@ export class TaskComponent implements OnInit {
 
   back(): void {
     this.navigation.back()
+  }
+
+  closePopUp(): void {
+    this.taskService.closePopUp();
   }
 
 }
