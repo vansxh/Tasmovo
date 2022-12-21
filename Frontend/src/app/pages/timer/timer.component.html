@@ -7,7 +7,8 @@
           <mat-form-field [hideRequiredMarker]="true">
             <mat-label></mat-label>
             <input matInput type="number" [errorStateMatcher]="matcher" formControlName="hours"
-                   onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;
+                   onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value.toString().slice(-1);
+                   if(parseInt(this.value,10)>10)this.value=this.value.toString().slice(-2);
                  if(parseInt(this.value,10)===0)this.value='00';
                  if(parseInt(this.value,10)>23)this.value='23';"
                    (change)="spinImage()">
@@ -25,7 +26,8 @@
           <mat-form-field [hideRequiredMarker]="true">
             <mat-label></mat-label>
             <input matInput type="number" [errorStateMatcher]="matcher" formControlName="minutes"
-                   onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value;
+                   onchange="if(parseInt(this.value,10)<10)this.value='0'+this.value.toString().slice(-1);
+                   if(parseInt(this.value,10)>10)this.value=this.value.toString().slice(-2);
                  if(parseInt(this.value,10)===0)this.value='00';
                  if(parseInt(this.value,10)>59)this.value='59';"
                    (change)="spinImage()">
