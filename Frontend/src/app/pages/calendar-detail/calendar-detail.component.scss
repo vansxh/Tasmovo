@@ -36,6 +36,14 @@
   border-radius: 10px;
 }
 
+.hoverEffects {
+  cursor: pointer;
+}
+
+.hoverEffects:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .container-shadow {
     box-shadow: none;

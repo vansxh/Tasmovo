@@ -25,6 +25,9 @@ export class CalendarDetailComponent implements OnInit {
   calendar!: HTMLElement;
   private routeParams!: Params;
 
+  loadAllTasks = 5;
+  loadFinishedTasks = 5;
+
 
   constructor(private dialog: MatDialog, private taskService: TaskService, private general: GeneralService, private router: Router, private datePipe: DatePipe, private route: ActivatedRoute, private authService: AuthenticationService) {}
 

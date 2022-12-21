@@ -24,7 +24,7 @@
   <div class="col-3-lg col-md" id="notDone-container">
     <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
       <h3 class="text-center mb-4 display-web-only">Offen</h3>
-      <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
+      <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | notDone | slice: 0: loadAllTasks" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
         <div class="col-2 my-2">
           <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
         </div>
@@ -44,7 +44,7 @@
   <div class="col-3-lg col-md" id="done-container">
     <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
       <h3 class="text-center mb-4">Erledigt</h3>
-      <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | done" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
+      <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | done | slice: 0: loadFinishedTasks" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
         <div class="col-2 my-2">
           <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
         </div>
