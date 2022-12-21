@@ -1,40 +1,35 @@
 <div>
 <div id="mobile-background" *ngIf="loggedIn()" [ngClass]="{'header-mobile-tasks' : (getLocation()=='/all-tasks' || getLocation()=='/single-tasks'), 'header-mobile' : (getLocation()!='/all-tasks' && getLocation()!='/single-tasks')}">
-  <div class="w-100 bg-warning d-flex" id="display-heading" *ngIf="loggedIn()">
-    <button class="btn" appBackButton *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile'"><i class="fa fa-chevron-left"></i></button>
-    <h1 class="display-web-only">Heading</h1>
+  <div class="w-100 bg-warning d-flex align-items-center" id="display-heading" *ngIf="loggedIn()">
+    <button class="btn" appBackButton *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile'"><i class="fa fa-chevron-left fa-lg"></i></button>
+    <h1 class="display-web-only p-0 m-0">Heading</h1>
   </div>
   <div class="" id="display-desktop" *ngIf="loggedIn()">
     <nav class="navbar bg-primary h-100 justify-content-center" id="navbar-desktop">
       <ul class ="nav navbar-nav ml-5">
         <li class ="nav-item text-center py-3">
           <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
-            <img src="assets/home.svg" width="60%" alt="Home Icon">
+            <img src="assets/home.svg" width="70%" alt="Home Icon">
           </a>
         </li>
         <li class ="nav-item text-center py-3">
           <a class="nav-link" routerLink="overview" routerLinkActive="active">
-            <img src="assets/list.svg" width="60%" alt="List Icon">
+            <img src="assets/list.svg" width="70%" alt="List Icon">
           </a>
         </li>
         <li class ="nav-item text-center py-3">
           <a class="nav-link" routerLink="timer" routerLinkActive="active">
-            <img src="assets/hourglass.svg" width="60%" alt="Timer Icon">
+            <img src="assets/hourglass.svg" width="70%" alt="Timer Icon">
           </a>
         </li>
-        <li class ="nav-item text-center py-3">
+        <li class ="nav-item text-center pt-3 pb-4">
           <a class="nav-link" routerLink="calendar" routerLinkActive="active">
-            <img src="assets/calendar.svg" width="60%" alt="Calendar Icon">
+            <img src="assets/calendar.svg" width="70%" alt="Calendar Icon">
           </a>
         </li>
-        <li class ="nav-item text-center py-3 pt-4 mt-4 border-top">
-          <a class="nav-link ">
-            <img src="assets/settings.svg" width="70%" alt="Settings Icon">
-          </a>
-        </li>
-        <li class ="nav-item text-center py-2">
+        <li class ="nav-item text-center pb-2 pt-5 mt-4 border-top">
           <a class="nav-link" routerLink="profile" routerLinkActive="active">
-            <img src="assets/profile.svg" width="60%" alt="Profile Icon">
+            <img src="assets/profile.svg" width="70%" alt="Profile Icon">
           </a>
         </li>
       </ul>
