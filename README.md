@@ -11,6 +11,9 @@ Further details for the Frontend can be found in `./Frontend/README.md`
 
 Development Mode only works with `ng serve --proxy-config proxy.conf.js` because of $_SESSION in PHP
 
+To enable opening the web app on the browser of your phone enter `ng serve --proxy-config proxy.conf.js --host ip-address-of-wifi`
+Your phone must be connected to the same wifi as your computer, then open  `http://ip-address:port/` on your phone's browser
+
 ## Backend
 The Backend was written in Vanilla PHP version 8.1.11
 
