@@ -1,5 +1,21 @@
 <h1 class="mobile-heading">Übersicht</h1>
 
+<div style="width: 100%">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label></mat-label>
+    <input type="text"
+           placeholder="Alle Tasks durchsuchen"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+
 <div class="mt-5">
   <button
     class="d-flex justify-content-start align-items-center btn b-1 mx-auto shadow p-3 mb-2 bg-light rounded overview-style"
