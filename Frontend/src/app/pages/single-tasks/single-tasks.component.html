@@ -23,7 +23,7 @@
   <div class="col-3-lg col-md" id="notDone-container">
     <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
       <h2 class="text-center mb-4 display-web-only">Offen</h2>
-      <div class="row justify-content-center task-bottom" *ngFor="let t of singleTasks | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
+      <div class="row justify-content-center task-bottom" *ngFor="let t of singleTasks | notDone | slice: 0: loadAllTasks" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
         <div class="col-2 my-2">
           <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
         </div>
@@ -31,6 +31,9 @@
         <div class="col-3 d-flex align-items-center justify-content-end my-2">
           <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
         </div>
+      </div>
+      <div class="d-flex justify-content-center task-bottom hoverEffects" *ngIf="singleTasks && loadAllTasks < (singleTasks | notDone).length" (click)="loadAllTasks= loadAllTasks +5">
+        <span>mehr laden</span>
       </div>
     </div>
   </div>
@@ -40,7 +43,7 @@
   <div class="col-3-lg col-md" id="done-container">
     <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
       <h2 class="text-center mb-4">Erledigt</h2>
-      <div class="row justify-content-center task-bottom" *ngFor="let t of singleTasks | done" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
+      <div class="row justify-content-center task-bottom" *ngFor="let t of singleTasks | done | slice: 0: loadFinishedTasks" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
         <div class="col-2 my-2">
           <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
         </div>
@@ -48,6 +51,9 @@
         <div class="col-3 d-flex align-items-center justify-content-end my-2">
           <div class="bg-dark rounded px-1 task-deadline text-light">{{t.deadline | date: 'mediumDate'}}</div>
         </div>
+      </div>
+      <div class="d-flex justify-content-center task-bottom hoverEffects" *ngIf="singleTasks && loadFinishedTasks < (singleTasks | done).length" (click)="loadFinishedTasks= loadFinishedTasks +5">
+        <span>mehr laden</span>
       </div>
     </div>
   </div>

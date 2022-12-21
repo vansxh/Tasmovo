@@ -54,6 +54,14 @@ ngb-progressbar {
   z-index: 2;
 }
 
+.hoverEffects {
+  cursor: pointer;
+}
+
+.hoverEffects:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   ngb-progressbar {
     top: 50px;

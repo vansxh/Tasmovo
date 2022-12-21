@@ -16,6 +16,9 @@ export class SingleTasksComponent implements OnInit {
 
   public singleTasks!: Task[];
 
+  loadAllTasks = 10;
+  loadFinishedTasks = 10;
+
   ngOnInit(): void {
 
       // get single tasks
