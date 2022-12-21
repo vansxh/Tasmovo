@@ -33,6 +33,9 @@
           <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
         </div>
       </div>
+      <div class="d-flex justify-content-center task-bottom hoverEffects" *ngIf="categoryTasks && loadAllTasks < (categoryTasks | notDone).length" (click)="loadAllTasks= loadAllTasks +5">
+        <span>mehr laden</span>
+      </div>
     </div>
   </div>
 
@@ -49,6 +52,9 @@
         <div class="col-3 d-flex align-items-center justify-content-end my-2">
           <div class="bg-dark rounded px-1 task-deadline text-light">{{t.deadline | date: 'mediumDate'}}</div>
         </div>
+      </div>
+      <div class="d-flex justify-content-center task-bottom hoverEffects" *ngIf="categoryTasks && loadFinishedTasks < (categoryTasks | done).length" (click)="loadFinishedTasks= loadFinishedTasks +5">
+        <span>mehr laden</span>
       </div>
     </div>
   </div>

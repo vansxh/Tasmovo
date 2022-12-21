@@ -21,6 +21,9 @@ export class SubCategoryComponent implements OnInit {
   subcategory!: Category;
   parentCategory!: Category;
 
+  loadAllTasks = 10;
+  loadFinishedTasks = 10;
+
   ngOnInit(): void {
     const routeParams = this.route.snapshot.params;
 
