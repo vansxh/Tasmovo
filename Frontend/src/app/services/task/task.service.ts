@@ -58,7 +58,9 @@ export class TaskService {
   }
 
   closePopUp() {
-    this.dialog.closeAll();
+    if(this.dialog) {
+      this.dialog.closeAll();
+    }
   }
 
   addTask() {

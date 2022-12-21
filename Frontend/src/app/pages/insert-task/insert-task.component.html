@@ -92,7 +92,7 @@
              class="form-control" id="notes">
     </div>-->
 
-    <div class="form-group select mt-3">
+    <!--<div class="form-group select mt-3">
       <label for="categoryID">Kategorie (optional):</label>
       <select formControlName="categoryID" name="categoryID"
              class="form-control container-shadow" id="categoryID" (ngModelChange)="onChangeCategory($event)">
@@ -102,7 +102,6 @@
       <div class="select_arrow"></div>
     </div>
 
-
     <div *ngIf="subcategories != undefined && subcategories.length > 0" class="form-group select mt-3">
       <label for="subcategoryID">Subkategorie (optional):</label>
       <select formControlName="subcategoryID" name="subcategoryID"
@@ -111,6 +110,61 @@
         <option *ngFor="let c of subcategories" value="{{c.CAID}}">{{c.category_name}}</option>
       </select>
       <div class="select_arrow"></div>
+    </div>-->
+
+    <div class="form-group select mt-3">
+      <label for="categoryID">Kategorie (optional):</label>
+      <mat-form-field>
+        <mat-select
+          formControlName="categoryID" name="categoryID"
+          class="form-control container-shadow" id="categoryID"
+          (selectionChange)="onChangeCategory($event.value)"
+          *ngIf="categories"
+          ngxMatSelect
+          [lazyLoad]="true"
+          [searcher]="categorySearcher.bind(this)"
+          [hasSearchBox]="true"
+          [multiple]="false"
+          [required]="false"
+          [valueMember]="'CAID'"
+          [displayMember]="'category_name'"
+          [source]="categories | category"
+          #sf="ngxMatSelect"
+        >
+          <mat-option [value]=""></mat-option>
+          <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
+            {{c.category_name}}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+    </div>
+
+
+    <div *ngIf="subcategories" class="form-group select mt-3">
+      <label for="subcategoryID">Subkategorie (optional):</label>
+      <mat-form-field>
+        <mat-select
+          formControlName="subcategoryID" name="subcategoryID"
+          class="form-control container-shadow" id="subcategoryID"
+          ngxMatSelect
+          [lazyLoad]="true"
+          [searcher]="subCategorySearcher.bind(this)"
+          [hasSearchBox]="true"
+          [multiple]="false"
+          [required]="false"
+          [valueMember]="'CAID'"
+          [displayMember]="'category_name'"
+          [source]="subcategories"
+          #sf="ngxMatSelect"
+        >
+          <mat-option [value]=""></mat-option>
+          <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
+            {{c.category_name}}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
     </div>
 
     <button [disabled]="!insertTaskForm.valid" *ngIf="!this.edit" class="btn btn-success"
@@ -119,6 +173,10 @@
     <button [disabled]="!insertTaskForm.valid" *ngIf="this.edit" class="btn btn-success" (click)="onEditTaskSubmit()">
       Task bearbeiten
     </button>
+
   </form>
+
 </div>
 </div>
+
+

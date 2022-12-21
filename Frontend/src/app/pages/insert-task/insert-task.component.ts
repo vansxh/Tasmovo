@@ -12,6 +12,7 @@ import {CategoryService} from "../../services/category/category.service";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import * as moment from 'moment';
+import {Observable, of} from "rxjs";
 
 @Component({
   selector: 'app-insert-task',
@@ -30,8 +31,14 @@ export class InsertTaskComponent implements OnInit {
   subcategories!: Category[];
   nowDate!: string;
   formatNumber: number = 24;
+  bankValue = [{key: 10, value: 'Bank_10'},{key: 75, value: 'Bank_75'}];
+  source: any[] = [];
 
   ngOnInit(): void {
+
+    for (let i = 0; i < 100; i++) {
+      this.source.push({value: 'Bank_' + i, key: i})
+    }
 
     this.nowDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd', 'de-AT') || '';
 
@@ -45,6 +52,7 @@ export class InsertTaskComponent implements OnInit {
         (data: any = []) => {
             // get task from data
             this.selectedTask = <Task>data['data'];
+            this.onChangeCategory(this.selectedTask.categoryID);
             console.log(this.selectedTask);
             // fix deadline for input form
             let deadline = new Date(this.selectedTask.deadline);
@@ -67,6 +75,7 @@ export class InsertTaskComponent implements OnInit {
       (data: any = []) => {
         // get categories from data
         this.categories = <Category[]>data['data'];
+        console.log(this.categories);
       },
       (error: any = []) => {
         if(error['error']['message']) {
@@ -93,6 +102,16 @@ export class InsertTaskComponent implements OnInit {
     }
   }
 
+  // server side mock search by 'of Observable'
+  subCategorySearcher = (search: string, pageNumber: number, pageSize: number): Observable<any[]> => {
+    return of(this.subcategories.filter(w => w.category_name.includes(search)));
+  }
+
+  // server side mock search by 'of Observable'
+  categorySearcher = (search: string, pageNumber: number, pageSize: number): Observable<any[]> => {
+    return of(this.categories.filter(w => w.category_name.includes(search) && w.parent_categoryID === null));
+  }
+
   onInsertTaskSubmit() {
     this.insertTaskForm.value.deadlineDay = this.insertTaskForm.value.deadlineDay.format('yyyy-MM-DD');
     this.taskService.insertTask(this.insertTaskForm.value).subscribe(
@@ -113,8 +132,11 @@ export class InsertTaskComponent implements OnInit {
     this.insertTaskForm.value.deadlineDay = (moment(this.insertTaskForm.value.deadlineDay)).format('yyyy-MM-DD');
     this.taskService.updateTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
-        // if task was inserted reload tasks
-        this.router.navigate(['/task/' + this.insertTaskForm.value.TAID]);
+        // if task was updated display task
+        if(window.innerWidth > 768) {
+          this.router.navigate(['dashboard']);
+        }
+          this.taskService.detailsTask(this.insertTaskForm.value.TAID);
       },
       (error: any = []) => {
         if(error['error']['message']) {
@@ -130,6 +152,7 @@ export class InsertTaskComponent implements OnInit {
       (data: any = []) => {
         // get subcategories from data
         this.subcategories = <Category[]>data['data'];
+        console.log(this.subcategories);
       },
       (error: any = []) => {
         if(error['error']['message']) {
@@ -139,6 +162,10 @@ export class InsertTaskComponent implements OnInit {
         }
         this.general.errorResponse(error['status']);
       });
+  }
+
+  print(event: any) {
+    console.log(event);
   }
 
 }

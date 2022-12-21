@@ -7,6 +7,8 @@ import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.compo
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import { NavigationService } from '../../services/navigation/navigation.service'
+import { Category } from 'src/app/services/category/category';
+import {CategoryService} from "../../services/category/category.service";
 
 @Component({
   selector: 'app-task',
@@ -15,10 +17,12 @@ import { NavigationService } from '../../services/navigation/navigation.service'
 })
 export class TaskComponent implements OnInit {
 
-  constructor(private navigation: NavigationService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) { }
+  constructor(private catService: CategoryService ,private navigation: NavigationService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) { }
 
   task!: Task;
   taskID!: number;
+  category!: Category;
+  subcategory!: Category;
 
   ngOnInit(): void {
 
@@ -41,6 +45,35 @@ export class TaskComponent implements OnInit {
         } else {
           document.getElementById('detail-task-heading')!.innerText = this.task.task_name;
         }
+
+        // get category
+        this.catService.getCategory(this.task.categoryID).subscribe(
+          (data: any = []) => {
+            // get category from data
+            this.category = <Category>data['data'];
+
+            // get subcategory
+            this.catService.getCategory(this.task.subcategoryID).subscribe(
+              (data: any = []) => {
+                // get category from data
+                this.subcategory = <Category>data['data'];
+              },
+              (error: any = []) => {
+                if(error['error']['message']) {
+                  alert(error['error']['message']);
+                  return;
+                }
+                this.general.errorResponse(error['status']);
+              });
+          },
+          (error: any = []) => {
+            if(error['error']['message']) {
+              alert(error['error']['message']);
+              return;
+            }
+            this.general.errorResponse(error['status']);
+          });
+
       },
       (error: any = []) => {
         if(error['error']['message']) {

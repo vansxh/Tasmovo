@@ -71,6 +71,8 @@ import { CountdownModule } from 'ngx-countdown';
 import { SpinnerComponent } from './spinner/spinner.component';
 import {LoadingInterceptor} from "./loading.interceptor";
 import { BackButtonDirective } from './back-button.directive';
+import {MatSelectModule} from '@angular/material/select';
+import {NGX_MAT_SELECT_CONFIGS, NgxMatSelectConfigs, NgxMatSelectModule} from "ngx-mat-select";
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -78,6 +80,19 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
     return new Intl.DateTimeFormat(locale, {weekday: 'short'}).format(date);
   }
 
+}
+
+export const ngxMatSelectConfigs: NgxMatSelectConfigs = {
+  maxWidthForMobileView: 768,
+  inFirstLoadCallSearcher: true,
+  inFirstLoadSearcherValue: '',
+  emptyLabel: 'Keine Auswahlmöglichkeiten gefunden',
+  noMoreResultLabel: '',
+  useInfiniteScroll: false,
+  searchBoxPlaceholder: 'Suchen...',
+  maximumResultForShow: 30,
+  useMobileView: true,
+  mobileViewType: 'FullScreen',
 }
 
 registerLocaleData(localeAt);
@@ -177,10 +192,13 @@ export const routes: Routes = [
     NgxMatTimepickerModule,
     NgbProgressbarModule,
     SwiperModule,
-    CountdownModule
+    CountdownModule,
+    MatSelectModule,
+    NgxMatSelectModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},
+    {provide: NGX_MAT_SELECT_CONFIGS, useValue: ngxMatSelectConfigs},
     DatePipe,
     {
       provide: MAT_MOMENT_DATE_FORMATS,

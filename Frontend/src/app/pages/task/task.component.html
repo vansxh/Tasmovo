@@ -13,6 +13,16 @@
   <p>{{task.notes}}</p>
 </div>
 
+<div *ngIf="category">
+  <h2>Kategorie</h2>
+  <p>{{category}}</p>
+</div>
+
+<div *ngIf="subcategory">
+  <h2>Subkategorie</h2>
+  <p>{{subcategory}}</p>
+</div>
+
 <div *ngIf="task.expense">
   <h2>Schwierigkeitsgrad</h2>
   <p>{{task.expense}}</p>
@@ -28,6 +38,6 @@
   <p *ngIf="task.updated_date">Zuletzt geändert: {{task.updated_date | date: 'd.M.y'}}</p>
 </div>
 
-<button class="btn btn-success" (click)="editTask()">Edit</button>
+<button class="btn btn-success" (click)="this.closePopUp(); editTask()">Edit</button>
 
-<button class="btn btn-danger" (click)="deleteTask()">Delete</button>
+<button class="btn btn-danger" (click)="this.closePopUp(); deleteTask()">Delete</button>
