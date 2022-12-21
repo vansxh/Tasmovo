@@ -32,7 +32,7 @@
           <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
         </div>
       </div>
-      <div class="row justify-content-center task-bottom" *ngIf="allTasks && loadAllTasks < allTasks.length" (click)="loadAllTasks= loadAllTasks +5">
+      <div class="row justify-content-center task-bottom" *ngIf="allTasks && loadAllTasks < (allTasks | notDone).length" (click)="loadAllTasks= loadAllTasks +5">
         mehr laden
       </div>
     </div>
@@ -43,7 +43,7 @@
   <div class="col-3-lg col-md" id="done-container">
     <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
       <h2 class="text-center mb-4">Erledigt</h2>
-      <div class="row justify-content-center task-bottom" *ngFor="let t of allTasks | done" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
+      <div class="row justify-content-center task-bottom" *ngFor="let t of allTasks | done | slice: 0: loadFinishedTasks" (click)="detailsTask(t)"> <!-- uses custom pipe done -->
         <div class="col-2 my-2">
           <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
         </div>
@@ -51,6 +51,9 @@
         <div class="col-3 d-flex align-items-center justify-content-end my-2">
           <div class="bg-dark rounded px-1 task-deadline text-light">{{t.deadline | date: 'mediumDate'}}</div>
         </div>
+      </div>
+      <div class="d-flex justify-content-center task-bottom" *ngIf="allTasks && loadFinishedTasks < (allTasks | done).length" (click)="loadFinishedTasks= loadFinishedTasks +5">
+        mehr laden
       </div>
     </div>
   </div>
