@@ -14,6 +14,9 @@ spl_autoload_register(function ($class) {
 //Initialize the database
 Database::init();
 
+//Check if there is a reset
+TimerReset::resetDailyStress();
+
 //Declaring objects
 $auth = new Auth();
 Input::init();
