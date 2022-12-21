@@ -16,6 +16,8 @@ export class AllTasksComponent implements OnInit {
 
   public allTasks!: Task[];
 
+  loadAllTasks = 10;
+
   ngOnInit(): void {
 
     // get  all tasks
