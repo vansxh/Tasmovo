@@ -51,6 +51,7 @@ ngb-progressbar {
   top:0;
   right:0;
   left:0;
+  z-index: 2;
 }
 
 @media (max-width: 768px) {
@@ -79,9 +80,7 @@ ngb-progressbar {
     margin-top: 200px;
   }
 
-  #notDone-container, #done-container {
-    z-index: -2!important;
-  }
+
 
   .display-web-only {
     display: none;
