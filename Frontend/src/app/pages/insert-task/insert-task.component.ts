@@ -103,12 +103,12 @@ export class InsertTaskComponent implements OnInit {
     }
   }
 
-  // server side mock search by 'of Observable'
+  // for searching through subcategories
   subCategorySearcher = (search: string, pageNumber: number, pageSize: number): Observable<any[]> => {
     return of(this.subcategories.filter(w => w.category_name.includes(search)));
   }
 
-  // server side mock search by 'of Observable'
+  // for searching through categories
   categorySearcher = (search: string, pageNumber: number, pageSize: number): Observable<any[]> => {
     return of(this.categories.filter(w => w.category_name.includes(search) && w.parent_categoryID === null));
   }

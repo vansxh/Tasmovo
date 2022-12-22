@@ -18,13 +18,41 @@
 
   <br>
 
-  <div class="form-group">
+  <!--<div class="form-group">
     <label for="TAID">Task hinzufügen</label>
     <select formControlName="TAID" name="TAID"
             class="form-control" id="TAID">
       <option value="" disabled selected>Task</option>
       <option *ngFor="let t of tasks | notDone" value="{{t.TAID}}">{{t.task_name}}</option>
     </select>
+  </div>-->
+
+  <div class="form-group select mt-3">
+    <label for="TAID">Task hinzufügen</label>
+    <mat-form-field>
+      <mat-select
+        formControlName="TAID" name="TAID"
+        class="form-control container-shadow" id="TAID"
+        *ngIf="tasks"
+        ngxMatSelect
+        [lazyLoad]="true"
+        [searcher]="taskSearcher.bind(this)"
+        [hasSearchBox]="true"
+        [multiple]="false"
+        [required]="false"
+        [valueMember]="'TAID'"
+        [displayMember]="'task_name'"
+        [source]="tasks | notDone"
+        [emptyLabel]="'Keine Tasks gefunden'"
+        #sf="ngxMatSelect"
+      >
+        <mat-option [value]=""></mat-option>
+        <mat-option [value]="t.TAID" *ngFor="let t of sf.filteredSource">
+          {{t.task_name}}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
   </div>
 
   <button *ngIf="this.plannedTask.TAID === 0" [disabled]="!addPlannedTaskForm.valid" (click)="onAddTaskSumbmit()" class="btn btn-primary">Speichern</button>

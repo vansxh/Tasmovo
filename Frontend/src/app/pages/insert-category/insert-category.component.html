@@ -23,12 +23,30 @@
 
     <div class="form-group select mt-3">
       <label for="parent_categoryID">Elternkategorie (optional):</label>
-      <select formControlName="parent_categoryID" placeholder="Elternkategorie" name="parent_categoryID"
-              class="form-control container-shadow" id="parent_categoryID">
-        <option value="" disabled selected></option>
-        <option *ngFor="let c of categories | category" value="{{c.CAID}}">{{c.category_name}}</option>
-      </select>
-      <div class="select_arrow"></div>
+      <mat-form-field>
+        <mat-select
+          formControlName="parent_categoryID" name="parent_categoryID"
+          class="form-control container-shadow" id="parent_categoryID"
+          *ngIf="categories"
+          ngxMatSelect
+          [lazyLoad]="true"
+          [searcher]="categorySearcher.bind(this)"
+          [hasSearchBox]="true"
+          [multiple]="false"
+          [required]="false"
+          [valueMember]="'CAID'"
+          [displayMember]="'category_name'"
+          [source]="categories | category"
+          [emptyLabel]="'Keine Kategorien gefunden'"
+          #sf="ngxMatSelect"
+        >
+          <mat-option [value]=""></mat-option>
+          <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
+            {{c.category_name}}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
     </div>
 
     <button [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit" class="btn btn-success"

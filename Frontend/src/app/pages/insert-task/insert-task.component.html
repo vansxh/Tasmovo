@@ -129,6 +129,7 @@
           [valueMember]="'CAID'"
           [displayMember]="'category_name'"
           [source]="categories | category"
+          [emptyLabel]="'Keine Kategorien gefunden'"
           #sf="ngxMatSelect"
         >
           <mat-option [value]=""></mat-option>
@@ -156,6 +157,7 @@
           [valueMember]="'CAID'"
           [displayMember]="'category_name'"
           [source]="subcategories"
+          [emptyLabel]="'Keine Kategorien gefunden'"
           #sf="ngxMatSelect"
         >
           <mat-option [value]=""></mat-option>

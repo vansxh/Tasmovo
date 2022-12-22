@@ -5,6 +5,7 @@ import {GeneralService} from "../../services/general/general.service";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {MatDialogRef} from "@angular/material/dialog";
 import {DatePipe} from '@angular/common';
+import {Observable, of} from "rxjs";
 
 export function endTimeValidator(): ValidatorFn {
   return (formGroup: AbstractControl): ValidationErrors | null => {
@@ -90,6 +91,11 @@ export class PopupMydayComponent implements OnInit {
 
   }
 
+  // for searching through tasks
+  taskSearcher = (search: string, pageNumber: number, pageSize: number): Observable<any[]> => {
+    return of(this.tasks.filter(w => w.task_name.includes(search) && w.statusID == 1));
+  }
+
   onAddTaskSumbmit() {
     // get values from form
     this.newTask.start_time = this.addPlannedTaskForm.value.start_time;
@@ -138,10 +144,6 @@ export class PopupMydayComponent implements OnInit {
   onClose() {
     this.dialogRefFinish.close();
     window.location.reload();
-  }
-
-  sendHelpPls() {
-    console.log(this.addPlannedTaskForm.getError('endTimeBeforeStartTime'));
   }
 
 }

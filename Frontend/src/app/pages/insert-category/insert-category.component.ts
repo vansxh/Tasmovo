@@ -7,6 +7,7 @@ import {AuthenticationService} from 'src/app/services/authentication/authenticat
 import {Task} from "../../services/task/task";
 import {GeneralService} from "../../services/general/general.service";
 import {NavigationService} from "../../services/navigation/navigation.service";
+import {Observable, of} from "rxjs";
 
 @Component({
   selector: 'app-insert-category',
@@ -77,6 +78,11 @@ export class InsertCategoryComponent implements OnInit {
     } else {
       document.getElementsByTagName("h1")[0].innerText = "Neue Kategorie";
     }
+  }
+
+  // for searching through categories
+  categorySearcher = (search: string, pageNumber: number, pageSize: number): Observable<any[]> => {
+    return of(this.categories.filter(w => w.category_name.includes(search) && w.parent_categoryID === null));
   }
 
   onInsertCategorySubmit() {
