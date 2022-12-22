@@ -6,6 +6,7 @@ import {CategoryService} from 'src/app/services/category/category.service';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {Task} from "../../services/task/task";
 import {GeneralService} from "../../services/general/general.service";
+import {NavigationService} from "../../services/navigation/navigation.service";
 
 @Component({
   selector: 'app-insert-category',
@@ -14,7 +15,7 @@ import {GeneralService} from "../../services/general/general.service";
 })
 export class InsertCategoryComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private catService: CategoryService, private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private general: GeneralService) {
+  constructor(private navigation: NavigationService, private formbuilder: FormBuilder, private catService: CategoryService, private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private general: GeneralService) {
   }
 
   insertCategoryForm!: FormGroup;
@@ -83,7 +84,7 @@ export class InsertCategoryComponent implements OnInit {
     this.catService.insertCategory(this.insertCategoryForm.value).subscribe(
       (data: any = []) => {
         // if category was inserted reload categories
-        this.router.navigate(['my-categories']);
+        this.navigation.back();
       },
       (error: any = []) => {
         if(error['error']['message']) {
@@ -99,7 +100,7 @@ export class InsertCategoryComponent implements OnInit {
     this.catService.updateCategory(this.insertCategoryForm.value).subscribe(
       (data: any = []) => {
         // if category was inserted reload categories
-        this.router.navigate(['my-categories']);
+        this.navigation.back();
       },
       (error: any = []) => {
         if(error['error']['message']) {

@@ -39,24 +39,20 @@ export class TaskComponent implements OnInit {
       (data: any = []) => {
         // get task from data
         this.task = <Task>data['data'];
-        // change heading
-        if(window.innerWidth <= 768) {
-          document.getElementsByTagName('h1')[0].innerText = this.task.task_name;
-        } else {
-          document.getElementById('detail-task-heading')!.innerText = this.task.task_name;
-        }
 
         // get category
         this.catService.getCategory(this.task.categoryID).subscribe(
           (data: any = []) => {
             // get category from data
             this.category = <Category>data['data'];
+            console.log(this.category);
 
             // get subcategory
             this.catService.getCategory(this.task.subcategoryID).subscribe(
               (data: any = []) => {
                 // get category from data
                 this.subcategory = <Category>data['data'];
+                console.log(this.subcategory);
               },
               (error: any = []) => {
                 if(error['error']['message']) {
@@ -73,6 +69,13 @@ export class TaskComponent implements OnInit {
             }
             this.general.errorResponse(error['status']);
           });
+
+        // change heading
+        if(window.innerWidth <= 768) {
+          document.getElementsByTagName('h1')[0].innerText = this.task.task_name;
+        } else {
+          document.getElementById('detail-task-heading')!.innerText = this.task.task_name;
+        }
 
       },
       (error: any = []) => {

@@ -13,6 +13,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import * as moment from 'moment';
 import {Observable, of} from "rxjs";
+import {NavigationService} from "../../services/navigation/navigation.service";
 
 @Component({
   selector: 'app-insert-task',
@@ -21,7 +22,7 @@ import {Observable, of} from "rxjs";
 })
 export class InsertTaskComponent implements OnInit {
 
-  constructor(private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService, private catService: CategoryService, private matDatePicker: MatDatepickerModule, private matTimePicker: NgxMatTimepickerModule) {
+  constructor(private navigation: NavigationService, private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService, private catService: CategoryService, private matDatePicker: MatDatepickerModule, private matTimePicker: NgxMatTimepickerModule) {
   }
 
   insertTaskForm!: FormGroup;
@@ -117,7 +118,7 @@ export class InsertTaskComponent implements OnInit {
     this.taskService.insertTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
         // if task was inserted reload tasks
-        this.router.navigate(['dashboard']);
+        this.navigation.back();
       },
       (error: any = []) => {
         if(error['error']['message']) {
@@ -134,7 +135,7 @@ export class InsertTaskComponent implements OnInit {
       (data: any = []) => {
         // if task was updated display task
         if(window.innerWidth > 768) {
-          this.router.navigate(['dashboard']);
+          this.navigation.back();
         }
           this.taskService.detailsTask(this.insertTaskForm.value.TAID);
       },
