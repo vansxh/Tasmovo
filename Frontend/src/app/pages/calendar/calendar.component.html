@@ -73,7 +73,7 @@
   <div class="cal-events" *ngIf="day.events.length > 0">
     <div
       class="cal-event"
-      *ngFor="let event of day.events; trackBy: trackByEventId"
+      *ngFor="let event of day.events; trackBy: trackByEventId"c
       [ngStyle]="{ backgroundColor: event.color?.primary }"
       [ngClass]="event?.cssClass"
       (mouseenter)="highlightDay.emit({ event: event })"
