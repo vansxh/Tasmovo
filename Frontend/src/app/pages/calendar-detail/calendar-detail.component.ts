@@ -35,7 +35,7 @@ export class CalendarDetailComponent implements OnInit {
 
     console.log("ngOnInit aufgerufen")
 
-    document.getElementsByTagName("h1")[0].innerText = "Kalender";
+    document.getElementsByTagName("h1")[0].innerText = "";
 
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.date = params.get('date')!;

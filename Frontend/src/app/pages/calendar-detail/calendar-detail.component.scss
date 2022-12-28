@@ -14,13 +14,23 @@
 }
 
 #calendar-container {
-  margin-top: 4rem;
+  margin-top: 2rem;
+}
+
+.cal-distance-top {
+  margin-top: 5rem;
 }
 
 :host ::ng-deep .day div {
   position: absolute;
   flex-shrink: 0;
   padding: 40px;
+}
+
+:host ::ng-deep .day {
+  background-color: white;
+  padding: 1px 7px;
+  border-radius: 10px;
 }
 
 :host ::ng-deep .day p {

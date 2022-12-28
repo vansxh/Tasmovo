@@ -176,6 +176,10 @@ body{
   display: block;
 }
 
+.display-web-only-flex {
+  display: flex;
+}
+
 .display-mobile-only {
   display: none;
 }
@@ -196,5 +200,9 @@ body{
 
   .display-mobile-only {
     display: block;
+  }
+
+  .display-mobile-only-flex {
+    display: flex;
   }
 }
