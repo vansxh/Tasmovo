@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-<div class="col-md-6">
+<div class="col-md-6 mt-4 mobile-distance">
   <h1 *ngIf="!this.edit" class="mobile-heading text-center">Neuer Task</h1>
   <h1 *ngIf="this.edit" class="mobile-heading text-center">Task bearbeiten</h1>
   <form [formGroup]="insertTaskForm" class="form">
@@ -8,7 +8,7 @@
 
     <div class="form-group mt-3">
       <label class="input-text" for="task_name">Titel</label>
-        <input type="text" formControlName="task_name" class="form-control container-shadow text-field"
+        <input type="text" formControlName="task_name" class="form-control container-shadow text-field bg-light"
                id="task_name">
     </div>
 
@@ -31,7 +31,7 @@
       <div class="col-lg-6 col-md-12 col-sm-6 mt-3">
     <div class="form-group">
       <label for="deadline">Datum</label>
-      <mat-form-field class="w-100 container-shadow text-field-mat">
+      <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
         <input matInput [matDatepicker]="picker" formControlName="deadlineDay" min="{{nowDate}}" id="deadline">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -59,7 +59,7 @@
       <div class="col-lg-6 col-md-12 col-sm-6 mt-3">
     <div class="form-group">
       <label for="time">Uhrzeit</label>
-      <mat-form-field class="w-100 container-shadow text-field-mat">
+      <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
         <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="deadlineHour" id="time" class="timepicker">
         <ngx-mat-timepicker-toggle matIconSuffix [for]="$any(timepicker)"></ngx-mat-timepicker-toggle>
         <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
@@ -83,7 +83,7 @@
 
     <div class="form-group mt-3">
       <label for="notes">Notizen (optional):</label>
-        <input type="text" formControlName="notes" class="form-control container-shadow text-field" id="notes">
+        <input type="text" formControlName="notes" class="form-control container-shadow text-field bg-light" id="notes">
     </div>
 
     <!--<div class="form-group">
@@ -114,10 +114,10 @@
 
     <div class="form-group select mt-3">
       <label for="categoryID">Kategorie (optional):</label>
-      <mat-form-field>
+      <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
         <mat-select
           formControlName="categoryID" name="categoryID"
-          class="form-control container-shadow" id="categoryID"
+          class="" id="categoryID"
           (selectionChange)="onChangeCategory($event.value)"
           *ngIf="categories"
           ngxMatSelect
@@ -137,17 +137,17 @@
             {{c.category_name}}
           </mat-option>
         </mat-select>
-
+        <div class="select_arrow"></div>
       </mat-form-field>
     </div>
 
 
-    <div *ngIf="subcategories" class="form-group select mt-3">
+    <div *ngIf="subcategories" class="form-group select">
       <label for="subcategoryID">Subkategorie (optional):</label>
-      <mat-form-field>
+      <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
         <mat-select
           formControlName="subcategoryID" name="subcategoryID"
-          class="form-control container-shadow" id="subcategoryID"
+          class="" id="subcategoryID"
           ngxMatSelect
           [lazyLoad]="true"
           [searcher]="subCategorySearcher.bind(this)"
@@ -165,6 +165,7 @@
             {{c.category_name}}
           </mat-option>
         </mat-select>
+        <div class="select_arrow"></div>
 
       </mat-form-field>
     </div>

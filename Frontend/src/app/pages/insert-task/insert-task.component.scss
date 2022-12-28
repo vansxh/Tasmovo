@@ -32,8 +32,8 @@
 }
 .select_arrow {
   position: absolute;
-  top: 42px;
-  right: 29px;
+  top: -4px;
+  right: 25px;
   width: 17px;
   height: 17px;
   border: solid #302065;
@@ -52,13 +52,9 @@
   border-top-color: #cccccc;
 }
 
-.container-shadow {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-:host ::ng-deep span{
+/*:host ::ng-deep span{
   font-size: 50px !important;
-}
+}*/
 
 :host ::ng-deep .mat-form-field-underline {
   display: none;
@@ -76,5 +72,17 @@
   padding-left: 10px;
   font-size: 1rem;
   border-radius: 5px;
+}
+
+.text-select-mat {
+  border: none!important;
+  height: 45px;
+  padding-left: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+:host ::ng-deep .mat-select-arrow-wrapper {
+  display: none!important;
 }
 

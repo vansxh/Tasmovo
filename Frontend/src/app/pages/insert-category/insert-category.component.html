@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-<div class="col-md-6">
+<div class="col-md-6 mt-4">
   <h1 *ngIf="!this.edit" class="mobile-heading text-center">Neue Kategorie</h1>
   <h1 *ngIf="this.edit" class="mobile-heading text-center">Kategorie bearbeiten</h1>
   <form [formGroup]="insertCategoryForm" novalidate class="form">
@@ -10,7 +10,7 @@
     <div class="form-group mt-3">
       <label for="category_name">Titel</label>
       <input type="text" formControlName="category_name" name="category_name"
-             class="form-control container-shadow text-field" id="category_name">
+             class="form-control container-shadow text-field bg-light" id="category_name">
     </div>
     <div class="alert p-0"
          *ngIf="insertCategoryForm.get('category_name')?.hasError('required') && insertCategoryForm.get('category_name')?.touched">
@@ -23,10 +23,10 @@
 
     <div class="form-group select mt-3">
       <label for="parent_categoryID">Elternkategorie (optional):</label>
-      <mat-form-field>
+      <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
         <mat-select
           formControlName="parent_categoryID" name="parent_categoryID"
-          class="form-control container-shadow" id="parent_categoryID"
+          class="" id="parent_categoryID"
           *ngIf="categories"
           ngxMatSelect
           [lazyLoad]="true"
@@ -45,7 +45,7 @@
             {{c.category_name}}
           </mat-option>
         </mat-select>
-
+        <div class="select_arrow"></div>
       </mat-form-field>
     </div>
 
