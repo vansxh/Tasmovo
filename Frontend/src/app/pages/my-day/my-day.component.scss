@@ -4,3 +4,25 @@
   align-items: center;
   margin: 1rem;
 }
+
+.top-fixed {
+  position: fixed;
+  top:0;
+  right:0;
+  left:0;
+  z-index: 2;
+}
+
+:host ::ng-deep .cal-current-time-marker {
+  z-index: 0!important;
+}
+
+@media (max-width: 768px) {
+  .btn-heading {
+    top: 130px;
+  }
+
+  .distance-top {
+    margin-top: 200px;
+  }
+}

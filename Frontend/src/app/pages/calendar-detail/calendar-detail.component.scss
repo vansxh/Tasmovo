@@ -7,6 +7,7 @@
   gap: 50px;
   overflow-x: auto;
   width: 480px;
+  padding: 1.5rem;
 }
 
 #calendar::-webkit-scrollbar {
@@ -27,10 +28,12 @@
   padding: 40px;
 }
 
-:host ::ng-deep .day {
+:host ::ng-deep div.day {
   background-color: white;
-  padding: 1px 7px;
+  padding: 1px 14px;
   border-radius: 10px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+
 }
 
 :host ::ng-deep .day p {
@@ -44,6 +47,7 @@
   text-align: center;
   padding: 1px 7px;
   border-radius: 10px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 .hoverEffects {
@@ -52,6 +56,12 @@
 
 .hoverEffects:hover {
   text-decoration: underline;
+}
+
+.arrow-shadow {
+  background-color: white;
+  box-shadow: 0 0 5px 3px #ffffff;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {
