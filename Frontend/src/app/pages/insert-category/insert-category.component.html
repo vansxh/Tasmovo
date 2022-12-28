@@ -49,12 +49,30 @@
       </mat-form-field>
     </div>
 
-    <button [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit" class="btn btn-success"
+    <!--<button [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit" class="btn btn-success"
             (click)="onInsertCategorySubmit()">Kategorie erstellen
     </button>
     <button [disabled]="!insertCategoryForm.valid" *ngIf="this.edit" class="btn btn-success"
             (click)="onEditCategorySubmit()">Kategorie bearbeiten
-    </button>
+    </button>-->
+
+    <div class="display-check">
+      <div class="containerCenterWhile">
+        <button class="btn btn-light" [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit"
+                (click)="onInsertCategorySubmit()">
+          <img src="assets/check-btn-alternative.svg" class="btnImg" alt="Check Icon">
+        </button>
+      </div>
+    </div>
+
+    <div class="display-check">
+      <div class="containerCenterWhile">
+        <button class="nav-link nav-item" [disabled]="!insertCategoryForm.valid" *ngIf="this.edit"
+                (click)="onEditCategorySubmit()">
+          <img src="assets/check-btn-alternative.svg" class="btnImg" alt="Check Icon">
+        </button>
+      </div>
+    </div>
   </form>
 </div>
 </div>

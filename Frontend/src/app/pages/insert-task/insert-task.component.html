@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
 <div class="col-md-6 mt-4 mobile-distance">
-  <h1 *ngIf="!this.edit" class="mobile-heading text-center">Neuer Task</h1>
-  <h1 *ngIf="this.edit" class="mobile-heading text-center">Task bearbeiten</h1>
+  <!--<h1 *ngIf="!this.edit" class="mobile-heading text-center">Neuer Task</h1>
+  <h1 *ngIf="this.edit" class="mobile-heading text-center">Task bearbeiten</h1>-->
   <form [formGroup]="insertTaskForm" class="form">
 
     <input type="hidden" formControlName="TAID" name="TAID">
@@ -170,14 +170,33 @@
       </mat-form-field>
     </div>
 
-    <button [disabled]="!insertTaskForm.valid" *ngIf="!this.edit" class="btn btn-success"
+    <!--<button [disabled]="!insertTaskForm.valid" *ngIf="!this.edit" class="btn btn-success"
             (click)="onInsertTaskSubmit()">Task erstellen
     </button>
     <button [disabled]="!insertTaskForm.valid" *ngIf="this.edit" class="btn btn-success" (click)="onEditTaskSubmit()">
       Task bearbeiten
-    </button>
+    </button>-->
+
+    <div class="display-check">
+        <div class="containerCenterWhile">
+          <button class="btn btn-light" [disabled]="!insertTaskForm.valid" *ngIf="!this.edit"
+             (click)="onInsertTaskSubmit()">
+            <img src="assets/check-btn-alternative.svg" class="btnImg" alt="Check Icon">
+          </button>
+        </div>
+    </div>
+
+    <div class="display-check">
+        <div class="containerCenterWhile">
+          <button class="nav-link nav-item" [disabled]="!insertTaskForm.valid" *ngIf="this.edit"
+             (click)="onEditTaskSubmit()">
+            <img src="assets/check-btn-alternative.svg" class="btnImg" alt="Check Icon">
+          </button>
+        </div>
+    </div>
 
   </form>
+
 
 </div>
 </div>
