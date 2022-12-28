@@ -1,9 +1,6 @@
 <div class="row m-0 switch-screen-full">
 <div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center align-items-center login-screen">
   <h1 class="text-center">Willkommen zurück!</h1>
-  <div class="alert alert-danger" *ngIf="message">
-    {{message}}
-  </div>
   <div class="alert alert-success" *ngIf="createdUser">
     User erfolgreich erstellt!
   </div>
@@ -12,7 +9,7 @@
     <form [formGroup]="loginForm" class="form" (ngSubmit)="onLoginSubmit()" autocomplete="off">
       <div class="form-group">
         <label class="input-text" for="username">Benutzername oder E-Mail:</label>
-        <input type="text" formControlName="username" placeholder="Username oder Mail" name="login"
+        <input type="text" formControlName="username" name="login"
                class="form-control" id="username">
       </div>
       <div class="alert p-0"
@@ -26,20 +23,15 @@
 
       <div class="form-group mt-3">
         <label class="input-text" for="password">Passwort</label>
-        <input type="password" formControlName="password" placeholder="Passwort" name="password"
+        <input type="password" formControlName="password" name="password"
                class="form-control" id="password">
       </div>
       <div class="alert p-0"
            *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
         <span>Bitte geben Sie Ihr Passwort ein</span>
       </div>
-      <div class="alert p-0"
-           *ngIf="loginForm.get('password')?.hasError('maxlength')">
-        <span>Das Passwort darf maximal 30 Zeichen lang sein.</span>
-      </div>
-      <div class="alert p-0"
-           *ngIf="loginForm.get('password')?.hasError('minlength')">
-        <span>Das Passwort muss mindestens 6 Zeichen lang sein.</span>
+      <div class="alert p-0" *ngIf="message">
+        <span>{{message}}</span>
       </div>
       <div class="text-center mt-4">
       <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary w-50">Einloggen</button>

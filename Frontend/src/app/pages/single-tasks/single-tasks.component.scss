@@ -27,11 +27,13 @@ ngb-progressbar {
 }
 
 .task-bottom {
-  border-bottom: 1px #dee2e6 solid;
+  border-bottom:none;
+  background:linear-gradient(#dee2e6,#dee2e6) bottom /* left or right or else */ no-repeat;
+  background-size:85% 1px;
 }
 
 .task-bottom:last-child {
-  border-bottom: none;
+  background: none;
 }
 
 .container-shadow {
@@ -55,6 +57,7 @@ ngb-progressbar {
 }
 
 .hoverEffects {
+  padding: 15px;
   cursor: pointer;
 }
 
@@ -77,7 +80,7 @@ ngb-progressbar {
   }
 
   .progressbar-heading {
-    top: 50px;
+    top: 85px;
   }
 
   .btn-heading {

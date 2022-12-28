@@ -1,5 +1,7 @@
-<div class="row mt-4">
-  <div class="shadow p-3 mb-2 bg-white col-lg-3 col-md-5 m-4 rounded category-box" *ngFor="let c of categories | category" (click)="showCategory(c)">
+<div class="d-flex flex-column align-items-center">
+  <button class="w-50 btn btn-light my-3 py-3 shadow" (click)="addCategory()">Neue Kategorie erstellen</button>
+<div class="row mt-2 d-flex justify-content-center">
+  <div class="shadow p-3 bg-white col-lg-3 col-md m-4 rounded category-box" *ngFor="let c of categories | category" (click)="showCategory(c)">
     <div class="d-flex justify-content-start">
       <h4>{{c.category_name}}</h4>
     </div>
@@ -15,4 +17,5 @@
     </div>
   </div>
 
+</div>
 </div>

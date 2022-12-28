@@ -1,10 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
-
-
 html, body { height: 100%; }
-
-
 
 // Your variable overrides
 $theme-colors: (
@@ -108,10 +103,6 @@ body{
   display: none;
 }
 
-.mobile-distance {
-  margin-bottom: 100px;
-}
-
 //styling of dropdown fields
 .select {
   position: relative;
@@ -191,7 +182,15 @@ body{
   }
 
   h1 {
-    font-size: 32px;
+    font-size: 30px;
+  }
+
+  h2{
+    font-size: 25px;
+  }
+
+  body{
+    font-size: 18px;
   }
 
   .display-web-only {
@@ -204,5 +203,13 @@ body{
 
   .display-mobile-only-flex {
     display: flex;
+  }
+
+  .mobile-distance {
+    margin-bottom: 100px;
+  }
+
+  .mobile-distance-sm {
+    margin-bottom: 60px;
   }
 }
