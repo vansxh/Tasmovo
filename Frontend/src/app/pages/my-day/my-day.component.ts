@@ -15,6 +15,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {PopupMydayComponent} from "../../popups/popup-myday/popup-myday.component";
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MyDayService} from "../../services/my-day/my-day.service";
+import * as Hammer from 'hammerjs';
 
 interface MyEvent extends CalendarEvent {
   deadline?: string;
@@ -69,6 +70,7 @@ export class MyDayComponent {
   finishedTask!: Task;
   selectedTask!: Task;
   finish!: boolean;
+  swipeDiv!: HTMLElement;
 
   // Event Action that will be added to all events to delete them from MyDay
   actions: CalendarEventAction[] = [
@@ -106,6 +108,13 @@ export class MyDayComponent {
     this.finishedTask = new Task();
     this.selectedTask = new Task();
     this.getAllPlannedTasks();
+
+    this.swipeDiv = document.getElementById("swipeDiv")!;
+    var mc = new Hammer(this.swipeDiv, {
+      recognizers: [
+        [Hammer.Swipe,{ direction: Hammer.DIRECTION_HORIZONTAL }],
+      ]
+    });
 
     // change heading
     let h1 = document.getElementsByTagName("h1");

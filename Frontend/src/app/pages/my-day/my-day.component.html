@@ -1,40 +1,42 @@
-<div class="text-center">
-  <div class="d-flex justify-content-center btn-heading top-fixed">
-    <div class="btn-group w-50 mt-4">
-      <div id="todayBtn"
-           class="btn btn-primary w-50"
-           mwlCalendarToday
-           [(viewDate)]="viewDate"
-           (click) = "changeDay(1)"
-      >
-        Heute
-      </div>
-      <div id="tomorrowBtn"
-           class="btn btn-light btn-outline-primary w-50"
-           mwlCalendarNextView
-           [view]="view"
-           [(viewDate)]="viewDate"
-           (click) = "changeDay(2)"
+<div id="swipeDiv" (swiperight)="changeDay(1)" (swipeleft)="changeDay(2)">
+  <div class="text-center">
+    <div class="d-flex justify-content-center btn-heading top-fixed">
+      <div class="btn-group w-50 mt-4">
+        <div id="todayBtn"
+             class="btn btn-primary w-50"
+             mwlCalendarToday
+             [(viewDate)]="viewDate"
+             (click) = "changeDay(1)"
+        >
+          Heute
+        </div>
+        <div id="tomorrowBtn"
+             class="btn btn-light btn-outline-primary w-50"
+             mwlCalendarNextView
+             [view]="view"
+             [(viewDate)]="viewDate"
+             (click) = "changeDay(2)"
 
-      >
-        Morgen
+        >
+          Morgen
+        </div>
       </div>
     </div>
   </div>
-</div>
-<br />
-<div [ngSwitch]="view" id="myDay" class="distance-top mobile-distance events-index">
-  <mwl-calendar-day-view
-    *ngSwitchCase="CalendarView.Day"
-    [viewDate]="viewDate"
-    [events]="events"
-    [refresh]="refresh"
-    [hourSegmentTemplate]="dayViewHourSegmentTemplate"
-    (eventTimesChanged)="eventTimesChanged($event, $event)"
-    (eventClicked)="editPlannedTask($event)"
-    [eventTitleTemplate]="customEventTitle"
-  >
-  </mwl-calendar-day-view>
+  <br />
+  <div [ngSwitch]="view" id="myDay" class="distance-top mobile-distance events-index">
+    <mwl-calendar-day-view
+      *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [hourSegmentTemplate]="dayViewHourSegmentTemplate"
+      (eventTimesChanged)="eventTimesChanged($event, $event)"
+      (eventClicked)="editPlannedTask($event)"
+      [eventTitleTemplate]="customEventTitle"
+    >
+    </mwl-calendar-day-view>
+  </div>
 </div>
 
 <ng-template

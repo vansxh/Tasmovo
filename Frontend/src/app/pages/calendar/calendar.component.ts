@@ -59,9 +59,13 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void{
 
-    this.swipeDiv = document.getElementById("plsLemmeSwipeSir")!;
+    this.swipeDiv = document.getElementById("swipeDiv")!;
 
-    var mc = new Hammer(this.swipeDiv);
+    var mc = new Hammer.Manager(this.swipeDiv, {
+      recognizers: [
+        [Hammer.Swipe,{ direction: Hammer.DIRECTION_HORIZONTAL }],
+      ]
+    });
 
     let h1 = document.getElementsByTagName("h1");
     for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Kalender";}
