@@ -37,6 +37,14 @@ export class InsertTaskComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let h1 = document.getElementsByTagName("h1");
+
+    if(this.edit) {
+      for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Task bearbeiten";}
+    } else {
+      for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Neuer Task";}
+    }
+
     for (let i = 0; i < 100; i++) {
       this.source.push({value: 'Bank_' + i, key: i})
     }
@@ -95,12 +103,6 @@ export class InsertTaskComponent implements OnInit {
       categoryID: [''],
       subcategoryID: ['']
     });
-
-    if(this.edit) {
-      document.getElementsByTagName("h1")[0].innerText = "Task bearbeiten";
-    } else {
-      document.getElementsByTagName("h1")[0].innerText = "Neuer Task";
-    }
   }
 
   // for searching through subcategories

@@ -36,6 +36,8 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let h1 = document.getElementsByTagName("h1");
+
     var swiper = new Swiper('#banner .swiper-container', {
       pagination: true,
       slidesPerView: 1,
@@ -62,7 +64,9 @@ export class CategoryComponent implements OnInit {
         (data: any = []) => {
           // get tasks from data
           this.category = <Category>data['data'];
-          document.getElementsByTagName("h1")[0].innerText = this.category.category_name;
+          //document.getElementsByTagName("h1")[0].innerText = this.category.category_name;
+          for (let i = 0; i < h1.length; i++) {  h1[i].innerText = this.category.category_name;}
+
         },
         (error: any = []) => {
           if(error['error']['message']) {

@@ -32,6 +32,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let h1 = document.getElementsByTagName("h1");
+    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "";}
+
     // load next and finished tasks
     this.loadTasks();
 
@@ -51,9 +54,6 @@ export class DashboardComponent implements OnInit {
     this.getDailyStresslevel();
     this.getStresslimit();
     //this.onBreakOpen();
-
-    document.getElementsByTagName("h1")[0].innerText = "";
-
   }
 
   loadTasks(): void {

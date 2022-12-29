@@ -27,6 +27,14 @@ export class InsertCategoryComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let h1 = document.getElementsByTagName("h1");
+
+    if(this.edit) {
+      for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Kategorie bearbeiten";}
+    } else {
+      for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Neue Kategorie";}
+    }
+
     const routeParams = this.route.snapshot.params;
 
     // get all categories from a user for dropdown
@@ -89,12 +97,6 @@ export class InsertCategoryComponent implements OnInit {
       category_name: ['', [Validators.required, Validators.maxLength(30)]],
       parent_categoryID: ['']
     });
-
-    if(this.edit) {
-      document.getElementsByTagName("h1")[0].innerText = "Kategorie bearbeiten";
-    } else {
-      document.getElementsByTagName("h1")[0].innerText = "Neue Kategorie";
-    }
   }
 
   // for searching through categories

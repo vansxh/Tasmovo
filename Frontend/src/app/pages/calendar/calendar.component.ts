@@ -55,12 +55,13 @@ export class CalendarComponent implements OnInit {
   public dialog: MatDialog, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void{
+    let h1 = document.getElementsByTagName("h1");
+    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Kalender";}
+
     this.viewDate = new Date();
     this.getAllNextTasks();
     //this.getAllFinishedTasks();
     console.log(this.events);
-
-    document.getElementsByTagName("h1")[0].innerText = "Kalender";
   }
 
   getAllNextTasks(){

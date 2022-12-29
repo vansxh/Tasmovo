@@ -21,6 +21,9 @@ export class AllTasksComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let h1 = document.getElementsByTagName("h1");
+    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Alle Tasks";}
+
     // get  all tasks
     this.taskService.getAllTasks().subscribe(
       (data: any = []) => {
@@ -35,7 +38,6 @@ export class AllTasksComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
 
-    document.getElementsByTagName("h1")[0].innerText = "Alle Tasks";
     this.checkWindowSize();
     window.addEventListener("resize", this.checkWindowSize);
   }

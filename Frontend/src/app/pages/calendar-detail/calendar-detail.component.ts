@@ -33,9 +33,10 @@ export class CalendarDetailComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("ngOnInit aufgerufen")
+    let h1 = document.getElementsByTagName("h1");
+    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Kalender";}
 
-    document.getElementsByTagName("h1")[0].innerText = "";
+    console.log("ngOnInit aufgerufen")
 
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.date = params.get('date')!;
@@ -117,11 +118,11 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   rightScroll() {
-    this.calendar.scrollBy(500,0);
+    this.calendar.scrollBy(570,0);
   }
 
   leftScroll() {
-    this.calendar.scrollBy(-500,0);
+    this.calendar.scrollBy(-570,0);
   }
 
   prevMonth() {
