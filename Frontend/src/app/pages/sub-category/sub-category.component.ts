@@ -47,7 +47,7 @@ export class SubCategoryComponent implements OnInit {
         (data: any = []) => {
           // get tasks from data
           this.subcategory = <Category>data['data'];
-          console.log(this.subcategory);
+          console.log('sub: ' + this.subcategory.category_name);
           document.getElementsByTagName("h1")[0].innerText = this.subcategory.category_name;
 
           if(this.subcategory.parent_categoryID) {
@@ -56,7 +56,7 @@ export class SubCategoryComponent implements OnInit {
               (data: any = []) => {
                 // get tasks from data
                 this.parentCategory = <Category>data['data'];
-                console.log(this.parentCategory.category_name);
+                console.log('parent: ' + this.parentCategory.category_name);
                 document.getElementsByTagName("h1")[0].innerText = this.parentCategory.category_name;
               },
               (error: any = []) => {
@@ -101,6 +101,25 @@ export class SubCategoryComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(PopupFinishComponent, dialogConfig);
+  }
+
+  deleteCategory(category: Category): void {
+    this.catService.deleteCategory(category.CAID).subscribe(
+      (data: any = []) => {
+        // update view if deleting was successful
+        this.ngOnInit();
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
+  }
+
+  editCategory(category: Category): void {
+    this.catService.editCategory(category.CAID);
   }
 
   scrollToNotDone() {

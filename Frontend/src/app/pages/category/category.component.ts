@@ -135,8 +135,23 @@ export class CategoryComponent implements OnInit {
     this.catService.showSubCategory(category.CAID);
   }
 
-  onSlideChange(swiper: any) {
-      console.log(swiper);
+  deleteCategory(category: Category): void {
+    this.catService.deleteCategory(category.CAID).subscribe(
+      (data: any = []) => {
+        // update view if deleting was successful
+        this.ngOnInit();
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
+  }
+
+  editCategory(category: Category): void {
+    this.catService.editCategory(category.CAID);
   }
 
 }

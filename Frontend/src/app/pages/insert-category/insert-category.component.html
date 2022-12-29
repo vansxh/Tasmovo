@@ -21,7 +21,7 @@
       <span>Max Länge: 30 Zeichen</span>
     </div>
 
-    <div class="form-group select mt-3">
+    <div *ngIf="!isParentCat" class="form-group select mt-3">
       <label for="parent_categoryID">Elternkategorie (optional):</label>
       <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
         <mat-select

@@ -35,6 +35,8 @@
     <div class="container-shadow bg-white">
     <div class="swiper-slide-container">
       <h2 class="text-center" (click)="showCategory(s)">{{s.category_name}}</h2>
+      <button class="btn btn-light" (click)="editCategory(s)"><i class="fa fa-edit"></i></button>
+      <button class="btn btn-light" (click)="deleteCategory(s)"><i class="fa fa-trash-o"></i></button>
       <div class="row mt-4">
       <div><ngb-progressbar type="primary" *ngIf="allTasks" [showValue]="true" [value]="(allTasks | ofCategory:s.CAID | done).length" [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar></div>
       </div>

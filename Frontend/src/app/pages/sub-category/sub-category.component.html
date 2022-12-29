@@ -2,6 +2,8 @@
 
   <div class="row my-4 progressbar-heading" id="progressbar-head">
     <h2 class="text-center" *ngIf="subcategory">{{getSubcategoryName()}}</h2>
+    <button class="btn btn-light" *ngIf="parentCategory" (click)="editCategory(subcategory)"><i class="fa fa-edit"></i></button>
+    <button class="btn btn-light" *ngIf="parentCategory" (click)="deleteCategory(subcategory)"><i class="fa fa-trash-o"></i></button>
     <div class="text-center mb-1 text-primary" *ngIf="categoryTasks">{{(categoryTasks|done).length}} von {{categoryTasks.length}} erledigt</div>
     <div><ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length" [max]="categoryTasks.length">
     </ngb-progressbar></div>

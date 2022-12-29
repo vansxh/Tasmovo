@@ -23,6 +23,7 @@ export class InsertCategoryComponent implements OnInit {
   selectedCategory!: Category;
   edit!: boolean;
   categories!: Category[];
+  isParentCat!: boolean;
 
   ngOnInit(): void {
 
@@ -64,6 +65,22 @@ export class InsertCategoryComponent implements OnInit {
           }
           this.general.errorResponse(error['status']);
         });
+
+      // get all sub categories
+      this.catService.getAllSubCategories(routeParams['CAID']).subscribe(
+        (data: any = []) => {
+          // get subcategories from data
+          this.isParentCat = true;
+        },
+        (error: any = []) => {
+          if(error['error']['message']) {
+            alert(error['error']['message']);
+            this.isParentCat = false;
+            return;
+          }
+          this.general.errorResponse(error['status']);
+        });
+
     }
 
     this.insertCategoryForm = this.formbuilder.group({
