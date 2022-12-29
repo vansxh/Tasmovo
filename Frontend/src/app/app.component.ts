@@ -9,6 +9,7 @@ import {PopupMydayComponent} from "./popups/popup-myday/popup-myday.component";
 import {MyDayComponent} from "./pages/my-day/my-day.component";
 import {MyDayService} from "./services/my-day/my-day.service";
 import {NavigationService} from "./services/navigation/navigation.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent {
   logoutbtn!: boolean;
   newPlannedTask!: Task;
 
-  constructor(private navigation: NavigationService, private service: AuthenticationService, private dialog: MatDialog, private taskService: TaskService, private myDayService: MyDayService) {
+  constructor(private router: Router,private navigation: NavigationService, private service: AuthenticationService, private dialog: MatDialog, private taskService: TaskService, private myDayService: MyDayService) {
     if (this.service.isLoggedIn()) {
       this.loginbtn = false;
       this.logoutbtn = true;
@@ -60,6 +61,10 @@ export class AppComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(PopupMydayComponent, dialogConfig);
+  }
+
+  toCalendarOverview(): void {
+    this.router.navigate(['calendar']);
   }
 
 }

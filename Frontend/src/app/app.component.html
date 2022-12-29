@@ -7,7 +7,8 @@
            *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/my-day'">
         <div class="row pt-3 px-3">
           <div class="col">
-            <button class="btn" appBackButton><i class="fa fa-chevron-left fa-lg"></i></button>
+            <button *ngIf="!getLocation().includes('/calendar-detail')" class="btn" appBackButton><i class="fa fa-chevron-left fa-lg"></i></button>
+            <button *ngIf="getLocation().includes('/calendar-detail')" class="btn" (click)="toCalendarOverview()"><i class="fa fa-chevron-left fa-lg"></i></button>
           </div>
           <div class="col d-flex justify-content-end">
             <a class="" routerLink="profile" routerLinkActive="active">
@@ -39,7 +40,9 @@
 
     <div class="w-100 bg-warning d-flex align-items-center" id="display-heading" *ngIf="loggedIn()">
       <button class="btn display-web-only" appBackButton
-              *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile'">
+              *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && !getLocation().includes('/calendar-detail')">
+        <i class="fa fa-chevron-left fa-lg"></i></button>
+      <button class="btn display-web-only" *ngIf="getLocation().includes('/calendar-detail')" (click)="toCalendarOverview()">
         <i class="fa fa-chevron-left fa-lg"></i></button>
       <h1 class="p-0 m-0">Überschrift</h1>
     </div>
