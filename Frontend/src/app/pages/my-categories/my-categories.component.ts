@@ -20,6 +20,9 @@ export class MyCategoriesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    let h1 = document.getElementsByTagName("h1");
+    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Meine Kategorien";}
+
     // get all categories from a user
     this.catService.getCategoriesByUser().subscribe(
       (data: any = []) => {
@@ -33,8 +36,6 @@ export class MyCategoriesComponent implements OnInit {
         }
         this.general.errorResponse(error['status']);
       });
-
-    document.getElementsByTagName("h1")[0].innerText = "Meine Kategorien";
 
   }
 

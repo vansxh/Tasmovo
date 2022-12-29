@@ -72,7 +72,8 @@ export class TaskComponent implements OnInit {
 
         // change heading
         if(window.innerWidth <= 768) {
-          document.getElementsByTagName('h1')[0].innerText = this.task.task_name;
+          let h1 = document.getElementsByTagName("h1");
+          for (let i = 0; i < h1.length; i++) {  h1[i].innerText = this.task.task_name;}
         } else {
           document.getElementById('detail-task-heading')!.innerText = this.task.task_name;
         }

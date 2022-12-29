@@ -45,7 +45,9 @@ export class TimerComponent implements OnInit {
     this.getRewards();
     this.getCurrentTimer();
 
-    document.getElementsByTagName("h1")[0].innerText = "Timer";
+    //change heading
+    let h1 = document.getElementsByTagName("h1");
+    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Timer";}
   }
 
   startState() {

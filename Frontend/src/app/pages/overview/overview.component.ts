@@ -28,7 +28,9 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    document.getElementsByTagName("h1")[0].innerText = "Übersicht";
+    // change heading
+    let h1 = document.getElementsByTagName("h1");
+    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Übersicht";}
 
     this.taskService.getAllTasks().subscribe(
       (data: any = []) => {

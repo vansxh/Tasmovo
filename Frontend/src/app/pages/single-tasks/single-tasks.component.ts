@@ -20,6 +20,9 @@ export class SingleTasksComponent implements OnInit {
   loadFinishedTasks = 10;
 
   ngOnInit(): void {
+    // change heading
+    let h1 = document.getElementsByTagName("h1");
+    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Unkategorisiert";}
 
       // get single tasks
       this.taskService.getSingleTasks().subscribe(
@@ -34,7 +37,6 @@ export class SingleTasksComponent implements OnInit {
           }
           this.general.errorResponse(error['status']);
         });
-      document.getElementsByTagName("h1")[0].innerText = "Unkategorisiert";
       this.checkWindowSize();
       window.addEventListener("resize", this.checkWindowSize);
   }

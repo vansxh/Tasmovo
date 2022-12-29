@@ -25,6 +25,9 @@ export class SubCategoryComponent implements OnInit {
   loadFinishedTasks = 10;
 
   ngOnInit(): void {
+    // change heading
+    let h1 = document.getElementsByTagName("h1");
+
     const routeParams = this.route.snapshot.params;
 
     if (routeParams['CAID']) {
@@ -48,7 +51,7 @@ export class SubCategoryComponent implements OnInit {
           // get tasks from data
           this.subcategory = <Category>data['data'];
           console.log('sub: ' + this.subcategory.category_name);
-          document.getElementsByTagName("h1")[0].innerText = this.subcategory.category_name;
+          for (let i = 0; i < h1.length; i++) {  h1[i].innerText = this.subcategory.category_name;};
 
           if(this.subcategory.parent_categoryID) {
             // get info of parent category
@@ -57,7 +60,7 @@ export class SubCategoryComponent implements OnInit {
                 // get tasks from data
                 this.parentCategory = <Category>data['data'];
                 console.log('parent: ' + this.parentCategory.category_name);
-                document.getElementsByTagName("h1")[0].innerText = this.parentCategory.category_name;
+                for (let i = 0; i < h1.length; i++) {  h1[i].innerText = this.parentCategory.category_name;};
               },
               (error: any = []) => {
                 if (error['error']['message']) {

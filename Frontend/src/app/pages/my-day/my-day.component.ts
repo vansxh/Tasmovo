@@ -108,7 +108,9 @@ export class MyDayComponent {
     this.getAllPlannedTasks();
 
     // change heading
-    document.getElementsByTagName('h1')[0].innerText = "Mein Tag";
+    let h1 = document.getElementsByTagName("h1");
+    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Mein Tag";}
+
 
     // get area of calendar for adding events through mousemove and mouseup
     this.mouseArea =  document.getElementById('myDay');
