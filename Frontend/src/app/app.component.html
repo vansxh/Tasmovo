@@ -1,14 +1,57 @@
 <div>
+
+  <!-- display clickable (backbutton and) profilepicture on all pages except all tasks, single tasks and my day -->
+  <div class="display-mobile-only">
+    <div class=""
+         *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/my-day' && getLocation()!='/all-tasks' && getLocation()!='/single-tasks'">
+      <div class="row pt-3 px-3">
+        <div class="col">
+          <button *ngIf="!getLocation().includes('/calendar-detail')" class="btn border-0" appBackButton><i
+            class="fa fa-chevron-left fa-lg"></i></button>
+          <button *ngIf="getLocation().includes('/calendar-detail')" class="btn" (click)="toCalendarOverview()"><i
+            class="fa fa-chevron-left fa-lg"></i></button>
+        </div>
+        <div class="col d-flex justify-content-end">
+          <a class="" routerLink="profile" routerLinkActive="active">
+            <img src="assets/profilpicture.svg" alt="Profile Icon">
+          </a>
+        </div>
+      </div>
+      <div class="row px-3">
+        <div class="col-12 text-center">
+          <h1 class="p-0 m-0">Überschrift</h1>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="getLocation()=='/dashboard' || getLocation()=='/overview' || getLocation()=='/timer' || getLocation()=='/calendar' || getLocation()=='/profile'">
+      <div class="row pt-3 px-3">
+        <div class="col">
+          <h1 class="p-0 m-0">Überschrift</h1>
+        </div>
+        <div class="col d-flex justify-content-end">
+          <a class="" routerLink="profile" routerLinkActive="active">
+            <img src="assets/profilpicture.svg" alt="Profile Icon">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- display top lila mobile background with content correctly -->
   <div id="mobile-background" *ngIf="loggedIn()"
        [ngClass]="{'header-mobile-tasks' : (getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day'), 'header-mobile' : (getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day')}">
 
+    <!-- display clickable (backbutton and) profilepicture on pages all tasks, single tasks and my day -->
     <div class="display-mobile-only">
       <div class=""
-           *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/my-day'">
+           *ngIf="getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day'">
         <div class="row pt-3 px-3">
           <div class="col">
-            <button *ngIf="!getLocation().includes('/calendar-detail')" class="btn" appBackButton><i class="fa fa-chevron-left fa-lg"></i></button>
-            <button *ngIf="getLocation().includes('/calendar-detail')" class="btn" (click)="toCalendarOverview()"><i class="fa fa-chevron-left fa-lg"></i></button>
+            <button *ngIf="!getLocation().includes('/calendar-detail')" class="btn border-0" appBackButton><i
+              class="fa fa-chevron-left fa-lg"></i></button>
+            <button *ngIf="getLocation().includes('/calendar-detail')" class="btn" (click)="toCalendarOverview()"><i
+              class="fa fa-chevron-left fa-lg"></i></button>
           </div>
           <div class="col d-flex justify-content-end">
             <a class="" routerLink="profile" routerLinkActive="active">
@@ -22,30 +65,20 @@
           </div>
         </div>
       </div>
-
-      <div
-        *ngIf="getLocation()=='/dashboard' || getLocation()=='/overview' || getLocation()=='/timer' || getLocation()=='/calendar' || getLocation()=='/profile' || getLocation()=='/my-day'">
-        <div class="row pt-3 px-3">
-          <div class="col">
-            <h1 class="p-0 m-0">Überschrift</h1>
-          </div>
-          <div class="col d-flex justify-content-end">
-            <a class="" routerLink="profile" routerLinkActive="active">
-              <img src="assets/profilpicture.svg" alt="Profile Icon">
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
 
+    <!-- display top lila web background correctly -->
     <div class="w-100 bg-warning d-flex align-items-center" id="display-heading" *ngIf="loggedIn()">
-      <button class="btn display-web-only" appBackButton
+      <button class="btn display-web-only border-0" appBackButton
               *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && !getLocation().includes('/calendar-detail')">
         <i class="fa fa-chevron-left fa-lg"></i></button>
-      <button class="btn display-web-only" *ngIf="getLocation().includes('/calendar-detail')" (click)="toCalendarOverview()">
+      <button class="btn display-web-only" *ngIf="getLocation().includes('/calendar-detail')"
+              (click)="toCalendarOverview()">
         <i class="fa fa-chevron-left fa-lg"></i></button>
       <h1 class="p-0 m-0">Überschrift</h1>
     </div>
+
+    <!-- display web navbar correctly -->
     <div class="" id="display-desktop" *ngIf="loggedIn()">
       <nav class="navbar bg-primary h-100 justify-content-center" id="navbar-desktop">
         <ul class="nav navbar-nav ml-5">
@@ -78,6 +111,8 @@
       </nav>
     </div>
   </div>
+
+  <!-- display web and mobile content correctly -->
   <div class="container">
     <div class="row">
       <div class="col-lg-11 offset-lg-1 offset-md-1 col-md-11 col-sm-12" *ngIf="loggedIn()">
@@ -85,6 +120,8 @@
       </div>
     </div>
   </div>
+
+  <!-- display content on landing, login and register page correctly -->
   <div class="row" *ngIf="!loggedIn()">
     <div class="col-12">
       <div class="container-fluid p-0">
@@ -92,6 +129,8 @@
       </div>
     </div>
   </div>
+
+  <!-- display navbar mobile correctly -->
   <div id="nav-mobile" *ngIf="loggedIn()">
     <nav class="d-flex justify-content-center align-items-center">
       <ul class="nav">
@@ -106,17 +145,19 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-center add-btn-pos" (click)="addPopup()" *ngIf="loggedIn() && getLocation()!='/my-day' && getLocation()!='/insert-task' && getLocation()!='/insert-category'">
+          <a class="nav-link text-center add-btn-pos" (click)="addPopup()"
+             *ngIf="loggedIn() && getLocation()!='/my-day' && getLocation()!='/insert-task' && getLocation()!='/insert-category'">
             <img src="assets/add.svg" width="40%" alt="Add Icon">
           </a>
-          <a class="nav-link text-center add-btn-pos" (click)="addPlannedTaskOpen()" *ngIf="loggedIn() && getLocation()=='/my-day'">
+          <a class="nav-link text-center add-btn-pos" (click)="addPlannedTaskOpen()"
+             *ngIf="loggedIn() && getLocation()=='/my-day'">
             <img src="assets/my-day-btn.svg" width="40%" alt="My Day Icon">
           </a>
-          <a class="nav-link text-center add-btn-pos" *ngIf="loggedIn() && getLocation()=='/insert-task' || getLocation()=='/insert-category'">
+          <a class="nav-link text-center add-btn-pos"
+             *ngIf="loggedIn() && getLocation()=='/insert-task' || getLocation()=='/insert-category'">
             <img src="assets/check-btn-bglight.svg" width="40%" alt="Check Icon">
           </a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" routerLink="timer" routerLinkActive="active">
             <img src="assets/hourglass.svg" width="90%" alt="Timer Icon">
@@ -131,6 +172,7 @@
     </nav>
   </div>
 
+  <!-- display add/my day button web correctly -->
   <div id="display-plus">
     <div class="containerWhile">
       <div class="containerCenterWhile">
@@ -140,7 +182,6 @@
         </a>
       </div>
     </div>
-
     <div class="containerWhile">
       <div class="containerCenterWhile">
         <a class="nav-link nav-item" (click)="addPlannedTaskOpen()" *ngIf="loggedIn() && getLocation()=='/my-day'">
@@ -148,24 +189,7 @@
         </a>
       </div>
     </div>
-
-    <!--<div class="containerWhile">
-      <div class="containerCenterWhile">
-        <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()=='/insert-task'" >
-          <img src="assets/check-btn-alternative.svg" class="btnImg" alt="Check Icon">
-        </a>
-      </div>
-    </div>-->
-
-    <!--<div class="containerWhile">
-      <div class="containerCenterWhile">
-        <a class="nav-link nav-item" (click)="addPopup()" *ngIf="loggedIn() && getLocation()=='/insert-category'" >
-          <img src="assets/check-btn.svg" class="btnImg" alt="Check Icon">
-        </a>
-      </div>
-    </div>-->
   </div>
-
 </div>
 
 <app-spinner></app-spinner>
