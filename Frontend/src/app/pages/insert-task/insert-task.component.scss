@@ -91,6 +91,7 @@
   top: 80%;
   left: 85%;
   z-index: 2;
+  background-color: white;
 }
 
 .btnImg {
@@ -101,7 +102,12 @@
 
 .btnImg:hover{
   width: 110px;
+  border: none;
   background-color: white;
+}
+
+.check-btn-web {
+  padding: 0;
   border: none;
 }
 
@@ -110,10 +116,27 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: white;
 }
 
 @media (max-width: 768px) {
   .display-check {
     display: none;
+  }
+
+  .display-check-mobile {
+    position: fixed;
+    bottom: 39px;
+    left: 50%;
+    z-index: 2;
+  }
+
+  .img-btn {
+    width: 45px;
+  }
+
+  .containerCenterWhile-mobile{
+    position: absolute;
+    transform: translate(-50%, -50%);
   }
 }

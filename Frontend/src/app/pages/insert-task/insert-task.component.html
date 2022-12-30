@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-<div class="col-md-6 mt-4 mobile-distance">
+<div class="col-md-6 mt-4">
   <!--<h1 *ngIf="!this.edit" class="mobile-heading text-center">Neuer Task</h1>
   <h1 *ngIf="this.edit" class="mobile-heading text-center">Task bearbeiten</h1>-->
   <form [formGroup]="insertTaskForm" class="form">
@@ -179,7 +179,7 @@
 
     <div class="display-check">
         <div class="containerCenterWhile">
-          <button class="btn btn-light" [disabled]="!insertTaskForm.valid" *ngIf="!this.edit"
+          <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="!this.edit"
              (click)="onInsertTaskSubmit()">
             <img src="assets/check-btn-alternative.svg" class="btnImg" alt="Check Icon">
           </button>
@@ -188,13 +188,30 @@
 
     <div class="display-check">
         <div class="containerCenterWhile">
-          <button class="nav-link nav-item" [disabled]="!insertTaskForm.valid" *ngIf="this.edit"
+          <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="this.edit"
              (click)="onEditTaskSubmit()">
             <img src="assets/check-btn-alternative.svg" class="btnImg" alt="Check Icon">
           </button>
         </div>
     </div>
 
+    <div class="display-check-mobile display-mobile-only">
+      <div class="containerCenterWhile-mobile">
+        <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="!this.edit"
+                (click)="onInsertTaskSubmit()">
+          <img class="img-btn" src="assets/check-btn.svg" alt="Check Button">
+        </button>
+      </div>
+    </div>
+
+    <div class="display-check-mobile display-mobile-only">
+        <div class="containerCenterWhile-mobile">
+          <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="this.edit"
+                  (click)="onEditTaskSubmit()">
+          <img class="img-btn" src="assets/check-btn.svg" alt="Check Button">
+          </button>
+        </div>
+    </div>
   </form>
 
 

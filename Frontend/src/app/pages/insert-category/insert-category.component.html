@@ -73,6 +73,24 @@
         </button>
       </div>
     </div>
+
+    <div class="display-check-mobile display-mobile-only">
+      <div class="containerCenterWhile-mobile">
+        <button class="btn check-btn-web" [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit"
+                (click)="onInsertCategorySubmit()">
+          <img class="img-btn" src="assets/check-btn.svg" alt="Check Button">
+        </button>
+      </div>
+    </div>
+
+    <div class="display-check-mobile display-mobile-only">
+      <div class="containerCenterWhile-mobile">
+        <button class="btn check-btn-web" [disabled]="!insertCategoryForm.valid" *ngIf="this.edit"
+                (click)="onEditCategorySubmit()">
+          <img class="img-btn" src="assets/check-btn.svg" alt="Check Button">
+        </button>
+      </div>
+    </div>
   </form>
 </div>
 </div>

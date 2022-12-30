@@ -106,10 +106,17 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-center add-btn-pos" (click)="addPopup()">
+          <a class="nav-link text-center add-btn-pos" (click)="addPopup()" *ngIf="loggedIn() && getLocation()!='/my-day' && getLocation()!='/insert-task' && getLocation()!='/insert-category'">
             <img src="assets/add.svg" width="40%" alt="Add Icon">
           </a>
+          <a class="nav-link text-center add-btn-pos" (click)="addPlannedTaskOpen()" *ngIf="loggedIn() && getLocation()=='/my-day'">
+            <img src="assets/my-day-btn.svg" width="40%" alt="My Day Icon">
+          </a>
+          <a class="nav-link text-center add-btn-pos" *ngIf="loggedIn() && getLocation()=='/insert-task' || getLocation()=='/insert-category'">
+            <img src="assets/check-btn-bglight.svg" width="40%" alt="Check Icon">
+          </a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" routerLink="timer" routerLinkActive="active">
             <img src="assets/hourglass.svg" width="90%" alt="Timer Icon">
