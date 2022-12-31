@@ -1,7 +1,7 @@
 <div>
 
   <!-- display clickable (backbutton and) profilepicture on all pages except all tasks, single tasks and my day -->
-  <div class="display-mobile-only">
+  <div class="display-mobile-only" *ngIf="loggedIn()">
     <div class=""
          *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/my-day' && getLocation()!='/all-tasks' && getLocation()!='/single-tasks'">
       <div class="row pt-3 px-3">
