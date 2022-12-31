@@ -2,11 +2,13 @@
 
 <h1 *ngIf="task.task_name" id="detail-task-heading" class="display-web-only">{{task.task_name}}</h1>
 
-<p *ngIf="task.deadline">{{task.deadline | date: 'EEE, d.M.y'}}</p>
-<p *ngIf="task.deadline">{{task.deadline | date: 'HH:mm'}} Uhr</p>
+<p class="text-center" *ngIf="task.deadline">{{task.deadline | date: 'EEE, d.M.y'}}<br>
+{{task.deadline | date: 'HH:mm'}} Uhr</p>
 
-<button *ngIf="task.statusID == 1" (click)="finishTask()">Erledigen</button>
-<button *ngIf="task.statusID == 2" (click)="unfinishTask()">Erledigt</button>
+<div class="d-flex justify-content-center">
+  <button class="btn btn-warning container-shadow" *ngIf="task.statusID == 1" (click)="finishTask()">Erledigen</button>
+  <button class="btn btn-info container-shadow" *ngIf="task.statusID == 2" (click)="unfinishTask()">Erledigt</button>
+</div>
 
 <div *ngIf="task.notes">
   <h2>Notizen</h2>
