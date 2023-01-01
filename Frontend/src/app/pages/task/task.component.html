@@ -1,45 +1,48 @@
 <button class="btn display-web-only" (click)="this.closePopUp()">X</button>
 
-<h1 *ngIf="task.task_name" id="detail-task-heading" class="display-web-only">{{task.task_name}}</h1>
+<h1 *ngIf="task.task_name" id="detail-task-heading" class="display-web-only text-center h1-task-detail">{{task.task_name}}</h1>
 
-<p class="text-center" *ngIf="task.deadline">{{task.deadline | date: 'EEE, d.M.y'}}<br>
+<p class="text-center mt-3 mb-4" *ngIf="task.deadline">{{task.deadline | date: 'EEE, d.M.y'}}<br>
 {{task.deadline | date: 'HH:mm'}} Uhr</p>
 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center mb-3">
   <button class="btn btn-warning container-shadow" *ngIf="task.statusID == 1" (click)="finishTask()">Erledigen</button>
   <button class="btn btn-info container-shadow" *ngIf="task.statusID == 2" (click)="unfinishTask()">Erledigt</button>
 </div>
 
 <div *ngIf="task.notes">
-  <h2>Notizen</h2>
-  <p>{{task.notes}}</p>
+  <h3 class="h3-task-detail">Notizen</h3>
+  <p class="text-danger">{{task.notes}}</p>
 </div>
 
 <div *ngIf="category">
-  <h2>Kategorie</h2>
-  <p>{{category.category_name}}</p>
+  <h3 class="h3-task-detail">Kategorie</h3>
+  <p class="text-danger">{{category.category_name}}</p>
 </div>
 
 <div *ngIf="subcategory">
-  <h2>Subkategorie</h2>
-  <p>{{subcategory.category_name}}</p>
+  <h3 class="h3-task-detail">Subkategorie</h3>
+  <p class="text-danger">{{subcategory.category_name}}</p>
 </div>
 
 <div *ngIf="task.expense">
-  <h2>Schwierigkeitsgrad</h2>
-  <p>{{task.expense}}</p>
+  <h3 class="h3-task-detail">Schwierigkeitsgrad</h3>
+  <p class="text-danger">{{task.expense}}</p>
 </div>
 
 <div *ngIf="task.stress_factor">
-  <h2>Stresslevel</h2>
-  <p>{{task.stress_factor}}/10</p>
+  <h3 class="h3-task-detail">Stresslevel</h3>
+  <p class="text-danger">{{task.stress_factor}}/10</p>
 </div>
 
 <div>
-  <p>Erstellt: {{task.created_date | date: 'd.M.y'}}</p>
-  <p *ngIf="task.updated_date">Zuletzt geändert: {{task.updated_date | date: 'd.M.y'}}</p>
+  <p class="text-done footer-task-detail">
+    <span>Erstellt: {{task.created_date | date: 'd.M.y'}}</span><br>
+    <span *ngIf="task.updated_date">Zuletzt geändert: {{task.updated_date | date: 'd.M.y'}}</span>
+    <span *ngIf="!task.updated_date">Zuletzt geändert: {{task.created_date | date: 'd.M.y'}}</span>
+  </p>
 </div>
 
-<button class="btn btn-success" (click)="this.closePopUp(); editTask()">Edit</button>
+<button class="btn btn-success" (click)="this.closePopUp(); editTask()"><i class="fa fa-edit"></i></button>
 
-<button class="btn btn-danger" (click)="this.closePopUp(); deleteTask()">Delete</button>
+<button class="btn btn-danger" (click)="this.closePopUp(); deleteTask()"><i class="fa fa-trash-o"></i></button>

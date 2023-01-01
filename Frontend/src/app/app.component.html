@@ -19,7 +19,7 @@
       </div>
       <div class="row px-3">
         <div class="col-12 text-center">
-          <h1 class="p-0 m-0">Überschrift</h1>
+          <h1 class="p-0 m-0"></h1>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@
       *ngIf="getLocation()=='/dashboard' || getLocation()=='/overview' || getLocation()=='/timer' || getLocation()=='/calendar' || getLocation()=='/profile'">
       <div class="row pt-3 px-3">
         <div class="col">
-          <h1 class="p-0 m-0">Überschrift</h1>
+          <h1 class="p-0 m-0"></h1>
         </div>
         <div class="col d-flex justify-content-end">
           <a class="" routerLink="profile" routerLinkActive="active">
@@ -40,7 +40,8 @@
 
   <!-- display top lila mobile background with content correctly -->
   <div id="mobile-background" *ngIf="loggedIn()"
-       [ngClass]="{'header-mobile-tasks' : (getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day'), 'header-mobile' : (getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day')}">
+       [ngClass]="{'header-mobile-tasks' : (getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day'),
+       'header-mobile' : (getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day'), 'header-mobile-dashboard' : getLocation()=='/dashboard'}">
 
     <!-- display clickable (backbutton and) profilepicture on pages all tasks, single tasks and my day -->
     <div class="display-mobile-only">
@@ -61,14 +62,15 @@
         </div>
         <div class="row px-3">
           <div class="col-12 text-center">
-            <h1 class="p-0 m-0">Überschrift</h1>
+            <h1 class="p-0 m-0"></h1>
           </div>
         </div>
       </div>
     </div>
 
     <!-- display top lila web background correctly -->
-    <div class="w-100 bg-warning d-flex align-items-center" id="display-heading" *ngIf="loggedIn()">
+    <div class="w-100 d-flex align-items-center" id="display-heading" *ngIf="loggedIn()"
+         [ngClass]="{'display-heading' : getLocation()!='/dashboard', 'display-heading-dashboard' : getLocation()=='/dashboard'}">
       <button class="btn display-web-only border-0" appBackButton
               *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && !getLocation().includes('/calendar-detail')">
         <i class="fa fa-chevron-left fa-lg"></i></button>
@@ -82,6 +84,11 @@
     <div class="" id="display-desktop" *ngIf="loggedIn()">
       <nav class="navbar bg-primary h-100 justify-content-center" id="navbar-desktop">
         <ul class="nav navbar-nav ml-5">
+          <li class="nav-item text-center py-3 logo-position">
+            <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
+              <img src="assets/logo.png" width="38px" alt="Logo Icon">
+            </a>
+          </li>
           <li class="nav-item text-center py-3">
             <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
               <img src="assets/home.svg" width="70%" alt="Home Icon">

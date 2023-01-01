@@ -1,14 +1,15 @@
-<h3 class="mt-2 mb-4 mx-5 text-center" *ngIf="dailyQuote">"{{dailyQuote.quote}}"</h3>
+<h3 class="mt-2 mb-4 mx-5 text-center display-web-only" *ngIf="dailyQuote">"{{dailyQuote.quote}}"</h3>
 
-  <div class="row my-5">
+  <div class="row mb-5">
     <div class="col-md-6 col-sm-12">
-      <h2 *ngIf="plannedTasks">Mein Tag</h2>
-      <h2 *ngIf="!plannedTasks">Nächste Tasks</h2>
+      <h2 class="text-light heading-dashboard">Tasmovo</h2>
+      <h3 *ngIf="plannedTasks" class="text-light text-dashboard">Mein Tag</h3>
+      <h3 *ngIf="!plannedTasks" class="text-light text-dashboard">nächste Tasks</h3>
 
-      <div class="shadow px-3 pt-3 pb-1 mb-2 bg-white">
+      <div class="shadow px-3 pb-1 mb-2 bg-white">
         <div *ngIf="plannedTasks">
           <div class="row justify-content-center task-bottom" *ngFor="let t of plannedTasks | slice:0:4" (click)="detailsTask(t)">
-            <div class="col-2 my-2">
+            <div class="col-2 my-3">
               <button *ngIf="t.statusID == 1" class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
               <button *ngIf="t.statusID == 2" class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
             </div>
@@ -20,7 +21,7 @@
         </div>
         <div *ngIf="!plannedTasks">
           <div class="row justify-content-center task-bottom" *ngFor="let t of openTasks" (click)="detailsTask(t)">
-            <div class="col-2 my-2">
+            <div class="col-2 my-3">
               <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
             </div>
             <div class="col-4 d-flex align-items-center my-2">{{t.task_name}}</div>
