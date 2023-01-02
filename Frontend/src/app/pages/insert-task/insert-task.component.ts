@@ -96,7 +96,7 @@ export class InsertTaskComponent implements OnInit {
 
     this.insertTaskForm = this.formbuilder.group({
       TAID: [''],
-      task_name: ['', [Validators.required, Validators.maxLength(30)]],
+      task_name: ['', [Validators.required, Validators.maxLength(20)]],
       deadlineDay: new FormControl(this.datePipe.transform(this.nowDate, 'yyyy-MM-DD', 'de-AT'), [Validators.required]),
       deadlineHour: ['', Validators.required],
       notes: [''],

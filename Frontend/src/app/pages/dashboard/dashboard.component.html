@@ -2,9 +2,9 @@
 
   <div class="row mb-5">
     <div class="col-md-6 col-sm-12">
-      <h2 class="text-light heading-dashboard">Tasmovo</h2>
-      <h3 *ngIf="plannedTasks" class="text-light text-dashboard">Mein Tag</h3>
-      <h3 *ngIf="!plannedTasks" class="text-light text-dashboard">nächste Tasks</h3>
+      <h2 class="text-light heading-dashboard display-mobile-only">Tasmovo</h2>
+      <h3 *ngIf="plannedTasks" class="text-sm-light text-dashboard">Mein Tag</h3>
+      <h3 *ngIf="!plannedTasks" class="text-sm-light text-dashboard">nächste Tasks</h3>
 
       <div class="shadow px-3 pb-1 mb-2 bg-white">
         <div *ngIf="plannedTasks">
@@ -13,8 +13,8 @@
               <button *ngIf="t.statusID == 1" class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
               <button *ngIf="t.statusID == 2" class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
             </div>
-            <div class="col-4 d-flex align-items-center my-2">{{t.task_name}}</div>
-            <div class="col-3 d-flex align-items-center justify-content-end my-2">
+            <div class="col-4 d-flex align-items-center my-2 textoverflow">{{t.task_name}}</div>
+            <div class="col-3 d-flex align-items-center justify-content-end my-2 mx-3">
               <div class="bg-dark rounded px-1 task-deadline">{{t.start_time}} - {{t.end_time}}</div>
             </div>
           </div>

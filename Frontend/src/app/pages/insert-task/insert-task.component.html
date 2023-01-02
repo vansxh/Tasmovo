@@ -11,21 +11,14 @@
         <input type="text" formControlName="task_name" class="form-control container-shadow text-field bg-light"
                id="task_name">
     </div>
-
-    <!--
-    <div class="form-group">
-      <label for="task_name">Titel</label>
-      <input type="text" formControlName="task_name" placeholder="Neuer Taskname" name="task_name"
-             class="form-control" id="task_name">
-    </div>
-    <div class="alert alert-danger"
+    <div class="alert p-0"
          *ngIf="insertTaskForm.get('task_name')?.hasError('required') && insertTaskForm.get('task_name')?.touched">
-      Bitte einen Titel für den Task eingeben!
+      <span>Bitte einen Titel für den Task eingeben!</span>
     </div>
-    <div class="alert alert-danger"
+    <div class="alert p-0"
          *ngIf="insertTaskForm.get('task_name')?.hasError('maxlength') && insertTaskForm.get('task_name')?.touched">
-      Max Länge: 30 Zeichen
-    </div>-->
+      <span>Der Titel darf maximal 20 Zeichen lang sein.</span>
+    </div>
 
     <div class="row">
       <div class="col-lg-6 col-md-12 col-sm-6 mt-3">
@@ -38,23 +31,10 @@
       </mat-form-field>
     </div>
       </div>
-
-    <!--<div class="form-group">
-      <label for="deadlineDay">Datum</label>
-      <input type="date" formControlName="deadlineDay" placeholder="Datum auswählen" name="deadlineDay"
-             class="form-control" id="deadlineDay" min="{{nowDate}}">
-    </div>
-    <div class="alert alert-danger"
+    <div class="alert p-0"
          *ngIf="insertTaskForm.get('deadlineDay')?.hasError('required') && insertTaskForm.get('deadlineDay')?.touched">
-      Bitte eine Deadline für den Task wählen!
-    </div>-->
-    <!--
-    <div class="form-group">
-      <mat-form-field appearance="fill" class="example-full-width">
-          <mat-label>Uhrzeit</mat-label>
-          <input formControlName="deadlineHour" placeholder="Uhrzeit auswählen" name="deadlineHour" matTimepicker>
-      </mat-form-field>
-    </div>-->
+      <span>Bitte eine Deadline für den Task wählen!</span>
+    </div>
 
       <div class="col-lg-6 col-md-12 col-sm-6 mt-3">
     <div class="form-group">
@@ -69,17 +49,10 @@
 
     </div>
 
-    <!--
-    <div class="form-group">
-      <label for="deadlineHour">Uhrzeit</label>
-      <input type="time" formControlName="deadlineHour" placeholder="Uhrzeit auswählen" name="deadlineHour"
-             class="form-control" id="deadlineHour">
-    </div>
-    <div class="alert alert-danger"
+    <div class="alert p-0"
          *ngIf="insertTaskForm.get('deadlineHour')?.hasError('required') && insertTaskForm.get('deadlineHour')?.touched">
-      Bitte eine Deadline für den Task wählen!
+      <span>Bitte eine Deadline für den Task wählen!</span>
     </div>
-    -->
 
     <div class="form-group mt-3">
       <label for="notes">Notizen (optional):</label>

@@ -65,6 +65,12 @@ ngb-progressbar {
   text-decoration: underline;
 }
 
+.textoverflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media (max-width: 768px) {
   ngb-progressbar {
     top: 50px;

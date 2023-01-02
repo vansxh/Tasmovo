@@ -1,7 +1,11 @@
-
-
 .my-swiper {
   height: 100%;
+  width: 100%;
+}
+
+.swiper-wrapper {
+  margin-top: 50px;
+  padding: 0 10px 20px 0;
 }
 
 .extraMargin {
@@ -37,25 +41,39 @@ ngb-progressbar {
 }
 
 .task-bottom {
-  border-bottom: 1px #dee2e6 solid;
+  border-bottom:none;
+  background:linear-gradient(#dee2e6,#dee2e6) bottom /* left or right or else */ no-repeat;
+  background-size:85% 1px;
 }
 
 .task-bottom:last-child {
-  border-bottom: none;
+  background: none;
 }
 
-.swiper-slide {
-  padding: 30px 30px;
+.swiper-slide-active {
+  padding: 0 10px 0 60px;
 }
 
-.my-swiper {
-  width: 100%;
+.swiper-slide-next {
+  padding: 0 60px 0 10px;
 }
 
-.swiper-button-next, .swiper-button-prev {
+.swiper-button-next {
   color: #634C9A !important;
+  //padding-left: 70px;
+}
+
+.swiper-button-prev {
+  color: #634C9A !important;
+  //padding-right: 70px;
 }
 
 .container-subcat {
   width: 350px;
+}
+
+.textoverflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

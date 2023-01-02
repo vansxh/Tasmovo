@@ -40,10 +40,17 @@ export class CategoryComponent implements OnInit {
 
     var swiper = new Swiper('#banner .swiper-container', {
       pagination: true,
-      slidesPerView: 1,
+      slidesPerView: 2,
       centeredSlides: true,
-      spaceBetween: 30,
+      spaceBetween: 10,
       loop: true,
+      breakpoints: {
+        // when window width is <= 995px
+        995: {
+          slidesPerView: 1,
+          spaceBetween: 10
+        }
+      },
       navigation: {
         nextEl: '#banner .swiper-button-next',
         prevEl: '#banner .swiper-button-prev',

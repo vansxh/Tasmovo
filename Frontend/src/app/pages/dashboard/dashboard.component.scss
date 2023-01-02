@@ -26,7 +26,16 @@ span{
   font-size: 40px;
 }
 
-@media (max-width: 768px) {
+.textoverflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+@media (max-width: 768px) {
+  .text-dashboard {
+    font-weight: 300;
+    color: white;
+  }
 }
 
