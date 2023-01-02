@@ -22,7 +22,7 @@ export class LoadingInterceptor implements HttpInterceptor {
     // only display spinner if loading lasts longer than 100ms, credit to Luki
     if(this.totalRequests === 1) {
       this.timeout = setTimeout(() => {
-        //this.loadingService.setLoading(true)
+        this.loadingService.setLoading(true)
       }, 400)
     }
 
@@ -31,7 +31,7 @@ export class LoadingInterceptor implements HttpInterceptor {
         this.totalRequests--;
         if (this.totalRequests == 0) {
           clearTimeout(this.timeout);
-          //this.loadingService.setLoading(false);
+          this.loadingService.setLoading(false);
         }
       })
     );
