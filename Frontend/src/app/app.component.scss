@@ -72,6 +72,12 @@
   left: 20px;
 }
 
+@media (max-width: 992px) {
+  ::ng-deep .container {
+    max-width: 992px;
+  }
+}
+
 
 @media (max-width: 768px) {
   #display-desktop, #display-plus {

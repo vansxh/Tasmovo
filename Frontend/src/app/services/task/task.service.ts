@@ -44,7 +44,7 @@ export class TaskService {
   detailsTask(TAID: number) {
     if(window.innerWidth <= 768) {
       this.router.navigate(['/task/' + TAID]);
-    } else {
+    } else if(window.innerWidth >= 1200) {
       this.detailTask = TAID;
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = false;
@@ -53,6 +53,16 @@ export class TaskService {
         position: { right: '0', top: '0' },
         height: '100%',
         width: '25%'
+      });
+    } else {
+      this.detailTask = TAID;
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = false;
+      dialogConfig.autoFocus = true;
+      this.dialog.open(TaskComponent, {
+        position: { right: '0', top: '0' },
+        height: '100%',
+        width: '40%'
       });
     }
   }

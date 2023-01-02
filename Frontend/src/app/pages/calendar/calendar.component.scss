@@ -28,3 +28,8 @@ pre {
   background-color: white!important;
 }
 
+:host ::ng-deep.cal-day-badge {
+  background-color: blue!important;
+}
+
+

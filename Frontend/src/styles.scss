@@ -27,6 +27,7 @@ $theme-colors: (
 @import 'swiper/modules/navigation/navigation.min.css';
 
 
+
 .bg-primary {
   background-color: #30245B!important;
 }
@@ -175,6 +176,10 @@ body{
   display: none;
 }
 
+.display-mobile-only-flex {
+  display: none;
+}
+
 //styling of devices with max width 768px
 @media (max-width: 768px) {
   .mobile-heading {
@@ -194,6 +199,10 @@ body{
   }
 
   .display-web-only {
+    display: none;
+  }
+
+  .display-web-only-flex {
     display: none;
   }
 

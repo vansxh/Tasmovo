@@ -1,11 +1,23 @@
-<button class="btn display-web-only" (click)="this.closePopUp()">X</button>
+<div class="row display-web-only-flex">
+  <div class="col">
+<button class="btn" (click)="this.closePopUp()"><fa-icon [icon]="faXmark" size="lg"></fa-icon></button>
+  </div>
+  <div class="col d-flex justify-content-end">
+    <button class="btn" (click)="this.closePopUp(); editTask()"><fa-icon [icon]="faEdit"></fa-icon></button>
+    <button class="btn" (click)="this.closePopUp(); deleteTask()"><fa-icon [icon]="faTrash"></fa-icon></button>
+  </div>
+  </div>
 
+<div id="mobile-content-margin">
 <h1 *ngIf="task.task_name" id="detail-task-heading" class="display-web-only text-center h1-task-detail">{{task.task_name}}</h1>
-
-<p class="text-center mt-3 mb-4" *ngIf="task.deadline">{{task.deadline | date: 'EEE, d.M.y'}}<br>
+  <div class="display-mobile-only text-center">
+  <button class="btn" (click)="this.closePopUp(); editTask()"><fa-icon [icon]="faEdit"></fa-icon></button>
+  <button class="btn" (click)="this.closePopUp(); deleteTask()"><fa-icon [icon]="faTrash"></fa-icon></button>
+  </div>
+<p class="text-center mt-1 mb-4" *ngIf="task.deadline">{{task.deadline | date: 'EEE, d.M.y'}}<br>
 {{task.deadline | date: 'HH:mm'}} Uhr</p>
 
-<div class="d-flex justify-content-center mb-3">
+<div class="d-flex justify-content-center mb-5">
   <button class="btn btn-warning container-shadow" *ngIf="task.statusID == 1" (click)="finishTask()">Erledigen</button>
   <button class="btn btn-info container-shadow" *ngIf="task.statusID == 2" (click)="unfinishTask()">Erledigt</button>
 </div>
@@ -42,7 +54,4 @@
     <span *ngIf="!task.updated_date">Zuletzt geändert: {{task.created_date | date: 'd.M.y'}}</span>
   </p>
 </div>
-
-<button class="btn btn-success" (click)="this.closePopUp(); editTask()"><i class="fa fa-edit"></i></button>
-
-<button class="btn btn-danger" (click)="this.closePopUp(); deleteTask()"><i class="fa fa-trash-o"></i></button>
+</div>

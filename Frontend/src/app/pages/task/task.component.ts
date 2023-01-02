@@ -9,6 +9,9 @@ import {Router} from '@angular/router';
 import { NavigationService } from '../../services/navigation/navigation.service'
 import { Category } from 'src/app/services/category/category';
 import {CategoryService} from "../../services/category/category.service";
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-task',
@@ -23,6 +26,9 @@ export class TaskComponent implements OnInit {
   taskID!: number;
   category!: Category;
   subcategory!: Category;
+  faXmark = faXmark;
+  faEdit = faPencil;
+  faTrash = faTrash;
 
   ngOnInit(): void {
 
@@ -74,8 +80,14 @@ export class TaskComponent implements OnInit {
         if(window.innerWidth <= 768) {
           let h1 = document.getElementsByTagName("h1");
           for (let i = 0; i < h1.length; i++) {  h1[i].innerText = this.task.task_name;}
+
+          let marginMobile = document.getElementById("mobile-content-margin");
+          marginMobile?.classList.add("mobile-margin-content");
         } else {
           document.getElementById('detail-task-heading')!.innerText = this.task.task_name;
+
+          let marginMobile = document.getElementById("mobile-content-margin");
+          marginMobile?.classList.remove("mobile-margin-content");
         }
 
       },
@@ -98,7 +110,6 @@ export class TaskComponent implements OnInit {
   }
 
   unfinishTask() {
-
     // get task
     this.taskService.unfinishTask(this.task).subscribe(
       (data: any = []) => {

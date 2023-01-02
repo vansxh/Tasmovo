@@ -75,6 +75,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {NGX_MAT_SELECT_CONFIGS, NgxMatSelectConfigs, NgxMatSelectModule} from "ngx-mat-select";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { HammerModule } from '@angular/platform-browser';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {MatSliderModule} from '@angular/material/slider';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -198,7 +200,9 @@ export const routes: Routes = [
     MatSelectModule,
     NgxMatSelectModule,
     MatAutocompleteModule,
-    HammerModule
+    HammerModule,
+    FontAwesomeModule,
+    MatSliderModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},

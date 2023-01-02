@@ -52,9 +52,9 @@
   border-top-color: #cccccc;
 }
 
-/*:host ::ng-deep span{
-  font-size: 50px !important;
-}*/
+:host ::ng-deep span{
+  font-size: 15px !important;
+}
 
 :host ::ng-deep .mat-form-field-underline {
   display: none;

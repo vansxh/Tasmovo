@@ -58,22 +58,46 @@ ngb-progressbar {
   padding: 0 60px 0 10px;
 }
 
-.swiper-button-next {
+.swiper-button-next, .swiper-button-prev {
   color: #634C9A !important;
-  //padding-left: 70px;
-}
-
-.swiper-button-prev {
-  color: #634C9A !important;
-  //padding-right: 70px;
 }
 
 .container-subcat {
-  width: 350px;
+  //width: 350px;
 }
 
 .textoverflow {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.display-swiper-lg-only {
+  display: block;
+}
+
+.display-swiper-sm-only {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .display-swiper-lg-only {
+    display: none;
+  }
+
+  .display-swiper-sm-only {
+    display: block;
+  }
+
+  .swiper-slide.swiper-slide  {
+    width: 80%;
+    padding: 0 10px;
+    margin: 0;
+  }
+
+  .swiper-slide.swiper-slide-prev {
+  }
+
+  .swiper-slide.swiper-slide-next {
+  }
 }
