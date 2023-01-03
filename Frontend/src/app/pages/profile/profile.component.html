@@ -1,7 +1,7 @@
 <div *ngIf="!isLoading &&userLoaded">
 
   <!--Username and Profile Image on Mobile View-->
-  <div class="profilemobile">
+  <div class="profilemobile mx-3">
     <div *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
     <br>
     <img src="assets/default.png" width="10%">
@@ -9,7 +9,7 @@
   </div>
 
   <!--Profile on Mobile View-->
-  <mat-tab-group class="profilemobile">
+  <mat-tab-group class="profilemobile mx-3">
 
     <!--Stresslevel Tab on Mobile View-->
     <mat-tab label="Stresslevel">
@@ -143,7 +143,7 @@
   </mat-tab-group>
 
   <!--Logout Button on Mobile View-->
-  <div class="profilemobile">
+  <div class="profilemobile mx-3">
     <button class="btn btn-primary" (click)="logout()">Abmelden</button>
   </div>
 
