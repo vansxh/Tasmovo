@@ -27,7 +27,11 @@ if($compareTask['created_by'] != $_SESSION['UID']) {
     ]))->send(HttpCode::FORBIDDEN);
 }
 
-$item = $task->finishTask($TAID, Input::read('expenseID'), Input::read('stress_factor'));
+if (!Input::read('stress_factor')){
+    $item = $task->finishTask($TAID, Input::read('expenseID'), 0);
+}else{
+    $item = $task->finishTask($TAID, Input::read('expenseID'), Input::read('stress_factor'));
+}
 
 // check if task was finished
 if (!$item) {
