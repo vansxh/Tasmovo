@@ -12,7 +12,7 @@ class TimerReset{
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($result['value'] <= $today){
+        if ($result['value'] > $today){
             return;
         }else{
             $setting = Database::getDb()->prepare("UPDATE Settings SET value = :today WHERE record = :record");
