@@ -9,6 +9,7 @@ import {User} from "../../services/authentication/user";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ErrorStateMatcher} from '@angular/material/core';
 import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-profile',
@@ -41,6 +42,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   userLoaded!: boolean;
   isLoading!: boolean;
+
+  faEdit = faPencil;
 
 
   ngOnInit(): void {
