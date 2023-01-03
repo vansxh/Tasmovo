@@ -5,7 +5,9 @@ import {GeneralService} from "../../services/general/general.service";
 import {DatePipe} from "@angular/common";
 Chart.register(...registerables);
 import annotationPlugin from "chartjs-plugin-annotation";
+import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
 Chart.register(annotationPlugin);
+Chart.defaults.font.family = "'Ubuntu', sans-serif";
 
 @Component({
   selector: 'app-insert-group',
@@ -14,7 +16,7 @@ Chart.register(annotationPlugin);
 })
 export class InsertGroupComponent implements OnInit {
 
-  constructor(private datePipe: DatePipe, private vizService: VisualizationService, private general: GeneralService) {
+  constructor(private stress: StresstrackingService, private datePipe: DatePipe, private vizService: VisualizationService, private general: GeneralService) {
   }
   taskExpenses!: Array<any>;
   days: Array<any> = [];
@@ -22,34 +24,69 @@ export class InsertGroupComponent implements OnInit {
   dataEasy: Array<any> = [];
   dataMedium: Array<any> = [];
   dataDiff: Array<any> = [];
+  stresslevels!: Array<any>;
+  dataStress: Array<any> = [];
+  stressLimit!: number;
 
   ngOnInit(): void {
+
+    // get all days of the last week into an array
+    for (var i=6; i>=0; i--) {
+      var d = new Date();
+      d.setDate(d.getDate() - i);
+      this.days.push( d );
+    }
+
+    // set labels and fill data Arrays with as much 0s as there are days
+    for(var i=0; i<this.days.length; i++) {
+      this.labels.push(this.days[i].toLocaleString('de-at', {  weekday: 'short' }));
+      this.dataEasy.push(0);
+      this.dataMedium.push(0);
+      this.dataDiff.push(0);
+      this.dataStress.push(0);
+    }
 
     // get data for stacked bar chart
     this.vizService.getTaskExpenses().subscribe(
       (data: any = []) => {
         this.taskExpenses = data['data'];
 
-        // get all days of the last week into an array
-        for (var i=6; i>=0; i--) {
-          var d = new Date();
-          d.setDate(d.getDate() - i);
-          this.days.push( d );
-        }
-
-        // set labels and fill data Arrays with as much 0s as there are days
-        for(var i=0; i<this.days.length; i++) {
-          this.labels.push(this.days[i].toLocaleString('de-at', {  weekday: 'short' }));
-          this.dataEasy.push(0);
-          this.dataMedium.push(0);
-          this.dataDiff.push(0);
-        }
-
         // init stacked bar chart
         this.initBarChart();
 
-        // init area chart
-        this.initAreaChart();
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
+
+    // get data for stacked bar chart
+    this.vizService.getStresslevels().subscribe(
+      (data: any = []) => {
+        this.stresslevels = data['data'];
+
+        console.log(this.stresslevels);
+
+        this.stress.getStresslimit().subscribe(
+          (data: any = []) => {
+            this.stressLimit = data['data']['stress_limit'];
+
+            console.log(this.stressLimit);
+
+            // init area chart
+            this.initAreaChart();
+
+          },
+          (error: any = []) => {
+            if(error['error']['message']) {
+              alert(error['error']['message']);
+              return;
+            }
+            this.general.errorResponse(error['status']);
+          });
 
       },
       (error: any = []) => {
@@ -125,13 +162,21 @@ export class InsertGroupComponent implements OnInit {
           scales: {
             x: {
               stacked: true,
+              title: {
+                display: true,
+                text: 'Wochentag'
+              }
             },
             y: {
               ticks: {
                 stepSize: 1
               },
               stacked: true,
-              suggestedMax: 8
+              suggestedMax: 8,
+              title: {
+                display: true,
+                text: 'Abgeschlossene Tasks'
+              }
             }
           }
         }
@@ -141,19 +186,32 @@ export class InsertGroupComponent implements OnInit {
 
   initAreaChart(): void {
 
+    // go through each day
+    for(var i=0; i<this.days.length; i++) {
+      let today = this.datePipe.transform(this.days[i], 'yyyy-MM-dd', 'de-AT') || '';
+      // look for each day's stresslevel
+      let stresslevel = this.stresslevels.find(s => s.date == today);
+      console.log(stresslevel);
+
+      if(stresslevel != undefined) {
+        this.dataStress[i] = stresslevel.stresslevel;
+      }
+      console.log(this.dataStress);
+    }
+
     const areaChartData = {
       labels: this.labels,
       datasets: [
         {
-          label: 'Stresslevel',
-          data: [65, 59, 80, 81, 56, 55, 40],
+          label: 'Stress',
+          data: this.dataStress,
           fill: {
-            target: {value: 60},
+            target: {value: this.stressLimit},
             above: 'rgb(208, 199, 236)',
             below: 'rgba(0,0,0,0)'
           },
           borderColor: 'rgb(99, 76, 154)',
-          tension: 0.1
+          tension: 0.15
         },
       ]
     };
@@ -163,6 +221,10 @@ export class InsertGroupComponent implements OnInit {
       data: areaChartData,
       options: {
         plugins: {
+          title: {
+            display: true,
+            text: 'Dein täglich angesammelter Stress in der letzten Woche',
+          },
           filler: {
             propagate: true
           },
@@ -170,18 +232,17 @@ export class InsertGroupComponent implements OnInit {
             annotations: {
               line1: {
                 type: 'line',
-                yMin: 60,
-                yMax: 60,
+                yMin: this.stressLimit,
+                yMax: this.stressLimit,
                 borderColor: 'rgb(48,35,91)',
                 borderWidth: 3,
               },
               label1: {
                 type: 'label',
                 xValue: 0.3,
-                yValue: 60-1,
+                yValue: this.stressLimit-1,
                 content: ['Dein Stresslimit'],
                 font: {
-                  family: "'Ubuntu', sans-serif",
                   size: 14,
                 },
                 color: 'rgb(48,35,91)',
@@ -189,6 +250,21 @@ export class InsertGroupComponent implements OnInit {
             }
           }
         },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Wochentag',
+            },
+          },
+          y: {
+            suggestedMax: this.stressLimit + 5,
+            title: {
+              display: true,
+              text: 'Angesammelter Stress',
+            }
+          }
+        }
       }
     });
 

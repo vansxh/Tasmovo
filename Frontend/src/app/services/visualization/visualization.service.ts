@@ -13,4 +13,8 @@ export class VisualizationService {
     return this.http.get('/Backend/routes/visualization/getTaskExpenses.php');
   }
 
+  getStresslevels() {
+    return this.http.get('/Backend/routes/visualization/getStresslevels.php');
+  }
+
 }
