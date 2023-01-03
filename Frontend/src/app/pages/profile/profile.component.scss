@@ -1,0 +1,21 @@
+.profiledesktop{
+  display: block;
+}
+
+.profilemobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .profilemobile {
+    display: block;
+  }
+
+  .profiledesktop{
+    display: none;
+  }
+
+
+  }
+

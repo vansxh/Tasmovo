@@ -3,7 +3,7 @@
   <br>
   <img src="assets/default.png" width="10%">
   <br>
-  <mat-tab-group>
+  <mat-tab-group id="profilemobile">
     <mat-tab label="Stresslevel">
       <div>Dein Stresslevel diese Woche:</div>
       <br>
@@ -123,5 +123,129 @@
   </mat-tab-group>
   <br>
   <button class="btn btn-primary" (click)="logout()">Abmelden</button>
+
+  //desktop ansicht
+
+  <div id="profiledesktop">
+
+    <div>
+      <div>Dein Stresslevel diese Woche:</div>
+      <br>
+      <mat-progress-spinner
+        class="example-margin"
+        value="{{weeklyAverage*10}}" mode="determinate" color="primary">
+      </mat-progress-spinner>
+      <div>Lvl: {{weeklyAverage}} / 10</div>
+    </div>
+
+    <div>
+      <div class="row">
+        <div class="col text-center"><b>{{allTasksLength}}</b></div>
+        <div class="col text-center"><b>{{allFinishedTasksLength}}</b></div>
+        <div class="col text-center"><b>{{allCategoriesLength}}</b></div>
+      </div>
+      <div class="row border-bottom border-primary">
+        <div class="col text-center" *ngIf="allTasksLength == 1">Task</div>
+        <div class="col text-center" *ngIf="allTasksLength != 1">Tasks</div>
+        <div class="col text-center" *ngIf="allFinishedTasksLength == 1">fertiger Task</div>
+        <div class="col text-center" *ngIf="allFinishedTasksLength != 1">fertige Tasks</div>
+        <div class="col text-center" *ngIf="allCategoriesLength == 1">Kategorie</div>
+        <div class="col text-center" *ngIf="allCategoriesLength != 1">Kategorien</div>
+      </div>
+      <br>
+      <div *ngIf="currentUser">
+        <form [formGroup]="userForm" class="form" autocomplete="off">
+          <div *ngIf="!changeUsername">
+            Benutzername: {{currentUser.username}}
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true"><i class="fa fa-edit"></i>
+            </button>
+          </div>
+          <div *ngIf="changeUsername">
+            <mat-form-field class="example-full-width">
+              <mat-label></mat-label>
+              <input matInput type="text" [errorStateMatcher]="matcher" formControlName="username"
+                     [defaultValue]="currentUser.username">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="userForm.get('username')?.hasError('required')">
+                Dieses Feld darf nicht leer sein.
+              </mat-error>
+              <mat-error *ngIf="userForm.get('username')?.hasError('maxlength')">
+                Der Username darf maximal 30 Zeichen lang sein.
+              </mat-error>
+              <mat-error *ngIf="userForm.get('username')?.hasError('minlength')">
+                Der Username muss mindestens 4 Zeichen lang sein.
+              </mat-error>
+            </mat-form-field>
+
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="onUserFormSubmit()">Speichern</button>
+          </div>
+          <div *ngIf="!changeFirstname">
+            Vorname: {{currentUser.firstName}}
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
+              <i class="fa fa-edit"></i>
+            </button>
+          </div>
+          <div *ngIf="changeFirstname">
+            <mat-form-field class="example-full-width">
+              <mat-label></mat-label>
+              <input matInput type="text" [errorStateMatcher]="matcher" formControlName="firstName">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">
+                Dieses Feld darf nicht leer sein.
+              </mat-error>
+              <mat-error *ngIf="userForm.get('firstName')?.hasError('maxlength')">
+                Der Vorname darf maximal 30 Zeichen lang sein.
+              </mat-error>
+            </mat-form-field>
+
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="onUserFormSubmit()">Speichern</button>
+          </div>
+          <div *ngIf="!changeLastname">
+            Nachname: {{currentUser.lastName}}
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true"><i class="fa fa-edit"></i>
+            </button>
+          </div>
+          <div *ngIf="changeLastname">
+            <mat-form-field class="example-full-width">
+              <mat-label></mat-label>
+              <input matInput type="text" [errorStateMatcher]="matcher" formControlName="lastName">
+              <mat-hint></mat-hint>
+              <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">
+                Dieses Feld darf nicht leer sein.
+              </mat-error>
+              <mat-error *ngIf="userForm.get('lastName')?.hasError('maxlength')">
+                Der Nachname darf maximal 30 Zeichen lang sein.
+              </mat-error>
+            </mat-form-field>
+
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="onUserFormSubmit()">Speichern</button>
+          </div>
+          <div *ngIf="!changeStressLimit">
+            Stress Limit: {{currentUser.stress_limit}}
+            <button class="btn btn-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
+              <i class="fa fa-edit"></i>
+            </button>
+          </div>
+          <div *ngIf="changeStressLimit">
+            <mat-form-field class="example-full-width">
+              <mat-label></mat-label>
+              <input matInput type="number" [errorStateMatcher]="matcher" formControlName="stressLimit" min="0"
+                     max="100">
+              <mat-error *ngIf="userForm.get('stressLimit')?.hasError('required')">
+                Dieses Feld darf nicht leer sein.
+              </mat-error>
+            </mat-form-field>
+
+            <button [disabled]="!userForm.valid" class="btn btn-primary" (click)="onUserFormSubmit()">Speichern</button>
+          </div>
+          <button
+            *ngIf="changeFirstname == true || changeLastname == true || changeUsername == true || changeStressLimit == true"
+            (click)="setBooleansFalse(); changeForm()" class=" btn btn-primary">Verwerfen
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
 
 </div>
