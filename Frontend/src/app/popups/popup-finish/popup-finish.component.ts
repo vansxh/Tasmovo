@@ -25,6 +25,7 @@ export class PopupFinishComponent implements OnInit {
   dailyStresslevel!: number;
   stressLimit!: number;
 
+
   ngOnInit(): void {
     this.terminateTask = this.taskService.terminateTask;
     this.name = this.terminateTask.TAID;
@@ -33,11 +34,50 @@ export class PopupFinishComponent implements OnInit {
       expenseID: ['', Validators.required],
       stress_factor: ['', Validators.required]
     });
+
+    this.onButtonClicked();
+  }
+
+  onButtonClicked() {
+    let toggleBtnOne = document.getElementById("toggle-btn-1");
+    let toggleBtnTwo = document.getElementById("toggle-btn-2");
+    let toggleBtnThree = document.getElementById("toggle-btn-3");
+    toggleBtnOne?.addEventListener('click', function onClick() {
+      if(toggleBtnOne && toggleBtnTwo && toggleBtnThree) {
+        toggleBtnOne.style.backgroundColor = '#D0C7EC';
+        toggleBtnOne.style.color = 'white';
+        toggleBtnTwo.style.backgroundColor = 'white';
+        toggleBtnTwo.style.color = 'black';
+        toggleBtnThree.style.backgroundColor = 'white';
+        toggleBtnThree.style.color = 'black';
+      }
+    });
+    toggleBtnTwo?.addEventListener('click', function onClick() {
+      if(toggleBtnOne && toggleBtnTwo && toggleBtnThree) {
+        toggleBtnOne.style.backgroundColor = 'white';
+        toggleBtnOne.style.color = 'black';
+        toggleBtnTwo.style.backgroundColor = '#9F92C6';
+        toggleBtnTwo.style.color = 'white';
+        toggleBtnThree.style.backgroundColor = 'white';
+        toggleBtnThree.style.color = 'black';
+      }
+    });
+    toggleBtnThree?.addEventListener('click', function onClick() {
+      if(toggleBtnOne && toggleBtnTwo && toggleBtnThree) {
+        toggleBtnOne.style.backgroundColor = 'white';
+        toggleBtnOne.style.color = 'black';
+        toggleBtnTwo.style.backgroundColor = 'white';
+        toggleBtnTwo.style.color = 'black';
+        toggleBtnThree.style.backgroundColor = '#634C9A';
+        toggleBtnThree.style.color = 'white';
+
+      }
+    });
+
   }
 
 
   onFinishSubmit() {
-
     this.terminateTask.expenseID = this.finishForm.value.expenseID;
     this.terminateTask.stress_factor = this.finishForm.value.stress_factor;
     //console.log(this.terminateTask);
