@@ -17,4 +17,12 @@ export class VisualizationService {
     return this.http.get('/Backend/routes/visualization/getStresslevels.php');
   }
 
+  getNumberOfDays() {
+    return this.http.get('/Backend/routes/visualization/getNumberOfDays.php');
+  }
+
+  getNumberOfTimers() {
+    return this.http.get('/Backend/routes/visualization/getNumberOfTimers.php');
+  }
+
 }

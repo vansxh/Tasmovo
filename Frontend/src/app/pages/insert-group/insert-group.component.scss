@@ -1,4 +1,32 @@
-#divChart{
-  display: block;
-  width: 80%;
+#divBubbleChart {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#divBubbleLabels {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.dot {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Ubuntu', sans-serif;
+  color: #ffffff;
+}
+
+#daysPlanned {
+  background-color: #634C9AFF;
+}
+
+#timersUsed {
+  background-color: #9F92C6FF;
 }

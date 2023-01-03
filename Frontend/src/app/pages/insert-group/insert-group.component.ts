@@ -27,6 +27,8 @@ export class InsertGroupComponent implements OnInit {
   stresslevels!: Array<any>;
   dataStress: Array<any> = [];
   stressLimit!: number;
+  numberDays!: number;
+  numberTimers!: number;
 
   ngOnInit(): void {
 
@@ -68,16 +70,45 @@ export class InsertGroupComponent implements OnInit {
       (data: any = []) => {
         this.stresslevels = data['data'];
 
-        console.log(this.stresslevels);
-
         this.stress.getStresslimit().subscribe(
           (data: any = []) => {
             this.stressLimit = data['data']['stress_limit'];
 
-            console.log(this.stressLimit);
-
             // init area chart
             this.initAreaChart();
+
+          },
+          (error: any = []) => {
+            if(error['error']['message']) {
+              alert(error['error']['message']);
+              return;
+            }
+            this.general.errorResponse(error['status']);
+          });
+
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
+
+    // get data for stacked bar chart
+    this.vizService.getNumberOfDays().subscribe(
+      (data: any = []) => {
+        this.numberDays = data['data']['days'];
+        console.log(this.numberDays);
+
+        this.vizService.getNumberOfTimers().subscribe(
+          (data: any = []) => {
+
+            this.numberTimers = data['data']['timers'];
+            console.log(this.numberTimers);
+
+            // init bubble chart
+            this.initBubbleChart();
 
           },
           (error: any = []) => {
@@ -191,12 +222,10 @@ export class InsertGroupComponent implements OnInit {
       let today = this.datePipe.transform(this.days[i], 'yyyy-MM-dd', 'de-AT') || '';
       // look for each day's stresslevel
       let stresslevel = this.stresslevels.find(s => s.date == today);
-      console.log(stresslevel);
 
       if(stresslevel != undefined) {
         this.dataStress[i] = stresslevel.stresslevel;
       }
-      console.log(this.dataStress);
     }
 
     const areaChartData = {
@@ -267,6 +296,90 @@ export class InsertGroupComponent implements OnInit {
         }
       }
     });
+
+  }
+
+  initBubbleChart(): void {
+
+    const size = 25;
+
+    let daysPlanned = document.getElementById("daysPlanned")!;
+    if(this.numberDays > 0) {
+      daysPlanned.style.width = this.numberDays * size + 'px';
+      daysPlanned.style.height = this.numberDays * size + 'px';
+    } else {
+      daysPlanned.style.backgroundColor = 'rgba(0,0,0,0)'
+      daysPlanned.style.color = '#000000';
+      daysPlanned.style.width = size + 'px';
+      daysPlanned.style.height = size + 'px';
+    }
+    daysPlanned.firstChild!.textContent = this.numberDays + '';
+
+    let timersUsed = document.getElementById("timersUsed")!;
+    if(this.numberTimers > 0) {
+      timersUsed.style.width = this.numberTimers * size + 'px';
+      timersUsed.style.height = this.numberTimers * size + 'px';
+    } else {
+      timersUsed.style.backgroundColor = 'rgba(0,0,0,0)'
+      timersUsed.style.color = '#000000';
+      timersUsed.style.width = size + 'px';
+      timersUsed.style.height = size + 'px';
+    }
+    timersUsed.firstChild!.textContent = this.numberTimers + '';
+
+    /*const bubbleChartData = {
+      datasets: [
+        {
+          label: 'Tage geplant',
+          data: [{
+            x: 1,
+            y: 1,
+            r: 2
+          }],
+          backgroundColor: 'rgb(99, 76, 154)'
+        },
+        {
+          label: 'Timer benutzt',
+          data: [{
+            x: 2,
+            y: 1,
+            r: 7
+          }],
+          backgroundColor: 'rgb(159, 146, 198)',
+        },
+      ],
+    };
+
+    var areaChart = new Chart("myAreaChart", {
+      type: "bubble",
+      data: bubbleChartData,
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'In der letzten Woche hast du',
+          },
+        },
+        scales: {
+          x: {
+            min: 0,
+            max: 3,
+            ticks: {
+              display: false,
+              stepSize: 1
+            }
+          },
+          y: {
+            min: 0,
+            max: 2,
+            ticks: {
+              display: false,
+              stepSize: 1
+            },
+          }
+        }
+      }
+    });*/
 
   }
 
