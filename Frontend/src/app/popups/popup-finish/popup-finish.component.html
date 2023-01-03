@@ -7,10 +7,12 @@
     <mat-button-toggle class="btn btn-light border finish-btn-group" id="toggle-btn-3" value="3">Schwer</mat-button-toggle>
   </mat-button-toggle-group>
   <br>
-  <p class="mb-0">Wie stressig war dieser Task?</p>
+  <p class="mb-3">Wie stressig war dieser Task?</p>
   <!--<input type="range" min="0" max="10" name="stress_factor" formControlName="stress_factor">-->
-  <mat-slider min="0" max="10" name="stress_factor" formControlName="stress_factor" class="stress-slider">
+  <mat-slider  thumbLabel min="0" max="10" name="stress_factor" formControlName="stress_factor">
+    <div>
     <input matSliderThumb>
+    </div>
   </mat-slider>
   <br>
 

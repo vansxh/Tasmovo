@@ -23,6 +23,12 @@
   border-radius: 5px!important;
 }
 
+::ng-deep .mat-slider-thumb-label {
+  background-color: white!important;
+  border: 1px solid #634C9A;
+  color: #634C9A;
+}
+
 ::ng-deep .mat-slider-track-background {
   //background-color: #634C9A;
   height: 20px;
@@ -54,4 +60,5 @@
   border: solid 2px #634C9A!important;
   bottom: -24px;
   right: -20px;
+  color: black;
 }
