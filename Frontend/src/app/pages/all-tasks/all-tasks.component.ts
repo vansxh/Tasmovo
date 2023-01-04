@@ -52,7 +52,7 @@ export class AllTasksComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(PopupFinishComponent, dialogConfig);
-    }
+  }
 
   scrollToNotDone() {
     const id = 'notDone-container';

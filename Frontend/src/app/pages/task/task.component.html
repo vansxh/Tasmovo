@@ -36,7 +36,7 @@
 
   <div *ngIf="task.notes">
     <h3 class="h3-task-detail">Notizen</h3>
-    <p class="text-danger">{{task.notes}}</p>
+    <p class="text-danger" [innerHTML]="task.notes"></p>
   </div>
 
   <div *ngIf="category">

@@ -24,6 +24,8 @@ if ($item['created_by'] !== $_SESSION['UID']) {
     ]))->send(HttpCode::FORBIDDEN);
 }
 
+$item['notes'] = str_replace("\n", "<br/>", $item['notes']);
+
 // if the category of the task HAS a parent category
 if($item['parent_categoryID'] !== null) {
     (new Response([
