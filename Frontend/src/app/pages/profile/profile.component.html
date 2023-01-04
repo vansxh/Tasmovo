@@ -224,8 +224,8 @@
               <div *ngIf="!changeUsername">
                 <b>Benutzername:</b>
                 <br>
-                {{currentUser.username}}
-                <button class="btn" (click)="setBooleansFalse(); changeForm();changeUsername = true">
+                <span id="help" class="text-danger"> {{currentUser.username}} </span>
+                <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true">
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
               </div>
@@ -253,8 +253,8 @@
               <div *ngIf="!changeFirstname">
                 <b>Vorname:</b>
                 <br>
-                {{currentUser.firstName}}
-                <button class="btn" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
+                <span id="help" class="text-danger"> {{currentUser.firstName}} </span>
+                <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
               </div>
@@ -278,8 +278,8 @@
               <div *ngIf="!changeLastname">
                 <b>Nachname:</b>
                 <br>
-                {{currentUser.lastName}}
-                <button class="btn" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
+                <span id="help" class="text-danger"> {{currentUser.lastName}} </span>
+                <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
               </div>
@@ -303,8 +303,8 @@
               <div *ngIf="!changeStressLimit">
                 <b>Stress Limit:</b>
                 <br>
-                {{currentUser.stress_limit}}
-                <button class="btn" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
+                <span id="help" class="text-danger"> {{currentUser.stress_limit}} </span>
+                <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
               </div>
@@ -328,7 +328,7 @@
 
           <!--Logout Button on Web View-->
           </div>
-          <button class="btn btn-primary" (click)="logout()">Abmelden</button>
+          <button class="btn btn-primary w-50 mt-4" (click)="logout()">Abmelden</button>
         </div>
       </div>
 
