@@ -222,7 +222,7 @@
 
               <!--Change Username on Web View-->
               <div *ngIf="!changeUsername">
-                <b>Benutzername:</b>
+                <span class="pain">Benutzername</span>
                 <br>
                 <span id="help" class="text-danger"> {{currentUser.username}} </span>
                 <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true">
@@ -251,7 +251,7 @@
 
               <!--Change First Name on Web View-->
               <div *ngIf="!changeFirstname">
-                <b>Vorname:</b>
+                <span class="pain">Vorname</span>
                 <br>
                 <span id="help" class="text-danger"> {{currentUser.firstName}} </span>
                 <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
@@ -276,7 +276,7 @@
 
               <!--Change Last Name on Web View-->
               <div *ngIf="!changeLastname">
-                <b>Nachname:</b>
+                <span class="pain">Nachname</span>
                 <br>
                 <span id="help" class="text-danger"> {{currentUser.lastName}} </span>
                 <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
@@ -301,7 +301,7 @@
 
               <!--Change Stresslimit on Web View-->
               <div *ngIf="!changeStressLimit">
-                <b>Stress Limit:</b>
+                <span class="pain">Stress Limit</span>
                 <br>
                 <span id="help" class="text-danger"> {{currentUser.stress_limit}} </span>
                 <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
@@ -328,7 +328,7 @@
 
           <!--Logout Button on Web View-->
           </div>
-          <button class="btn btn-primary w-50 mt-4" (click)="logout()">Abmelden</button>
+          <button class="btn btn-primary w-50 mt-4 mb-3" (click)="logout()">Abmelden</button>
         </div>
       </div>
 
