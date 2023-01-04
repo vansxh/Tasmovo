@@ -121,7 +121,7 @@ export class InsertGroupComponent implements OnInit {
       (data: any = []) => {
         this.numberDays = data['data']['days'];
         console.log(this.numberDays);
-        this.numberDays = 25;
+
         this.vizService.getNumberOfTimers().subscribe(
           (data: any = []) => {
 
@@ -319,9 +319,14 @@ export class InsertGroupComponent implements OnInit {
 
     let daysPlanned = document.getElementById("daysPlanned")!;
     if(this.numberDays > 1) {
-      daysPlanned.style.width = this.numberDays * size + 'px';
-      daysPlanned.style.height = this.numberDays * size + 'px';
-    } else if(this.numberDays = 1){
+      if(this.numberDays * size >= 220) {
+        daysPlanned.style.width = '220px';
+        daysPlanned.style.height = '220px';
+      } else {
+        daysPlanned.style.width = this.numberDays * size + 'px';
+        daysPlanned.style.height = this.numberDays * size + 'px';
+      }
+    } else if(this.numberDays == 1){
       daysPlanned.style.width = '25px';
       daysPlanned.style.height = '25px';
     } else {
@@ -334,9 +339,14 @@ export class InsertGroupComponent implements OnInit {
 
     let timersUsed = document.getElementById("timersUsed")!;
     if(this.numberTimers > 0) {
-      timersUsed.style.width = this.numberTimers * size + 'px';
-      timersUsed.style.height = this.numberTimers * size + 'px';
-    } else if(this.numberTimers = 1){
+      if(this.numberDays * size >= 220) {
+        timersUsed.style.width = '220px';
+        timersUsed.style.height = '220px';
+      } else {
+        timersUsed.style.width = this.numberTimers * size + 'px';
+        timersUsed.style.height = this.numberTimers * size + 'px';
+      }
+    } else if(this.numberTimers == 1){
       timersUsed.style.width = '25px';
       timersUsed.style.height = '25px';
     } else {
@@ -437,7 +447,7 @@ export class InsertGroupComponent implements OnInit {
   logout() {
     this.auth.logout(['Logout']).subscribe((data: any = []) => {
       this.auth.deleteToken();
-      window.location.href = window.location.href;
+      window.location.reload();
     }, (error: any = []) => {
       if (error['error']['message']) {
         alert(error['error']['message']);
@@ -555,8 +565,7 @@ export class InsertGroupComponent implements OnInit {
   onUserFormSubmit() {
     //console.log(this.userForm.value);
     this.auth.updateUser(this.userForm.value).subscribe((data: any = []) => {
-      this.ngOnInit();
-      this.ngAfterViewInit();
+    window.location.reload();
     }, (error: any = []) => {
       if (error['error']['message']) {
         alert(error['error']['message']);
