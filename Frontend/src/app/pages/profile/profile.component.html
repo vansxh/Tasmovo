@@ -158,9 +158,9 @@
 
         <!--Username and Profile Image on Web View-->
         <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
-          <div *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
+          <img src="assets/default.png" width="20%">
           <br>
-          <img src="assets/default.png" width="10%">
+          <div class="text-center" id="Username" *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
           <br>
 
           <!--Tasks and Categories on Web View-->
