@@ -2,9 +2,9 @@
 
   <!--Username and Profile Image on Mobile View-->
   <div class="profilemobile mx-3">
-    <div *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
+    <div class="text-primary" *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
     <br>
-    <img src="assets/default.png" width="10%">
+    <div class="text-center"><img class="justify-content-center" src="assets/default.png" width="30%"></div>
     <br>
   </div>
 
@@ -84,8 +84,10 @@
 
           <!--Change Username on Mobile View-->
           <div *ngIf="!changeUsername">
-            Benutzername: {{currentUser.username}}
-            <button class="btn" (click)="setBooleansFalse(); changeForm();changeUsername = true">
+            <span class="pain"> Benutzername </span>
+            <br>
+            <span class="text-danger help"> {{currentUser.username}} </span>
+            <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true">
               <fa-icon [icon]="faEdit"></fa-icon>
             </button>
           </div>
@@ -110,8 +112,10 @@
 
           <!--Change First Name on Mobile View-->
           <div *ngIf="!changeFirstname">
-            Vorname: {{currentUser.firstName}}
-            <button class="btn" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
+            <span class="pain"> Vorname </span>
+            <br>
+            <span class="text-danger help"> {{currentUser.firstName}} </span>
+            <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
               <fa-icon [icon]="faEdit"></fa-icon>
             </button>
           </div>
@@ -132,8 +136,10 @@
 
           <!--Change Last Name on Mobile View-->
           <div *ngIf="!changeLastname">
-            Nachname: {{currentUser.lastName}}
-            <button class="btn" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
+            <span class="pain"> Nachname </span>
+            <br>
+            <span class="text-danger help"> {{currentUser.lastName}} </span>
+            <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
               <fa-icon [icon]="faEdit"></fa-icon>
             </button>
           </div>
@@ -154,8 +160,10 @@
 
           <!--Change Stresslimit on Mobile View-->
           <div *ngIf="!changeStressLimit">
-            Stress Limit: {{currentUser.stress_limit}}
-            <button class="btn" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
+            <span class="pain"> Stress Limit </span>
+            <br>
+            <span class="text-danger help"> {{currentUser.stress_limit}} </span>
+            <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
               <fa-icon [icon]="faEdit"></fa-icon>
             </button>
           </div>
@@ -224,7 +232,7 @@
               <div *ngIf="!changeUsername">
                 <span class="pain">Benutzername</span>
                 <br>
-                <span id="help" class="text-danger"> {{currentUser.username}} </span>
+                <span class="text-danger help"> {{currentUser.username}} </span>
                 <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true">
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
@@ -253,7 +261,7 @@
               <div *ngIf="!changeFirstname">
                 <span class="pain">Vorname</span>
                 <br>
-                <span id="help" class="text-danger"> {{currentUser.firstName}} </span>
+                <span class="text-danger help"> {{currentUser.firstName}} </span>
                 <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
@@ -278,7 +286,7 @@
               <div *ngIf="!changeLastname">
                 <span class="pain">Nachname</span>
                 <br>
-                <span id="help" class="text-danger"> {{currentUser.lastName}} </span>
+                <span class="text-danger help"> {{currentUser.lastName}} </span>
                 <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
@@ -303,7 +311,7 @@
               <div *ngIf="!changeStressLimit">
                 <span class="pain">Stress Limit</span>
                 <br>
-                <span id="help" class="text-danger"> {{currentUser.stress_limit}} </span>
+                <span class="text-danger help"> {{currentUser.stress_limit}} </span>
                 <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
                   <fa-icon [icon]="faEdit"></fa-icon>
                 </button>
