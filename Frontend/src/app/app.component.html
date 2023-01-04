@@ -3,7 +3,7 @@
   <!-- display clickable (backbutton and) profilepicture on all pages except all tasks, single tasks and my day -->
   <div class="display-mobile-only" *ngIf="loggedIn()">
     <div class=""
-         *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/my-day' && getLocation()!='/all-tasks' && getLocation()!='/single-tasks'">
+         *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/my-day' && getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/sub-category'">
       <div class="row pt-3 px-3">
         <div class="col">
           <button *ngIf="!getLocation().includes('/calendar-detail')" class="btn border-0" appBackButton><i
@@ -40,13 +40,13 @@
 
   <!-- display top lila mobile background with content correctly -->
   <div id="mobile-background" *ngIf="loggedIn()"
-       [ngClass]="{'header-mobile-tasks' : (getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day'),
-       'header-mobile' : (getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day'), 'header-mobile-dashboard' : getLocation()=='/dashboard'}">
+       [ngClass]="{'header-mobile-tasks' : (getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day' || getLocation()=='/sub-category'),
+       'header-mobile' : (getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day' && getLocation()!='/sub-category'), 'header-mobile-dashboard' : getLocation()=='/dashboard'}">
 
     <!-- display clickable (backbutton and) profilepicture on pages all tasks, single tasks and my day -->
     <div class="display-mobile-only">
       <div class=""
-           *ngIf="getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day'">
+           *ngIf="getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day' || getLocation()=='/sub-category'">
         <div class="row pt-3 px-3">
           <div class="col">
             <button *ngIf="!getLocation().includes('/calendar-detail')" class="btn border-0" appBackButton><i
@@ -122,7 +122,9 @@
   <!-- display web and mobile content correctly -->
   <div class="container">
     <div class="row">
-      <div class="col-lg-11 offset-lg-1 offset-md-1 col-md-11 col-sm-12 p-0" *ngIf="loggedIn()">
+      <div class="col-lg-11 offset-lg-1 offset-md-1 col-md-11 col-sm-12"
+           [ngClass]="{'no-padding-category' : getLocation()!='/category'}"
+           *ngIf="loggedIn()">
         <router-outlet></router-outlet>
       </div>
     </div>

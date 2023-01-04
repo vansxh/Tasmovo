@@ -27,11 +27,13 @@ ngb-progressbar {
 }
 
 .task-bottom {
-  border-bottom: 1px #dee2e6 solid;
+  border-bottom:none;
+  background:linear-gradient(#dee2e6,#dee2e6) bottom /* left or right or else */ no-repeat;
+  background-size:85% 1px;
 }
 
 .task-bottom:last-child {
-  border-bottom: none;
+  background: none;
 }
 
 .container-shadow {
@@ -51,14 +53,22 @@ ngb-progressbar {
   top:0;
   right:0;
   left:0;
+  z-index: 2;
 }
 
 .hoverEffects {
+  padding: 15px;
   cursor: pointer;
 }
 
 .hoverEffects:hover {
   text-decoration: underline;
+}
+
+.textoverflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 768px) {
@@ -76,7 +86,7 @@ ngb-progressbar {
   }
 
   .progressbar-heading {
-    top: 50px;
+    top: 85px;
   }
 
   .btn-heading {
@@ -85,10 +95,6 @@ ngb-progressbar {
 
   .distance-top {
     margin-top: 200px;
-  }
-
-  #notDone-container, #done-container {
-    z-index: -2!important;
   }
 
   .display-web-only {

@@ -5,6 +5,9 @@ import {AuthenticationService} from 'src/app/services/authentication/authenticat
 import {GeneralService} from "../../services/general/general.service";
 import {TaskService} from "../../services/task/task.service";
 import {Task} from "../../services/task/task";
+import {faPencil} from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-my-categories',
@@ -14,6 +17,10 @@ import {Task} from "../../services/task/task";
 export class MyCategoriesComponent implements OnInit {
 
   public categories!: Category[];
+
+  faEdit = faPencil;
+  faTrash = faTrash;
+  faCircleX = faCirclePlus;
 
   constructor(private catService: CategoryService, private authService: AuthenticationService, private general: GeneralService, private taskService: TaskService) {
   }

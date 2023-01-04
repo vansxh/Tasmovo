@@ -51,7 +51,7 @@ export class SubCategoryComponent implements OnInit {
           // get tasks from data
           this.subcategory = <Category>data['data'];
           console.log('sub: ' + this.subcategory.category_name);
-          for (let i = 0; i < h1.length; i++) {  h1[i].innerText = this.subcategory.category_name;};
+          for (let i = 0; i < h1.length; i++) {  h1[i].innerText = this.getSubcategoryName();};
 
           if(this.subcategory.parent_categoryID) {
             // get info of parent category

@@ -1,3 +1,9 @@
+.divChart {
+  display: block;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
 #divBubbleChart {
   display: flex;
   flex-wrap: nowrap;
@@ -13,8 +19,6 @@
 }
 
 .dot {
-  height: 25px;
-  width: 25px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -29,4 +33,25 @@
 
 #timersUsed {
   background-color: #9F92C6FF;
+}
+
+.profiledesktop{
+  display: block;
+}
+
+.profilemobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+
+  .profilemobile {
+    display: block;
+  }
+
+  .profiledesktop{
+    display: none;
+  }
+
+
 }
