@@ -1,4 +1,6 @@
-<h2>{{planned_date}}</h2>
+<div class="text-center">
+  <h2>{{planned_date}}</h2>
+</div>
 
 <form [formGroup]="addPlannedTaskForm" class="form">
 
@@ -6,33 +8,36 @@
       Ende kann nicht vor Start liegen!
   </span>
 
-  <div class="form-group">
-    <input type="time" formControlName="start_time" placeholder="Startzeit auswählen" name="start_time"
-           class="form-control" id="start_time">
+  <div class="form-group mb-2">
+    <label for="start_time">von</label>
+    <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
+      <div class="d-flex justify-content-space-around align-items-center px-3">
+        <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="start_time" id="start_time" class="form-control timepicker">
+        <ngx-mat-timepicker-toggle matIconSufix [for]="$any(timepicker)"></ngx-mat-timepicker-toggle>
+      </div>
+      <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
+    </mat-form-field>
   </div>
 
   <div class="form-group">
-    <input type="time" formControlName="end_time" placeholder="Endzeit auswählen" name="end_time"
-           class="form-control" id="end_time">
+    <label for="end_time">bis</label>
+    <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
+      <div class="d-flex justify-content-space-between align-items-center px-3">
+        <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="end_time" id="end_time" class="form-control timepicker">
+        <ngx-mat-timepicker-toggle matIconSufix [for]="$any(timepicker)"></ngx-mat-timepicker-toggle>
+      </div>
+      <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
+    </mat-form-field>
   </div>
 
   <br>
 
-  <!--<div class="form-group">
+  <div class="form-group select mt-1">
     <label for="TAID">Task hinzufügen</label>
-    <select formControlName="TAID" name="TAID"
-            class="form-control" id="TAID">
-      <option value="" disabled selected>Task</option>
-      <option *ngFor="let t of tasks | notDone" value="{{t.TAID}}">{{t.task_name}}</option>
-    </select>
-  </div>-->
-
-  <div class="form-group select mt-3">
-    <label for="TAID">Task hinzufügen</label>
-    <mat-form-field>
+    <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
       <mat-select
         formControlName="TAID" name="TAID"
-        class="form-control container-shadow" id="TAID"
+        class="text px-2" id="TAID"
         *ngIf="tasks"
         ngxMatSelect
         [lazyLoad]="true"
@@ -51,12 +56,15 @@
           {{t.task_name}}
         </mat-option>
       </mat-select>
-
+      <div class="select_arrow"></div>
     </mat-form-field>
   </div>
 
-  <button *ngIf="this.plannedTask.TAID === 0" [disabled]="!addPlannedTaskForm.valid" (click)="onAddTaskSumbmit()" class="btn btn-primary">Speichern</button>
-  <button *ngIf="this.plannedTask.TAID !== 0" [disabled]="!addPlannedTaskForm.valid" (click)="onEditTaskSumbmit()" class="btn btn-primary">Bearbeiten</button>
-  <br>
-  <button class="btn btn-primary" (click)="onClose()">Abbrechen</button>
+  <div class="row mt-4 mx-5 mb-3">
+    <button *ngIf="this.plannedTask.TAID === 0" [disabled]="!addPlannedTaskForm.valid" (click)="onAddTaskSumbmit()" class="btn btn-primary">Speichern</button>
+    <button *ngIf="this.plannedTask.TAID !== 0" [disabled]="!addPlannedTaskForm.valid" (click)="onEditTaskSumbmit()" class="btn btn-primary">Bearbeiten</button>
+  </div>
+  <div class="row mx-5">
+    <button class="btn btn-primary" (click)="onClose()">Abbrechen</button>
+  </div>
 </form>
