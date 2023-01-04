@@ -160,7 +160,7 @@
         <div class="container-shadow px-3 pt-4 pb-1 mb-2 bg-white text-center">
           <img src="assets/default.png" width="20%">
           <br>
-          <div class="text-center pt-2" id="Username" *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
+          <div class="text-center text-primary pt-2" id="Username" *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
           <br>
 
           <!--Tasks and Categories on Web View-->
@@ -185,7 +185,7 @@
 
               <!--Change Username on Web View-->
               <div *ngIf="!changeUsername">
-                Benutzername:
+                <b>Benutzername:</b>
                 <br>
                 {{currentUser.username}}
                 <button class="btn" (click)="setBooleansFalse(); changeForm();changeUsername = true">
@@ -214,7 +214,7 @@
 
               <!--Change First Name on Web View-->
               <div *ngIf="!changeFirstname">
-                Vorname:
+                <b>Vorname:</b>
                 <br>
                 {{currentUser.firstName}}
                 <button class="btn" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
@@ -239,7 +239,7 @@
 
               <!--Change Last Name on Web View-->
               <div *ngIf="!changeLastname">
-                Nachname:
+                <b>Nachname:</b>
                 <br>
                 {{currentUser.lastName}}
                 <button class="btn" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
@@ -264,7 +264,7 @@
 
               <!--Change Stresslimit on Web View-->
               <div *ngIf="!changeStressLimit">
-                Stress Limit:
+                <b>Stress Limit:</b>
                 <br>
                 {{currentUser.stress_limit}}
                 <button class="btn" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
