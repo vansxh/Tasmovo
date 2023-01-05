@@ -12,10 +12,10 @@
     <label for="start_time">von</label>
     <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
       <div class="d-flex justify-content-space-around align-items-center px-3">
-        <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="start_time" id="start_time" class="form-control timepicker">
-        <ngx-mat-timepicker-toggle matIconSufix [for]="$any(timepicker)"></ngx-mat-timepicker-toggle>
+        <input matInput [format]="24" [ngxMatTimepicker]="timepicker1" formControlName="start_time" id="start_time" class="form-control timepicker">
+        <ngx-mat-timepicker-toggle [for]="$any(timepicker1)"></ngx-mat-timepicker-toggle>
       </div>
-      <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
+      <ngx-mat-timepicker #timepicker1></ngx-mat-timepicker>
     </mat-form-field>
   </div>
 
@@ -23,10 +23,10 @@
     <label for="end_time">bis</label>
     <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
       <div class="d-flex justify-content-space-between align-items-center px-3">
-        <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="end_time" id="end_time" class="form-control timepicker">
-        <ngx-mat-timepicker-toggle matIconSufix [for]="$any(timepicker)"></ngx-mat-timepicker-toggle>
+        <input matInput [format]="24" [ngxMatTimepicker]="timepicker2" formControlName="end_time" id="end_time" class="form-control timepicker">
+        <ngx-mat-timepicker-toggle [for]="$any(timepicker2)"></ngx-mat-timepicker-toggle>
       </div>
-      <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
+      <ngx-mat-timepicker #timepicker2></ngx-mat-timepicker>
     </mat-form-field>
   </div>
 
@@ -44,14 +44,13 @@
         [searcher]="taskSearcher.bind(this)"
         [hasSearchBox]="true"
         [multiple]="false"
-        [required]="false"
+        [required]="true"
         [valueMember]="'TAID'"
         [displayMember]="'task_name'"
         [source]="tasks | notDone"
         [emptyLabel]="'Keine Tasks gefunden'"
         #sf="ngxMatSelect"
       >
-        <mat-option [value]=""></mat-option>
         <mat-option [value]="t.TAID" *ngFor="let t of sf.filteredSource">
           {{t.task_name}}
         </mat-option>
