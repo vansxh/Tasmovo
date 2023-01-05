@@ -67,6 +67,7 @@ export class InsertTaskComponent implements OnInit {
             let deadline = new Date(this.selectedTask.deadline);
             this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
             this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
+            this.selectedTask.notes = this.selectedTask.notes.replaceAll("<br/>", "\r\n");
             this.insertTaskForm.patchValue(this.selectedTask);
             this.nowDate = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
         },
