@@ -3,12 +3,12 @@
   <!-- display clickable (backbutton and) profilepicture on all pages except all tasks, single tasks and my day -->
   <div class="display-mobile-only" *ngIf="loggedIn()">
     <!--wenn dashboard ned auf die folgenden seiten is dann zeig den folgenden shit an-->
-    <div>
-         <!--*ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/my-day' && getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/sub-category' && getLocation()!='/my-categories'">-->
-      <div class="row pt-3 px-3">
+    <div
+         *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/my-day' && getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/sub-category' && getLocation()!='/my-categories'">
+      <div class="row pt-3 p-0">
         <div class="col">
-          <button *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && !getLocation().includes('/calendar-detail')"
-            class="btn border-0" appBackButton><i
+          <button class="btn border-0" appBackButton><!--*ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && !getLocation().includes('/calendar-detail')"-->
+            <i
             class="fa fa-chevron-left fa-lg"></i></button>
           <button *ngIf="getLocation().includes('/calendar-detail')" class="btn" (click)="toCalendarOverview()"><i
             class="fa fa-chevron-left fa-lg"></i></button>
