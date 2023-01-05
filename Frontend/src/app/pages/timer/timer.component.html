@@ -50,15 +50,21 @@
       </div>
     </div>
     <div>
-      <form [formGroup]="rewardForm" novalidate class="rewardForm">
-        <label for="rewardID" class="rewardText">Belohnung</label>
+      <form [formGroup]="rewardForm" novalidate>
+        <label for="rewardID" class="rewardForm rewardText">Belohnung</label>
         <br>
         <div class="select">
-          <select formControlName="rewardID" name="reward"
+          <!--<select formControlName="rewardID" name="reward"
                   id="rewardID" class="container-shadow">
             <option value="" disabled selected>Wähle deine Belohnung aus</option>
             <option *ngFor="let r of rewards" value="{{r.RID}}">{{r.reward}}</option>
-          </select>
+          </select>-->
+          <mat-select formControlName="rewardID" name="reward" id="rewardID" class="container-shadow">
+            <mat-option [value]="" disabled selected style="font-size: initial!important;">Wähle deine Belohnung aus</mat-option>
+            <mat-option style="font-size: initial!important;" *ngFor="let r of rewards" [value]="r.RID">
+              {{r.reward}}
+            </mat-option>
+          </mat-select>
           <div class="select_arrow"></div>
         </div>
       </form>
