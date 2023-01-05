@@ -2,10 +2,10 @@
   <!-- display clickable (backbutton and) profilepicture on all pages except all tasks, single tasks and my day -->
   <div class="d-flex justify-content-center">
   <div class="display-mobile-only mobile-header" *ngIf="loggedIn()">
-    <div *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day' && !getLocation().includes('/sub-category')">
-      <div class="row pt-3 px-1">
+    <div *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile'">
+      <div class="row pt-3 p-0">
         <div class="col">
-          <button class="btn border-0" appBackButton>
+          <button class="btn border-0" appBackButton *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && !getLocation().includes('/calendar-detail')">
             <i
             class="fa fa-chevron-left fa-lg"></i></button>
           <button *ngIf="getLocation().includes('/calendar-detail')" class="btn" (click)="toCalendarOverview()"><i
@@ -25,8 +25,8 @@
     </div>
 
     <div
-      *ngIf="getLocation()=='/dashboard' || getLocation()=='/overview' || getLocation()=='/timer' || getLocation()=='/calendar' || getLocation()=='/profile'">
-      <div class="row pt-3 px-1">
+      *ngIf="getLocation()=='/dashboard' && getLocation()=='/overview' && getLocation()=='/timer' && getLocation()=='/calendar' && getLocation()=='/profile'">
+      <div class="row pt-3 px-3">
         <div class="col">
           <h1 class="p-0 m-0"></h1>
         </div>
@@ -46,10 +46,10 @@
        'header-mobile' : (getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day' && !getLocation().includes('/sub-category')), 'header-mobile-dashboard' : getLocation()=='/dashboard'}">
 
     <!-- display clickable (backbutton and) profilepicture on pages all tasks, single tasks and my day -->
-    <div class="d-flex justify-content-center">
-      <div class="display-mobile-only mobile-header"
+    <div class="display-mobile-only">
+      <div class=""
            *ngIf="getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day' || getLocation().includes('/sub-category')">
-        <div class="row pt-3 px-1">
+        <div class="row pt-3 px-3">
           <div class="col">
             <button *ngIf="!getLocation().includes('/calendar-detail')" class="btn border-0" appBackButton><i
               class="fa fa-chevron-left fa-lg"></i></button>
