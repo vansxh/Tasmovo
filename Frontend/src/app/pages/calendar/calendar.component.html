@@ -1,11 +1,11 @@
-<div class="mx-4">
+<div class="mx-4 mobile-distance">
 <div id="swipeDiv" (swiperight)="setViewDate(-1)" (swipeleft)="setViewDate(1)">
   <div class="row text-center">
     <div class="my-4">
       <div class="btn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
         <i class="fa fa-chevron-left" style="color:#000000;"></i>
       </div>
-      <b>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</b>
+      <b>{{ viewDate | date: 'MMMM y'}}</b>
       <div
         class="btn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
         <i class="fa fa-chevron-right" style="color:#000000;"></i>
@@ -22,7 +22,7 @@
     <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
                              (dayClicked)="clickedDate = $event.day.date; changeToDayView()"
                              [class.active]="view === CalendarView.Day"
-                              [cellTemplate]="customCellTemplate"
+                              [cellTemplate]="myTemplate"
                               [weekStartsOn] = "1">
     </mwl-calendar-month-view>
     <mwl-calendar-week-view
@@ -46,7 +46,7 @@
   </div>
 </div>
 
-<!--<ng-template
+<ng-template
   #myTemplate
   let-day="day"
   let-openDay="openDay"
@@ -100,10 +100,10 @@
       [attr.aria-hidden]="{} | calendarA11y: 'hideMonthCellEvents'"
     ></div>
   </div>
-</ng-template>-->
+</ng-template>
 
-  <ng-template #customCellTemplate let-day="day" let-locale="locale">
-    <div class="cal-cell-top coloring-test">
+  <!--<ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="coloring-test">
       <span class="cal-day-badge bg-blue" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
       <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
     </div>
@@ -114,5 +114,5 @@
       {{ group[1].length }}
     </span>
     </div>
-  </ng-template>
+  </ng-template>-->
 </div>

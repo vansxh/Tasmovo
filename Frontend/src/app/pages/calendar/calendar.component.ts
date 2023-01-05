@@ -1,4 +1,4 @@
-import {Component, ChangeDetectionStrategy, OnInit} from '@angular/core';
+import {Component, ChangeDetectionStrategy, OnInit, Inject} from '@angular/core';
 import {CalendarEvent, CalendarView, CalendarEventAction,} from 'angular-calendar';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
@@ -15,6 +15,8 @@ import { EventColor } from 'calendar-utils';
 import {CalendarNativeDateFormatter, DateFormatterParams, CalendarModule} from 'angular-calendar';
 import * as Hammer from 'hammerjs';
 import * as moment from "moment";
+import { WeekDay } from 'calendar-utils';
+import { DOCUMENT } from '@angular/common';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
   public override dayViewHour({date, locale}: DateFormatterParams): string {
@@ -38,7 +40,7 @@ const colors: Record<string, EventColor> = {
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class CalendarComponent implements OnInit {
@@ -54,10 +56,14 @@ export class CalendarComponent implements OnInit {
   allTasks!: Task[];
   swipeDiv!: HTMLElement;
 
-  constructor(private taskService: TaskService, private categoryService: CategoryService, private general: GeneralService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private modal: NgbModal,
+  private readonly tasmovoThemeClass = 'tasmovo-theme';
+
+  constructor(@Inject(DOCUMENT) private document: any, private taskService: TaskService, private categoryService: CategoryService, private general: GeneralService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private modal: NgbModal,
   public dialog: MatDialog, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void{
+
+    this.document.body.classList.add(this.tasmovoThemeClass);
 
     this.swipeDiv = document.getElementById("swipeDiv")!;
 

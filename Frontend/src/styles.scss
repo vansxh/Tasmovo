@@ -25,7 +25,85 @@ $theme-colors: (
 @import "swiper/swiper.min.css";
 @import 'swiper/modules/pagination/pagination.min.css';
 @import 'swiper/modules/navigation/navigation.min.css';
+@import '../node_modules/angular-calendar/scss/angular-calendar';
 
+.tasmovo-theme {
+  // First define some global color variables for your app, these are just for the demo, they can be anything you like
+  $bg-transparent: rgba(0,0,0,0);
+  $bg-primary: #FFFFFF;
+  $bg-secondary: #E6E2F2;
+  $bg-active: #F4F0FF;
+  $text-color: #30235B;
+  $border-color: rgba(230, 226, 242, 80%);
+
+  // Call the calendar mixin with a sass color map of your theme. Every property is optional.
+  // For a list of all variables and how they are used,
+  // see https://github.com/mattlewis92/angular-calendar/tree/main/projects/angular-calendar/src/variables.scss
+  @include cal-theme(
+      (
+        bg-primary: $bg-transparent,
+        weekend-color: $text-color,
+        border-color: $border-color,
+        bg-active: $bg-active,
+        today-bg: $bg-secondary,
+      )
+  );
+
+  .cal-month-view .cal-day-cell.cal-today .cal-day-number {
+    font-size: 1em;
+  }
+
+  .cal-days {
+    border: none;
+    color: $text-color;
+    background-color: $bg-primary;
+  }
+
+  .cal-month-view .cal-header {
+    background-color: rgba(0,0,0,0);
+    min-height: 50px;
+  }
+
+  .cal-month-view .cal-cell-row {
+    text-align: center;
+    align-items: center;
+  }
+
+  .cal-month-view .cal-cell-top {
+    display: flex;
+    justify-content: center;
+    min-height: 30px;
+  }
+
+  .cal-month-view .cal-events {
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .cal-month-view .cal-day-number {
+    margin-right: 0;
+    font-size: 1em;
+    margin-bottom: 5px;
+  }
+
+  .cal-month-view .cal-day-cell, .cal-month-view .cal-cell-row{
+    border: none;
+  }
+
+  .cal-month-view .cal-day-cell {
+    border-top: 1px solid $border-color;
+  }
+
+  @media (max-width: 768px) {
+    .cal-month-view .cal-event {
+      height: 6px;
+      width: 6px;
+      margin: 1px;
+    }
+  }
+
+}
 
 
 .bg-primary {
@@ -221,4 +299,5 @@ body{
   .mobile-distance-sm {
     margin-bottom: 60px;
   }
+
 }

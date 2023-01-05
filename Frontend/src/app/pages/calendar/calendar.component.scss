@@ -32,4 +32,11 @@ pre {
   background-color: blue!important;
 }
 
+:host ::ng-deep .cal-month-view .cal-day-cell.cal-today .cal-day-number {
+  font-size: 1.2em!important;
+}
+
+.nonono {
+
+}
 
