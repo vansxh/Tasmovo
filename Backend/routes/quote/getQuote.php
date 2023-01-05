@@ -6,7 +6,10 @@ require('../../bootstrap.inc.php');
 $auth->check();
 
 $quote = new Quote();
-$item = $quote->getQuote();
+$allQuotes = $quote->getQuote();
+
+$random = array_rand($allQuotes, 1);
+$item = $allQuotes[$random];
 
 // check if quote was returned
 if (!$item) {
