@@ -3,7 +3,7 @@ import {CategoryService} from 'src/app/services/category/category.service';
 import {Category} from 'src/app/services/category/category';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {Router} from '@angular/router';
-import {FormControl} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Observable, startWith, map} from "rxjs";
 import {TaskService} from "../../services/task/task.service";
 import {Task} from "../../services/task/task";
@@ -18,13 +18,13 @@ export class OverviewComponent implements OnInit {
 
   public categories!: Category[];
 
-  myControl = new FormControl('');
-  options: string[] = [];
+  formGroup!: FormGroup;
+  options!: Task[];
   allTasksArray!: Task[];
   taskNames!: string[];
-  filteredOptions!: Observable<string[]>;
+  filteredOptions!: any;
 
-  constructor(private authService: AuthenticationService, private router: Router, private taskService: TaskService, private general: GeneralService) {
+  constructor(private authService: AuthenticationService, private router: Router, private taskService: TaskService, private general: GeneralService, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -32,29 +32,8 @@ export class OverviewComponent implements OnInit {
     let h1 = document.getElementsByTagName("h1");
     for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Übersicht";}
 
-    this.taskService.getAllTasks().subscribe(
-      (data: any = []) => {
-        // get tasks from data
-        this.allTasksArray = <Task[]>data['data'];
-        //console.log(this.allTasksArray);
-        for (let a in this.allTasksArray){
-          //console.log(this.allTasksArray[a]);
-          this.options.push(this.allTasksArray[a]['task_name']);
-        }
-
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
-
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+    this.initForm();
+    this.getAllTasks();
   }
 
   allTasks(): void {
@@ -73,10 +52,42 @@ export class OverviewComponent implements OnInit {
     this.router.navigate(['/my-day']);
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  initForm(){
+    this.formGroup = this.fb.group({
+      'tasks' : ['']
+    });
+    // @ts-ignore
+    this.formGroup.get('tasks').valueChanges.subscribe(response => {
+      this.filterData(response);
+    })
+  }
+
+  filterData(enteredData: string){
+    this.filteredOptions = this.options.filter(item => {
+      return item['task_name'].toLowerCase().indexOf(enteredData.toLowerCase()) > -1
+    })
+  }
+
+  getAllTasks(){
+    this.taskService.getAllTasks().subscribe(
+      (data: any = []) => {
+        // get tasks from data
+        this.options = <Task[]>data['data'];
+        //console.log(this.allTasksArray);
+      },
+      (error: any = []) => {
+        if(error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
+  }
+
+  detailsTask(task: Task): void {
+    this.initForm();
+    this.taskService.detailsTask(task.TAID);
   }
 
 }

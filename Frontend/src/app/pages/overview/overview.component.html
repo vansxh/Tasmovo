@@ -1,18 +1,19 @@
-
 <div style="width: 100%">
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label></mat-label>
-    <input type="text"
-           placeholder="Alle Tasks durchsuchen"
-           matInput
-           [formControl]="myControl"
-           [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <form [formGroup]="formGroup">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label></mat-label>
+      <input type="text"
+             placeholder="Alle Tasks durchsuchen"
+             matInput
+             formControlName="tasks"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let item of filteredOptions" [value]="item['task_name']" (click)="detailsTask(item)">
+          {{item['task_name']}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 </div>
 
 <div class="mt-5">

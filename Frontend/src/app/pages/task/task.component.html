@@ -15,7 +15,7 @@
 </div>
 
 <div id="mobile-content-margin">
-  <h1 *ngIf="task.task_name" id="detail-task-heading"
+  <h1 *ngIf="task" id="detail-task-heading"
       class="display-web-only text-center h1-task-detail">{{task.task_name}}</h1>
   <div class="display-mobile-only text-center">
     <button class="btn" (click)="this.closePopUp(); editTask()">
@@ -25,16 +25,16 @@
       <fa-icon [icon]="faTrash"></fa-icon>
     </button>
   </div>
-  <p class="text-center mt-1 mb-4" *ngIf="task.deadline">{{task.deadline | date: 'EEE, d.M.y'}}<br>
+  <p class="text-center mt-1 mb-4" *ngIf="task">{{task.deadline | date: 'EEE, d.M.y'}}<br>
     {{task.deadline | date: 'HH:mm'}} Uhr</p>
 
   <div class="d-flex justify-content-center mb-5">
-    <button class="btn btn-warning container-shadow" *ngIf="task.statusID == 1" (click)="finishTask()">Erledigen
+    <button class="btn btn-warning container-shadow" *ngIf="task && task.statusID == 1" (click)="finishTask()">Erledigen
     </button>
-    <button class="btn btn-info container-shadow" *ngIf="task.statusID == 2" (click)="unfinishTask()">Erledigt</button>
+    <button class="btn btn-info container-shadow" *ngIf="task && task.statusID == 2" (click)="unfinishTask()">Erledigt</button>
   </div>
 
-  <div *ngIf="task.notes">
+  <div *ngIf="task && task.notes">
     <h3 class="h3-task-detail">Notizen</h3>
     <p class="text-danger" [innerHTML]="task.notes"></p>
   </div>
@@ -49,22 +49,22 @@
     <p class="text-danger">{{subcategory.category_name}}</p>
   </div>
 
-  <div *ngIf="task.expense">
+  <div *ngIf="task && task.expense">
     <h3 class="h3-task-detail">Schwierigkeitsgrad</h3>
     <p class="text-danger">{{task.expense}}</p>
   </div>
 
-  <div *ngIf="task.stress_factor">
+  <div *ngIf="task && task.stress_factor">
     <h3 class="h3-task-detail">Stresslevel</h3>
     <p class="text-danger">{{task.stress_factor}}/10</p>
   </div>
 
-  <div *ngIf="!task.stress_factor && task.end_date">
+  <div *ngIf="task && !task.stress_factor && task.end_date">
     <h3 class="h3-task-detail">Stresslevel</h3>
     <p class="text-danger">0/10</p>
   </div>
 
-  <div>
+  <div *ngIf="task">
     <p class="text-done footer-task-detail">
       <span>Erstellt: {{task.created_date | date: 'd.M.y'}}</span><br>
       <span *ngIf="task.updated_date">Zuletzt geändert: {{task.updated_date | date: 'd.M.y'}}</span>
