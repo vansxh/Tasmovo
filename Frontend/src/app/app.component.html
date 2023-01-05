@@ -2,7 +2,7 @@
   <!-- display clickable (backbutton and) profilepicture on all pages except all tasks, single tasks and my day -->
   <div class="d-flex justify-content-center">
   <div class="display-mobile-only mobile-header" *ngIf="loggedIn()">
-    <div>
+    <div *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile'">
       <div class="row pt-3 p-0">
         <div class="col">
           <button class="btn border-0" appBackButton *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && !getLocation().includes('/calendar-detail')">
@@ -23,18 +23,32 @@
         </div>
       </div>
     </div>
+
+    <div
+      *ngIf="getLocation()=='/dashboard' && getLocation()=='/overview' && getLocation()=='/timer' && getLocation()=='/calendar' && getLocation()=='/profile'">
+      <div class="row pt-3 px-3">
+        <div class="col">
+          <h1 class="p-0 m-0"></h1>
+        </div>
+        <div class="col d-flex justify-content-end">
+          <a class="" routerLink="profile" routerLinkActive="active">
+            <img src="assets/profilpicture.svg" alt="Profile Icon">
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
   </div>
 
   <!-- display top lila mobile background with content correctly -->
   <div id="mobile-background" *ngIf="loggedIn()"
-       [ngClass]="{'header-mobile-tasks' : (getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day' || getLocation()=='/sub-category'),
-       'header-mobile' : (getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day' && getLocation()!='/sub-category'), 'header-mobile-dashboard' : getLocation()=='/dashboard'}">
+       [ngClass]="{'header-mobile-tasks' : (getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day' || getLocation().includes('/sub-category')),
+       'header-mobile' : (getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day' && !getLocation().includes('/sub-category')), 'header-mobile-dashboard' : getLocation()=='/dashboard'}">
 
     <!-- display clickable (backbutton and) profilepicture on pages all tasks, single tasks and my day -->
     <div class="display-mobile-only">
       <div class=""
-           *ngIf="getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day' || getLocation()=='/sub-category'">
+           *ngIf="getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day' || getLocation().includes('/sub-category')">
         <div class="row pt-3 px-3">
           <div class="col">
             <button *ngIf="!getLocation().includes('/calendar-detail')" class="btn border-0" appBackButton><i
@@ -111,7 +125,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-11 offset-lg-1 offset-md-1 col-md-11 col-sm-12"
-           [ngClass]="{'no-padding-category' : getLocation()!='/category'}"
+           [ngClass]="{'no-padding-category' : getLocation().includes('/category')}"
            *ngIf="loggedIn()">
         <router-outlet></router-outlet>
       </div>
@@ -174,7 +188,7 @@
     <div class="containerWhile">
       <div class="containerCenterWhile">
         <a class="nav-link nav-item" (click)="addPopup()"
-           *ngIf="loggedIn() && getLocation()!='/my-day' && getLocation()!='/insert-task' && getLocation()!='/insert-category'">
+           *ngIf="loggedIn() && getLocation()!='/my-day' && !getLocation().includes('/insert-task') && !getLocation().includes('/insert-category')">
           <img src="assets/add-alternative.svg" class="btnImg" alt="Add Icon">
         </a>
       </div>
