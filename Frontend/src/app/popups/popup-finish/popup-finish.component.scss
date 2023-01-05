@@ -1,3 +1,16 @@
+:host ::ng-deep .mat-slider-thumb-label {
+  transform: rotate(45deg) !important;
+  border-radius: 50% 50% 0 !important;
+}
+
+:host ::ng-deep .mat-slider-thumb {
+  transform: scale(0) !important;
+}
+
+:host ::ng-deep .mat-slider-thumb-label-text {
+  opacity: 1 !important;
+}
+
 ::ng-deep .mat-button-toggle-group-appearance-standard{
   border: none;
 }

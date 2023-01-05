@@ -34,6 +34,10 @@ export class PopupFinishComponent implements OnInit {
       expenseID: ['', Validators.required],
       stress_factor: ['', Validators.required]
     });
+    this.finishForm.setValue({
+      expenseID: '',
+      stress_factor: 3
+    });
 
     this.onButtonClicked();
   }
