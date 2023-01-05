@@ -98,9 +98,20 @@ ngb-progressbar {
     margin-top: 200px;
   }
 
-
-
   .display-web-only {
     display: none;
+  }
+
+  .rel-parentcat-header {
+    position: relative;
+    text-align: center;
+  }
+
+  .parentcat-name-header {
+    display: inline-block;
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }

@@ -14,10 +14,10 @@
 
 ngb-progressbar {
   width: 40%;
-  height: 2rem!important;
+  height: 1.5rem!important;
   margin: auto;
   background-color: white!important;
-  border: #30235B 5px solid;
+  border: #30235B 3px solid;
   border-radius: 20px!important;
 }
 
@@ -97,12 +97,17 @@ ngb-progressbar {
 
   .display-swiper-sm-only {
     display: block;
+    z-index: 0;
   }
 
   .swiper-slide.swiper-slide  {
     width: 85%;
     padding: 0 5px;
     margin: 0;
+  }
+
+  .swiper-height {
+    min-height: 500px;
   }
 
   .swiper-slide.swiper-slide-prev {
