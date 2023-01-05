@@ -119,6 +119,11 @@
   background-color: white;
 }
 
+.text {
+  position: absolute;
+  top: 0px;
+}
+
 @media (max-width: 768px) {
   .display-check {
     display: none;

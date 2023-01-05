@@ -94,7 +94,7 @@
       <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
         <mat-select
           formControlName="categoryID" name="categoryID"
-          class="" id="categoryID"
+          class="text px-2" id="categoryID"
           (selectionChange)="onChangeCategory($event.value)"
           *ngIf="categories"
           ngxMatSelect
@@ -124,7 +124,7 @@
       <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
         <mat-select
           formControlName="subcategoryID" name="subcategoryID"
-          class="" id="subcategoryID"
+          class="text px-2" id="subcategoryID"
           ngxMatSelect
           [lazyLoad]="true"
           [searcher]="subCategorySearcher.bind(this)"
