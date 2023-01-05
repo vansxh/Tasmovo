@@ -1,13 +1,11 @@
 <div>
-
   <!-- display clickable (backbutton and) profilepicture on all pages except all tasks, single tasks and my day -->
-  <div class="display-mobile-only" *ngIf="loggedIn()">
-    <!--wenn dashboard ned auf die folgenden seiten is dann zeig den folgenden shit an-->
-    <div
-         *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/my-day' && getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/sub-category' && getLocation()!='/my-categories'">
+  <div class="d-flex justify-content-center">
+  <div class="display-mobile-only mobile-header" *ngIf="loggedIn()">
+    <div>
       <div class="row pt-3 p-0">
         <div class="col">
-          <button class="btn border-0" appBackButton><!--*ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && !getLocation().includes('/calendar-detail')"-->
+          <button class="btn border-0" appBackButton *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && !getLocation().includes('/calendar-detail')">
             <i
             class="fa fa-chevron-left fa-lg"></i></button>
           <button *ngIf="getLocation().includes('/calendar-detail')" class="btn" (click)="toCalendarOverview()"><i
@@ -24,31 +22,16 @@
           <h1 class="p-0 m-0"></h1>
         </div>
       </div>
-
-    <!--<div
-      *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile'">
-      <div class="row pt-3 px-3">
-        <div class="col">
-          <h1 class="p-0 m-0"></h1>
-        </div>
-        <div class="col d-flex justify-content-end">
-          <a class="" routerLink="profile" routerLinkActive="active">
-            <img src="assets/profilpicture.svg" alt="Profile Icon">
-          </a>
-        </div>
-      </div>
-    </div>-->
     </div>
+  </div>
   </div>
 
   <!-- display top lila mobile background with content correctly -->
-  <!--lila background entweder z-index 1 oder -1-->
   <div id="mobile-background" *ngIf="loggedIn()"
        [ngClass]="{'header-mobile-tasks' : (getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day' || getLocation()=='/sub-category'),
        'header-mobile' : (getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day' && getLocation()!='/sub-category'), 'header-mobile-dashboard' : getLocation()=='/dashboard'}">
 
     <!-- display clickable (backbutton and) profilepicture on pages all tasks, single tasks and my day -->
-    <!--back button, profilbild auf den tasks seiten-->
     <div class="display-mobile-only">
       <div class=""
            *ngIf="getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day' || getLocation()=='/sub-category'">
