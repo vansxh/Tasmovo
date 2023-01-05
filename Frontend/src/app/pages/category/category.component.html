@@ -14,7 +14,7 @@
 
     <div class="row mt-5">
       <div class="col-3-lg col-md">
-          <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
+          <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | notDone | slice:0:4" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
             <div class="col-2 my-3">
               <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
             </div>
@@ -42,7 +42,7 @@
       </div>
       <div class="row mt-5">
         <div class="col-lg col-md">
-            <div class="row justify-content-center task-bottom" *ngFor="let t of allTasks | ofCategory:s.CAID | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
+            <div class="row justify-content-center task-bottom" *ngFor="let t of allTasks | ofCategory:s.CAID | notDone | slice:0:4" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
               <div class="col-2 my-3">
                 <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
               </div>
@@ -99,14 +99,14 @@
 >
   <ng-template swiperSlide>
     <div class="container-shadow bg-white">
-      <h2 class="text-center">Allgemein</h2>
-      <div class="row mt-4">
+      <h2 class="text-center pt-4">Allgemein</h2>
+      <div class="row mt-3">
         <div><ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length" [max]="categoryTasks.length"></ngb-progressbar></div>
       </div>
 
-      <div class="row mt-5">
+      <div class="row mt-3">
         <div class="col-lg col-md">
-          <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
+          <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | notDone | slice:0:4" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
             <div class="col-2 my-3">
               <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
             </div>
@@ -132,7 +132,7 @@
         </div>
         <div class="row mt-5">
           <div class="col-lg col-md">
-            <div class="row justify-content-center task-bottom" *ngFor="let t of allTasks | ofCategory:s.CAID | notDone" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
+            <div class="row justify-content-center task-bottom" *ngFor="let t of allTasks | ofCategory:s.CAID | notDone | slice:0:4" (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
              <div class="col-2 my-3">
                 <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
               </div>
