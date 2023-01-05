@@ -148,7 +148,7 @@ export class CategoryComponent implements OnInit {
   deleteCategory(category: Category): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
       data:{
-        message: 'Möchtest du diesen Task löschen?'
+        message: 'Möchtest du diese Subkategorie wirklich löschen?'
       }
     });
 

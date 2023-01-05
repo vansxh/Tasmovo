@@ -30,7 +30,7 @@
           <div class="col">
             <h1 class="p-0 m-0"></h1>
           </div>
-          <div class="col d-flex justify-content-end">
+          <div class="col d-flex justify-content-end" *ngIf="getLocation()!='/profile'">
             <a class="" routerLink="profile" routerLinkActive="active">
               <img src="assets/profilpicture.svg" alt="Profile Icon">
             </a>

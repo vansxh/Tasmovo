@@ -133,7 +133,7 @@ export class TaskComponent implements OnInit {
   deleteTask(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
       data:{
-        message: 'Möchtest du diesen Task löschen?'
+        message: 'Möchtest du diesen Task wirklich löschen?'
       }
     });
 
