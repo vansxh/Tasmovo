@@ -38,7 +38,7 @@
       <button class="btn btn-light" (click)="editCategory(s)"><i class="fa fa-edit"></i></button>
       <button class="btn btn-light" (click)="deleteCategory(s)"><i class="fa fa-trash-o"></i></button>
       <div class="row mt-4">
-      <div><ngb-progressbar type="primary" *ngIf="allTasks" [showValue]="true" [value]="(allTasks | ofCategory:s.CAID | done).length" [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar></div>
+      <div><ngb-progressbar type="primary" *ngIf="(allTasks | ofCategory:s.CAID).length > 0" [showValue]="true" [value]="(allTasks | ofCategory:s.CAID | done).length" [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar></div>
       </div>
       <div class="row mt-5">
         <div class="col-lg col-md">
