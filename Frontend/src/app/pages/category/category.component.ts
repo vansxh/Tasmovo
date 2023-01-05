@@ -7,6 +7,8 @@ import {Category} from "../../services/category/category";
 import {CategoryService} from "../../services/category/category.service";
 import { BehaviorSubject } from 'rxjs';
 import {SwiperComponent} from "swiper/angular";
+import {faPencil} from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 // import Swiper core and required modules
 import SwiperCore, { Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual } from 'swiper';
@@ -33,6 +35,9 @@ export class CategoryComponent implements OnInit {
   public allTasks!: Task[];
   slides$ = new BehaviorSubject<string[]>(['']);
   category!: Category;
+
+  faEdit = faPencil;
+  faTrash = faTrash;
 
   ngOnInit(): void {
 

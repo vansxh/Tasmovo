@@ -6,9 +6,9 @@
   class="my-swiper display-swiper-lg-only"
 >
   <ng-template swiperSlide>
-    <div class="container-shadow bg-white">
-    <h2 class="text-center" (click)="showCategory(category)">Allgemein</h2>
-    <div class="row mt-4">
+    <div class="container-shadow bg-white swiper-height">
+    <h2 class="text-center pt-4" (click)="showCategory(category)">Allgemein</h2>
+    <div class="row mt-3">
       <div><ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length" [max]="categoryTasks.length"></ngb-progressbar></div>
     </div>
 
@@ -32,12 +32,12 @@
     </div>
   </ng-template>
   <ng-template swiperSlide *ngFor="let s of subcategories">
-    <div class="container-shadow bg-white">
+    <div class="container-shadow bg-white swiper-height">
     <div class="swiper-slide-container">
-      <h2 class="text-center" (click)="showCategory(s)">{{s.category_name}}</h2>
-      <button class="btn btn-light" (click)="editCategory(s)"><i class="fa fa-edit"></i></button>
-      <button class="btn btn-light" (click)="deleteCategory(s)"><i class="fa fa-trash-o"></i></button>
-      <div class="row mt-4">
+      <h2 class="text-center pt-4" (click)="showCategory(s)">{{s.category_name}}</h2>
+      <button class="btn btn-light" (click)="editCategory(s)"><fa-icon [icon]="faEdit"></fa-icon></button>
+      <button class="btn btn-light" (click)="deleteCategory(s)"><fa-icon [icon]="faTrash"></fa-icon></button>
+      <div class="row mt-3">
       <div><ngb-progressbar type="primary" *ngIf="(allTasks | ofCategory:s.CAID).length > 0" [showValue]="true" [value]="(allTasks | ofCategory:s.CAID | done).length" [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar></div>
       </div>
       <div class="row mt-5">
@@ -127,6 +127,8 @@
     <div class="container-shadow bg-white">
       <div class="swiper-slide-container">
         <h2 class="text-center" (click)="showCategory(s)">{{s.category_name}}</h2>
+        <button class="btn btn-light" (click)="editCategory(s)"><fa-icon [icon]="faEdit"></fa-icon></button>
+        <button class="btn btn-light" (click)="deleteCategory(s)"><fa-icon [icon]="faTrash"></fa-icon></button>
         <div class="row mt-4">
           <div><ngb-progressbar type="primary" *ngIf="allTasks" [showValue]="true" [value]="(allTasks | ofCategory:s.CAID | done).length" [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar></div>
         </div>

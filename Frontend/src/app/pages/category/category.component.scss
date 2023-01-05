@@ -80,6 +80,10 @@ ngb-progressbar {
   display: none;
 }
 
+.swiper-height {
+  min-height: 500px;
+}
+
 @media (max-width: 992px) {
   ngb-progressbar {
     top: 50px;
