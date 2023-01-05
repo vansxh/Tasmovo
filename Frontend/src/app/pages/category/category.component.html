@@ -101,7 +101,7 @@
 >
   <ng-template swiperSlide>
     <div class="container-shadow bg-white swiper-height">
-      <h2 class="text-center pt-3">Allgemein</h2>
+      <h2 class="text-center pt-3" (click)="showCategory(category)">Allgemein</h2>
       <div class="row mt-3">
         <div><ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length" [max]="categoryTasks.length"></ngb-progressbar></div>
       </div>

@@ -27,6 +27,7 @@ export class SubCategoryComponent implements OnInit {
   ngOnInit(): void {
     // change heading
     let h1 = document.getElementsByTagName("h1");
+    let parent = document.getElementById("parent-cat");
 
     const routeParams = this.route.snapshot.params;
 
@@ -51,7 +52,19 @@ export class SubCategoryComponent implements OnInit {
           // get tasks from data
           this.subcategory = <Category>data['data'];
           console.log('sub: ' + this.subcategory.category_name);
-          for (let i = 0; i < h1.length; i++) {  h1[i].innerText = this.getSubcategoryName();};
+
+          if (!this.subcategory.parent_categoryID) {
+            if (window.innerWidth <= 768) {
+              parent!.innerText = this.subcategory.category_name;
+              for (let i = 0; i < h1.length; i++) {
+                h1[i].innerText = 'Allgemein';
+              }
+            } else {
+              for (let i = 0; i < h1.length; i++) {
+                h1[i].innerText = this.subcategory.category_name + ' - Allgemein'
+              }
+            }
+          }
 
           if(this.subcategory.parent_categoryID) {
             // get info of parent category
@@ -60,7 +73,16 @@ export class SubCategoryComponent implements OnInit {
                 // get tasks from data
                 this.parentCategory = <Category>data['data'];
                 console.log('parent: ' + this.parentCategory.category_name);
-                for (let i = 0; i < h1.length; i++) {  h1[i].innerText = this.parentCategory.category_name;};
+                if (window.innerWidth <= 768) {
+                  parent!.innerText = this.parentCategory.category_name;
+                  for (let i = 0; i < h1.length; i++) {
+                    h1[i].innerText = this.subcategory.category_name;
+                  }
+                } else {
+                  for (let i = 0; i < h1.length; i++) {
+                    h1[i].innerText = this.parentCategory.category_name + ' - ' + this.subcategory.category_name;
+                  }
+                }
               },
               (error: any = []) => {
                 if (error['error']['message']) {
