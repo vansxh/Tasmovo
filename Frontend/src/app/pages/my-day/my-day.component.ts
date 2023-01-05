@@ -16,6 +16,8 @@ import {PopupMydayComponent} from "../../popups/popup-myday/popup-myday.componen
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MyDayService} from "../../services/my-day/my-day.service";
 import * as Hammer from 'hammerjs';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 interface MyEvent extends CalendarEvent {
   deadline?: string;
@@ -72,15 +74,13 @@ export class MyDayComponent {
   finish!: boolean;
   swipeDiv!: HTMLElement;
 
+  faTrash = faTrash;
+
   // Event Action that will be added to all events to delete them from MyDay
-  actions: CalendarEventAction[] = [
-    {
-      label: '<p> löschen</p>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.taskService.deletePlannedTask(event.id).subscribe(
+  deleteEntry(id: any){
+        this.taskService.deletePlannedTask(id).subscribe(
           (data: any = []) => {
+            window.location.reload();
           },
           (error: any = []) => {
             if(error['error']['message']) {
@@ -89,9 +89,7 @@ export class MyDayComponent {
             }
             this.general.errorResponse(error['status']);
           });
-      },
-    },
-  ];
+      }
 
   refresh = new Subject<void>();
 
@@ -139,7 +137,6 @@ export class MyDayComponent {
             end:new Date(item.planned_date + ' ' + item.end_time),
             title:item.task_name,
             color: (item.statusID == 1 ? colors['main'] : colors['done']),
-            actions: this.actions,
             resizable: {
               beforeStart: true,
               afterEnd: true,

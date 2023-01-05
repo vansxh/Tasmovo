@@ -10,6 +10,13 @@
   background-color: #30235B;
 }
 
+:host ::ng-deep .cal-event-action {
+  color: red;
+}
+
+.my-day-tags {
+  font-size: 12px!important;
+}
 
 @media (max-width: 768px) {
   .btn-heading {

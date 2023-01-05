@@ -8,6 +8,7 @@ import {Observable, startWith, map} from "rxjs";
 import {TaskService} from "../../services/task/task.service";
 import {Task} from "../../services/task/task";
 import {GeneralService} from "../../services/general/general.service";
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-overview',
@@ -23,6 +24,8 @@ export class OverviewComponent implements OnInit {
   allTasksArray!: Task[];
   taskNames!: string[];
   filteredOptions!: any;
+
+  faSearch = faSearch;
 
   constructor(private authService: AuthenticationService, private router: Router, private taskService: TaskService, private general: GeneralService, private fb: FormBuilder) {
   }

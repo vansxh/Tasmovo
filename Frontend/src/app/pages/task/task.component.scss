@@ -12,6 +12,32 @@
   margin-bottom: 0;
 }
 
+.doneBtn-1 {
+  background-color: #D0C7EC;
+}
+
+.doneBtn-2 {
+  background-color: #9F92C6;
+  color: white;
+}
+
+.doneBtn-3 {
+  background-color: #634C9A;
+  color: white;
+}
+
+.doneBtn-Img {
+  width: 150px;
+  background-image: url("../../../assets/check.svg");
+  background-size: 20%;
+  background-position: left 8px top 2px;
+  background-repeat: no-repeat;
+}
+
+.not-doneBtn {
+  width: 150px;
+}
+
 @media (max-width: 768px) {
   .footer-task-detail {
     font-size: 12px;

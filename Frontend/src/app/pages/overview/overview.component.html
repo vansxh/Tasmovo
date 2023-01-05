@@ -1,17 +1,21 @@
-<div style="width: 100%">
+<div class="d-flex justify-content-center mt-3">
   <form [formGroup]="formGroup">
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="container-shadow text-search-mat bg-light" style="width: 20rem;">
       <mat-label></mat-label>
-      <input type="text"
+      <input type="text" class="text"
              placeholder="Alle Tasks durchsuchen"
              matInput
              formControlName="tasks"
              [matAutocomplete]="auto">
+      <fa-icon></fa-icon>
+      <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let item of filteredOptions" [value]="item['task_name']" (click)="detailsTask(item)">
           {{item['task_name']}}
         </mat-option>
+
       </mat-autocomplete>
+
     </mat-form-field>
   </form>
 </div>

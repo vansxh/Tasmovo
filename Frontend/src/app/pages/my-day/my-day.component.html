@@ -66,10 +66,11 @@
     class="cal-event-title"
     [attr.aria-hidden]="{} | calendarA11y: 'hideEventTitle'"
   >
-    <div>
-      <h2>{{event.title}}</h2>
-      <p *ngIf="event.deadline">bis {{event.deadline}} Uhr</p>
-      <p *ngIf="event.category">Kategorie: {{event.category}}</p>
+    <div class="d-flex justify-content-start gap-2 w-75">
+      <button class="btn btn-primary d-block" (click)="$event.stopPropagation(); deleteEntry(event.id);">Entfernen</button>
+      <h4 class="d-inline-block m-0 p-0">{{event.title}}</h4>
+      <div class="bg-dark rounded px-1 my-day-tags d-inline-block" *ngIf="event.deadline">bis {{event.deadline}} Uhr</div>
+      <div class="bg-dark rounded px-1 my-day-tags d-inline-block" *ngIf="event.category">{{event.category}}</div>
     </div>
     <button *ngIf="event.statusID == 1" class="btn-circle btn-xl bg-info" (click)="finishTask(event)"></button>
   </div>
