@@ -16,7 +16,7 @@
     <div class="d-flex justify-content-end"
          style="position: absolute; bottom: 80px; right: 10px;">
       <button class="btn btn-light" (click)="editCategory(c)"><fa-icon [icon]="faEdit"></fa-icon></button>
-      <button class="btn btn-light" (click)="deleteCategory(c)"><fa-icon [icon]="faTrash"></fa-icon></button>
+      <button class="btn btn-light" (click)="$event.stopPropagation(); deleteCategory(c)"><fa-icon [icon]="faTrash"></fa-icon></button>
     </div>
     <div style="position: absolute; bottom: 15px; right: 20px;">
     <div class="d-flex justify-content-end">
