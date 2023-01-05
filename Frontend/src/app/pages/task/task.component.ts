@@ -12,6 +12,7 @@ import {CategoryService} from "../../services/category/category.service";
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import {ConfirmationDialogComponent} from "../../popups/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-task',
@@ -130,18 +131,31 @@ export class TaskComponent implements OnInit {
   }
 
   deleteTask(): void {
-    this.taskService.deleteTask(this.task.TAID).subscribe(
-      (data: any = []) => {
-        // update view if deleting was successful
-        this.router.navigate(['/dashboard']);
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        message: 'Möchtest du diesen Task löschen?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.taskService.deleteTask(this.task.TAID).subscribe(
+          (data: any = []) => {
+            // update view if deleting was successful
+            this.router.navigate(['/dashboard']);
+          },
+          (error: any = []) => {
+            if(error['error']['message']) {
+              alert(error['error']['message']);
+              return;
+            }
+            this.general.errorResponse(error['status']);
+          });
+      }
+    });
+
+
+
   }
 
   back(): void {

@@ -8,6 +8,8 @@ import {Task} from "../../services/task/task";
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import {ConfirmationDialogComponent} from "../../popups/confirmation-dialog/confirmation-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-my-categories',
@@ -22,7 +24,7 @@ export class MyCategoriesComponent implements OnInit {
   faTrash = faTrash;
   faCircleX = faCirclePlus;
 
-  constructor(private catService: CategoryService, private authService: AuthenticationService, private general: GeneralService, private taskService: TaskService) {
+  constructor(private catService: CategoryService, private authService: AuthenticationService, private general: GeneralService, private taskService: TaskService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -47,18 +49,28 @@ export class MyCategoriesComponent implements OnInit {
   }
 
   deleteCategory(category: Category): void {
-    this.catService.deleteCategory(category.CAID).subscribe(
-      (data: any = []) => {
-        // update view if deleting was successful
-        this.ngOnInit();
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        message: 'Möchtest du diesen Task löschen?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.catService.deleteCategory(category.CAID).subscribe(
+          (data: any = []) => {
+            // update view if deleting was successful
+            this.ngOnInit();
+          },
+          (error: any = []) => {
+            if(error['error']['message']) {
+              alert(error['error']['message']);
+              return;
+            }
+            this.general.errorResponse(error['status']);
+          });
+      }
+    });
   }
 
   editCategory(category: Category): void {

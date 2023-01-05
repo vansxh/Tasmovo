@@ -77,6 +77,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { HammerModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatSliderModule} from '@angular/material/slider';
+import { ConfirmationDialogComponent } from './popups/confirmation-dialog/confirmation-dialog.component';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -131,6 +132,8 @@ export const routes: Routes = [
   {path: 'task/:TAID', component: TaskComponent, canActivate: [AuthGuard]},
 ];
 
+// @ts-ignore
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -166,6 +169,7 @@ export const routes: Routes = [
     PopupMydayComponent,
     SpinnerComponent,
     BackButtonDirective,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,

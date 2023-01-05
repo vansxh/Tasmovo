@@ -15,6 +15,7 @@ import SwiperCore, { Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual 
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import Swiper from "swiper";
+import {ConfirmationDialogComponent} from "../../popups/confirmation-dialog/confirmation-dialog.component";
 
 // install Swiper modules
 SwiperCore.use([Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual]);
@@ -145,18 +146,28 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory(category: Category): void {
-    this.catService.deleteCategory(category.CAID).subscribe(
-      (data: any = []) => {
-        // update view if deleting was successful
-        this.ngOnInit();
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        message: 'Möchtest du diesen Task löschen?'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.catService.deleteCategory(category.CAID).subscribe(
+          (data: any = []) => {
+            // update view if deleting was successful
+            this.ngOnInit();
+          },
+          (error: any = []) => {
+            if(error['error']['message']) {
+              alert(error['error']['message']);
+              return;
+            }
+            this.general.errorResponse(error['status']);
+          });
+      }
+    });
   }
 
   editCategory(category: Category): void {
