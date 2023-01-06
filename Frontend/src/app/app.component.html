@@ -4,7 +4,7 @@
     <div class="display-mobile-only mobile-header" *ngIf="loggedIn()">
       <div *ngIf="getLocation()!='/dashboard' && getLocation()!='/overview' && getLocation()!='/timer' && getLocation()!='/calendar' && getLocation()!='/profile' && getLocation()!='/all-tasks' && getLocation()!='/single-tasks' && getLocation()!='/my-day' && !getLocation().includes('/sub-category')">
         <div class="row pt-3 px-1">
-          <div class="col">
+          <div class="col d-flex justify-content-start align-items-center">
             <button *ngIf="!getLocation().includes('/calendar-detail')" class="btn border-0" appBackButton>
               <i
                 class="fa fa-chevron-left fa-lg"></i></button>
@@ -13,7 +13,7 @@
           </div>
           <div class="col d-flex justify-content-end">
             <a class="" routerLink="profile" routerLinkActive="active">
-              <img src="assets/profilpicture.svg" alt="Profile Icon">
+              <img src="assets/default2.png" width="45px" alt="Profile Icon">
             </a>
           </div>
         </div>
@@ -32,7 +32,7 @@
           </div>
           <div class="col d-flex justify-content-end" *ngIf="getLocation()!='/profile'">
             <a class="" routerLink="profile" routerLinkActive="active">
-              <img src="assets/profilpicture.svg" alt="Profile Icon">
+              <img src="assets/default2.png" width="45px" alt="Profile Icon">
             </a>
           </div>
         </div>
@@ -50,7 +50,7 @@
       <div class="display-mobile-only mobile-header"
            *ngIf="getLocation()=='/all-tasks' || getLocation()=='/single-tasks' || getLocation()=='/my-day' || getLocation().includes('/sub-category')">
         <div class="row pt-3 px-1">
-          <div class="col">
+          <div class="col d-flex justify-content-start align-items-center">
             <button *ngIf="!getLocation().includes('/calendar-detail')" class="btn border-0" appBackButton><i
               class="fa fa-chevron-left fa-lg"></i></button>
             <button *ngIf="getLocation().includes('/calendar-detail')" class="btn" (click)="toCalendarOverview()"><i
@@ -58,7 +58,7 @@
           </div>
           <div class="col d-flex justify-content-end">
             <a class="" routerLink="profile" routerLinkActive="active">
-              <img src="assets/profilpicture.svg" alt="Profile Icon">
+              <img src="assets/default2.png" width="45px" alt="Profile Icon">
             </a>
           </div>
         </div>
@@ -93,27 +93,27 @@
           </li>
           <li class="nav-item text-center py-3">
             <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
-              <img src="assets/home.svg" width="70%" alt="Home Icon">
+              <img src="assets/home.png" width="30px" alt="Home Icon">
             </a>
           </li>
           <li class="nav-item text-center py-3">
             <a class="nav-link" routerLink="overview" routerLinkActive="active">
-              <img src="assets/list.svg" width="70%" alt="List Icon">
+              <img src="assets/list.png" width="28px" alt="List Icon">
             </a>
           </li>
           <li class="nav-item text-center py-3">
             <a class="nav-link" routerLink="timer" routerLinkActive="active">
-              <img src="assets/hourglass.svg" width="70%" alt="Timer Icon">
+              <img src="assets/hourglass.png" width="28px" alt="Timer Icon">
             </a>
           </li>
           <li class="nav-item text-center pt-3 pb-4">
             <a class="nav-link" routerLink="calendar" routerLinkActive="active">
-              <img src="assets/calendar.svg" width="70%" alt="Calendar Icon">
+              <img src="assets/calendar.png" width="28px" alt="Calendar Icon">
             </a>
           </li>
           <li class="nav-item text-center pb-2 pt-5 mt-4 border-top">
             <a class="nav-link" routerLink="profile" routerLinkActive="active">
-              <img src="assets/profile.svg" width="70%" alt="Profile Icon">
+              <img src="assets/default2.png" width="32px" alt="Profile Icon">
             </a>
           </li>
         </ul>
@@ -147,36 +147,36 @@
       <ul class="nav">
         <li class="nav-item">
           <a class="nav-link" routerLink="dashboard" routerLinkActive="active">
-            <img src="assets/home.svg" width="90%" alt="Home Icon">
+            <img src="assets/home.png" width="23px" alt="Home Icon">
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="overview" routerLinkActive="active">
-            <img src="assets/list.svg" width="90%" alt="List Icon">
+            <img src="assets/list.png" width="23px" alt="List Icon">
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-center add-btn-pos" (click)="addPopup()"
              *ngIf="loggedIn() && getLocation()!='/my-day' && getLocation()!='/insert-task' && getLocation()!='/insert-category'">
-            <img src="assets/add.svg" width="40%" alt="Add Icon">
+            <img src="assets/add.png" width="48px" alt="Add Icon">
           </a>
           <a class="nav-link text-center add-btn-pos" (click)="addPlannedTaskOpen()"
              *ngIf="loggedIn() && getLocation()=='/my-day'">
-            <img src="assets/my-day-btn.svg" width="40%" alt="My Day Icon">
+            <img src="assets/my-day-btn.png" width="48px" alt="My Day Icon">
           </a>
           <a class="nav-link text-center add-btn-pos"
              *ngIf="loggedIn() && getLocation()=='/insert-task' || getLocation()=='/insert-category'">
-            <img src="assets/check-btn-bglight.svg" width="40%" alt="Check Icon">
+            <img src="assets/check-white.png" width="48px" alt="Check Icon">
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="timer" routerLinkActive="active">
-            <img src="assets/hourglass.svg" width="90%" alt="Timer Icon">
+            <img src="assets/hourglass.png" width="23px" alt="Timer Icon">
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="calendar" routerLinkActive="active">
-            <img src="assets/calendar.svg" width="90%" alt="Calendar Icon">
+            <img src="assets/calendar.png" width="23px" alt="Calendar Icon">
           </a>
         </li>
       </ul>
@@ -189,14 +189,14 @@
       <div class="containerCenterWhile">
         <a class="nav-link nav-item" (click)="addPopup()"
            *ngIf="loggedIn() && getLocation()!='/my-day' && !getLocation().includes('/insert-task') && !getLocation().includes('/insert-category')">
-          <img src="assets/add-alternative.svg" class="btnImg" alt="Add Icon">
+          <img src="assets/add-alternative.png" class="btnImg" alt="Add Icon">
         </a>
       </div>
     </div>
     <div class="containerWhile">
       <div class="containerCenterWhile">
         <a class="nav-link nav-item" (click)="addPlannedTaskOpen()" *ngIf="loggedIn() && getLocation()=='/my-day'">
-          <img src="assets/my-day-btn-alternative.svg" class="btnImg" alt="My Day Icon">
+          <img src="assets/my-day-alternative.png" class="btnImg" alt="My Day Icon">
         </a>
       </div>
     </div>

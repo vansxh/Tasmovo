@@ -62,13 +62,6 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-/*.select {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 15px;
-  width: 294px;
-}*/
-
 .select {
   position: relative;
   display: inline-block;
@@ -136,69 +129,38 @@ input[type=number] {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-/*.select select {
-  font-size: 16px;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-  padding: 10px 10px;
-  outline: 0;
-  border: 0px solid #000000;
-  border-radius: 0px;
-  background: #e6e2f2;
-  color: #30235b;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-.select select::-ms-expand {
-  display: none;
-}
-
-.select select:hover,
-.select select:focus {
-  color: #30235b;
-  background: #e6e2f2;
-}
-
-.select select:disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.select_arrow {
-  position: absolute;
-  top: 20px;
-  right: 15px;
-  width: 12px;
-  height: 12px;
-  border: solid #30235b;
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-}
-
-.select select:hover ~ .select_arrow,
-.select select:focus ~ .select_arrow {
-  border-color: #30235b;
-}
-
-.select select:disabled ~ .select_arrow {
-  border-top-color: #30235b;
-}
-*/
 .image {
-  width: 411px;
+  width: 400px;
 }
 
 .buttonStart {
   width: 259px;
   margin-top: 50px;
   font-size: 20px;
+}
+
+.mat-form-field {
+  height: 45px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+:host ::ng-deep .mat-form-field-infix {
+  border-top: none;
+}
+
+:host ::ng-deep .mat-error {
+  font-size: 10px!important;
+  color: black!important;
+}
+
+.text-timer-select {
+  position: absolute;
+  left: 5px;
+  top: 15px;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: left!important;
 }
 
 //whileState
@@ -223,11 +185,11 @@ input[type=number] {
 }
 
 .imgBorder {
-  width: 485px;
+  width: 400px;
 }
 
 .gif {
-  width: 800px;
+  width: 650px;
 }
 
 .loadText {
@@ -276,24 +238,14 @@ input[type=number] {
     margin-top: 40px;
   }
   .select {
-    width: 198px;
+    width: 60%;
   }
   .select select {
     font-size: 13px;
   }
   .select_arrow {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    width: 12px;
-    height: 12px;
-    border: solid #302065;
-    border-width: 0 3px 3px 0;
-    border-radius: 1px;
-    display: inline-block;
-    padding: 3px;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
+    width: 15px;
+    height: 15px;
   }
 
   //whileState
@@ -312,6 +264,11 @@ input[type=number] {
 }
 
 @media (max-width: 518px) {
+  //startState
+  .select {
+    width: 90%;
+  }
+
   //whileState
   .gif {
     width: 300px;
@@ -326,14 +283,19 @@ input[type=number] {
 
 @media (max-width: 340px) {
   //startState
-  .image {
-    width: 240px;
-  }
   :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
     text-align: center;
     width: 30px;
     font-weight: bold;
     font-size: 24px;
+  }
+
+  .select {
+    width: 90%;
+  }
+
+  .container {
+    padding: 0;
   }
 
   //whileState

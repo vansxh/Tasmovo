@@ -99,20 +99,22 @@ span{
 }
 
 .btnImg {
-  width: 80px;
+  width: 75px;
   background-color: white;
   border: none;
 }
 
 .btnImg:hover{
-  width: 110px;
+  width: 95px;
   border: none;
   background-color: white;
 }
 
 .check-btn-web {
-  padding: 0;
   border: none;
+  display: block;
+  margin-top: -15px;
+  padding: 0 10px;
 }
 
 .containerCenterWhile{

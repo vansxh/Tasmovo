@@ -13,13 +13,13 @@
                  if(parseInt(this.value,10)>23)this.value='23';"
                    (change)="spinImage()">
             <mat-error *ngIf="rewardForm.get('hours')?.hasError('required')">
-              Dieses Feld darf nicht leer sein.
+              <span>Dieses Feld darf nicht leer sein.</span>
             </mat-error>
             <mat-error *ngIf="rewardForm.get('hours')?.hasError('max')">
-              Dieses Feld darf nicht größer als 24 sein.
+             <span> Dieses Feld darf nicht größer als 24 sein.</span>
             </mat-error>
             <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
-              Dieses Feld darf nicht kleiner als 0 sein.
+              <span>Dieses Feld darf nicht kleiner als 0 sein.</span>
             </mat-error>
           </mat-form-field>
           <span class="coluns">:</span>
@@ -32,13 +32,13 @@
                  if(parseInt(this.value,10)>59)this.value='59';"
                    (change)="spinImage()">
             <mat-error *ngIf="rewardForm.get('minutes')?.hasError('required')">
-              Dieses Feld darf nicht leer sein.
+              <span>Dieses Feld darf nicht leer sein.</span>
             </mat-error>
             <mat-error *ngIf="rewardForm.get('minutes')?.hasError('max')">
-              Dieses Feld darf maximal 59 betragen.
+              <span>Dieses Feld darf maximal 59 betragen.</span>
             </mat-error>
             <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
-              Dieses Feld darf nicht kleiner als 0 sein.
+              <span>Dieses Feld darf maximal 59 betragen.</span>
             </mat-error>
           </mat-form-field>
           <span class="coluns">:</span>
@@ -52,11 +52,11 @@
 
     <form [formGroup]="rewardForm" novalidate>
       <div class="form-group select mt-3">
-        <label for="rewardID">Kategorie (optional):</label>
+        <label for="rewardID" class="text-start">Belohnung:</label>
         <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
           <mat-select
             formControlName="rewardID" name="rewardID"
-            class="text px-2" id="rewardID"
+            class="text-timer-select px-2" id="rewardID"
             *ngIf="rewards"
             ngxMatSelect
             [lazyLoad]="true"
