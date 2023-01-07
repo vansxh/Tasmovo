@@ -1,5 +1,5 @@
-.user-headings{
-  font-weight: 500;
+.user-headings {
+  font-weight: 600;
   color: #30235B;
 }
 
@@ -76,6 +76,22 @@
   display: flex;
   align-items: center;
   justify-content: end;
+}
+
+.height-web-view {
+  height: 800px;
+}
+
+@media (min-width: 1400px) {
+  .height-web-view {
+    height: 900px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .height-web-view {
+    height: 700px;
+  }
 }
 
 @media (max-width: 768px) {
