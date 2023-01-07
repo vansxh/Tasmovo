@@ -22,6 +22,10 @@ span{
   color: #30235B;
 }
 
+.mobile-input-width {
+  width: 55%;
+}
+
 @media (max-width: 768px) {
   .switch-screen {
     display: none!important;
@@ -29,5 +33,9 @@ span{
 
   .switch-screen-small {
     display: block;
+  }
+
+  .mobile-input-width {
+    width: 100%;
   }
 }

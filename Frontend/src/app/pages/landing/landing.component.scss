@@ -1,3 +1,13 @@
 .landing-container {
   height: 100vh;
 }
+
+.btn-landing {
+  width: 20rem;
+}
+
+@media (max-width: 768px) {
+  .btn-landing {
+    width: 16rem;
+  }
+}

@@ -62,8 +62,6 @@
   <div class="row mt-4 mx-5 mb-3">
     <button *ngIf="this.plannedTask.TAID === 0" [disabled]="!addPlannedTaskForm.valid" (click)="onAddTaskSumbmit()" class="btn btn-primary">Speichern</button>
     <button *ngIf="this.plannedTask.TAID !== 0" [disabled]="!addPlannedTaskForm.valid" (click)="onEditTaskSumbmit()" class="btn btn-primary">Bearbeiten</button>
-  </div>
-  <div class="row mx-5">
-    <button class="btn btn-primary" (click)="onClose()">Abbrechen</button>
+    <button class="btn btn-primary mt-2" (click)="onClose()">Abbrechen</button>
   </div>
 </form>

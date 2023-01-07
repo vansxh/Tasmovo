@@ -7,7 +7,7 @@
 
       <div class="shadow px-3 pb-1 mb-2 bg-white">
         <div *ngIf="plannedTasks">
-          <h3 class="text-primary ">Mein Tag</h3>
+          <h4 class="text-primary text-dashboard pt-2">Mein Tag</h4>
           <div class="row justify-content-center task-bottom" *ngFor="let t of plannedTasks | slice:0:4" (click)="detailsTask(t)">
             <div class="col-2 my-3">
               <button *ngIf="t.statusID == 1" class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
@@ -20,7 +20,7 @@
           </div>
         </div>
         <div *ngIf="!plannedTasks">
-          <h3 class="text-primary text-dashboard">nächste Tasks</h3>
+          <h4 class="text-primary text-dashboard pt-2">nächste Tasks</h4>
           <div class="row justify-content-center task-bottom" *ngFor="let t of openTasks | slice:0:4" (click)="detailsTask(t)">
             <div class="col-2 my-3">
               <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
@@ -50,7 +50,7 @@
 
   <div class="col-md-6 col-sm-12">
 <div class="d-flex flex-column justify-content-center align-items-center shadow p-3 mb-2 bg-white">
-  <div>Dein heutiges Stresslevel:</div>
+  <h4 class="text-dashboard">Dein heutiges Stresslevel:</h4>
   <br>
   <mat-progress-spinner
     class="example-margin"
