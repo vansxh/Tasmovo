@@ -1,21 +1,22 @@
-<div *ngIf="!isLoading &&userLoaded">
+<div *ngIf="!isLoading &&userLoaded" class="mobile-distance">
 
   <!--Username and Profile Image on Mobile View-->
   <div class="profilemobile mx-3">
-    <div class="text-primary" *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
+    <h1 class="text-primary text-center" *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</h1>
     <br>
-    <div class="text-center"><img class="justify-content-center" src="assets/default2.png" width="50%"></div>
+    <div class="text-center"><img class="justify-content-center" src="assets/default2.png" width="200px"></div>
     <br>
   </div>
 
   <!--Profile on Mobile View-->
-  <mat-tab-group class="profilemobile mx-3 indexing-stress">
+  <mat-tab-group mat-stretch-tabs class="profilemobile mx-3 indexing-stress">
 
     <!--Stresslevel Tab on Mobile View-->
-    <mat-tab label="Stresslevel">
-      <div class="text-center">
+    <mat-tab label="Daten">
+
+      <div class="text-center mt-2">
         <div class="d-flex flex-column align-items-center mb-5">
-          <span class="mb-3">Dein durchschnittliches Stresslevel in der letzten Woche</span>
+          <span class="mb-3 user-headings">Dein durchschnittliches Stresslevel <br> in der letzten Woche</span>
           <mat-progress-spinner
             class="example-margin"
             value="{{weeklyAverage*10}}" mode="determinate" color="primary">
@@ -24,17 +25,17 @@
         </div>
 
         <div class="divChart">
-          <span>Dein täglich angesammelter Stress in der letzten Woche</span>
+          <span class="user-headings">Dein täglich angesammelter Stress <br> in der letzten Woche</span>
           <canvas id="myAreaChartMobile" class="mt-2"></canvas>
         </div>
 
         <div class="divChart">
-          <span class="mb-3">Deine abgeschlossenen Tasks in der letzten Woche</span>
+          <span class="mb-3 user-headings">Deine abgeschlossenen Tasks <br> in der letzten Woche</span>
           <canvas id="myBarChartMobile" class="mt-2"></canvas>
         </div>
 
         <div class="mb-3">
-          <span>In der letzten Woche hast du</span>
+          <span class="user-headings">In der letzten Woche hast du</span>
           <div class="mt-3 row d-flex justify-content-center align-items-center">
             <div class="col text-center d-flex justify-content-center">
               <div class="dot daysPlanned">
@@ -63,33 +64,38 @@
     <mat-tab label="Info">
 
       <!--Tasks and Categories on Mobile View-->
-      <div class="row">
-        <div class="col text-center"><b>{{allTasksLength}}</b></div>
-        <div class="col text-center"><b>{{allFinishedTasksLength}}</b></div>
-        <div class="col text-center"><b>{{allCategoriesLength}}</b></div>
+      <div class="row mt-2">
+        <div class="col text-center p-0"><b>{{allTasksLength}}</b></div>
+        <div class="col text-center p-0"><b>{{allFinishedTasksLength}}</b></div>
+        <div class="col text-center p-0"><b>{{allCategoriesLength}}</b></div>
       </div>
       <div class="row border-bottom border-primary">
-        <div class="col text-center" *ngIf="allTasksLength == 1">Task</div>
-        <div class="col text-center" *ngIf="allTasksLength != 1">Tasks</div>
-        <div class="col text-center" *ngIf="allFinishedTasksLength == 1">fertiger Task</div>
-        <div class="col text-center" *ngIf="allFinishedTasksLength != 1">fertige Tasks</div>
-        <div class="col text-center" *ngIf="allCategoriesLength == 1">Kategorie</div>
-        <div class="col text-center" *ngIf="allCategoriesLength != 1">Kategorien</div>
+        <div class="col text-center p-0" *ngIf="allTasksLength == 1">Task</div>
+        <div class="col text-center p-0" *ngIf="allTasksLength != 1">Tasks</div>
+        <div class="col text-center p-0" *ngIf="allFinishedTasksLength == 1">fertiger Task</div>
+        <div class="col text-center p-0" *ngIf="allFinishedTasksLength != 1">fertige Tasks</div>
+        <div class="col text-center p-0" *ngIf="allCategoriesLength == 1">Kategorie</div>
+        <div class="col text-center p-0" *ngIf="allCategoriesLength != 1">Kategorien</div>
       </div>
       <br>
 
       <!--User Data on Mobile View-->
-      <div *ngIf="currentUser">
+      <div *ngIf="currentUser" class="d-flex justify-content-center text-start">
         <form [formGroup]="userForm" class="form" autocomplete="off">
 
           <!--Change Username on Mobile View-->
-          <div *ngIf="!changeUsername">
-            <span class="pain"> Benutzername </span>
-            <br>
-            <span class="text-danger help"> {{currentUser.username}} </span>
-            <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true">
-              <fa-icon [icon]="faEdit"></fa-icon>
-            </button>
+          <div *ngIf="!changeUsername" class="user-box">
+            <div>
+            <span class="user-headings"> Benutzername </span>
+            </div>
+            <div class="user-box-icon">
+              <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true">
+                <fa-icon [icon]="faEdit" size="lg"></fa-icon>
+              </button>
+            </div>
+            <div>
+            <span class="text-danger user-texts"> {{currentUser.username}} </span>
+            </div>
           </div>
           <div *ngIf="changeUsername">
             <mat-form-field class="example-full-width">
@@ -111,13 +117,18 @@
           </div>
 
           <!--Change First Name on Mobile View-->
-          <div *ngIf="!changeFirstname">
-            <span class="pain"> Vorname </span>
-            <br>
-            <span class="text-danger help"> {{currentUser.firstName}} </span>
-            <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
-              <fa-icon [icon]="faEdit"></fa-icon>
-            </button>
+          <div *ngIf="!changeFirstname" class="user-box">
+            <div>
+            <span class="user-headings"> Vorname </span>
+            </div>
+            <div class="user-box-icon">
+              <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
+                <fa-icon [icon]="faEdit" size="lg"></fa-icon>
+              </button>
+            </div>
+            <div>
+            <span class="text-danger user-texts"> {{currentUser.firstName}} </span>
+            </div>
           </div>
           <div *ngIf="changeFirstname">
             <mat-form-field class="example-full-width">
@@ -135,13 +146,18 @@
           </div>
 
           <!--Change Last Name on Mobile View-->
-          <div *ngIf="!changeLastname">
-            <span class="pain"> Nachname </span>
-            <br>
-            <span class="text-danger help"> {{currentUser.lastName}} </span>
-            <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
-              <fa-icon [icon]="faEdit"></fa-icon>
-            </button>
+          <div *ngIf="!changeLastname" class="user-box">
+            <div>
+            <span class="user-headings"> Nachname </span>
+            </div>
+            <div class="user-box-icon">
+              <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
+                <fa-icon [icon]="faEdit" size="lg"></fa-icon>
+              </button>
+            </div>
+            <div>
+            <span class="text-danger user-texts"> {{currentUser.lastName}} </span>
+            </div>
           </div>
           <div *ngIf="changeLastname">
             <mat-form-field class="example-full-width">
@@ -159,13 +175,18 @@
           </div>
 
           <!--Change Stresslimit on Mobile View-->
-          <div *ngIf="!changeStressLimit">
-            <span class="pain"> Stress Limit </span>
-            <br>
-            <span class="text-danger help"> {{currentUser.stress_limit}} </span>
-            <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
-              <fa-icon [icon]="faEdit"></fa-icon>
-            </button>
+          <div *ngIf="!changeStressLimit" class="user-box">
+            <div>
+            <span class="user-headings"> Stress Limit </span>
+            </div>
+            <div class="user-box-icon">
+              <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
+                <fa-icon [icon]="faEdit" size="lg"></fa-icon>
+              </button>
+            </div>
+            <div>
+            <span class="text-danger user-texts"> {{currentUser.stress_limit}} </span>
+            </div>
           </div>
           <div *ngIf="changeStressLimit">
             <mat-form-field class="example-full-width">
@@ -188,8 +209,8 @@
   </mat-tab-group>
 
   <!--Logout Button on Mobile View-->
-  <div class="profilemobile mx-3">
-    <button class="btn btn-primary" (click)="logout()">Abmelden</button>
+  <div class="profilemobile mt-4 text-center">
+    <button class="btn btn-primary logout-btn" (click)="logout()">Abmelden</button>
   </div>
 
 
@@ -199,28 +220,28 @@
     <div class="row">
 
       <!--Info Tab on Web View-->
-      <div class="col">
+      <div class="col-5">
 
         <!--Username and Profile Image on Web View-->
         <div class="container-shadow px-3 pt-4 pb-1 mb-2 bg-white text-center">
           <img src="assets/default2.png" width="35%">
           <br>
-          <div class="text-center text-primary pt-1" id="Username" *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
+          <div class="text-center text-primary pt-1 m-0" id="Username" *ngIf="currentUser">{{currentUser.firstName}} {{currentUser.lastName}}</div>
           <br>
 
           <!--Tasks and Categories on Web View-->
           <div class="row">
-            <div class="col text-center"><b>{{allTasksLength}}</b></div>
-            <div class="col text-center"><b>{{allFinishedTasksLength}}</b></div>
-            <div class="col text-center"><b>{{allCategoriesLength}}</b></div>
+            <div class="col text-center p-0"><b>{{allTasksLength}}</b></div>
+            <div class="col text-center p-0"><b>{{allFinishedTasksLength}}</b></div>
+            <div class="col text-center p-0"><b>{{allCategoriesLength}}</b></div>
           </div>
-          <div class="row border-bottom border-primary">
-            <div class="col text-center" *ngIf="allTasksLength == 1">Task</div>
-            <div class="col text-center" *ngIf="allTasksLength != 1">Tasks</div>
-            <div class="col text-center" *ngIf="allFinishedTasksLength == 1">fertiger Task</div>
-            <div class="col text-center" *ngIf="allFinishedTasksLength != 1">fertige Tasks</div>
-            <div class="col text-center" *ngIf="allCategoriesLength == 1">Kategorie</div>
-            <div class="col text-center" *ngIf="allCategoriesLength != 1">Kategorien</div>
+          <div class="row border-bottom border-primary user-texts-web">
+            <div class="col text-center p-0" *ngIf="allTasksLength == 1">Task</div>
+            <div class="col text-center p-0" *ngIf="allTasksLength != 1">Tasks</div>
+            <div class="col text-center p-0" *ngIf="allFinishedTasksLength == 1">fertiger Task</div>
+            <div class="col text-center p-0" *ngIf="allFinishedTasksLength != 1">fertige Tasks</div>
+            <div class="col text-center p-0" *ngIf="allCategoriesLength == 1">Kategorie</div>
+            <div class="col text-center p-0" *ngIf="allCategoriesLength != 1">Kategorien</div>
           </div>
           <br>
 
@@ -229,13 +250,19 @@
             <form [formGroup]="userForm" class="form" autocomplete="off">
 
               <!--Change Username on Web View-->
-              <div *ngIf="!changeUsername">
-                <span class="pain">Benutzername</span>
-                <br>
-                <span class="text-danger help"> {{currentUser.username}} </span>
-                <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true">
-                  <fa-icon [icon]="faEdit"></fa-icon>
-                </button>
+              <div *ngIf="!changeUsername" class="user-box">
+                <div>
+                <span class="user-headings">Benutzername</span>
+                </div>
+                <div class="user-box-icon">
+                  <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm();changeUsername = true">
+                    <fa-icon [icon]="faEdit" size="lg"></fa-icon>
+                  </button>
+                </div>
+                <div>
+                  <span class="text-danger user-texts"> {{currentUser.username}} </span>
+                </div>
+
               </div>
               <div *ngIf="changeUsername">
                 <mat-form-field class="example-full-width">
@@ -258,13 +285,18 @@
               </div>
 
               <!--Change First Name on Web View-->
-              <div *ngIf="!changeFirstname">
-                <span class="pain">Vorname</span>
-                <br>
-                <span class="text-danger help"> {{currentUser.firstName}} </span>
-                <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
-                  <fa-icon [icon]="faEdit"></fa-icon>
-                </button>
+              <div *ngIf="!changeFirstname" class="user-box">
+                <div>
+                <span class="user-headings">Vorname</span>
+                </div>
+                <div class="user-box-icon">
+                  <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeFirstname = true">
+                    <fa-icon [icon]="faEdit" size="lg"></fa-icon>
+                  </button>
+                </div>
+                <div>
+                <span class="text-danger user-texts"> {{currentUser.firstName}} </span>
+                  </div>
               </div>
               <div *ngIf="changeFirstname">
                 <mat-form-field class="example-full-width">
@@ -283,13 +315,18 @@
               </div>
 
               <!--Change Last Name on Web View-->
-              <div *ngIf="!changeLastname">
-                <span class="pain">Nachname</span>
-                <br>
-                <span class="text-danger help"> {{currentUser.lastName}} </span>
-                <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
-                  <fa-icon [icon]="faEdit"></fa-icon>
-                </button>
+              <div *ngIf="!changeLastname"  class="user-box">
+                <div>
+                <span class="user-headings">Nachname</span>
+                </div>
+                <div class="user-box-icon">
+                  <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeLastname = true">
+                    <fa-icon [icon]="faEdit" size="lg"></fa-icon>
+                  </button>
+                </div>
+                <div>
+                <span class="text-danger user-texts"> {{currentUser.lastName}} </span>
+                  </div>
               </div>
               <div *ngIf="changeLastname">
                 <mat-form-field class="example-full-width">
@@ -308,13 +345,18 @@
               </div>
 
               <!--Change Stresslimit on Web View-->
-              <div *ngIf="!changeStressLimit">
-                <span class="pain">Stress Limit</span>
-                <br>
-                <span class="text-danger help"> {{currentUser.stress_limit}} </span>
-                <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
-                  <fa-icon [icon]="faEdit"></fa-icon>
-                </button>
+              <div *ngIf="!changeStressLimit" class="user-box">
+                <div>
+                <span class="user-headings">Stress Limit</span>
+                </div>
+                <div class="user-box-icon">
+                  <button class="btn text-secondary" (click)="setBooleansFalse(); changeForm(); changeStressLimit = true">
+                    <fa-icon [icon]="faEdit" size="lg"></fa-icon>
+                  </button>
+                </div>
+                <div>
+                <span class="text-danger user-texts"> {{currentUser.stress_limit}} </span>
+                </div>
               </div>
               <div *ngIf="changeStressLimit">
                 <mat-form-field class="example-full-width">
@@ -341,54 +383,61 @@
       </div>
 
       <!--Stresslevel Tab on Web View-->
-      <div class="col">
+      <div class="col-7">
         <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white text-center">
-          <div class="d-flex flex-column align-items-center mb-5">
-            <span class="mb-3">Dein durchschnittliches Stresslevel in der letzten Woche</span>
-            <mat-progress-spinner
-              class="example-margin"
-              value="{{weeklyAverage*10}}" mode="determinate" color="primary">
-            </mat-progress-spinner>
-            <div>Lvl: {{weeklyAverage}} / 10</div>
-          </div>
 
           <div class="divChart">
-            <span>Dein täglich angesammelter Stress in der letzten Woche</span>
+            <span>Dein täglich angesammelter Stress <br> in der letzten Woche</span>
             <canvas id="myAreaChartDesktop" class="mt-2"></canvas>
           </div>
 
           <div class="divChart">
-            <span class="mb-3">Deine abgeschlossenen Tasks in der letzten Woche</span>
+            <span class="mb-3">Deine abgeschlossenen Tasks <br> in der letzten Woche</span>
             <canvas id="myBarChartDesktop" class="mt-2"></canvas>
-          </div>
-
-          <div class="mb-3">
-            <span>In der letzten Woche hast du</span>
-            <div class="mt-3 row d-flex justify-content-center align-items-center">
-              <div class="col text-center d-flex justify-content-center">
-                <div class="dot daysPlanned">
-                  <span></span>
-                </div>
-              </div>
-              <div class="col text-center d-flex justify-content-center">
-                <div class="dot timersUsed">
-                  <span></span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col text-center">
-                <span>Tage geplant</span>
-              </div>
-              <div class="col text-center">
-                <span>Timer benutzt</span>
-              </div>
-            </div>
           </div>
 
         </div>
       </div>
 
+    </div>
+    <div class="row container-shadow px-3 pt-3 pb-1 my-3 mx-1 bg-white text-center">
+      <div class="col-6">
+        <div class="d-flex flex-column align-items-center mb-5">
+          <span class="mb-3">Dein durchschnittliches Stresslevel <br> in der letzten Woche</span>
+          <mat-progress-spinner
+            class="example-margin"
+            value="{{weeklyAverage*10}}" mode="determinate" color="primary">
+          </mat-progress-spinner>
+          <div>Lvl: {{weeklyAverage}} / 10</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="mb-3">
+          <span>In der letzten Woche hast du</span>
+          <div class="mt-5 row d-flex justify-content-center align-items-center">
+            <div class="col text-center d-flex justify-content-center">
+              <div class="dot daysPlanned">
+                <span></span>
+              </div>
+            </div>
+            <div class="col text-center d-flex justify-content-center">
+              <div class="dot timersUsed">
+                <span></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <span>Tage geplant</span>
+            </div>
+            <div class="col text-center">
+              <span>Timer benutzt</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

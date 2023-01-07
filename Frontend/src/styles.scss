@@ -254,6 +254,10 @@ body{
   display: flex;
 }
 
+.display-web-only-inline {
+  display: inline-block;
+}
+
 .display-mobile-only {
   display: none;
 }
@@ -285,6 +289,10 @@ body{
   }
 
   .display-web-only-flex {
+    display: none;
+  }
+
+  .display-web-only-inline {
     display: none;
   }
 

@@ -66,10 +66,10 @@
     class="cal-event-title" id="cal-event-box"
     [attr.aria-hidden]="{} | calendarA11y: 'hideEventTitle'"
   >
-    <div class="d-flex gap-3 align-items-center w-75">
+    <div class="d-flex gap-3 align-items-center flex-wrap w-75">
       <button class="btn btn-primary myDay-remove-btn" style="width: 20px; height: 20px;" (click)="$event.stopPropagation(); deleteEntry(event.id);"><fa-icon [icon]="faXmark"></fa-icon></button>
       <h6 class="d-inline-block m-0 p-0">{{event.title}}</h6>
-        <div class="d-inline-block px-2">
+        <div class="px-2 display-web-only-inline">
       <div class="bg-dark rounded px-1 my-day-tags" *ngIf="event.deadline">bis {{event.deadline}} Uhr</div>
       <div class="bg-dark rounded px-1 my-day-tags" *ngIf="event.category">{{event.category}}</div>
         </div>

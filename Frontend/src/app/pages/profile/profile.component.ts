@@ -76,7 +76,15 @@ export class ProfileComponent implements OnInit {
 
     // change heading
     let h1 = document.getElementsByTagName("h1");
-    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Profil";}
+    if (window.innerWidth <= 768) {
+      for (let i = 0; i < h1.length; i++) {
+        h1[i].innerText = "";
+      }
+    } else {
+      for (let i = 0; i < h1.length; i++) {
+        h1[i].innerText = 'Profil';
+      }
+    }
 
     // get all days of the last week into an array
     for (var i=6; i>=0; i--) {

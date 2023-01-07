@@ -1,6 +1,7 @@
 .cal-event-title {
   display: flex;
   height: 100%;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   margin: 0 1rem;
@@ -64,5 +65,11 @@
   .events-index {
     position: relative;
     z-index: 0!important;
+  }
+}
+
+@media (max-width: 350px) {
+  .myDay-remove-btn {
+    display: none;
   }
 }
