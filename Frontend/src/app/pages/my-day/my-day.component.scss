@@ -1,8 +1,9 @@
 .cal-event-title {
   display: flex;
+  height: 100%;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem;
+  margin: 0 1rem;
 }
 
 :host ::ng-deep .cal-current-time-marker {
@@ -15,7 +16,32 @@
 }
 
 .my-day-tags {
-  font-size: 12px!important;
+  display: block;
+  vertical-align: middle;
+  height: 12px;
+  line-height: 12px;
+  font-size: 9px!important;
+  text-align: center;
+  margin: 2px;
+}
+
+.myDay-remove-btn {
+  display: flex;
+  flex-basis: auto;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+ }
+
+
+.myDay-btn-circle {
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 60px;
+  font-size: 15px;
+  text-align: center;
 }
 
 @media (max-width: 768px) {

@@ -17,6 +17,7 @@ import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.compo
 import {MyDayService} from "../../services/my-day/my-day.service";
 import * as Hammer from 'hammerjs';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 
 interface MyEvent extends CalendarEvent {
@@ -75,6 +76,7 @@ export class MyDayComponent {
   swipeDiv!: HTMLElement;
 
   faTrash = faTrash;
+  faXmark = faXmark;
 
   // Event Action that will be added to all events to delete them from MyDay
   deleteEntry(id: any){

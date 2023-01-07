@@ -95,6 +95,10 @@ $theme-colors: (
     border-top: 1px solid $border-color;
   }
 
+  .cal-hour-segment .cal-hour-start {
+    height: 50px!important;
+  }
+
   @media (max-width: 768px) {
     .cal-month-view .cal-event {
       height: 6px;
