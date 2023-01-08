@@ -46,7 +46,18 @@
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
+.task-bottom {
+  border-bottom:none;
+  background:linear-gradient(#dee2e6,#dee2e6) bottom /* left or right or else */ no-repeat;
+  background-size:85% 1px;
+}
+
+.task-bottom:last-child {
+  background: none;
+}
+
 .hoverEffects {
+  padding: 15px;
   cursor: pointer;
 }
 
