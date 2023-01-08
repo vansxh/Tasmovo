@@ -17,10 +17,13 @@
       <div class="text-center mt-2">
         <div class="d-flex flex-column align-items-center mb-5">
           <span class="mb-3 user-headings">Dein durchschnittlicher Stress <br> pro Task in der letzten Woche</span>
+          <div class="spinner-bg-container">
+            <mat-progress-spinner class="spinner-bg" color="accent" value="100"></mat-progress-spinner>
           <mat-progress-spinner
             class="example-margin"
             value="{{weeklyAverage*10}}" mode="determinate" color="primary">
           </mat-progress-spinner>
+          </div>
           <div>{{weeklyAverage}} / 10</div>
         </div>
 
@@ -207,11 +210,6 @@
       </div>
     </mat-tab>
   </mat-tab-group>
-
-  <!--Logout Button on Mobile View-->
-  <div class="profilemobile mt-4 text-center">
-    <button class="btn btn-primary logout-btn" (click)="logout()">Abmelden</button>
-  </div>
 
 
 
@@ -404,10 +402,13 @@
       <div class="col-6">
         <div class="d-flex flex-column align-items-center mb-5">
           <span class="mb-3">Dein durchschnittlicher Stress <br> pro Task in der letzten Woche</span>
+          <div class="spinner-bg-container">
+            <mat-progress-spinner class="spinner-bg" color="accent" value="100"></mat-progress-spinner>
           <mat-progress-spinner
             class="example-margin"
             value="{{weeklyAverage*10}}" mode="determinate" color="primary">
           </mat-progress-spinner>
+          </div>
           <div>{{weeklyAverage}} / 10</div>
         </div>
       </div>

@@ -75,3 +75,9 @@
   right: -20px;
   color: black;
 }
+
+@media (max-width: 768px) {
+  :host ::ng-deep .mat-dialog-container {
+    padding: 2px!important;
+  }
+}

@@ -1,7 +1,7 @@
 <div class="mobile-distance">
-<h3 class="mt-2 mb-4 mx-5 text-center display-web-only" *ngIf="dailyQuote">"{{dailyQuote.quote}}"</h3>
+<h3 class="mt-5 mb-4 mx-5 text-center display-web-only" *ngIf="dailyQuote">"{{dailyQuote.quote}}"</h3>
 
-  <div class="row mb-5">
+  <div class="row my-md-5">
     <div class="col-md-6 col-sm-12">
       <h2 class="text-light heading-dashboard display-mobile-only">Tasmovo</h2>
 
@@ -52,14 +52,26 @@
 <div class="d-flex flex-column justify-content-center align-items-center shadow p-3 mb-2 bg-white">
   <h4 class="text-dashboard">Dein heutiges Stresslevel:</h4>
   <br>
+  <div class="spinner-bg-container">
+  <mat-progress-spinner class="spinner-bg" color="accent" value="100"></mat-progress-spinner>
   <mat-progress-spinner
     class="example-margin"
     value="{{(dailyStresslevel/stressLimit)*100}}" mode="determinate" color="primary">
   </mat-progress-spinner>
-  <div>Lvl: {{dailyStresslevel}} / {{stressLimit}}</div>
+  </div>
+  <div>{{dailyStresslevel}} / {{stressLimit}}</div>
 </div>
     </div>
+    <!--<mat-card>
+      <mat-card-content>
+        <h2 class="example-h2">Result</h2>
 
+        <img src='https://i.stack.imgur.com/aNUGr.png' alt='background'/>
+
+        <mat-progress-spinner class="example-margin" value="{{(dailyStresslevel/stressLimit)*100}}" mode="determinate" color="success">
+        </mat-progress-spinner>
+      </mat-card-content>
+    </mat-card>-->
 </div>
 </div>
 <!--Button to test Stresslevel Popup-->

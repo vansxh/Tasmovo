@@ -35,6 +35,11 @@
               <img src="assets/default2.png" width="45px" alt="Profile Icon">
             </a>
           </div>
+          <div class="col d-flex justify-content-end" *ngIf="getLocation()=='/profile'">
+            <a class="" routerLink="profile" routerLinkActive="active">
+              <fa-icon [icon]="faLogout" class="fa-color" size="lg" (click)="logout()"></fa-icon>
+            </a>
+          </div>
         </div>
       </div>
     </div>

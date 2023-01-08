@@ -82,6 +82,18 @@
   height: 800px;
 }
 
+.spinner-bg-container {
+  position: relative;
+}
+
+.spinner-bg {
+  position: absolute;
+}
+
+:host ::ng-deep .mat-progress-spinner.mat-accent circle, .mat-spinner.mat-accent circle {
+  stroke: #e1e1e1;
+}
+
 @media (min-width: 1400px) {
   .height-web-view {
     height: 900px;

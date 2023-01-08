@@ -10,6 +10,8 @@ import {MyDayComponent} from "./pages/my-day/my-day.component";
 import {MyDayService} from "./services/my-day/my-day.service";
 import {NavigationService} from "./services/navigation/navigation.service";
 import {Router} from "@angular/router";
+import {faRightFromBracket} from "@fortawesome/free-solid-svg-icons";
+import {GeneralService} from "./services/general/general.service";
 
 @Component({
   selector: 'app-root',
@@ -23,8 +25,10 @@ export class AppComponent {
   logoutbtn!: boolean;
   newPlannedTask!: Task;
 
-  constructor(private router: Router,private navigation: NavigationService, private service: AuthenticationService, private dialog: MatDialog, private taskService: TaskService, private myDayService: MyDayService) {
-    if (this.service.isLoggedIn()) {
+  faLogout = faRightFromBracket;
+
+  constructor(private router: Router,private navigation: NavigationService, private auth: AuthenticationService, private dialog: MatDialog, private taskService: TaskService, private myDayService: MyDayService, private general: GeneralService) {
+    if (this.auth.isLoggedIn()) {
       this.loginbtn = false;
       this.logoutbtn = true;
     } else {
@@ -35,7 +39,7 @@ export class AppComponent {
   }
 
   loggedIn() {
-    return this.service.isLoggedIn();
+    return this.auth.isLoggedIn();
   }
 
   addPopup(): void {
@@ -65,6 +69,19 @@ export class AppComponent {
 
   toCalendarOverview(): void {
     this.router.navigate(['calendar']);
+  }
+
+  logout() {
+    this.auth.logout(['Logout']).subscribe((data: any = []) => {
+      this.auth.deleteToken();
+      window.location.href = window.location.href;
+    }, (error: any = []) => {
+      if (error['error']['message']) {
+        alert(error['error']['message']);
+        return;
+      }
+      this.general.errorResponse(error['status']);
+    });
   }
 
 }

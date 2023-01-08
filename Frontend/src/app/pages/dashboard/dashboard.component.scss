@@ -32,6 +32,18 @@ span{
   text-overflow: ellipsis;
 }
 
+.spinner-bg-container {
+  position: relative;
+}
+
+.spinner-bg {
+  position: absolute;
+}
+
+:host ::ng-deep .mat-progress-spinner.mat-accent circle, .mat-spinner.mat-accent circle {
+  stroke: #e1e1e1;
+}
+
 @media (max-width: 768px) {
   .text-dashboard {
     font-weight: 300;

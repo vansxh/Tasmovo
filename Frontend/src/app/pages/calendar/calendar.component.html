@@ -1,4 +1,4 @@
-<div class="mx-4 mobile-distance">
+<div class="mobile-distance">
 <div id="swipeDiv" (swiperight)="setViewDate(-1)" (swipeleft)="setViewDate(1)">
   <div class="row text-center">
     <div class="my-4">
@@ -11,6 +11,12 @@
         <i class="fa fa-chevron-right" style="color:#000000;"></i>
       </div>
     </div>
+  </div>
+
+  <div>
+    <button (click)="changeToDayView()" class="btn btn-outline-secondary mx-auto d-block mb-4" mwlCalendarToday [(viewDate)]="viewDate">
+      Heute
+    </button>
   </div>
 
   <!--<div class="alert alert-info">
@@ -39,11 +45,6 @@
     </mwl-calendar-day-view>
   </div>
   <br>
-  <div>
-    <button (click)="changeToDayView()" class="btn btn-outline-secondary mx-auto d-block mb-4" mwlCalendarToday [(viewDate)]="viewDate">
-      Heute
-    </button>
-  </div>
 </div>
 
 <ng-template

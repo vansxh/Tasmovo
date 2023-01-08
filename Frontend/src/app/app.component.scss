@@ -44,10 +44,10 @@
 }
 
 .display-heading-dashboard {
-  height: 7.5em;
+  height: 5em;
   padding-left: 12%;
   width: 100%;
-  background-image: url("../assets/header-db-web.png");
+  background-image: url("../assets/dashboard-bgnew.png");
   background-size: cover;
   background-position: top;
   background-repeat: no-repeat;
@@ -126,7 +126,7 @@
   }
 
   .header-mobile {
-    position: fixed;
+    position: absolute;
     top: 0;
     height: 190px;
     width: 100%;
@@ -138,7 +138,7 @@
   }
 
   .header-mobile-dashboard {
-    position: fixed;
+    position: absolute;
     top: 0;
     height: 320px;
     width: 100%;
@@ -163,6 +163,10 @@
   .mobile-header {
     width: 92%;
   }
+}
+
+.fa-color {
+  color: black;
 }
 
 @media (max-width: 368px) {
