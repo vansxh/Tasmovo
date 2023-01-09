@@ -1,119 +1,100 @@
 <div class="mobile-distance">
-<div id="swipeDiv" (swiperight)="setViewDate(-1)" (swipeleft)="setViewDate(1)">
-  <div class="row text-center">
-    <div class="my-4">
-      <div class="btn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
-        <i class="fa fa-chevron-left" style="color:#000000;"></i>
-      </div>
-      <b>{{ viewDate | date: 'MMMM y'}}</b>
-      <div
-        class="btn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
-        <i class="fa fa-chevron-right" style="color:#000000;"></i>
+  <div id="swipeDiv" (swiperight)="setViewDate(-1)" (swipeleft)="setViewDate(1)">
+    <div class="row text-center">
+      <div class="my-4">
+        <div class="btn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+          <i class="fa fa-chevron-left" style="color:#000000;"></i>
+        </div>
+        <b>{{ viewDate | date: 'MMMM y'}}</b>
+        <div
+          class="btn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+          <i class="fa fa-chevron-right" style="color:#000000;"></i>
+        </div>
       </div>
     </div>
+    <div>
+      <button (click)="changeToDayView()" class="btn btn-outline-secondary mx-auto d-block mb-4" mwlCalendarToday
+              [(viewDate)]="viewDate">
+        Heute
+      </button>
+    </div>
+
+    <div [ngSwitch]="view">
+      <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+                               (dayClicked)="clickedDate = $event.day.date; changeToDayView()"
+                               [class.active]="view === CalendarView.Day"
+                               [cellTemplate]="myTemplate"
+                               [weekStartsOn]="1">
+      </mwl-calendar-month-view>
+      <mwl-calendar-week-view
+        *ngSwitchCase="CalendarView.Week"
+        [viewDate]="viewDate"
+        [events]="events"
+      >
+      </mwl-calendar-week-view>
+      <mwl-calendar-day-view
+        *ngSwitchCase="CalendarView.Day"
+        [viewDate]="viewDate"
+        [events]="events"
+      >
+      </mwl-calendar-day-view>
+    </div>
+    <br>
   </div>
 
-  <div>
-    <button (click)="changeToDayView()" class="btn btn-outline-secondary mx-auto d-block mb-4" mwlCalendarToday [(viewDate)]="viewDate">
-      Heute
-    </button>
-  </div>
-
-  <!--<div class="alert alert-info">
-    Click on a day or time slot on the view.
-    <strong *ngIf="clickedDate" >You clicked on this time: {{ clickedDate | date:'mediumDate' }}</strong>
-  </div>-->
-
-  <div [ngSwitch]="view">
-    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-                             (dayClicked)="clickedDate = $event.day.date; changeToDayView()"
-                             [class.active]="view === CalendarView.Day"
-                              [cellTemplate]="myTemplate"
-                              [weekStartsOn] = "1">
-    </mwl-calendar-month-view>
-    <mwl-calendar-week-view
-      *ngSwitchCase="CalendarView.Week"
-      [viewDate]="viewDate"
-      [events]="events"
-    >
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view
-      *ngSwitchCase="CalendarView.Day"
-      [viewDate]="viewDate"
-      [events]="events"
-    >
-    </mwl-calendar-day-view>
-  </div>
-  <br>
-</div>
-
-<ng-template
-  #myTemplate
-  let-day="day"
-  let-openDay="openDay"
-  let-locale="locale"
-  let-tooltipPlacement="tooltipPlacement"
-  let-highlightDay="highlightDay"
-  let-unhighlightDay="unhighlightDay"
-  let-eventClicked="eventClicked"
-  let-tooltipTemplate="tooltipTemplate"
-  let-tooltipAppendToBody="tooltipAppendToBody"
-  let-tooltipDelay="tooltipDelay"
-  let-trackByEventId="trackByEventId"
-  let-validateDrag="validateDrag"
->
-  <div
-    class="cal-cell-top"
-    [attr.aria-label]="
+  <ng-template
+    #myTemplate
+    let-day="day"
+    let-openDay="openDay"
+    let-locale="locale"
+    let-tooltipPlacement="tooltipPlacement"
+    let-highlightDay="highlightDay"
+    let-unhighlightDay="unhighlightDay"
+    let-eventClicked="eventClicked"
+    let-tooltipTemplate="tooltipTemplate"
+    let-tooltipAppendToBody="tooltipAppendToBody"
+    let-tooltipDelay="tooltipDelay"
+    let-trackByEventId="trackByEventId"
+    let-validateDrag="validateDrag"
+  >
+    <div
+      class="cal-cell-top"
+      [attr.aria-label]="
           { day: day, locale: locale } | calendarA11y: 'monthCell'
         "
-  >
+    >
         <span aria-hidden="true">
           <span class="cal-day-number">{{
             day.date | calendarDate: 'monthViewDayNumber':locale
             }}</span>
         </span>
-  </div>
-  <div class="cal-events" *ngIf="day.events.length > 0">
-    <div
-      class="cal-event"
-      *ngFor="let event of day.events; trackBy: trackByEventId"c
-      [ngStyle]="{ backgroundColor: event.color?.primary }"
-      [ngClass]="event?.cssClass"
-      (mouseenter)="highlightDay.emit({ event: event })"
-      (mouseleave)="unhighlightDay.emit({ event: event })"
-      [mwlCalendarTooltip]="
+    </div>
+    <div class="cal-events" *ngIf="day.events.length > 0">
+      <div
+        class="cal-event"
+        *ngFor="let event of day.events; trackBy: trackByEventId" c
+        [ngStyle]="{ backgroundColor: event.color?.primary }"
+        [ngClass]="event?.cssClass"
+        (mouseenter)="highlightDay.emit({ event: event })"
+        (mouseleave)="unhighlightDay.emit({ event: event })"
+        [mwlCalendarTooltip]="
             event.title | calendarEventTitle: 'monthTooltip':event
           "
-      [tooltipPlacement]="tooltipPlacement"
-      [tooltipEvent]="event"
-      [tooltipTemplate]="tooltipTemplate"
-      [tooltipAppendToBody]="tooltipAppendToBody"
-      [tooltipDelay]="tooltipDelay"
-      mwlDraggable
-      [class.cal-draggable]="event.draggable"
-      dragActiveClass="cal-drag-active"
-      [dropData]="{ event: event, draggedFrom: day }"
-      [dragAxis]="{ x: event.draggable, y: event.draggable }"
-      [validateDrag]="validateDrag"
-      [touchStartLongPress]="{ delay: 300, delta: 30 }"
-      (mwlClick)="eventClicked.emit({ event: event, sourceEvent: $event })"
-      [attr.aria-hidden]="{} | calendarA11y: 'hideMonthCellEvents'"
-    ></div>
-  </div>
-</ng-template>
-
-  <!--<ng-template #customCellTemplate let-day="day" let-locale="locale">
-    <div class="coloring-test">
-      <span class="cal-day-badge bg-blue" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
-      <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+        [tooltipPlacement]="tooltipPlacement"
+        [tooltipEvent]="event"
+        [tooltipTemplate]="tooltipTemplate"
+        [tooltipAppendToBody]="tooltipAppendToBody"
+        [tooltipDelay]="tooltipDelay"
+        mwlDraggable
+        [class.cal-draggable]="event.draggable"
+        dragActiveClass="cal-drag-active"
+        [dropData]="{ event: event, draggedFrom: day }"
+        [dragAxis]="{ x: event.draggable, y: event.draggable }"
+        [validateDrag]="validateDrag"
+        [touchStartLongPress]="{ delay: 300, delta: 30 }"
+        (mwlClick)="eventClicked.emit({ event: event, sourceEvent: $event })"
+        [attr.aria-hidden]="{} | calendarA11y: 'hideMonthCellEvents'"
+      ></div>
     </div>
-    <div class="cell-totals">
-    <span
-      *ngFor="let group of day.eventGroups"
-      class="badge badge-{{ group[0] }}">
-      {{ group[1].length }}
-    </span>
-    </div>
-  </ng-template>-->
+  </ng-template>
 </div>

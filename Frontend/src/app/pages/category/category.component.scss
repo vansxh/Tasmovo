@@ -14,11 +14,11 @@
 
 ngb-progressbar {
   width: 40%;
-  height: 1.5rem!important;
+  height: 1.5rem !important;
   margin: auto;
-  background-color: white!important;
+  background-color: white !important;
   border: #30235B 3px solid;
-  border-radius: 20px!important;
+  border-radius: 20px !important;
 }
 
 .doneBtn-1 {
@@ -41,9 +41,10 @@ ngb-progressbar {
 }
 
 .task-bottom {
-  border-bottom:none;
-  background:linear-gradient(#dee2e6,#dee2e6) bottom /* left or right or else */ no-repeat;
-  background-size:85% 1px;
+  border-bottom: none;
+  background: linear-gradient(#dee2e6, #dee2e6) bottom /* left or right or else */
+  no-repeat;
+  background-size: 85% 1px;
 }
 
 .task-bottom:last-child {
@@ -60,10 +61,6 @@ ngb-progressbar {
 
 .swiper-button-next, .swiper-button-prev {
   color: #634C9A !important;
-}
-
-.container-subcat {
-  //width: 350px;
 }
 
 .textoverflow {
@@ -100,7 +97,7 @@ ngb-progressbar {
     z-index: 0;
   }
 
-  .swiper-slide.swiper-slide  {
+  .swiper-slide.swiper-slide {
     width: 85%;
     padding: 0 5px;
     margin: 0;

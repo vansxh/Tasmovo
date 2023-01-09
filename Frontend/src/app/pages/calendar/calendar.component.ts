@@ -10,13 +10,12 @@ import {Observable} from 'rxjs';
 import {CategoryService} from "../../services/category/category.service";
 import {MatDialog} from "@angular/material/dialog";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import { ChangeDetectorRef } from '@angular/core';
-import { EventColor } from 'calendar-utils';
-import {CalendarNativeDateFormatter, DateFormatterParams, CalendarModule} from 'angular-calendar';
+import {ChangeDetectorRef} from '@angular/core';
+import {EventColor} from 'calendar-utils';
+import {CalendarNativeDateFormatter, DateFormatterParams} from 'angular-calendar';
 import * as Hammer from 'hammerjs';
 import * as moment from "moment";
-import { WeekDay } from 'calendar-utils';
-import { DOCUMENT } from '@angular/common';
+import {DOCUMENT} from '@angular/common';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
   public override dayViewHour({date, locale}: DateFormatterParams): string {
@@ -59,70 +58,42 @@ export class CalendarComponent implements OnInit {
   private readonly tasmovoThemeClass = 'tasmovo-theme';
 
   constructor(@Inject(DOCUMENT) private document: any, private taskService: TaskService, private categoryService: CategoryService, private general: GeneralService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private modal: NgbModal,
-  public dialog: MatDialog, private cd: ChangeDetectorRef) {}
+              public dialog: MatDialog, private cd: ChangeDetectorRef) {
+  }
 
-  ngOnInit(): void{
-
+  ngOnInit(): void {
     this.document.body.classList.add(this.tasmovoThemeClass);
-
     this.swipeDiv = document.getElementById("swipeDiv")!;
 
     var mc = new Hammer.Manager(this.swipeDiv, {
       recognizers: [
-        [Hammer.Swipe,{ direction: Hammer.DIRECTION_HORIZONTAL }],
+        [Hammer.Swipe, {direction: Hammer.DIRECTION_HORIZONTAL}],
       ]
     });
 
     let h1 = document.getElementsByTagName("h1");
-    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Kalender";}
+    for (let i = 0; i < h1.length; i++) {
+      h1[i].innerText = "Kalender";
+    }
 
     this.viewDate = new Date();
     this.getAllNextTasks();
-    //this.getAllFinishedTasks();
-    console.log(this.events);
   }
 
-  getAllNextTasks(){
+  getAllNextTasks() {
     this.taskService.getAllTasks().subscribe(
       (data: any = []) => {
         this.allTasks = <Task[]>data['data'];
-        this.allTasks.sort(function(a, b){return a.statusID - b.statusID});
-        console.log(this.allTasks);
-        this.allTasks.forEach((item)=>{
-          this.events.push({
-            id:item.TAID,
-            start:new Date(item.deadline),
-            end:new Date(item.deadline),
-            title:item.task_name,
-            color: item.statusID == 1 ? colors['main'] : colors['done'],
-            //actions: this.actions
-          })
+        this.allTasks.sort(function (a, b) {
+          return a.statusID - b.statusID
         });
-        this.viewDate = new Date();
-        this.cd.detectChanges();
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
-  }
-
-  getAllFinishedTasks() {
-    this.taskService.getFinishedTasks().subscribe(
-      (data: any = []) => {
-        this.allTasks = <Task[]>data['data'];
-        console.log(this.allTasks);
         this.allTasks.forEach((item) => {
           this.events.push({
             id: item.TAID,
             start: new Date(item.deadline),
             end: new Date(item.deadline),
             title: item.task_name,
-            color: colors['done'],
-            //actions: this.actions
+            color: item.statusID == 1 ? colors['main'] : colors['done'],
           })
         });
         this.viewDate = new Date();
@@ -138,11 +109,11 @@ export class CalendarComponent implements OnInit {
   }
 
   changeToDayView() {
-    this.taskService.changeToDayView(this.datePipe.transform(this.clickedDate,'yyyy-MM-dd', 'de-AT')||'');
+    this.taskService.changeToDayView(this.datePipe.transform(this.clickedDate, 'yyyy-MM-dd', 'de-AT') || '');
   }
 
   setViewDate(viewDate: number) {
-    this.viewDate = moment(this.viewDate ).add(viewDate, 'months').toDate();
+    this.viewDate = moment(this.viewDate).add(viewDate, 'months').toDate();
   }
 
 }

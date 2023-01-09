@@ -7,7 +7,7 @@
   margin: 8px;
 }
 
-.igx-calendar{
+.igx-calendar {
   border-radius: 4px;
 }
 
@@ -21,18 +21,18 @@ pre {
 }
 
 .cal-month-view .cal-day-cell:not(:last-child) {
-  border-right: none!important;
+  border-right: none !important;
 }
 
 :host ::ng-deep .cal-month-view .cal-day-cell.cal-today {
-  background-color: white!important;
+  background-color: white !important;
 }
 
 :host ::ng-deep.cal-day-badge {
-  background-color: blue!important;
+  background-color: blue !important;
 }
 
 :host ::ng-deep .cal-month-view .cal-day-cell.cal-today .cal-day-number {
-  font-size: 1.2em!important;
+  font-size: 1.2em !important;
 }
 

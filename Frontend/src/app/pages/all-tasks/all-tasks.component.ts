@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
@@ -12,17 +12,19 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 })
 export class AllTasksComponent implements OnInit {
 
-  constructor(private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) { }
+  constructor(private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) {
+  }
 
   public allTasks!: Task[];
-
   loadAllTasks = 10;
   loadFinishedTasks = 10;
 
   ngOnInit(): void {
 
     let h1 = document.getElementsByTagName("h1");
-    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Alle Tasks";}
+    for (let i = 0; i < h1.length; i++) {
+      h1[i].innerText = "Alle Tasks";
+    }
 
     // get  all tasks
     this.taskService.getAllTasks().subscribe(
@@ -31,7 +33,7 @@ export class AllTasksComponent implements OnInit {
         this.allTasks = <Task[]>data['data'];
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
@@ -76,7 +78,7 @@ export class AllTasksComponent implements OnInit {
 
   checkWindowSize() {
     const progressbar = document.getElementById("progressbar-head")!;
-    if(window.innerWidth <= 768) {
+    if (window.innerWidth <= 768) {
       progressbar.classList.add("top-fixed");
     } else {
       progressbar.classList.remove("top-fixed");
