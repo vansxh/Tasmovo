@@ -2,9 +2,6 @@
 // required file
 require('../../bootstrap.inc.php');
 
-// check if user is logged in
-$auth->check();
-
 $quote = new Quote();
 $allQuotes = $quote->getQuote();
 
