@@ -7,6 +7,7 @@ $allQuotes = $quote->getQuote();
 
 $random = array_rand($allQuotes, 1);
 $item = $allQuotes[$random];
+$item['quote'] = utf8_encode($item['quote']);
 
 // check if quote was returned
 if (!$item) {
