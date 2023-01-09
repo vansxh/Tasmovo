@@ -9,7 +9,6 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
 import {PopupReminderComponent} from "../../popups/popup-reminder/popup-reminder.component";
-import {PopupAddComponent} from "../../popups/popup-add/popup-add.component";
 import {Router} from '@angular/router';
 import {MyDayService} from "../../services/my-day/my-day.service";
 import {DatePipe} from "@angular/common";
@@ -20,6 +19,7 @@ import {DatePipe} from "@angular/common";
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit {
 
   public openTasks!: Task[];
@@ -28,86 +28,71 @@ export class DashboardComponent implements OnInit {
   dailyStresslevel!: number;
   stressLimit!: number;
 
-  constructor(private datePipe: DatePipe, private myDayService: MyDayService,private router: Router, private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog, private stress: StresstrackingService) {
+  constructor(private datePipe: DatePipe, private myDayService: MyDayService, private router: Router, private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog, private stress: StresstrackingService) {
   }
 
   ngOnInit(): void {
+    // modify heading
     let h1 = document.getElementsByTagName("h1");
-    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "";}
+    for (let i = 0; i < h1.length; i++) {
+      h1[i].innerText = "";
+    }
 
     // load next and finished tasks
     this.loadTasks();
 
+    this.getQuote();
+    this.getDailyStresslevel();
+    this.getStresslimit();
+  }
+
+  getQuote() {
     // get random quote
     this.quoteService.getQuote().subscribe(
       (data: any = []) => {
-          this.dailyQuote = <Quote>data['data'];
+        this.dailyQuote = <Quote>data['data'];
       },
       (error: any = []) => {
-          if(error['error']['message']) {
-            alert(error['error']['message']);
-            return;
-          }
-          this.general.errorResponse(error['status']);
+        if (error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
       });
-
-    this.getDailyStresslevel();
-    this.getStresslimit();
-    //this.onBreakOpen();
   }
 
   loadTasks(): void {
-
     // get planned tasks
-    this.taskService.getPlannedTasks(this.datePipe.transform(new Date(),'yyyy-MM-dd', 'de-AT')||'').subscribe(
+    this.taskService.getPlannedTasks(this.datePipe.transform(new Date(), 'yyyy-MM-dd', 'de-AT') || '').subscribe(
       (data: any = []) => {
         // get tasks from data
         this.plannedTasks = <Task[]>data['data'];
-        this.plannedTasks.forEach((task)=> {
+        this.plannedTasks.forEach((task) => {
           task.start_time = task.start_time.slice(0, -3);
           task.end_time = task.end_time.slice(0, -3);
         });
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
       });
 
-    // get  next tasks
+    // get next tasks
     this.taskService.getNextTasks().subscribe(
       (data: any = []) => {
         // get tasks from data
         this.openTasks = <Task[]>data['data'];
       },
       (error: any = []) => {
-          if(error['error']['message']) {
-            alert(error['error']['message']);
-            return;
-          }
-          this.general.errorResponse(error['status']);
-        });
-  }
-
-  deleteTask(task: Task): void {
-    this.taskService.deleteTask(task.TAID).subscribe(
-      (data: any = []) => {
-        // update view if deleting was successful
-        this.loadTasks();
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
-    });
-  }
-
-  editTask(task: Task): void {
-    this.taskService.editTask(task.TAID);
+      });
   }
 
   detailsTask(task: Task): void {
@@ -128,14 +113,12 @@ export class DashboardComponent implements OnInit {
 
   getDailyStresslevel() {
     this.stress.getDailyStresslevel().subscribe((data: any = []) => {
-      //console.log(data['data']['0']['Average']);
       this.dailyStresslevel = data['data']['daily_stresslevel'];
       if (this.dailyStresslevel == 10.00) {
         this.dailyStresslevel = 10;
       } else if (this.dailyStresslevel == 0.00 || this.dailyStresslevel == null) {
         this.dailyStresslevel = 0;
       }
-      //console.log(this.dailyStresslevel);
     }, (error: any = []) => {
       if (error['error']['message']) {
         alert(error['error']['message']);
@@ -148,13 +131,12 @@ export class DashboardComponent implements OnInit {
   getStresslimit() {
     this.stress.getStresslimit().subscribe((data: any = []) => {
       this.stressLimit = data['data']['stress_limit'];
-      //console.log((this.dailyStresslevel/this.stressLimit)*100);
     }, (error: any = []) => {
       if (error['error']['message']) {
-      alert(error['error']['message']);
-      return;
-    }
-    this.general.errorResponse(error['status']);
+        alert(error['error']['message']);
+        return;
+      }
+      this.general.errorResponse(error['status']);
     });
   }
 
@@ -162,11 +144,11 @@ export class DashboardComponent implements OnInit {
     this.onBreakOpen();
   }
 
-  onBreakOpen(){
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      this.dialog.open(PopupReminderComponent, dialogConfig);
+  onBreakOpen() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    this.dialog.open(PopupReminderComponent, dialogConfig);
   }
 
   myCategories() {

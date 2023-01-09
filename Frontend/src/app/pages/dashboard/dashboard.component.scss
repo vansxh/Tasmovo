@@ -1,14 +1,15 @@
 .task-bottom {
-  border-bottom:none;
-  background:linear-gradient(#dee2e6,#dee2e6) bottom /* left or right or else */ no-repeat;
-  background-size:85% 1px;
+  border-bottom: none;
+  background: linear-gradient(#dee2e6, #dee2e6) bottom /* left or right or else */
+  no-repeat;
+  background-size: 85% 1px;
 }
 
 .task-bottom:last-child {
   background: none;
 }
 
-span{
+span {
   font-family: 'Source Sans Pro';
   font-weight: 400;
   font-style: normal;

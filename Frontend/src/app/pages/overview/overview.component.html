@@ -9,7 +9,7 @@
              [matAutocomplete]="auto">
       <fa-icon></fa-icon>
       <fa-icon [icon]="faSearch" class="search-icon"></fa-icon>
-      <mat-autocomplete #auto="matAutocomplete">
+      <mat-autocomplete #auto="matAutocomplete" class="top-testinglol">
         <mat-option *ngFor="let item of filteredOptions" [value]="item['task_name']" (click)="detailsTask(item)">
           {{item['task_name']}}
         </mat-option>

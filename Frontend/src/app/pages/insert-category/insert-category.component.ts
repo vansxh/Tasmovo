@@ -4,7 +4,6 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {Category} from 'src/app/services/category/category';
 import {CategoryService} from 'src/app/services/category/category.service';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
-import {Task} from "../../services/task/task";
 import {GeneralService} from "../../services/general/general.service";
 import {NavigationService} from "../../services/navigation/navigation.service";
 import {Observable, of} from "rxjs";
@@ -16,7 +15,7 @@ import {Observable, of} from "rxjs";
 })
 export class InsertCategoryComponent implements OnInit {
 
-  constructor(private navigation: NavigationService, private formbuilder: FormBuilder, private catService: CategoryService, private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private general: GeneralService) {
+  constructor(private navigation: NavigationService, private formBuilder: FormBuilder, private catService: CategoryService, private router: Router, private route: ActivatedRoute, private authService: AuthenticationService, private general: GeneralService) {
   }
 
   insertCategoryForm!: FormGroup;
@@ -26,15 +25,29 @@ export class InsertCategoryComponent implements OnInit {
   isParentCat!: boolean;
 
   ngOnInit(): void {
-
+    // modify headings
     let h1 = document.getElementsByTagName("h1");
-
-    if(this.edit) {
-      for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Kategorie bearbeiten";}
+    if (this.edit) {
+      for (let i = 0; i < h1.length; i++) {
+        h1[i].innerText = "Kategorie bearbeiten";
+      }
     } else {
-      for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Neue Kategorie";}
+      for (let i = 0; i < h1.length; i++) {
+        h1[i].innerText = "Neue Kategorie";
+      }
     }
 
+    this.getInsertData();
+
+    this.insertCategoryForm = this.formBuilder.group({
+      CAID: [''],
+      userID: [''],
+      category_name: ['', [Validators.required, Validators.maxLength(30)]],
+      parent_categoryID: ['']
+    });
+  }
+
+  getInsertData() {
     const routeParams = this.route.snapshot.params;
 
     // get all categories from a user for dropdown
@@ -43,13 +56,13 @@ export class InsertCategoryComponent implements OnInit {
         // get categories from data
         this.categories = <Category[]>data['data'];
         if (routeParams['CAID']) {
-          this.categories = this.categories.filter(function(category) {
+          this.categories = this.categories.filter(function (category) {
             return category.CAID !== routeParams['CAID'];
           });
         }
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
@@ -62,12 +75,12 @@ export class InsertCategoryComponent implements OnInit {
       this.edit = true;
       this.catService.getCategory(routeParams['CAID']).subscribe(
         (data: any = []) => {
-            // get category from data
-            this.selectedCategory = <Category>data['data'];
-            this.insertCategoryForm.patchValue(this.selectedCategory);
+          // get category from data
+          this.selectedCategory = <Category>data['data'];
+          this.insertCategoryForm.patchValue(this.selectedCategory);
         },
         (error: any = []) => {
-          if(error['error']['message']) {
+          if (error['error']['message']) {
             this.general.specificErrorResponse(error['error']['message'], "my-categories");
             return;
           }
@@ -81,22 +94,14 @@ export class InsertCategoryComponent implements OnInit {
           this.isParentCat = true;
         },
         (error: any = []) => {
-          if(error['error']['message']) {
+          if (error['error']['message']) {
             alert(error['error']['message']);
             this.isParentCat = false;
             return;
           }
           this.general.errorResponse(error['status']);
         });
-
     }
-
-    this.insertCategoryForm = this.formbuilder.group({
-      CAID: [''],
-      userID: [''],
-      category_name: ['', [Validators.required, Validators.maxLength(30)]],
-      parent_categoryID: ['']
-    });
   }
 
   // for searching through categories
@@ -105,14 +110,13 @@ export class InsertCategoryComponent implements OnInit {
   }
 
   onInsertCategorySubmit() {
-
     this.catService.insertCategory(this.insertCategoryForm.value).subscribe(
       (data: any = []) => {
         // if category was inserted reload categories
         this.navigation.back();
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           this.general.specificErrorResponse(error['error']['message'], "my-categories");
           return;
         }
@@ -121,19 +125,17 @@ export class InsertCategoryComponent implements OnInit {
   }
 
   onEditCategorySubmit() {
-
     this.catService.updateCategory(this.insertCategoryForm.value).subscribe(
       (data: any = []) => {
         // if category was inserted reload categories
         this.navigation.back();
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           this.general.specificErrorResponse(error['error']['message'], "my-categories");
           return;
         }
         this.general.errorResponse(error['status']);
       });
   }
-
 }

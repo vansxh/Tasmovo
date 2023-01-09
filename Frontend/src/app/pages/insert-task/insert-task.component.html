@@ -1,197 +1,157 @@
 <div class="mobile-distance">
-<div class="d-flex justify-content-center">
-<div class="col-md-6 mt-4">
-  <!--<h1 *ngIf="!this.edit" class="mobile-heading text-center">Neuer Task</h1>
-  <h1 *ngIf="this.edit" class="mobile-heading text-center">Task bearbeiten</h1>-->
-  <form [formGroup]="insertTaskForm" class="form">
 
-    <input type="hidden" formControlName="TAID" name="TAID">
+  <div class="d-flex justify-content-center">
+    <div class="col-md-6 mt-4">
 
-    <div class="form-group mt-3">
-      <label class="input-text" for="task_name">Titel</label>
-        <input type="text" formControlName="task_name" class="form-control container-shadow text-field bg-light"
-               id="task_name">
-    </div>
-    <div class="alert p-0"
-         *ngIf="insertTaskForm.get('task_name')?.hasError('required') && insertTaskForm.get('task_name')?.touched">
-      <span>Bitte einen Titel für den Task eingeben!</span>
-    </div>
-    <div class="alert p-0"
-         *ngIf="insertTaskForm.get('task_name')?.hasError('maxlength') && insertTaskForm.get('task_name')?.touched">
-      <span>Der Titel darf maximal 20 Zeichen lang sein.</span>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-6 col-md-12 col-sm-6 mt-3">
-    <div class="form-group">
-      <label for="deadline">Datum</label>
-      <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
-        <input matInput [matDatepicker]="picker" formControlName="deadlineDay" min="{{nowDate}}" id="deadline">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </div>
-        <div class="alert p-0"
-             *ngIf="insertTaskForm.get('deadlineDay')?.hasError('required') && insertTaskForm.get('deadlineDay')?.touched">
-          <span>Bitte eine Deadline für den Task wählen!</span>
+      <form [formGroup]="insertTaskForm" class="form">
+        <input type="hidden" formControlName="TAID" name="TAID">
+        <div class="form-group mt-3">
+          <label class="input-text" for="task_name">Titel</label>
+          <input type="text" formControlName="task_name" class="form-control container-shadow text-field bg-light"
+                 id="task_name">
         </div>
-      </div>
-
-      <div class="col-lg-6 col-md-12 col-sm-6 mt-3">
-    <div class="form-group">
-      <label for="time">Uhrzeit</label>
-      <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
-        <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="deadlineHour" id="time" class="timepicker">
-        <ngx-mat-timepicker-toggle matIconSuffix [for]="$any(timepicker)"></ngx-mat-timepicker-toggle>
-        <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
-      </mat-form-field>
-    </div>
         <div class="alert p-0"
-             *ngIf="insertTaskForm.get('deadlineHour')?.hasError('required') && insertTaskForm.get('deadlineHour')?.touched">
-          <span>Bitte eine Deadline für den Task wählen!</span>
+             *ngIf="insertTaskForm.get('task_name')?.hasError('required') && insertTaskForm.get('task_name')?.touched">
+          <span>Bitte einen Titel für den Task eingeben!</span>
         </div>
-      </div>
+        <div class="alert p-0"
+             *ngIf="insertTaskForm.get('task_name')?.hasError('maxlength') && insertTaskForm.get('task_name')?.touched">
+          <span>Der Titel darf maximal 20 Zeichen lang sein.</span>
+        </div>
 
-    </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-12 col-sm-6 mt-3">
+            <div class="form-group">
+              <label for="deadline">Datum</label>
+              <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
+                <input matInput [matDatepicker]="picker" formControlName="deadlineDay" min="{{nowDate}}" id="deadline">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="alert p-0"
+                 *ngIf="insertTaskForm.get('deadlineDay')?.hasError('required') && insertTaskForm.get('deadlineDay')?.touched">
+              <span>Bitte eine Deadline für den Task wählen!</span>
+            </div>
+          </div>
 
+          <div class="col-lg-6 col-md-12 col-sm-6 mt-3">
+            <div class="form-group">
+              <label for="time">Uhrzeit</label>
+              <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
+                <input matInput [format]="24" [ngxMatTimepicker]="timepicker" formControlName="deadlineHour" id="time"
+                       class="timepicker">
+                <ngx-mat-timepicker-toggle matIconSuffix [for]="$any(timepicker)"></ngx-mat-timepicker-toggle>
+                <ngx-mat-timepicker #timepicker></ngx-mat-timepicker>
+              </mat-form-field>
+            </div>
+            <div class="alert p-0"
+                 *ngIf="insertTaskForm.get('deadlineHour')?.hasError('required') && insertTaskForm.get('deadlineHour')?.touched">
+              <span>Bitte eine Deadline für den Task wählen!</span>
+            </div>
+          </div>
+        </div>
 
-
-    <div class="form-group mt-3">
-      <label for="notes">Notizen (optional):</label>
-        <textarea type="text" formControlName="notes" rows="4" class="form-control container-shadow text-field bg-light" id="notes">
+        <div class="form-group mt-3">
+          <label for="notes">Notizen (optional):</label>
+          <textarea type="text" formControlName="notes" rows="4"
+                    class="form-control container-shadow text-field bg-light" id="notes">
         </textarea>
-    </div>
-
-    <!--<div class="form-group">
-      <label for="notes">Notizen (optional):</label>
-      <input type="text" formControlName="notes" placeholder="Notizen" name="notes"
-             class="form-control" id="notes">
-    </div>-->
-
-    <!--<div class="form-group select mt-3">
-      <label for="categoryID">Kategorie (optional):</label>
-      <select formControlName="categoryID" name="categoryID"
-             class="form-control container-shadow" id="categoryID" (ngModelChange)="onChangeCategory($event)">
-        <option value="" disabled selected></option>
-        <option *ngFor="let c of categories | category" value="{{c.CAID}}">{{c.category_name}}</option>
-      </select>
-      <div class="select_arrow"></div>
-    </div>
-
-    <div *ngIf="subcategories != undefined && subcategories.length > 0" class="form-group select mt-3">
-      <label for="subcategoryID">Subkategorie (optional):</label>
-      <select formControlName="subcategoryID" name="subcategoryID"
-              class="form-control container-shadow" id="subcategoryID">
-        <option value="" disabled selected></option>
-        <option *ngFor="let c of subcategories" value="{{c.CAID}}">{{c.category_name}}</option>
-      </select>
-      <div class="select_arrow"></div>
-    </div>-->
-
-    <div class="form-group select mt-3">
-      <label for="categoryID">Kategorie (optional):</label>
-      <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
-        <mat-select
-          formControlName="categoryID" name="categoryID"
-          class="text px-2" id="categoryID"
-          (selectionChange)="onChangeCategory($event.value)"
-          *ngIf="categories"
-          ngxMatSelect
-          [lazyLoad]="true"
-          [searcher]="categorySearcher.bind(this)"
-          [hasSearchBox]="true"
-          [multiple]="false"
-          [required]="false"
-          [valueMember]="'CAID'"
-          [displayMember]="'category_name'"
-          [source]="categories | category"
-          [emptyLabel]="'Keine Kategorien gefunden'"
-          #sf="ngxMatSelect"
-        >
-          <mat-option [value]=""></mat-option>
-          <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
-            {{c.category_name}}
-          </mat-option>
-        </mat-select>
-        <div class="select_arrow"></div>
-      </mat-form-field>
-    </div>
-
-
-    <div *ngIf="subcategories" class="form-group select">
-      <label for="subcategoryID">Subkategorie (optional):</label>
-      <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
-        <mat-select
-          formControlName="subcategoryID" name="subcategoryID"
-          class="text px-2" id="subcategoryID"
-          ngxMatSelect
-          [lazyLoad]="true"
-          [searcher]="subCategorySearcher.bind(this)"
-          [hasSearchBox]="true"
-          [multiple]="false"
-          [required]="false"
-          [valueMember]="'CAID'"
-          [displayMember]="'category_name'"
-          [source]="subcategories"
-          [emptyLabel]="'Keine Kategorien gefunden'"
-          #sf="ngxMatSelect"
-        >
-          <mat-option [value]=""></mat-option>
-          <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
-            {{c.category_name}}
-          </mat-option>
-        </mat-select>
-        <div class="select_arrow"></div>
-
-      </mat-form-field>
-    </div>
-
-    <!--<button [disabled]="!insertTaskForm.valid" *ngIf="!this.edit" class="btn btn-success"
-            (click)="onInsertTaskSubmit()">Task erstellen
-    </button>
-    <button [disabled]="!insertTaskForm.valid" *ngIf="this.edit" class="btn btn-success" (click)="onEditTaskSubmit()">
-      Task bearbeiten
-    </button>-->
-
-    <div class="display-check">
-        <div class="containerCenterWhile">
-          <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="!this.edit"
-             (click)="onInsertTaskSubmit()">
-            <img src="assets/check-alternative.png" class="btnImg" alt="Check Icon">
-          </button>
         </div>
-    </div>
 
-    <div class="display-check">
-        <div class="containerCenterWhile">
-          <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="this.edit"
-             (click)="onEditTaskSubmit()">
-            <img src="assets/check-alternative.png" class="btnImg" alt="Check Icon">
-          </button>
+        <div class="form-group select mt-3">
+          <label for="categoryID">Kategorie (optional):</label>
+          <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
+            <mat-select
+              formControlName="categoryID" name="categoryID"
+              class="text px-2" id="categoryID"
+              (selectionChange)="onChangeCategory($event.value)"
+              *ngIf="categories"
+              ngxMatSelect
+              [lazyLoad]="true"
+              [searcher]="categorySearcher.bind(this)"
+              [hasSearchBox]="true"
+              [multiple]="false"
+              [required]="false"
+              [valueMember]="'CAID'"
+              [displayMember]="'category_name'"
+              [source]="categories | category"
+              [emptyLabel]="'Keine Kategorien gefunden'"
+              #sf="ngxMatSelect"
+            >
+              <mat-option [value]=""></mat-option>
+              <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
+                {{c.category_name}}
+              </mat-option>
+            </mat-select>
+            <div class="select_arrow"></div>
+          </mat-form-field>
         </div>
-    </div>
 
-    <div class="display-check-mobile display-mobile-only">
-      <div class="containerCenterWhile-mobile">
-        <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="!this.edit"
-                (click)="onInsertTaskSubmit()">
-          <img class="img-btn" src="assets/check-btn.png" alt="Check Button">
-        </button>
-      </div>
-    </div>
-
-    <div class="display-check-mobile display-mobile-only">
-        <div class="containerCenterWhile-mobile">
-          <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="this.edit"
-                  (click)="onEditTaskSubmit()">
-          <img class="img-btn" src="assets/check-btn.png" alt="Check Button">
-          </button>
+        <div *ngIf="subcategories" class="form-group select">
+          <label for="subcategoryID">Subkategorie (optional):</label>
+          <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
+            <mat-select
+              formControlName="subcategoryID" name="subcategoryID"
+              class="text px-2" id="subcategoryID"
+              ngxMatSelect
+              [lazyLoad]="true"
+              [searcher]="subCategorySearcher.bind(this)"
+              [hasSearchBox]="true"
+              [multiple]="false"
+              [required]="false"
+              [valueMember]="'CAID'"
+              [displayMember]="'category_name'"
+              [source]="subcategories"
+              [emptyLabel]="'Keine Kategorien gefunden'"
+              #sf="ngxMatSelect"
+            >
+              <mat-option [value]=""></mat-option>
+              <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
+                {{c.category_name}}
+              </mat-option>
+            </mat-select>
+            <div class="select_arrow"></div>
+          </mat-form-field>
         </div>
+
+        <div class="display-check">
+          <div class="containerCenterWhile">
+            <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="!this.edit"
+                    (click)="onInsertTaskSubmit()">
+              <img src="assets/check-alternative.png" class="btnImg" alt="Check Icon">
+            </button>
+          </div>
+        </div>
+
+        <div class="display-check">
+          <div class="containerCenterWhile">
+            <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="this.edit"
+                    (click)="onEditTaskSubmit()">
+              <img src="assets/check-alternative.png" class="btnImg" alt="Check Icon">
+            </button>
+          </div>
+        </div>
+
+        <div class="display-check-mobile display-mobile-only">
+          <div class="containerCenterWhile-mobile">
+            <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="!this.edit"
+                    (click)="onInsertTaskSubmit()">
+              <img class="img-btn" src="assets/check-btn.png" alt="Check Button">
+            </button>
+          </div>
+        </div>
+
+        <div class="display-check-mobile display-mobile-only">
+          <div class="containerCenterWhile-mobile">
+            <button class="btn check-btn-web" [disabled]="!insertTaskForm.valid" *ngIf="this.edit"
+                    (click)="onEditTaskSubmit()">
+              <img class="img-btn" src="assets/check-btn.png" alt="Check Button">
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-  </form>
-
-
-</div>
-</div>
+  </div>
 
 </div>

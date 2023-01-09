@@ -5,7 +5,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { CommonModule } from '@angular/common';
 
 import {AppComponent} from './app.component';
-import {AddComponent} from './pages/add/add.component';
 import {ViewComponent} from './pages/view/view.component';
 import {RouterModule, Routes} from '@angular/router';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
@@ -24,7 +23,6 @@ import {ValidateEqualModule} from 'ng-validate-equal';
 import {TimerComponent} from './pages/timer/timer.component';
 import {CalendarComponent} from './pages/calendar/calendar.component';
 import {OverviewComponent} from './pages/overview/overview.component';
-import {InsertGroupComponent} from './pages/insert-group/insert-group.component';
 import {InsertCategoryComponent} from './pages/insert-category/insert-category.component';
 import {MyCategoriesComponent} from './pages/my-categories/my-categories.component';
 import {CategoryComponent} from './pages/category/category.component';
@@ -105,7 +103,6 @@ registerLocaleData(localeAt);
 export const routes: Routes = [
   {path: '', component: LandingComponent, pathMatch: 'full', canActivate: [LoggedInGuard]},
   {path: 'view', component: ViewComponent, canActivate: [AuthGuard]},
-  {path: 'add', component: AddComponent, canActivate: [AuthGuard]},
   {path: 'insert-task', component: InsertTaskComponent, canActivate: [AuthGuard]},
   {path: 'insert-task/:TAID', component: InsertTaskComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
@@ -114,7 +111,6 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [LoggedInGuard]},
   {path: 'timer', component: TimerComponent, canActivate: [AuthGuard]},
   {path: 'overview', component: OverviewComponent, canActivate: [AuthGuard]},
-  {path: 'insert-group', component: InsertGroupComponent, canActivate: [AuthGuard]},
   {path: 'insert-category', component: InsertCategoryComponent, canActivate: [AuthGuard]},
   {path: 'insert-category/:CAID', component: InsertCategoryComponent, canActivate: [AuthGuard]},
   {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
@@ -137,7 +133,6 @@ export const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    AddComponent,
     ViewComponent,
     DashboardComponent,
     InsertTaskComponent,
@@ -147,7 +142,6 @@ export const routes: Routes = [
     TimerComponent,
     CalendarComponent,
     OverviewComponent,
-    InsertGroupComponent,
     InsertCategoryComponent,
     MyCategoriesComponent,
     CategoryComponent,

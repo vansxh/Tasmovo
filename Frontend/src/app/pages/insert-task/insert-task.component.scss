@@ -3,33 +3,38 @@
   display: inline-block;
   margin-bottom: 15px;
   width: 100%;
-}    .select select {
-       font-family: 'Arial';
-       display: inline-block;
-       width: 100%;
-       cursor: pointer;
-       padding: 12px 16px;
-       outline: 0;
-       border: 1px hidden #000000;
-       border-radius: 5px;
-       background: #ffffff;
+}
 
-       appearance: none;
-       -webkit-appearance: none;
-       -moz-appearance: none;
-     }
+.select select {
+  font-family: 'Arial';
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  padding: 12px 16px;
+  outline: 0;
+  border: 1px hidden #000000;
+  border-radius: 5px;
+  background: #ffffff;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
 .select select::-ms-expand {
   display: none;
 }
+
 .select select:hover,
 .select select:focus {
   color: #000000;
   background: #ededed;
 }
+
 .select select:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
+
 .select_arrow {
   position: absolute;
   top: -4px;
@@ -44,15 +49,17 @@
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+
 .select select:hover ~ .select_arrow,
 .select select:focus ~ .select_arrow {
   border-color: #000000;
 }
+
 .select select:disabled ~ .select_arrow {
   border-top-color: #cccccc;
 }
 
-:host ::ng-deep span{
+:host ::ng-deep span {
   font-size: 15px !important;
 }
 
@@ -61,13 +68,12 @@
 }
 
 .text-field {
-  border: none!important;
-  //height: 45px;
+  border: none !important;
   border-radius: 5px;
 }
 
 .text-field-mat {
-  border: none!important;
+  border: none !important;
   height: 90px;
   padding-left: 10px;
   font-size: 1rem;
@@ -75,7 +81,7 @@
 }
 
 .text-select-mat {
-  border: none!important;
+  border: none !important;
   height: 45px;
   padding-left: 10px;
   font-size: 1rem;
@@ -83,7 +89,7 @@
 }
 
 :host ::ng-deep .mat-select-arrow-wrapper {
-  display: none!important;
+  display: none !important;
 }
 
 .display-check {
@@ -100,7 +106,7 @@
   border: none;
 }
 
-.btnImg:hover{
+.btnImg:hover {
   width: 95px;
   border: none;
   background-color: white;
@@ -113,7 +119,7 @@
   padding: 0 10px;
 }
 
-.containerCenterWhile{
+.containerCenterWhile {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -142,7 +148,7 @@
     width: 45px;
   }
 
-  .containerCenterWhile-mobile{
+  .containerCenterWhile-mobile {
     position: absolute;
     transform: translate(-50%, -50%);
   }

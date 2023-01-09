@@ -3,33 +3,39 @@
   display: inline-block;
   margin-bottom: 15px;
   width: 100%;
-}    .select select {
-       font-family: 'Source Sans Pro';
-       display: inline-block;
-       width: 100%;
-       cursor: pointer;
-       padding: 12px 16px;
-       outline: 0;
-       border: 1px hidden #000000;
-       border-radius: 5px;
-       background: #ffffff;
+}
 
-       appearance: none;
-       -webkit-appearance: none;
-       -moz-appearance: none;
-     }
+.select select {
+  font-family: 'Source Sans Pro';
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  padding: 12px 16px;
+  outline: 0;
+  border: 1px hidden #000000;
+  border-radius: 5px;
+  background: #ffffff;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
 .select select::-ms-expand {
   display: none;
 }
+
 .select select:hover,
 .select select:focus {
   color: #000000;
   background: #ededed;
 }
+
 .select select:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
+
 .select_arrow {
   position: absolute;
   top: -4px;
@@ -44,10 +50,12 @@
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
+
 .select select:hover ~ .select_arrow,
 .select select:focus ~ .select_arrow {
   border-color: #000000;
 }
+
 .select select:disabled ~ .select_arrow {
   border-top-color: #cccccc;
 }
@@ -56,30 +64,26 @@
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-/*:host ::ng-deep span{
-  font-size: 50px !important;
-}*/
-
 :host ::ng-deep .mat-form-field-underline {
   display: none;
 }
 
 .text-field {
-  border: none!important;
+  border: none !important;
   height: 45px;
   border-radius: 5px;
 }
 
-span{
+span {
   font-family: 'Source Sans Pro';
   font-weight: 400;
   font-style: normal;
-  font-size: 15px!important;
+  font-size: 15px !important;
   color: #30235B;
 }
 
 .text-select-mat {
-  border: none!important;
+  border: none !important;
   height: 45px;
   padding-left: 10px;
   font-size: 1rem;
@@ -87,7 +91,7 @@ span{
 }
 
 :host ::ng-deep .mat-select-arrow-wrapper {
-  display: none!important;
+  display: none !important;
 }
 
 .display-check {
@@ -104,7 +108,7 @@ span{
   border: none;
 }
 
-.btnImg:hover{
+.btnImg:hover {
   width: 95px;
   border: none;
   background-color: white;
@@ -117,7 +121,7 @@ span{
   padding: 0 10px;
 }
 
-.containerCenterWhile{
+.containerCenterWhile {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -146,7 +150,7 @@ span{
     width: 45px;
   }
 
-  .containerCenterWhile-mobile{
+  .containerCenterWhile-mobile {
     position: absolute;
     transform: translate(-50%, -50%);
   }

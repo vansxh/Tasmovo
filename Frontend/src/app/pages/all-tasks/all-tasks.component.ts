@@ -20,12 +20,18 @@ export class AllTasksComponent implements OnInit {
   loadFinishedTasks = 10;
 
   ngOnInit(): void {
-
+    // modify heading
     let h1 = document.getElementsByTagName("h1");
     for (let i = 0; i < h1.length; i++) {
       h1[i].innerText = "Alle Tasks";
     }
 
+    this.getTasksAll();
+    this.checkWindowSize();
+    window.addEventListener("resize", this.checkWindowSize);
+  }
+
+  getTasksAll() {
     // get  all tasks
     this.taskService.getAllTasks().subscribe(
       (data: any = []) => {
@@ -39,9 +45,6 @@ export class AllTasksComponent implements OnInit {
         }
         this.general.errorResponse(error['status']);
       });
-
-    this.checkWindowSize();
-    window.addEventListener("resize", this.checkWindowSize);
   }
 
   detailsTask(task: Task): void {

@@ -1,17 +1,21 @@
 <div class="mobile-distance">
-<h3 class="mt-5 mb-4 mx-5 text-center display-web-only" *ngIf="dailyQuote">"{{dailyQuote.quote}}"</h3>
+
+  <h3 class="mt-5 mb-4 mx-5 text-center display-web-only" *ngIf="dailyQuote">"{{dailyQuote.quote}}"</h3>
 
   <div class="row my-md-5">
     <div class="col-md-6 col-sm-12">
       <h2 class="text-light heading-dashboard display-mobile-only">Tasmovo</h2>
-
       <div class="shadow px-3 pb-1 mb-2 bg-white">
+
         <div *ngIf="plannedTasks">
           <h4 class="text-primary text-dashboard pt-2">Mein Tag</h4>
-          <div class="row justify-content-center task-bottom" *ngFor="let t of plannedTasks | slice:0:4" (click)="detailsTask(t)">
+          <div class="row justify-content-center task-bottom" *ngFor="let t of plannedTasks | slice:0:4"
+               (click)="detailsTask(t)">
             <div class="col-2 my-3">
-              <button *ngIf="t.statusID == 1" class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
-              <button *ngIf="t.statusID == 2" class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
+              <button *ngIf="t.statusID == 1" class="btn-circle btn-xl bg-info"
+                      (click)="$event.stopPropagation(); finishTask(t)"></button>
+              <button *ngIf="t.statusID == 2" class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img"
+                      disabled></button>
             </div>
             <div class="col-4 d-flex align-items-center my-2 textoverflow">{{t.task_name}}</div>
             <div class="col-3 d-flex align-items-center justify-content-end my-2 mx-3">
@@ -19,64 +23,42 @@
             </div>
           </div>
         </div>
+
         <div *ngIf="!plannedTasks">
           <h4 class="text-primary text-dashboard pt-2">nächste Tasks</h4>
-          <div class="row justify-content-center task-bottom" *ngFor="let t of openTasks | slice:0:4" (click)="detailsTask(t)">
+          <div class="row justify-content-center task-bottom" *ngFor="let t of openTasks | slice:0:4"
+               (click)="detailsTask(t)">
             <div class="col-2 my-3">
               <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
             </div>
             <div class="col-4 d-flex align-items-center my-2 textoverflow">{{t.task_name}}</div>
             <div class="col-3 d-flex align-items-center justify-content-end my-2">
-            <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
+              <div class="bg-dark rounded px-1 task-deadline">{{t.deadline | date: 'mediumDate'}}</div>
+            </div>
           </div>
         </div>
       </div>
+      <div class="d-flex justify-content-center">
+        <button class="btn bg-primary text-light m-3" (click)="myCategories()">Meine Kategorien</button>
+        <button class="btn bg-primary text-light m-3" (click)="myDay()">Mein Tag</button>
+      </div>
     </div>
-    <div class="d-flex justify-content-center">
-      <button class="btn bg-primary text-light m-3" (click)="myCategories()">Meine Kategorien</button>
-      <button class="btn bg-primary text-light m-3" (click)="myDay()">Mein Tag</button>
+
+    <div class="col-md-6 col-sm-12">
+      <div class="d-flex flex-column justify-content-center align-items-center shadow p-3 mb-2 bg-white">
+        <h4 class="text-dashboard">Dein heutiges Stresslevel:</h4>
+        <br>
+        <div class="spinner-bg-container">
+          <mat-progress-spinner class="spinner-bg" color="accent" value="100"></mat-progress-spinner>
+          <mat-progress-spinner
+            class="example-margin"
+            value="{{(dailyStresslevel/stressLimit)*100}}" mode="determinate" color="primary">
+          </mat-progress-spinner>
+        </div>
+        <div>{{dailyStresslevel}} / {{stressLimit}}</div>
+      </div>
     </div>
   </div>
 
-<!--<h2>Abgeschlossene Tasks</h2>
-<div class="row">
-  <div class="col-md-2">Titel</div>
-  <div class="col-md-2">Abgeschlossen am</div>
 </div>
-<div style="color:darkgray;" class="row" *ngFor="let t of finishedTasks">
-  <div class="col-md-2">{{t.task_name}}</div>
-  <div class="col-md-2">{{t.deadline | date: 'mediumDate'}}</div>
-</div>-->
 
-  <div class="col-md-6 col-sm-12">
-<div class="d-flex flex-column justify-content-center align-items-center shadow p-3 mb-2 bg-white">
-  <h4 class="text-dashboard">Dein heutiges Stresslevel:</h4>
-  <br>
-  <div class="spinner-bg-container">
-  <mat-progress-spinner class="spinner-bg" color="accent" value="100"></mat-progress-spinner>
-  <mat-progress-spinner
-    class="example-margin"
-    value="{{(dailyStresslevel/stressLimit)*100}}" mode="determinate" color="primary">
-  </mat-progress-spinner>
-  </div>
-  <div>{{dailyStresslevel}} / {{stressLimit}}</div>
-</div>
-    </div>
-    <!--<mat-card>
-      <mat-card-content>
-        <h2 class="example-h2">Result</h2>
-
-        <img src='https://i.stack.imgur.com/aNUGr.png' alt='background'/>
-
-        <mat-progress-spinner class="example-margin" value="{{(dailyStresslevel/stressLimit)*100}}" mode="determinate" color="success">
-        </mat-progress-spinner>
-      </mat-card-content>
-    </mat-card>-->
-</div>
-</div>
-<!--Button to test Stresslevel Popup-->
-<!--<button class="btn border" (click)="break()"></button>-->
-
-<!--<button class="btn btn-secondary" (click)="addTask()">Task erstellen</button>-->
-
-<!--<button class="btn btn-primary" (click)="onFinishOpen()">PopUp</button>-->

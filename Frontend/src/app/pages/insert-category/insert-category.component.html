@@ -1,96 +1,89 @@
 <div class="d-flex justify-content-center">
-<div class="col-md-6 mt-4">
-  <!--<h1 *ngIf="!this.edit" class="mobile-heading text-center">Neue Kategorie</h1>
-  <h1 *ngIf="this.edit" class="mobile-heading text-center">Kategorie bearbeiten</h1>-->
-  <form [formGroup]="insertCategoryForm" novalidate class="form">
 
-    <input type="hidden" formControlName="CAID" name="CAID">
-    <input type="hidden" formControlName="userID" name="userID">
+  <div class="col-md-6 mt-4">
+    <form [formGroup]="insertCategoryForm" novalidate class="form">
 
-    <div class="form-group mt-3">
-      <label for="category_name">Titel</label>
-      <input type="text" formControlName="category_name" name="category_name"
-             class="form-control container-shadow text-field bg-light" id="category_name">
-    </div>
-    <div class="alert p-0"
-         *ngIf="insertCategoryForm.get('category_name')?.hasError('required') && insertCategoryForm.get('category_name')?.touched">
-      <span>Bitte einen Titel für die Kategorie eingeben!</span>
-    </div>
-    <div class="alert p-0"
-         *ngIf="insertCategoryForm.get('category_name')?.hasError('maxlength') && insertCategoryForm.get('category_name')?.touched">
-      <span>Max Länge: 30 Zeichen</span>
-    </div>
+      <input type="hidden" formControlName="CAID" name="CAID">
+      <input type="hidden" formControlName="userID" name="userID">
 
-    <div *ngIf="!isParentCat" class="form-group select mt-3">
-      <label for="parent_categoryID">Elternkategorie (optional):</label>
-      <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
-        <mat-select
-          formControlName="parent_categoryID" name="parent_categoryID"
-          class="text px-2" id="parent_categoryID"
-          *ngIf="categories"
-          ngxMatSelect
-          [lazyLoad]="true"
-          [searcher]="categorySearcher.bind(this)"
-          [hasSearchBox]="true"
-          [multiple]="false"
-          [required]="false"
-          [valueMember]="'CAID'"
-          [displayMember]="'category_name'"
-          [source]="categories | category"
-          [emptyLabel]="'Keine Kategorien gefunden'"
-          #sf="ngxMatSelect"
-        >
-          <mat-option [value]=""></mat-option>
-          <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
-            {{c.category_name}}
-          </mat-option>
-        </mat-select>
-        <div class="select_arrow"></div>
-      </mat-form-field>
-    </div>
-
-    <!--<button [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit" class="btn btn-success"
-            (click)="onInsertCategorySubmit()">Kategorie erstellen
-    </button>
-    <button [disabled]="!insertCategoryForm.valid" *ngIf="this.edit" class="btn btn-success"
-            (click)="onEditCategorySubmit()">Kategorie bearbeiten
-    </button>-->
-
-    <div class="display-check">
-      <div class="containerCenterWhile">
-        <button class="btn check-btn-web" [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit"
-                (click)="onInsertCategorySubmit()">
-          <img src="assets/check-alternative.png" class="btnImg" alt="Check Icon">
-        </button>
+      <div class="form-group mt-3">
+        <label for="category_name">Titel</label>
+        <input type="text" formControlName="category_name" name="category_name"
+               class="form-control container-shadow text-field bg-light" id="category_name">
       </div>
-    </div>
-
-    <div class="display-check">
-      <div class="containerCenterWhile">
-        <button class="btn check-btn-web" [disabled]="!insertCategoryForm.valid" *ngIf="this.edit"
-                (click)="onEditCategorySubmit()">
-          <img src="assets/check-alternative.png" class="btnImg" alt="Check Icon">
-        </button>
+      <div class="alert p-0"
+           *ngIf="insertCategoryForm.get('category_name')?.hasError('required') && insertCategoryForm.get('category_name')?.touched">
+        <span>Bitte einen Titel für die Kategorie eingeben!</span>
       </div>
-    </div>
-
-    <div class="display-check-mobile display-mobile-only">
-      <div class="containerCenterWhile-mobile">
-        <button class="btn check-btn-web" [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit"
-                (click)="onInsertCategorySubmit()">
-          <img class="img-btn" src="assets/check-btn.png" alt="Check Button">
-        </button>
+      <div class="alert p-0"
+           *ngIf="insertCategoryForm.get('category_name')?.hasError('maxlength') && insertCategoryForm.get('category_name')?.touched">
+        <span>Max Länge: 30 Zeichen</span>
       </div>
-    </div>
 
-    <div class="display-check-mobile display-mobile-only">
-      <div class="containerCenterWhile-mobile">
-        <button class="btn check-btn-web" [disabled]="!insertCategoryForm.valid" *ngIf="this.edit"
-                (click)="onEditCategorySubmit()">
-          <img class="img-btn" src="assets/check-btn.png" alt="Check Button">
-        </button>
+      <div *ngIf="!isParentCat" class="form-group select mt-3">
+        <label for="parent_categoryID">Elternkategorie (optional):</label>
+        <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
+          <mat-select
+            formControlName="parent_categoryID" name="parent_categoryID"
+            class="text px-2" id="parent_categoryID"
+            *ngIf="categories"
+            ngxMatSelect
+            [lazyLoad]="true"
+            [searcher]="categorySearcher.bind(this)"
+            [hasSearchBox]="true"
+            [multiple]="false"
+            [required]="false"
+            [valueMember]="'CAID'"
+            [displayMember]="'category_name'"
+            [source]="categories | category"
+            [emptyLabel]="'Keine Kategorien gefunden'"
+            #sf="ngxMatSelect"
+          >
+            <mat-option [value]=""></mat-option>
+            <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
+              {{c.category_name}}
+            </mat-option>
+          </mat-select>
+          <div class="select_arrow"></div>
+        </mat-form-field>
       </div>
-    </div>
-  </form>
-</div>
+
+      <div class="display-check">
+        <div class="containerCenterWhile">
+          <button class="btn check-btn-web" [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit"
+                  (click)="onInsertCategorySubmit()">
+            <img src="assets/check-alternative.png" class="btnImg" alt="Check Icon">
+          </button>
+        </div>
+      </div>
+
+      <div class="display-check">
+        <div class="containerCenterWhile">
+          <button class="btn check-btn-web" [disabled]="!insertCategoryForm.valid" *ngIf="this.edit"
+                  (click)="onEditCategorySubmit()">
+            <img src="assets/check-alternative.png" class="btnImg" alt="Check Icon">
+          </button>
+        </div>
+      </div>
+
+      <div class="display-check-mobile display-mobile-only">
+        <div class="containerCenterWhile-mobile">
+          <button class="btn check-btn-web" [disabled]="!insertCategoryForm.valid" *ngIf="!this.edit"
+                  (click)="onInsertCategorySubmit()">
+            <img class="img-btn" src="assets/check-btn.png" alt="Check Button">
+          </button>
+        </div>
+      </div>
+
+      <div class="display-check-mobile display-mobile-only">
+        <div class="containerCenterWhile-mobile">
+          <button class="btn check-btn-web" [disabled]="!insertCategoryForm.valid" *ngIf="this.edit"
+                  (click)="onEditCategorySubmit()">
+            <img class="img-btn" src="assets/check-btn.png" alt="Check Button">
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
 </div>

@@ -15,6 +15,7 @@ import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.compo
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import Swiper from "swiper";
 import {ConfirmationDialogComponent} from "../../popups/confirmation-dialog/confirmation-dialog.component";
+
 // install Swiper modules
 SwiperCore.use([Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual]);
 
@@ -58,10 +59,10 @@ export class CategoryComponent implements OnInit {
     );
 
     //get Data and modify Headings
-    this.getAllData();
+    this.getCategoryData();
   }
 
-  getAllData() {
+  getCategoryData() {
     let h1 = document.getElementsByTagName("h1");
     const routeParams = this.route.snapshot.params;
 

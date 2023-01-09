@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router, Params, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Task} from 'src/app/services/task/task';
 import {TaskService} from '../../services/task/task.service';
 import {DatePipe} from '@angular/common';
-import {LOCALE_ID} from '@angular/core';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {GeneralService} from "../../services/general/general.service";
 import {Category} from "../../services/category/category";
@@ -32,17 +31,20 @@ export class InsertTaskComponent implements OnInit {
   subcategories!: Category[];
   nowDate!: string;
   formatNumber: number = 24;
-  bankValue = [{key: 10, value: 'Bank_10'},{key: 75, value: 'Bank_75'}];
+  bankValue = [{key: 10, value: 'Bank_10'}, {key: 75, value: 'Bank_75'}];
   source: any[] = [];
 
   ngOnInit(): void {
-
+    // modify headings
     let h1 = document.getElementsByTagName("h1");
-
-    if(this.edit) {
-      for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Task bearbeiten";}
+    if (this.edit) {
+      for (let i = 0; i < h1.length; i++) {
+        h1[i].innerText = "Task bearbeiten";
+      }
     } else {
-      for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Neuer Task";}
+      for (let i = 0; i < h1.length; i++) {
+        h1[i].innerText = "Neuer Task";
+      }
     }
 
     for (let i = 0; i < 100; i++) {
@@ -51,49 +53,8 @@ export class InsertTaskComponent implements OnInit {
 
     this.nowDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd', 'de-AT') || '';
 
-    const routeParams = this.route.snapshot.params;
-
-    // if TAID is transmitted get task and display values
-    if (routeParams['TAID']) {
-
-      this.edit = true;
-      this.taskService.getTask(routeParams['TAID']).subscribe(
-        (data: any = []) => {
-            // get task from data
-            this.selectedTask = <Task>data['data'];
-            this.onChangeCategory(this.selectedTask.categoryID);
-            console.log(this.selectedTask);
-            // fix deadline for input form
-            let deadline = new Date(this.selectedTask.deadline);
-            this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
-            this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
-            this.selectedTask.notes = this.selectedTask.notes.replaceAll("<br/>", "\r\n");
-            this.insertTaskForm.patchValue(this.selectedTask);
-            this.nowDate = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
-        },
-        (error: any = []) => {
-          if(error['error']['message']) {
-            this.general.specificErrorResponse(error['error']['message'], "dashboard");
-            return;
-          }
-          this.general.errorResponse(error['status']);
-        });
-    }
-
-    // get all categories from a user for dropdown
-    this.catService.getCategoriesByUser().subscribe(
-      (data: any = []) => {
-        // get categories from data
-        this.categories = <Category[]>data['data'];
-        console.log(this.categories);
-      },
-      (error: any = []) => {
-        if(error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
+    this.getInsertData();
+    this.getDropdownCategories();
 
     this.insertTaskForm = this.formbuilder.group({
       TAID: [''],
@@ -104,6 +65,52 @@ export class InsertTaskComponent implements OnInit {
       categoryID: [''],
       subcategoryID: ['']
     });
+  }
+
+  getInsertData() {
+    const routeParams = this.route.snapshot.params;
+
+    // if TAID is transmitted get task and display values
+    if (routeParams['TAID']) {
+
+      this.edit = true;
+      this.taskService.getTask(routeParams['TAID']).subscribe(
+        (data: any = []) => {
+          // get task from data
+          this.selectedTask = <Task>data['data'];
+          this.onChangeCategory(this.selectedTask.categoryID);
+          // fix deadline for input form
+          let deadline = new Date(this.selectedTask.deadline);
+          this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
+          this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
+          this.selectedTask.notes = this.selectedTask.notes.replaceAll("<br/>", "\r\n");
+          this.insertTaskForm.patchValue(this.selectedTask);
+          this.nowDate = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
+        },
+        (error: any = []) => {
+          if (error['error']['message']) {
+            this.general.specificErrorResponse(error['error']['message'], "dashboard");
+            return;
+          }
+          this.general.errorResponse(error['status']);
+        });
+    }
+  }
+
+  getDropdownCategories() {
+    // get all categories from a user for dropdown
+    this.catService.getCategoriesByUser().subscribe(
+      (data: any = []) => {
+        // get categories from data
+        this.categories = <Category[]>data['data'];
+      },
+      (error: any = []) => {
+        if (error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
   }
 
   // for searching through subcategories
@@ -124,7 +131,7 @@ export class InsertTaskComponent implements OnInit {
         this.navigation.back();
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           this.general.specificErrorResponse(error['error']['message'], "dashboard");
           return;
         }
@@ -137,13 +144,13 @@ export class InsertTaskComponent implements OnInit {
     this.taskService.updateTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
         // if task was updated display task
-        if(window.innerWidth > 768) {
+        if (window.innerWidth > 768) {
           this.navigation.back();
         }
-          this.taskService.detailsTask(this.insertTaskForm.value.TAID);
+        this.taskService.detailsTask(this.insertTaskForm.value.TAID);
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           this.general.specificErrorResponse(error['error']['message'], "dashboard");
           return;
         }
@@ -156,10 +163,9 @@ export class InsertTaskComponent implements OnInit {
       (data: any = []) => {
         // get subcategories from data
         this.subcategories = <Category[]>data['data'];
-        console.log(this.subcategories);
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           this.subcategories = [];
           return;
@@ -167,9 +173,4 @@ export class InsertTaskComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
   }
-
-  print(event: any) {
-    console.log(event);
-  }
-
 }
