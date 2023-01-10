@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {Category} from "../services/category/category";
 
 @Pipe({
@@ -7,7 +7,7 @@ import {Category} from "../services/category/category";
 export class SubcategoryPipe implements PipeTransform {
 
   transform(categories: Category[]): Category[] {
-    if(categories) {
+    if (categories) {
       return categories.filter(category => {
         return category.parent_categoryID !== null;
       });

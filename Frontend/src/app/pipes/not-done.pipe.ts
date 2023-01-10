@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { Task } from "../services/task/task";
+import {Pipe, PipeTransform} from '@angular/core';
+import {Task} from "../services/task/task";
 
 @Pipe({
   name: 'notDone'
@@ -9,7 +9,7 @@ import { Task } from "../services/task/task";
 export class NotDonePipe implements PipeTransform {
 
   transform(tasks: Task[]): Task[] {
-    if(tasks) {
+    if (tasks) {
       return tasks.filter(task => {
         return task.statusID == 1;
       });

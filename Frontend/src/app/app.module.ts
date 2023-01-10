@@ -5,7 +5,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { CommonModule } from '@angular/common';
 
 import {AppComponent} from './app.component';
-import {ViewComponent} from './pages/view/view.component';
 import {RouterModule, Routes} from '@angular/router';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
@@ -102,7 +101,6 @@ registerLocaleData(localeAt);
 
 export const routes: Routes = [
   {path: '', component: LandingComponent, pathMatch: 'full', canActivate: [LoggedInGuard]},
-  {path: 'view', component: ViewComponent, canActivate: [AuthGuard]},
   {path: 'insert-task', component: InsertTaskComponent, canActivate: [AuthGuard]},
   {path: 'insert-task/:TAID', component: InsertTaskComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
@@ -133,7 +131,6 @@ export const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ViewComponent,
     DashboardComponent,
     InsertTaskComponent,
     LoginComponent,

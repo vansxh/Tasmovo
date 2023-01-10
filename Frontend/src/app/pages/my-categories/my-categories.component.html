@@ -1,31 +1,38 @@
 <div class="mx-4 mobile-distance">
-<div class="d-flex flex-column align-items-center">
-  <button class="btn btn-primary my-3 py-3 shadow add-cat-btn" (click)="addCategory()">
-    <div class="d-flex justify-content-center gap-3">
-      <fa-icon [icon]="faCircleX" size="lg"></fa-icon>
-      <span>Neue Kategorie erstellen</span>
-    </div>
-  </button>
-</div>
-<div class="row mt-2 d-flex justify-content-center">
-  <div class="shadow bg-white p-3 col-md-3 col-sm-5 m-3 rounded category-box" *ngFor="let c of categories | category" (click)="showCategory(c)"
-       style="position: relative;">
-    <div class="d-flex justify-content-start">
-      <h4>{{c.category_name}}</h4>
-    </div>
-    <div class="d-flex justify-content-end"
-         style="position: absolute; bottom: 80px; right: 10px;">
-      <button class="btn btn-light" (click)="editCategory(c)"><fa-icon [icon]="faEdit"></fa-icon></button>
-      <button class="btn btn-light" (click)="$event.stopPropagation(); deleteCategory(c)"><fa-icon [icon]="faTrash"></fa-icon></button>
-    </div>
-    <div style="position: absolute; bottom: 15px; right: 20px;">
-    <div class="d-flex justify-content-end">
-      <span class="">{{c.numberOfTasks}} Tasks</span><br>
-    </div>
-    <div class="d-flex justify-content-end">
-      <span class="">{{c.numberOfFinished}} erledigt</span>
-    </div>
+
+  <div class="d-flex flex-column align-items-center">
+    <button class="btn btn-primary my-3 py-3 shadow add-cat-btn" (click)="addCategory()">
+      <div class="d-flex justify-content-center gap-3">
+        <fa-icon [icon]="faCircleX" size="lg"></fa-icon>
+        <span>Neue Kategorie erstellen</span>
+      </div>
+    </button>
+  </div>
+  <div class="row mt-2 d-flex justify-content-center">
+    <div class="shadow bg-white p-3 col-md-3 col-sm-5 m-3 rounded category-box" *ngFor="let c of categories | category"
+         (click)="showCategory(c)"
+         style="position: relative;">
+      <div class="d-flex justify-content-start">
+        <h4>{{c.category_name}}</h4>
+      </div>
+      <div class="d-flex justify-content-end"
+           style="position: absolute; bottom: 80px; right: 10px;">
+        <button class="btn btn-light" (click)="editCategory(c)">
+          <fa-icon [icon]="faEdit"></fa-icon>
+        </button>
+        <button class="btn btn-light" (click)="$event.stopPropagation(); deleteCategory(c)">
+          <fa-icon [icon]="faTrash"></fa-icon>
+        </button>
+      </div>
+      <div style="position: absolute; bottom: 15px; right: 20px;">
+        <div class="d-flex justify-content-end">
+          <span class="">{{c.numberOfTasks}} Tasks</span><br>
+        </div>
+        <div class="d-flex justify-content-end">
+          <span class="">{{c.numberOfFinished}} erledigt</span>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+
 </div>

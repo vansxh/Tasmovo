@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material/dialog";
-import {DashboardComponent} from "../../pages/dashboard/dashboard.component";
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {GeneralService} from "../../services/general/general.service";
 import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
 import {PopupReminderComponent} from "../popup-reminder/popup-reminder.component";
@@ -47,7 +45,7 @@ export class PopupFinishComponent implements OnInit {
     let toggleBtnTwo = document.getElementById("toggle-btn-2");
     let toggleBtnThree = document.getElementById("toggle-btn-3");
     toggleBtnOne?.addEventListener('click', function onClick() {
-      if(toggleBtnOne && toggleBtnTwo && toggleBtnThree) {
+      if (toggleBtnOne && toggleBtnTwo && toggleBtnThree) {
         toggleBtnOne.style.backgroundColor = '#D0C7EC';
         toggleBtnOne.style.color = 'white';
         toggleBtnTwo.style.backgroundColor = 'white';
@@ -57,7 +55,7 @@ export class PopupFinishComponent implements OnInit {
       }
     });
     toggleBtnTwo?.addEventListener('click', function onClick() {
-      if(toggleBtnOne && toggleBtnTwo && toggleBtnThree) {
+      if (toggleBtnOne && toggleBtnTwo && toggleBtnThree) {
         toggleBtnOne.style.backgroundColor = 'white';
         toggleBtnOne.style.color = 'black';
         toggleBtnTwo.style.backgroundColor = '#9F92C6';
@@ -67,30 +65,22 @@ export class PopupFinishComponent implements OnInit {
       }
     });
     toggleBtnThree?.addEventListener('click', function onClick() {
-      if(toggleBtnOne && toggleBtnTwo && toggleBtnThree) {
+      if (toggleBtnOne && toggleBtnTwo && toggleBtnThree) {
         toggleBtnOne.style.backgroundColor = 'white';
         toggleBtnOne.style.color = 'black';
         toggleBtnTwo.style.backgroundColor = 'white';
         toggleBtnTwo.style.color = 'black';
         toggleBtnThree.style.backgroundColor = '#634C9A';
         toggleBtnThree.style.color = 'white';
-
       }
     });
-
   }
-
 
   onFinishSubmit() {
     this.terminateTask.expenseID = this.finishForm.value.expenseID;
     this.terminateTask.stress_factor = this.finishForm.value.stress_factor;
-    //console.log(this.terminateTask);
-    //console.log("expenseID: " + this.terminateTask.expenseID);
-    //console.log("stress_factor: " + this.terminateTask.stress_factor);
     this.taskService.finishTask(this.terminateTask).subscribe(
       (data: any = []) => {
-        // update view if finishing was successful
-        //this.loadTasks();
       },
       (error: any = []) => {
         if (error['error']['message']) {
@@ -106,7 +96,6 @@ export class PopupFinishComponent implements OnInit {
         this.stress.getStressData().subscribe((data: any = []) => {
           this.dailyStresslevel = data['data']['daily_stresslevel'];
           this.stressLimit = data['data']['stress_limit'];
-          console.log(this.stressLimit, this.dailyStresslevel);
           if (this.dailyStresslevel > this.stressLimit) {
             const dialogConfig = new MatDialogConfig();
             dialogConfig.disableClose = true;
@@ -133,7 +122,6 @@ export class PopupFinishComponent implements OnInit {
   }
 
   onClose() {
-    //this.accept = false;
     this.dialogRefFinish.close();
     if (this.dailyStresslevel < this.stressLimit) {
       window.location.href = window.location.href;

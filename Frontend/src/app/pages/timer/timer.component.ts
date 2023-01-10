@@ -4,7 +4,6 @@ import {TimerService} from "../../services/timer/timer.service";
 import {GeneralService} from "../../services/general/general.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ErrorStateMatcher} from "@angular/material/core";
-import DevExpress from "devextreme";
 import {CountdownEvent, CountdownStatus} from "ngx-countdown";
 
 @Component({
@@ -23,11 +22,6 @@ export class TimerComponent implements OnInit {
   whileTimer: boolean | undefined;
   timerEnd: boolean | undefined;
 
-  /*snack!: boolean;
-  kaffee!: boolean;
-  spazieren!: boolean;
-  nap!: boolean;*/
-
   rewards!: Reward[];
   rewardPaths = ['', 'assets/burger.gif', 'assets/kaffee.gif', 'assets/spazieren.gif', 'assets/powernap.gif', 'assets/geschenk.gif'];
   finishPaths = ['', 'assets/finishBurger.png', 'assets/finishKaffee.png', 'assets/finishSpazieren.png', 'assets/finishPowernap.png', 'assets/finishGeschenk.png'];
@@ -45,9 +39,11 @@ export class TimerComponent implements OnInit {
     this.getRewards();
     this.getCurrentTimer();
 
-    //change heading
+    // modify heading
     let h1 = document.getElementsByTagName("h1");
-    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Timer";}
+    for (let i = 0; i < h1.length; i++) {
+      h1[i].innerText = "Timer";
+    }
   }
 
   startState() {

@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CategoryService} from 'src/app/services/category/category.service';
 import {Category} from 'src/app/services/category/category';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {Observable, startWith, map} from "rxjs";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {TaskService} from "../../services/task/task.service";
 import {Task} from "../../services/task/task";
 import {GeneralService} from "../../services/general/general.service";
@@ -31,9 +29,11 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // change heading
+    // modify heading
     let h1 = document.getElementsByTagName("h1");
-    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Übersicht";}
+    for (let i = 0; i < h1.length; i++) {
+      h1[i].innerText = "Übersicht";
+    }
 
     this.initForm();
     this.getAllTasks();
@@ -55,10 +55,9 @@ export class OverviewComponent implements OnInit {
     this.router.navigate(['/my-day']);
   }
 
-
-  initForm(){
+  initForm() {
     this.formGroup = this.fb.group({
-      'tasks' : ['']
+      'tasks': ['']
     });
     // @ts-ignore
     this.formGroup.get('tasks').valueChanges.subscribe(response => {
@@ -66,21 +65,20 @@ export class OverviewComponent implements OnInit {
     })
   }
 
-  filterData(enteredData: string){
+  filterData(enteredData: string) {
     this.filteredOptions = this.options.filter(item => {
       return item['task_name'].toLowerCase().indexOf(enteredData.toLowerCase()) > -1
     })
   }
 
-  getAllTasks(){
+  getAllTasks() {
     this.taskService.getAllTasks().subscribe(
       (data: any = []) => {
         // get tasks from data
         this.options = <Task[]>data['data'];
-        //console.log(this.allTasksArray);
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
@@ -92,5 +90,4 @@ export class OverviewComponent implements OnInit {
     this.initForm();
     this.taskService.detailsTask(task.TAID);
   }
-
 }

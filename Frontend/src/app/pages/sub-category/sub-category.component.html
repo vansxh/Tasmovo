@@ -1,37 +1,18 @@
-<!--<div>
-<div>
-  <div class="row my-4 progressbar-heading" id="progressbar-head">-->
-    <!--<p class="text-center mb-2" *ngIf="subcategory">{{subcategory.category_name}}</p>-->
-    <!--<h2 class="text-center" *ngIf="subcategory">{{getSubcategoryName()}}</h2>-->
-    <!--<button class="btn btn-light" *ngIf="parentCategory" (click)="editCategory(subcategory)"><i class="fa fa-edit"></i>
-    </button>
-    <button class="btn btn-light" *ngIf="parentCategory" (click)="deleteCategory(subcategory)"><i
-      class="fa fa-trash-o"></i></button>-->
-    <!--<div class="text-center mb-1 text-primary display-web-only" *ngIf="categoryTasks">{{(categoryTasks|done).length}}
-      von {{categoryTasks.length}} erledigt
-    </div>
-    <div>
-      <ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length"
-                       [max]="categoryTasks.length">
-      </ngb-progressbar>
-    </div>
-  </div>
-</div>-->
-
 <div class="mobile-distance">
+
   <div>
     <div class="row my-4 progressbar-heading" id="progressbar-head">
       <div class="rel-parentcat-header display-mobile-only">
         <div class="parentcat-name-header">
           <p class="text-center d-inline-block" id="parent-cat"></p>
-          <!--<h2 class="text-center" *ngIf="subcategory">{{getSubcategoryName()}}</h2>-->
         </div>
       </div>
       <div class="text-center mb-1 text-primary display-web-only" *ngIf="categoryTasks">{{(categoryTasks|done).length}}
         von {{categoryTasks.length}} erledigt
       </div>
       <div>
-        <ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length" [max]="categoryTasks.length">
+        <ngb-progressbar type="primary" *ngIf="categoryTasks" [value]="(categoryTasks | done).length"
+                         [max]="categoryTasks.length">
         </ngb-progressbar>
       </div>
     </div>
@@ -41,7 +22,8 @@
         <div class="btn btn-primary w-50" id="notDone-btn" (click)="scrollToNotDone()" (click)="changeDay(1)">
           Offen
         </div>
-        <div class="btn btn-light btn-outline-primary w-50" id="done-btn" (click)="scrollToDone()" (click)="changeDay(2)">
+        <div class="btn btn-light btn-outline-primary w-50" id="done-btn" (click)="scrollToDone()"
+             (click)="changeDay(2)">
           Erledigt
         </div>
       </div>
@@ -52,7 +34,8 @@
     <div class="col-3-lg col-md" id="notDone-container">
       <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
         <h2 class="text-center mb-4 display-web-only">Offen</h2>
-        <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | notDone | slice: 0: loadAllTasks"
+        <div class="row justify-content-center task-bottom"
+             *ngFor="let t of categoryTasks | notDone | slice: 0: loadAllTasks"
              (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
           <div class="col-2 my-3">
             <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
@@ -63,7 +46,8 @@
           </div>
         </div>
         <div class="d-flex justify-content-center task-bottom hoverEffects"
-             *ngIf="categoryTasks && loadAllTasks < (categoryTasks | notDone).length" (click)="loadAllTasks= loadAllTasks +5">
+             *ngIf="categoryTasks && loadAllTasks < (categoryTasks | notDone).length"
+             (click)="loadAllTasks= loadAllTasks +5">
           <span>mehr laden</span>
         </div>
       </div>
@@ -75,8 +59,8 @@
       <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
         <h2 class="text-center mb-md-4">Erledigt</h2>
         <div class="row justify-content-center task-bottom"
-             *ngFor="let t of categoryTasks | done | slice: 0: loadFinishedTasks" (click)="detailsTask(t)">
-          <!-- uses custom pipe done -->
+             *ngFor="let t of categoryTasks | done | slice: 0: loadFinishedTasks"
+             (click)="detailsTask(t)"> <!-- uses custom pipe done -->
           <div class="col-2 my-3">
             <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
           </div>
@@ -92,8 +76,8 @@
         </div>
       </div>
     </div>
-
   </div>
+
 </div>
 
 

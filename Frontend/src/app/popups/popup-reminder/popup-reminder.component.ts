@@ -1,9 +1,8 @@
 import {Component, OnInit, VERSION} from '@angular/core';
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
-import {Task} from "../../services/task/task";
 import {MatDialogRef} from "@angular/material/dialog";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {StresstrackingService} from "../../services/stresstracking/stresstracking.service";
 
 
@@ -20,7 +19,6 @@ export class PopupReminderComponent implements OnInit {
   display: any;
 
   input = document.getElementById('reset-stress') as HTMLInputElement | null;
-  //accept!: boolean;
   btnState: boolean=true;
   weeklyAverage!: number;
 
@@ -29,7 +27,6 @@ export class PopupReminderComponent implements OnInit {
   }
 
   onClose() {
-    //this.accept = false;
     this.dialogRefFinish.close();
     window.location.href = window.location.href;
   }
@@ -51,7 +48,6 @@ export class PopupReminderComponent implements OnInit {
 
   modifyDailyStresslevel(): void {
     this.stress.getDailyStresslevel().subscribe((data: any = []) => {
-      //console.log(data['data']['0']['Average']);
       this.weeklyAverage = data['data']['daily_stresslevel'];
     this.stress.resetDailyStresslevel(this.weeklyAverage/2).subscribe(
       (data: any = []) => {
@@ -88,7 +84,6 @@ export class PopupReminderComponent implements OnInit {
       this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
 
       if (seconds == 0) {
-        //console.log("finished");
         clearInterval(timer);
         this.btnState = false;
       } else {

@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Router} from '@angular/router';
-import { NavigationService } from '../../services/navigation/navigation.service'
-import { Category } from 'src/app/services/category/category';
+import {NavigationService} from '../../services/navigation/navigation.service'
+import {Category} from 'src/app/services/category/category';
 import {CategoryService} from "../../services/category/category.service";
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import {faXmark} from '@fortawesome/free-solid-svg-icons';
+import {faPencil} from '@fortawesome/free-solid-svg-icons';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {ConfirmationDialogComponent} from "../../popups/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
@@ -21,7 +21,8 @@ import {ConfirmationDialogComponent} from "../../popups/confirmation-dialog/conf
 })
 export class TaskComponent implements OnInit {
 
-  constructor(private catService: CategoryService ,private navigation: NavigationService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) { }
+  constructor(private catService: CategoryService, private navigation: NavigationService, private router: Router, private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService) {
+  }
 
   task!: Task;
   taskID!: number;
@@ -32,7 +33,10 @@ export class TaskComponent implements OnInit {
   faTrash = faTrash;
 
   ngOnInit(): void {
+    this.getAllTaskData();
+  }
 
+  getAllTaskData() {
     const routeParams = this.route.snapshot.params;
 
     if (routeParams['TAID']) {
@@ -52,17 +56,15 @@ export class TaskComponent implements OnInit {
           (data: any = []) => {
             // get category from data
             this.category = <Category>data['data'];
-            console.log(this.category);
 
             // get subcategory
             this.catService.getCategory(this.task.subcategoryID).subscribe(
               (data: any = []) => {
                 // get category from data
                 this.subcategory = <Category>data['data'];
-                console.log(this.subcategory);
               },
               (error: any = []) => {
-                if(error['error']['message']) {
+                if (error['error']['message']) {
                   alert(error['error']['message']);
                   return;
                 }
@@ -70,7 +72,7 @@ export class TaskComponent implements OnInit {
               });
           },
           (error: any = []) => {
-            if(error['error']['message']) {
+            if (error['error']['message']) {
               alert(error['error']['message']);
               return;
             }
@@ -78,9 +80,11 @@ export class TaskComponent implements OnInit {
           });
 
         // change heading
-        if(window.innerWidth <= 768) {
+        if (window.innerWidth <= 768) {
           let h1 = document.getElementsByTagName("h1");
-          for (let i = 0; i < h1.length; i++) {  h1[i].innerText = this.task.task_name;}
+          for (let i = 0; i < h1.length; i++) {
+            h1[i].innerText = this.task.task_name;
+          }
 
           let marginMobile = document.getElementById("mobile-content-margin");
           marginMobile?.classList.add("mobile-margin-content");
@@ -93,13 +97,12 @@ export class TaskComponent implements OnInit {
 
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
       });
-
   }
 
   finishTask() {
@@ -117,13 +120,12 @@ export class TaskComponent implements OnInit {
         window.location.reload();
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
       });
-
   }
 
   editTask(): void {
@@ -131,8 +133,8 @@ export class TaskComponent implements OnInit {
   }
 
   deleteTask(): void {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
-      data:{
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
         message: 'Möchtest du diesen Task wirklich löschen?'
       }
     });
@@ -145,7 +147,7 @@ export class TaskComponent implements OnInit {
             this.router.navigate(['/dashboard']);
           },
           (error: any = []) => {
-            if(error['error']['message']) {
+            if (error['error']['message']) {
               alert(error['error']['message']);
               return;
             }
@@ -153,9 +155,6 @@ export class TaskComponent implements OnInit {
           });
       }
     });
-
-
-
   }
 
   back(): void {

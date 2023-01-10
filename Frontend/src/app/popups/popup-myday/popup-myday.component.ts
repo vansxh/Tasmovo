@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
-import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {MatDialogRef} from "@angular/material/dialog";
 import {DatePipe} from '@angular/common';
 import {Observable, of} from "rxjs";
@@ -28,7 +28,8 @@ export function endTimeValidator(): ValidatorFn {
 
 export class PopupMydayComponent implements OnInit {
 
-  constructor(private datePipe: DatePipe, private dialogRefFinish: MatDialogRef<PopupMydayComponent>, private formbuilder: FormBuilder, private taskService: TaskService, private general: GeneralService) { }
+  constructor(private datePipe: DatePipe, private dialogRefFinish: MatDialogRef<PopupMydayComponent>, private formbuilder: FormBuilder, private taskService: TaskService, private general: GeneralService) {
+  }
 
   planned_date!: string;
   start_time!: string;
@@ -40,55 +41,59 @@ export class PopupMydayComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     this.addPlannedTaskForm = this.formbuilder.group({
-      start_time: ['', Validators.required],
-      end_time: ['', Validators.required],
-      TAID: ['', Validators.required]
-    },
-{
+        start_time: ['', Validators.required],
+        end_time: ['', Validators.required],
+        TAID: ['', Validators.required]
+      },
+      {
         validator: [endTimeValidator()]
-    });
+      });
 
     this.newTask = new Task();
 
+    this.getAllDropdownTasks();
+    this.addPlannedMyDayTasks();
+  }
+
+  getAllDropdownTasks() {
     // get all tasks from a user for dropdown
     this.taskService.getAllTasks().subscribe(
       (data: any = []) => {
         // get tasks from data
         this.tasks = <Task[]>data['data'];
         // sort tasks alphabetically
-        this.tasks.sort(function(a, b){
-          if(a.task_name.toLowerCase() < b.task_name.toLowerCase()) {
+        this.tasks.sort(function (a, b) {
+          if (a.task_name.toLowerCase() < b.task_name.toLowerCase()) {
             return -1;
           }
-          if(a.task_name.toLowerCase() > b.task_name.toLowerCase()) {
+          if (a.task_name.toLowerCase() > b.task_name.toLowerCase()) {
             return 1;
           }
           return 0;
         });
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
       });
+  }
 
+  addPlannedMyDayTasks() {
     this.plannedTask = this.taskService.plannedTask;
-    console.log(this.plannedTask);
     this.planned_date = this.datePipe.transform(new Date(this.plannedTask.planned_date), 'EEEE, d. MMM', 'de-AT') || '';
 
     this.addPlannedTaskForm.patchValue(this.plannedTask);
-    if(this.plannedTask.TAID == 0) {
+    if (this.plannedTask.TAID == 0) {
       this.addPlannedTaskForm.setValue({
         TAID: '',
         start_time: this.plannedTask.start_time,
         end_time: this.plannedTask.end_time
       });
     }
-
   }
 
   // for searching through tasks
@@ -96,7 +101,7 @@ export class PopupMydayComponent implements OnInit {
     return of(this.tasks.filter(w => w.task_name.includes(search) && w.statusID == 1));
   }
 
-  onAddTaskSumbmit() {
+  onAddTaskSubmit() {
     // get values from form
     this.newTask.start_time = this.addPlannedTaskForm.value.start_time;
     this.newTask.end_time = this.addPlannedTaskForm.value.end_time;
@@ -108,7 +113,7 @@ export class PopupMydayComponent implements OnInit {
         this.onClose();
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           this.onClose();
           return;
@@ -118,7 +123,7 @@ export class PopupMydayComponent implements OnInit {
       });
   }
 
-  onEditTaskSumbmit(){
+  onEditTaskSubmit() {
     // get values from form
     this.plannedTask.start_time = this.addPlannedTaskForm.value.start_time;
     this.plannedTask.end_time = this.addPlannedTaskForm.value.end_time;
@@ -131,7 +136,7 @@ export class PopupMydayComponent implements OnInit {
         this.onClose();
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           this.onClose();
           return;
@@ -145,5 +150,4 @@ export class PopupMydayComponent implements OnInit {
     this.dialogRefFinish.close();
     window.location.reload();
   }
-
 }

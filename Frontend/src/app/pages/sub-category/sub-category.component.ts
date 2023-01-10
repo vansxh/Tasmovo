@@ -17,6 +17,7 @@ export class SubCategoryComponent implements OnInit {
 
   constructor(private catService: CategoryService, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) {
   }
+
   public categoryTasks!: Task[];
   subcategory!: Category;
   parentCategory!: Category;
@@ -25,7 +26,14 @@ export class SubCategoryComponent implements OnInit {
   loadFinishedTasks = 10;
 
   ngOnInit(): void {
-    // change heading
+    this.getAllCategoryTasks();
+
+    this.checkWindowSize();
+    window.addEventListener("resize", this.checkWindowSize);
+  }
+
+  getAllCategoryTasks() {
+    // modify heading
     let h1 = document.getElementsByTagName("h1");
     let parent = document.getElementById("parent-cat");
 
@@ -39,7 +47,7 @@ export class SubCategoryComponent implements OnInit {
           this.categoryTasks = <Task[]>data['data'];
         },
         (error: any = []) => {
-          if(error['error']['message']) {
+          if (error['error']['message']) {
             alert(error['error']['message']);
             return;
           }
@@ -51,7 +59,6 @@ export class SubCategoryComponent implements OnInit {
         (data: any = []) => {
           // get tasks from data
           this.subcategory = <Category>data['data'];
-          console.log('sub: ' + this.subcategory.category_name);
 
           if (!this.subcategory.parent_categoryID) {
             if (window.innerWidth <= 768) {
@@ -66,13 +73,12 @@ export class SubCategoryComponent implements OnInit {
             }
           }
 
-          if(this.subcategory.parent_categoryID) {
+          if (this.subcategory.parent_categoryID) {
             // get info of parent category
             this.catService.getCategory(this.subcategory.parent_categoryID).subscribe(
               (data: any = []) => {
                 // get tasks from data
                 this.parentCategory = <Category>data['data'];
-                console.log('parent: ' + this.parentCategory.category_name);
                 if (window.innerWidth <= 768) {
                   parent!.innerText = this.parentCategory.category_name;
                   for (let i = 0; i < h1.length; i++) {
@@ -92,24 +98,19 @@ export class SubCategoryComponent implements OnInit {
                 this.general.errorResponse(error['status']);
               });
           }
-
         },
         (error: any = []) => {
-          if(error['error']['message']) {
+          if (error['error']['message']) {
             alert(error['error']['message']);
             return;
           }
           this.general.errorResponse(error['status']);
         });
-
     }
-    this.checkWindowSize();
-    window.addEventListener("resize", this.checkWindowSize);
   }
 
   getSubcategoryName(): string {
-    console.log(this.subcategory.category_name)
-    if(!this.subcategory.parent_categoryID) {
+    if (!this.subcategory.parent_categoryID) {
       return "Allgemein";
     } else {
       return this.subcategory.category_name;
@@ -135,16 +136,12 @@ export class SubCategoryComponent implements OnInit {
         this.ngOnInit();
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
       });
-  }
-
-  editCategory(category: Category): void {
-    this.catService.editCategory(category.CAID);
   }
 
   scrollToNotDone() {
@@ -169,7 +166,7 @@ export class SubCategoryComponent implements OnInit {
 
   checkWindowSize() {
     const progressbar = document.getElementById("progressbar-head")!;
-    if(window.innerWidth <= 768) {
+    if (window.innerWidth <= 768) {
       progressbar.classList.add("top-fixed");
     } else {
       progressbar.classList.remove("top-fixed");
@@ -202,5 +199,4 @@ export class SubCategoryComponent implements OnInit {
       }
     }
   }
-
 }

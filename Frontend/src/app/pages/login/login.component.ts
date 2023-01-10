@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
-import {User} from 'src/app/services/authentication/user';
 import {GeneralService} from "../../services/general/general.service";
 
 @Component({
@@ -10,6 +9,7 @@ import {GeneralService} from "../../services/general/general.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private auth: AuthenticationService, private router: Router, private general: GeneralService) {
@@ -31,14 +31,14 @@ export class LoginComponent implements OnInit {
     this.createdUser = false;
 
     this.auth.login(this.loginForm.value).subscribe((data: any = []) => {
-        //Navigate to the dashboard component
-        this.router.navigate(['dashboard']);
-        //UID gets stores in session
-        this.auth.setSession(data['data']['UID']);
+      //Navigate to the dashboard component
+      this.router.navigate(['dashboard']);
+      //UID gets stores in session
+      this.auth.setSession(data['data']['UID']);
 
     }, (error: any = []) => {
       //Check for specific error
-      if (error['error']['message'] != ''){
+      if (error['error']['message'] != '') {
         this.message = error['error']['message'];
         this.ngOnInit();
         return;
@@ -49,6 +49,4 @@ export class LoginComponent implements OnInit {
       this.ngOnInit();
     });
   }
-
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
@@ -12,7 +12,8 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 })
 export class SingleTasksComponent implements OnInit {
 
-  constructor(private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) { }
+  constructor(private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) {
+  }
 
   public singleTasks!: Task[];
 
@@ -20,25 +21,32 @@ export class SingleTasksComponent implements OnInit {
   loadFinishedTasks = 10;
 
   ngOnInit(): void {
-    // change heading
+    // modify heading
     let h1 = document.getElementsByTagName("h1");
-    for (let i = 0; i < h1.length; i++) {  h1[i].innerText = "Unkategorisiert";}
+    for (let i = 0; i < h1.length; i++) {
+      h1[i].innerText = "Unkategorisiert";
+    }
 
-      // get single tasks
-      this.taskService.getSingleTasks().subscribe(
-        (data: any = []) => {
-          // get tasks from data
-          this.singleTasks = <Task[]>data['data'];
-        },
-        (error: any = []) => {
-          if(error['error']['message']) {
-            alert(error['error']['message']);
-            return;
-          }
-          this.general.errorResponse(error['status']);
-        });
-      this.checkWindowSize();
-      window.addEventListener("resize", this.checkWindowSize);
+    this.getAllSingleTasks();
+
+    this.checkWindowSize();
+    window.addEventListener("resize", this.checkWindowSize);
+  }
+
+  getAllSingleTasks() {
+    // get single tasks
+    this.taskService.getSingleTasks().subscribe(
+      (data: any = []) => {
+        // get tasks from data
+        this.singleTasks = <Task[]>data['data'];
+      },
+      (error: any = []) => {
+        if (error['error']['message']) {
+          alert(error['error']['message']);
+          return;
+        }
+        this.general.errorResponse(error['status']);
+      });
   }
 
   detailsTask(task: Task): void {
@@ -75,7 +83,7 @@ export class SingleTasksComponent implements OnInit {
 
   checkWindowSize() {
     const progressbar = document.getElementById("progressbar-head")!;
-    if(window.innerWidth <= 768) {
+    if (window.innerWidth <= 768) {
       progressbar.classList.add("top-fixed");
     } else {
       progressbar.classList.remove("top-fixed");
@@ -108,5 +116,4 @@ export class SingleTasksComponent implements OnInit {
       }
     }
   }
-
 }

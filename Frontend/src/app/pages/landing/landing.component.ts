@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {Quote} from "../../services/quote/quote";
 import {QuoteService} from "../../services/quote/quote.service";
 import {GeneralService} from "../../services/general/general.service";
@@ -18,19 +16,21 @@ export class LandingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getQuote();
+  }
 
+  getQuote() {
+    // get random quote
     this.quoteService.getQuote().subscribe(
       (data: any = []) => {
         this.dailyQuote = <Quote>data['data'];
       },
       (error: any = []) => {
-        if(error['error']['message']) {
+        if (error['error']['message']) {
           alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
       });
-
   }
-
 }

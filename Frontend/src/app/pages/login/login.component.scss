@@ -6,15 +6,11 @@
   display: none;
 }
 
-.login-screen {
-  //min-height: 100vh;
-}
-
 .input-text {
   font-weight: 600;
 }
 
-span{
+span {
   font-family: 'Source Sans Pro';
   font-weight: 400;
   font-style: normal;
@@ -28,7 +24,7 @@ span{
 
 @media (max-width: 768px) {
   .switch-screen {
-    display: none!important;
+    display: none !important;
   }
 
   .switch-screen-small {

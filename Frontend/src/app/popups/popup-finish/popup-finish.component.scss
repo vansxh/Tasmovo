@@ -11,7 +11,7 @@
   opacity: 1 !important;
 }
 
-::ng-deep .mat-button-toggle-group-appearance-standard{
+::ng-deep .mat-button-toggle-group-appearance-standard {
   border: none;
 }
 
@@ -33,19 +33,18 @@
 ::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-fill {
   background-color: #634C9A;
   height: 20px;
-  border-radius: 5px!important;
+  border-radius: 5px !important;
 }
 
 ::ng-deep .mat-slider-thumb-label {
-  background-color: white!important;
+  background-color: white !important;
   border: 1px solid #634C9A;
   color: #634C9A;
 }
 
 ::ng-deep .mat-slider-track-background {
-  //background-color: #634C9A;
   height: 20px;
-  border-radius: 5px!important;
+  border-radius: 5px !important;
 }
 
 ::ng-deep .mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
@@ -54,7 +53,7 @@
 
 ::ng-deep .mat-slider.mat-slider-horizontal .mat-slider-track-wrapper {
   height: 20px;
-  border-radius: 5px!important;
+  border-radius: 5px !important;
 }
 
 ::ng-deep .mat-slider {
@@ -69,8 +68,8 @@
 ::ng-deep .mat-accent .mat-slider-thumb {
   height: 30px;
   width: 30px;
-  background-color: white!important;
-  border: solid 2px #634C9A!important;
+  background-color: white !important;
+  border: solid 2px #634C9A !important;
   bottom: -24px;
   right: -20px;
   color: black;
@@ -78,6 +77,6 @@
 
 @media (max-width: 768px) {
   :host ::ng-deep .mat-dialog-container {
-    padding: 2px!important;
+    padding: 2px !important;
   }
 }

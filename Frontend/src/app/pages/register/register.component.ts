@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {ValidateEqualModule} from 'ng-validate-equal';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {GeneralService} from "../../services/general/general.service";
 
@@ -41,7 +40,6 @@ export class RegisterComponent implements OnInit {
         this.ngOnInit();
         return;
       }
-
       //Generic error responses
       this.general.errorResponse(error['status']);
       this.ngOnInit();

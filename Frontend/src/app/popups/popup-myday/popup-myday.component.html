@@ -3,8 +3,8 @@
 </div>
 
 <form [formGroup]="addPlannedTaskForm" class="form">
-
-  <span *ngIf="this.addPlannedTaskForm.controls['end_time'].touched && this.addPlannedTaskForm.getError('endTimeBeforeStartTime')">
+  <span
+    *ngIf="this.addPlannedTaskForm.controls['end_time'].touched && this.addPlannedTaskForm.getError('endTimeBeforeStartTime')">
       Ende kann nicht vor Start liegen!
   </span>
 
@@ -12,7 +12,8 @@
     <label for="start_time">von</label>
     <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
       <div class="d-flex justify-content-space-around align-items-center px-3">
-        <input matInput [format]="24" [ngxMatTimepicker]="timepicker1" formControlName="start_time" id="start_time" class="form-control timepicker">
+        <input matInput [format]="24" [ngxMatTimepicker]="timepicker1" formControlName="start_time" id="start_time"
+               class="form-control timepicker">
         <ngx-mat-timepicker-toggle [for]="$any(timepicker1)"></ngx-mat-timepicker-toggle>
       </div>
       <ngx-mat-timepicker #timepicker1></ngx-mat-timepicker>
@@ -23,15 +24,14 @@
     <label for="end_time">bis</label>
     <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
       <div class="d-flex justify-content-space-between align-items-center px-3">
-        <input matInput [format]="24" [ngxMatTimepicker]="timepicker2" formControlName="end_time" id="end_time" class="form-control timepicker">
+        <input matInput [format]="24" [ngxMatTimepicker]="timepicker2" formControlName="end_time" id="end_time"
+               class="form-control timepicker">
         <ngx-mat-timepicker-toggle [for]="$any(timepicker2)"></ngx-mat-timepicker-toggle>
       </div>
       <ngx-mat-timepicker #timepicker2></ngx-mat-timepicker>
     </mat-form-field>
   </div>
-
   <br>
-
   <div class="form-group select mt-1">
     <label for="TAID">Task hinzufügen</label>
     <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
@@ -60,8 +60,13 @@
   </div>
 
   <div class="row mt-4 mx-5 mb-3">
-    <button *ngIf="this.plannedTask.TAID === 0" [disabled]="!addPlannedTaskForm.valid || addPlannedTaskForm.value.TAID == ''" (click)="onAddTaskSumbmit()" class="btn btn-primary">Speichern</button>
-    <button *ngIf="this.plannedTask.TAID !== 0" [disabled]="!addPlannedTaskForm.valid" (click)="onEditTaskSumbmit()" class="btn btn-primary">Bearbeiten</button>
+    <button *ngIf="this.plannedTask.TAID === 0"
+            [disabled]="!addPlannedTaskForm.valid || addPlannedTaskForm.value.TAID == ''" (click)="onAddTaskSubmit()"
+            class="btn btn-primary">Speichern
+    </button>
+    <button *ngIf="this.plannedTask.TAID !== 0" [disabled]="!addPlannedTaskForm.valid" (click)="onEditTaskSubmit()"
+            class="btn btn-primary">Bearbeiten
+    </button>
     <button class="btn btn-primary mt-2" (click)="onClose()">Abbrechen</button>
   </div>
 </form>

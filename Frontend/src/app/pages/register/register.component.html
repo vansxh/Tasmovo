@@ -5,119 +5,118 @@
     <a class="text-decoration-none text-light fw-light" routerLink="/login">Jetzt einloggen</a><br>
     <button class="btn btn-light text-primary fw-bolder mt-3 w-25" routerLink="/login">Login</button>
   </div>
-<div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center align-items-center">
-  <h1 class="text-center">Registrierung</h1>
+  <div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center align-items-center">
+    <h1 class="text-center">Registrierung</h1>
 
-  <div class="alert alert-danger" *ngIf="message">
-    {{message}}
+    <div class="alert alert-danger" *ngIf="message">
+      {{message}}
+    </div>
+    <div class="mt-5 mobile-input-width">
+      <form [formGroup]="registerForm" class="form" (ngSubmit)="onRegisterSubmit()" autocomplete="off">
+        <div class="form-group">
+          <label class="input-text" for="firstName">Vorname</label>
+          <input type="text" formControlName="firstName" name="firstName"
+                 class="form-control" id="firstName">
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched">
+          <span>Bitte geben Sie Ihren Vornamen ein.</span>
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('firstName')?.hasError('maxlength')">
+          <span>Der Vorname darf maximal 30 Zeichen lang sein.</span>
+        </div>
+
+        <div class="form-group mt-3">
+          <label class="input-text" for="lastName">Nachname</label>
+          <input type="text" formControlName="lastName" name="lastName"
+                 class="form-control" id="lastName">
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('lastName')?.hasError('required') && registerForm.get('lastName')?.touched">
+          <span>Bitte geben Sie Ihren Nachnamen ein.</span>
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('lastName')?.hasError('maxlength')">
+          <span>Der Nachname darf maximal 30 Zeichen lang sein.</span>
+        </div>
+
+        <div class="form-group mt-3">
+          <label class="input-text" for="mail">E-Mail</label>
+          <input type="email" formControlName="mail" name="mail" class="form-control"
+                 id="mail">
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('mail')?.hasError('required') && registerForm.get('mail')?.touched">
+          <span>Bitte geben Sie eine Email ein.</span>
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('mail')?.hasError('email')">
+          <span>Die Eingabe muss eine gültige Email sein.</span>
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('mail')?.hasError('maxlength')">
+          <span>Die Email darf maximal 30 Zeichen lang sein.</span>
+        </div>
+
+        <div class="form-group mt-3">
+          <label class="input-text" for="username">Benutzername</label>
+          <input type="text" formControlName="username"
+                 name="username"
+                 class="form-control" id="username" (keypress)="keyPressAlphaNumeric($event)">
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('username')?.hasError('required') && registerForm.get('username')?.touched">
+          <span>Bitte geben Sie einen Usernamen ein.</span>
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('username')?.hasError('maxlength')">
+          <span>Der Username darf maximal 30 Zeichen lang sein.</span>
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('username')?.hasError('minlength')">
+          <span>Der Username muss mindestens 4 Zeichen lang sein.</span>
+        </div>
+
+        <div class="form-group mt-3">
+          <label class="input-text" for="password">Passwort (Mindestens 6 Zeichen)</label>
+          <input type="password" formControlName="password" name="password"
+                 class="form-control" id="password">
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
+          <span>Bitte geben Sie ein Passwort ein.</span>
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('password')?.hasError('maxlength')">
+          <span>Das Passwort darf maximal 30 Zeichen lang sein.</span>
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('password')?.hasError('minlength')">
+          <span>Das Passwort muss mindestens 6 Zeichen lang sein.</span>
+        </div>
+
+        <div class="form-group mt-3">
+          <label class="input-text" for="repeatPassword">Passwort wiederholen</label>
+          <input type="password" formControlName="repeatPassword" name="repeatPassword"
+                 class="form-control" ngValidateEqual="password" id="repeatPassword">
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('repeatPassword')?.hasError('required') && registerForm.get('repeatPassword')?.touched">
+          <span>Bitte wiederholen sie Ihr Passwort.</span>
+        </div>
+        <div class="alert p-0"
+             *ngIf="registerForm.get('repeatPassword')?.hasError('notEqual') ">
+          <span>Das Passwort stimmt nicht überein.</span>
+        </div>
+        <div class="text-center mt-4">
+          <button [disabled]="!registerForm.valid" type="submit" class="btn btn-primary w-50">Registrieren</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-12 switch-screen-small mt-3 text-center">
+      <span class="fw-light mt-5">Bereits registriert?</span>
+      <h6><a class="text-decoration-none text-primary fw-normal" routerLink="/login">Jetzt einloggen</a></h6><br>
+    </div>
   </div>
-
-  <div class="mt-5 mobile-input-width">
-    <form [formGroup]="registerForm" class="form" (ngSubmit)="onRegisterSubmit()" autocomplete="off">
-      <div class="form-group">
-        <label class="input-text" for="firstName">Vorname</label>
-        <input type="text" formControlName="firstName" name="firstName"
-               class="form-control" id="firstName">
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched">
-        <span>Bitte geben Sie Ihren Vornamen ein.</span>
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('firstName')?.hasError('maxlength')">
-        <span>Der Vorname darf maximal 30 Zeichen lang sein.</span>
-      </div>
-
-      <div class="form-group mt-3">
-        <label class="input-text" for="lastName">Nachname</label>
-        <input type="text" formControlName="lastName" name="lastName"
-               class="form-control" id="lastName">
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('lastName')?.hasError('required') && registerForm.get('lastName')?.touched">
-        <span>Bitte geben Sie Ihren Nachnamen ein.</span>
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('lastName')?.hasError('maxlength')">
-        <span>Der Nachname darf maximal 30 Zeichen lang sein.</span>
-      </div>
-
-      <div class="form-group mt-3">
-        <label class="input-text" for="mail">E-Mail</label>
-        <input type="email" formControlName="mail" name="mail" class="form-control"
-               id="mail">
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('mail')?.hasError('required') && registerForm.get('mail')?.touched">
-        <span>Bitte geben Sie eine Email ein.</span>
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('mail')?.hasError('email')">
-        <span>Die Eingabe muss eine gültige Email sein.</span>
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('mail')?.hasError('maxlength')">
-        <span>Die Email darf maximal 30 Zeichen lang sein.</span>
-      </div>
-
-      <div class="form-group mt-3">
-        <label class="input-text" for="username">Benutzername</label>
-        <input type="text" formControlName="username"
-               name="username"
-               class="form-control" id="username" (keypress)="keyPressAlphaNumeric($event)">
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('username')?.hasError('required') && registerForm.get('username')?.touched">
-        <span>Bitte geben Sie einen Usernamen ein.</span>
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('username')?.hasError('maxlength')">
-        <span>Der Username darf maximal 30 Zeichen lang sein.</span>
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('username')?.hasError('minlength')">
-        <span>Der Username muss mindestens 4 Zeichen lang sein.</span>
-      </div>
-
-      <div class="form-group mt-3">
-        <label class="input-text" for="password">Passwort (Mindestens 6 Zeichen)</label>
-        <input type="password" formControlName="password" name="password"
-               class="form-control" id="password">
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
-        <span>Bitte geben Sie ein Passwort ein.</span>
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('password')?.hasError('maxlength')">
-        <span>Das Passwort darf maximal 30 Zeichen lang sein.</span>
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('password')?.hasError('minlength')">
-        <span>Das Passwort muss mindestens 6 Zeichen lang sein.</span>
-      </div>
-
-      <div class="form-group mt-3">
-        <label class="input-text" for="repeatPassword">Passwort wiederholen</label>
-        <input type="password" formControlName="repeatPassword" name="repeatPassword"
-               class="form-control" ngValidateEqual="password" id="repeatPassword">
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('repeatPassword')?.hasError('required') && registerForm.get('repeatPassword')?.touched">
-        <span>Bitte wiederholen sie Ihr Passwort.</span>
-      </div>
-      <div class="alert p-0"
-           *ngIf="registerForm.get('repeatPassword')?.hasError('notEqual') ">
-        <span>Das Passwort stimmt nicht überein.</span>
-      </div>
-      <div class="text-center mt-4">
-        <button [disabled]="!registerForm.valid" type="submit" class="btn btn-primary w-50">Registrieren</button>
-      </div>
-    </form>
-  </div>
-  <div class="col-sm-12 switch-screen-small mt-3 text-center">
-    <span class="fw-light mt-5">Bereits registriert?</span>
-    <h6><a class="text-decoration-none text-primary fw-normal" routerLink="/login">Jetzt einloggen</a></h6><br>
-  </div>
-</div>
 </div>
