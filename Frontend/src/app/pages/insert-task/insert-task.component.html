@@ -61,7 +61,7 @@
 
         <div class="form-group select mt-3">
           <label for="categoryID">Kategorie (optional):</label>
-          <div>Du hast keine vorhandenen Kategorien</div>
+          <div *ngIf="!categories">Du hast keine vorhandenen Kategorien</div>
           <mat-form-field class="w-100 container-shadow text-select-mat bg-light" *ngIf="categories">
             <mat-select
               formControlName="categoryID" name="categoryID"
@@ -88,7 +88,7 @@
           </mat-form-field>
         </div>
 
-        <div *ngIf="subcategories" class="form-group select">
+        <div *ngIf="subcategories && subcategories.length != 0" class="form-group select">
           <label for="subcategoryID">Subkategorie (optional):</label>
           <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
             <mat-select

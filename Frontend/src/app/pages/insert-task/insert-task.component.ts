@@ -89,7 +89,8 @@ export class InsertTaskComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            this.general.specificErrorResponse(error['error']['message'], "dashboard");
+            //this.general.specificErrorResponse(error['error']['message'], "dashboard");
+            this.router.navigate(["dashboard"]);
             return;
           }
           this.general.errorResponse(error['status']);
@@ -166,7 +167,7 @@ export class InsertTaskComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          alert(error['error']['message']);
+          //alert(error['error']['message']);
           this.subcategories = [];
           return;
         }
