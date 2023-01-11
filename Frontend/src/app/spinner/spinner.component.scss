@@ -5,6 +5,9 @@
   right: 0;
   top: 0;
   bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(255, 255, 255, 0.7);
   z-index: 9999;
 }
@@ -12,9 +15,6 @@
 .cssload-speeding-wheel {
   content: "";
   display: block;
-  position: absolute;
-  left: 48%;
-  top: 40%;
   width: 63px;
   height: 63px;
   margin: 0 auto;

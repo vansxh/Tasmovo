@@ -18,10 +18,13 @@
     <div class="col-3-lg col-md">
       <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
         <h2 class="text-center mb-4 display-web-only">Offen</h2>
+        <div class="text-center text-done mb-3" *ngIf="(deadlineTasks | notDone).length == 0">
+          Du hast keine offenen Tasks an diesem Tag
+        </div>
         <div class="row justify-content-center task-bottom"
              *ngFor="let t of deadlineTasks | notDone | slice: 0: loadAllTasks" (click)="detailsTask(t)">
           <!-- uses custom pipe notDone -->
-          <div class="col-2 my-2">
+          <div class="col-2 my-3">
             <button class="btn-circle btn-xl bg-info" (click)="$event.stopPropagation(); finishTask(t)"></button>
           </div>
           <div class="col-4 d-flex align-items-center my-2">{{t.task_name}}</div>
@@ -40,10 +43,13 @@
     <div class="col-3-lg col-md">
       <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
         <h2 class="text-center mb-4">Erledigt</h2>
+        <div class="text-center text-done mb-3" *ngIf="(deadlineTasks | done).length == 0">
+          Du hast keine erledigten Tasks an diesem Tag
+        </div>
         <div class="row justify-content-center task-bottom"
              *ngFor="let t of deadlineTasks | done | slice: 0: loadFinishedTasks" (click)="detailsTask(t)">
           <!-- uses custom pipe done -->
-          <div class="col-2 my-2">
+          <div class="col-2 my-3">
             <button class="btn-circle btn-xl doneBtn-{{t.expenseID}} doneBtn-Img" disabled></button>
           </div>
           <div class="col-3 d-flex align-items-center my-2 text-done">{{t.task_name}}</div>

@@ -8,6 +8,7 @@ import {CategoryService} from "../../services/category/category.service";
 import {BehaviorSubject} from 'rxjs';
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faCirclePlus} from '@fortawesome/free-solid-svg-icons';
 
 // import Swiper core and required modules
 import SwiperCore, {Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual} from 'swiper';
@@ -39,6 +40,7 @@ export class CategoryComponent implements OnInit {
 
   faEdit = faPencil;
   faTrash = faTrash;
+  faCircleX = faCirclePlus;
 
   ngOnInit(): void {
 
@@ -93,7 +95,7 @@ export class CategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            alert(error['error']['message']);
+            //alert(error['error']['message']);
             return;
           }
           this.general.errorResponse(error['status']);
@@ -107,7 +109,7 @@ export class CategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            alert(error['error']['message']);
+            //alert(error['error']['message']);
             this.subcategories = [];
             return;
           }
@@ -122,7 +124,7 @@ export class CategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            alert(error['error']['message']);
+            //alert(error['error']['message']);
             return;
           }
           this.general.errorResponse(error['status']);
@@ -173,5 +175,9 @@ export class CategoryComponent implements OnInit {
 
   editCategory(category: Category): void {
     this.catService.editCategory(category.CAID);
+  }
+
+  addCategory(): void {
+    this.catService.addCategory();
   }
 }

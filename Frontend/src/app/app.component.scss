@@ -19,10 +19,12 @@
 
 .btnImg {
   width: 75px;
+  transition: .5s ease-in-out 0s;
 }
 
 .btnImg:hover {
-  width: 95px;
+  cursor: pointer;
+  transform: scale(1.3);
 }
 
 .containerWhile {
@@ -32,8 +34,8 @@
 
 .containerCenterWhile {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 5vh;
+  left: 6vh;
   transform: translate(-50%, -50%);
 }
 

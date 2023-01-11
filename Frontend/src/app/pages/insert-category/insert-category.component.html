@@ -22,7 +22,7 @@
 
       <div *ngIf="!isParentCat" class="form-group select mt-3">
         <label for="parent_categoryID">Elternkategorie (optional):</label>
-        <div *ngIf="!categories">Du hast keine vorhandenen Kategorien</div>
+        <div *ngIf="!categories" class="text-done">Du hast keine vorhandenen Kategorien</div>
         <mat-form-field class="w-100 container-shadow text-select-mat bg-light" *ngIf="categories">
           <mat-select
             formControlName="parent_categoryID" name="parent_categoryID"
