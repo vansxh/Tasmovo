@@ -61,12 +61,12 @@
 
         <div class="form-group select mt-3">
           <label for="categoryID">Kategorie (optional):</label>
-          <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
+          <div>Du hast keine vorhandenen Kategorien</div>
+          <mat-form-field class="w-100 container-shadow text-select-mat bg-light" *ngIf="categories">
             <mat-select
               formControlName="categoryID" name="categoryID"
               class="text px-2" id="categoryID"
               (selectionChange)="onChangeCategory($event.value)"
-              *ngIf="categories"
               ngxMatSelect
               [lazyLoad]="true"
               [searcher]="categorySearcher.bind(this)"
