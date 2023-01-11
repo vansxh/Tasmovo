@@ -57,7 +57,7 @@ export class InsertCategoryComponent implements OnInit {
         this.categories = <Category[]>data['data'];
         if (routeParams['CAID']) {
           this.categories = this.categories.filter(function (category) {
-            return category.CAID !== routeParams['CAID'];
+            return category.CAID !== Number(routeParams['CAID']);
           });
         }
       },
@@ -81,7 +81,8 @@ export class InsertCategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            this.general.specificErrorResponse(error['error']['message'], "my-categories");
+            //this.general.specificErrorResponse(error['error']['message'], "my-categories");
+            this.router.navigate(["my-categories"]);
             return;
           }
           this.general.errorResponse(error['status']);
