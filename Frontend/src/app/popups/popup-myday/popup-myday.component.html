@@ -34,11 +34,11 @@
   <br>
   <div class="form-group select mt-1">
     <label for="TAID">Task hinzufügen</label>
-    <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
+    <div style="font-size: 1rem">Du hast keine vorhandenen Tasks</div>
+    <mat-form-field class="w-100 container-shadow text-select-mat bg-light" *ngIf="tasks">
       <mat-select
         formControlName="TAID" name="TAID"
         class="text px-2" id="TAID"
-        *ngIf="tasks"
         ngxMatSelect
         [lazyLoad]="true"
         [searcher]="taskSearcher.bind(this)"
