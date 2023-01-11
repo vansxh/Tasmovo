@@ -166,7 +166,7 @@ export class ProfileComponent implements OnInit {
           //alert(error['error']['message']);
           this.stresslevels = [{
             date: "",
-            stresslevel: 20
+            stresslevel: 0
           }];
 
           this.stress.getStresslimit().subscribe(
