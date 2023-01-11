@@ -119,7 +119,18 @@ export class ProfileComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          alert(error['error']['message']);
+          //alert(error['error']['message']);
+          this.taskExpenses = [{
+            date: "",
+            expenseID: 0,
+            number: 0
+          }];
+          let _me=this;
+          // init stacked bar chart
+          setTimeout(function (){
+            _me.initBarChart("myBarChartMobile");
+            _me.initBarChart("myBarChartDesktop");
+          },1000);
           return;
         }
         this.general.errorResponse(error['status']);
@@ -134,9 +145,13 @@ export class ProfileComponent implements OnInit {
           (data: any = []) => {
             this.stressLimit = data['data']['stress_limit'];
 
+            let _me=this;
             // init area chart
-            this.initAreaChart("myAreaChartMobile");
-            this.initAreaChart("myAreaChartDesktop");
+            setTimeout(function (){
+              _me.initAreaChart("myAreaChartMobile");
+              _me.initAreaChart("myAreaChartDesktop");
+            },1000);
+
           },
           (error: any = []) => {
             if (error['error']['message']) {
@@ -148,7 +163,31 @@ export class ProfileComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          alert(error['error']['message']);
+          //alert(error['error']['message']);
+          this.stresslevels = [{
+            date: "",
+            stresslevel: 20
+          }];
+
+          this.stress.getStresslimit().subscribe(
+            (data: any = []) => {
+              this.stressLimit = data['data']['stress_limit'];
+
+              let _me=this;
+              // init area chart
+              setTimeout(function (){
+                _me.initAreaChart("myAreaChartMobile");
+                _me.initAreaChart("myAreaChartDesktop");
+              },1000);
+
+            },
+            (error: any = []) => {
+              if (error['error']['message']) {
+                alert(error['error']['message']);
+                return;
+              }
+              this.general.errorResponse(error['status']);
+            });
           return;
         }
         this.general.errorResponse(error['status']);
@@ -429,8 +468,8 @@ export class ProfileComponent implements OnInit {
         this.allTasksLength = this.allTasks.length;
       },
       (error: any = []) => {
-        if (error['error']['message']) {
-          alert(error['error']['message']);
+        if (error['status'] == 404) {
+          this.allTasksLength = 0;
           return;
         }
         this.general.errorResponse(error['status']);
@@ -443,8 +482,8 @@ export class ProfileComponent implements OnInit {
         this.allFinishedTasksLength = this.finishedTasks.length;
       },
       (error: any = []) => {
-        if (error['error']['message']) {
-          alert(error['error']['message']);
+        if (error['status'] == 404) {
+          this.allFinishedTasksLength = 0;
           return;
         }
         this.general.errorResponse(error['status']);
