@@ -50,7 +50,13 @@ export class TaskComponent implements OnInit {
       (data: any = []) => {
         // get task from data
         this.task = <Task>data['data'];
+        let h1 = document.getElementsByTagName("h1");
 
+        if (window.location.pathname.includes("/task")) {
+          for (let i = 0; i < h1.length; i++) {
+            h1[i].innerText = this.task.task_name;
+          }
+        }
         // get category
         if(this.task.categoryID) {
           this.catService.getCategory(this.task.categoryID).subscribe(
