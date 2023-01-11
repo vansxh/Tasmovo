@@ -76,6 +76,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatSliderModule} from '@angular/material/slider';
 import { ConfirmationDialogComponent } from './popups/confirmation-dialog/confirmation-dialog.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -199,7 +200,8 @@ export const routes: Routes = [
     MatAutocompleteModule,
     HammerModule,
     FontAwesomeModule,
-    MatSliderModule
+    MatSliderModule,
+    MatFormFieldModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: "de-AT"},

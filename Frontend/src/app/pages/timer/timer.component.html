@@ -54,11 +54,10 @@
     <form [formGroup]="rewardForm" novalidate>
       <div class="form-group select mt-3">
         <label for="rewardID" class="text-start">Belohnung:</label>
-        <mat-form-field class="w-100 container-shadow text-select-mat bg-light">
+        <mat-form-field class="w-100 container-shadow text-select-mat bg-light" *ngIf="rewards">
           <mat-select
             formControlName="rewardID" name="rewardID"
             class="text-timer-select px-2" id="rewardID"
-            *ngIf="rewards"
             ngxMatSelect
             [lazyLoad]="true"
             [hasSearchBox]="false"
