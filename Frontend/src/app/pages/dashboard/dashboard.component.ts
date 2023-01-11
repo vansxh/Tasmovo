@@ -12,6 +12,7 @@ import {PopupReminderComponent} from "../../popups/popup-reminder/popup-reminder
 import {Router} from '@angular/router';
 import {MyDayService} from "../../services/my-day/my-day.service";
 import {DatePipe} from "@angular/common";
+import {faCirclePlus} from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -27,6 +28,8 @@ export class DashboardComponent implements OnInit {
   public dailyQuote!: Quote;
   dailyStresslevel!: number;
   stressLimit!: number;
+
+  faCircleX = faCirclePlus;
 
   constructor(private datePipe: DatePipe, private myDayService: MyDayService, private router: Router, private taskService: TaskService, private quoteService: QuoteService, private authService: AuthenticationService, private general: GeneralService, private dialog: MatDialog, private stress: StresstrackingService) {
   }
@@ -54,7 +57,7 @@ export class DashboardComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          alert(error['error']['message']);
+          //alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
@@ -74,7 +77,7 @@ export class DashboardComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          alert(error['error']['message']);
+          //alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
@@ -88,7 +91,8 @@ export class DashboardComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          alert(error['error']['message']);
+          //alert(error['error']['message']);
+          this.openTasks = [];
           return;
         }
         this.general.errorResponse(error['status']);

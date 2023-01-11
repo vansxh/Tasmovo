@@ -26,6 +26,15 @@
 
         <div *ngIf="!plannedTasks">
           <h4 class="text-primary text-dashboard pt-2">nächste Tasks</h4>
+          <div class="text-center text-done mb-3" *ngIf="openTasks && openTasks.length == 0">
+            Du hast keine nächsten Tasks<br>
+            <button class="btn btn-primary py-2 shadow add-cat-btn mt-2" (click)="addTask()">
+              <div class="d-flex justify-content-center gap-3">
+                <fa-icon [icon]="faCircleX"></fa-icon>
+                Neuer Task erstellen
+              </div>
+            </button>
+          </div>
           <div class="row justify-content-center task-bottom" *ngFor="let t of openTasks | slice:0:4"
                (click)="detailsTask(t)">
             <div class="col-2 my-3">

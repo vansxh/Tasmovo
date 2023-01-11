@@ -26,6 +26,9 @@
     <div class="col-3-lg col-md" id="notDone-container">
       <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
         <h2 class="text-center mb-4 display-web-only">Offen</h2>
+        <div class="text-center text-done" *ngIf="(allTasks | notDone).length == 0">
+          Du hast keine offenen Tasks
+        </div>
         <div class="row justify-content-center task-bottom"
              *ngFor="let t of allTasks | notDone | slice: 0: loadAllTasks"
              (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
@@ -47,6 +50,9 @@
     <div class="col-3-lg col-md" id="done-container">
       <div class="container-shadow px-3 pt-3 pb-1 mb-2 bg-white">
         <h2 class="text-center mb-md-4">Erledigt</h2>
+        <div class="text-center text-done" *ngIf="(allTasks | done).length == 0">
+          Du hast keine erledigten Tasks
+        </div>
         <div class="row justify-content-center task-bottom"
              *ngFor="let t of allTasks | done | slice: 0: loadFinishedTasks"
              (click)="detailsTask(t)"> <!-- uses custom pipe done -->
