@@ -52,45 +52,47 @@ export class TaskComponent implements OnInit {
         this.task = <Task>data['data'];
 
         // get category
-        this.catService.getCategory(this.task.categoryID).subscribe(
-          (data: any = []) => {
-            // get category from data
-            this.category = <Category>data['data'];
+        if(this.task.categoryID) {
+          this.catService.getCategory(this.task.categoryID).subscribe(
+            (data: any = []) => {
+              // get category from data
+              this.category = <Category>data['data'];
 
-            // get subcategory
-            this.catService.getCategory(this.task.subcategoryID).subscribe(
-              (data: any = []) => {
-                // get category from data
-                this.subcategory = <Category>data['data'];
-              },
-              (error: any = []) => {
-                if (error['error']['message']) {
-                  alert(error['error']['message']);
-                  return;
-                }
-                this.general.errorResponse(error['status']);
-              });
-          },
-          (error: any = []) => {
-            if (error['error']['message']) {
-              alert(error['error']['message']);
-              return;
-            }
-            this.general.errorResponse(error['status']);
-          });
-
+              // get subcategory
+              this.catService.getCategory(this.task.subcategoryID).subscribe(
+                (data: any = []) => {
+                  // get category from data
+                  this.subcategory = <Category>data['data'];
+                },
+                (error: any = []) => {
+                  if (error['error']['message']) {
+                    alert(error['error']['message']);
+                    return;
+                  }
+                  this.general.errorResponse(error['status']);
+                });
+            },
+            (error: any = []) => {
+              if (error['error']['message']) {
+                alert(error['error']['message']);
+                return;
+              }
+              this.general.errorResponse(error['status']);
+            });
+        }
         // change heading
         if (window.innerWidth <= 768) {
           let h1 = document.getElementsByTagName("h1");
           for (let i = 0; i < h1.length; i++) {
-            h1[i].innerText = this.task.task_name;
+              h1[i].innerText = this.task.task_name;
           }
 
           let marginMobile = document.getElementById("mobile-content-margin");
           marginMobile?.classList.add("mobile-margin-content");
         } else {
-          document.getElementById('detail-task-heading')!.innerText = this.task.task_name;
-
+          if(document.getElementById('detail-task-heading')) {
+            document.getElementById('detail-task-heading')!.innerText = this.task.task_name;
+          }
           let marginMobile = document.getElementById("mobile-content-margin");
           marginMobile?.classList.remove("mobile-margin-content");
         }

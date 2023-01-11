@@ -31,6 +31,10 @@ class Task
         //echo(json_encode($result));
         //return $result;
 
+        foreach ($result as $key => $item) {
+            $result[$key] = $this->_prepareTaskResultItem($item);
+        }
+
         return $result;
     }
 
@@ -44,6 +48,10 @@ class Task
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //print_r($result);
+
+        foreach ($result as $key => $item) {
+            $result[$key] = $this->_prepareTaskResultItem($item);
+        }
 
         return $result;
     }
@@ -59,6 +67,10 @@ class Task
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //print_r($result);
 
+        foreach ($result as $key => $item) {
+            $result[$key] = $this->_prepareTaskResultItem($item);
+        }
+
         return $result;
     }
 
@@ -72,6 +84,10 @@ class Task
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         //print_r($result);
+
+        foreach ($result as $key => $item) {
+            $result[$key] = $this->_prepareTaskResultItem($item);
+        }
 
         return $result;
     }
@@ -87,6 +103,10 @@ class Task
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        foreach ($result as $key => $item) {
+            $result[$key] = $this->_prepareTaskResultItem($item);
+        }
+
         return $result;
     }
 
@@ -99,6 +119,8 @@ class Task
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $result = $this->_prepareTaskResultItem($result);
 
         return $result;
     }
@@ -161,6 +183,10 @@ class Task
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        foreach ($result as $key => $item) {
+            $result[$key] = $this->_prepareTaskResultItem($item);
+        }
+
         return $result;
     }
 
@@ -174,6 +200,10 @@ class Task
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($result as $key => $item) {
+            $result[$key] = $this->_prepareTaskResultItem($item);
+        }
 
         return $result;
     }
@@ -212,6 +242,17 @@ class Task
 
         if ($stmt->execute()) return true;
         else return false;
+    }
+
+    private function _prepareTaskResultItem($item): array
+    {
+        $item['deadline'] = date('c', strtotime($item['deadline']));
+        $item['created_date'] = date('c', strtotime($item['created_date']));
+        $item['updated_date'] = $item['updated_date'] ? date('c', strtotime($item['updated_date'])) : '';
+        $item['end_date'] = $item['end_date'] ? date('c', strtotime($item['end_date'])) : '';
+
+
+        return $item;
     }
 
 }

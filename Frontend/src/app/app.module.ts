@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from "@angular/forms";
-import { CommonModule } from '@angular/common';
+import {CommonModule, PathLocationStrategy} from '@angular/common';
 
 import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -75,6 +75,7 @@ import { HammerModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatSliderModule} from '@angular/material/slider';
 import { ConfirmationDialogComponent } from './popups/confirmation-dialog/confirmation-dialog.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -124,6 +125,7 @@ export const routes: Routes = [
   {path: 'calendar-detail/:date', component: CalendarDetailComponent, canActivate: [AuthGuard]},
   {path: 'my-day', component: MyDayComponent, canActivate: [AuthGuard]},
   {path: 'task/:TAID', component: TaskComponent, canActivate: [AuthGuard]},
+  {path: '**', redirectTo: '/dashboard', pathMatch: 'full'}
 ];
 
 // @ts-ignore
@@ -167,7 +169,7 @@ export const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
+    RouterModule.forRoot(routes/*, {onSameUrlNavigation: 'reload'}*/),
     BrowserAnimationsModule,
     ValidateEqualModule,
     MatDialogModule,
@@ -235,7 +237,8 @@ export const routes: Routes = [
     {provide: CalendarDateFormatter, useClass: CustomDateFormatter},
     {
       provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
-    }
+    },
+    {provide: LocationStrategy, useClass: PathLocationStrategy}
   ],
   bootstrap: [AppComponent],
   exports: [CalendarComponent]

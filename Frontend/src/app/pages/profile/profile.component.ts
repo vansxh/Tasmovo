@@ -110,10 +110,12 @@ export class ProfileComponent implements OnInit {
     this.vizService.getTaskExpenses().subscribe(
       (data: any = []) => {
         this.taskExpenses = data['data'];
-
+        let _me=this;
         // init stacked bar chart
-        this.initBarChart("myBarChartMobile");
-        this.initBarChart("myBarChartDesktop");
+        setTimeout(function (){
+          _me.initBarChart("myBarChartMobile");
+          _me.initBarChart("myBarChartDesktop");
+        },1000);
       },
       (error: any = []) => {
         if (error['error']['message']) {
