@@ -63,7 +63,7 @@ export class InsertCategoryComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          alert(error['error']['message']);
+          //alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
@@ -95,7 +95,7 @@ export class InsertCategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            alert(error['error']['message']);
+            //alert(error['error']['message']);
             this.isParentCat = false;
             return;
           }
