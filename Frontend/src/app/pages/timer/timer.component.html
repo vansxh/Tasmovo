@@ -14,13 +14,13 @@
                  if(parseInt(this.value,10)>23)this.value='23';"
                    (change)="spinImage()">
             <mat-error *ngIf="rewardForm.get('hours')?.hasError('required')">
-              <span>Dieses Feld darf nicht leer sein.</span>
+              <span>Eingabe fehlt</span>
             </mat-error>
             <mat-error *ngIf="rewardForm.get('hours')?.hasError('max')">
-              <span> Dieses Feld darf nicht größer als 24 sein.</span>
+              <span>max. 24</span>
             </mat-error>
             <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
-              <span>Dieses Feld darf nicht kleiner als 0 sein.</span>
+              <span>min. 0</span>
             </mat-error>
           </mat-form-field>
           <span class="coluns">:</span>
@@ -33,13 +33,13 @@
                  if(parseInt(this.value,10)>59)this.value='59';"
                    (change)="spinImage()">
             <mat-error *ngIf="rewardForm.get('minutes')?.hasError('required')">
-              <span>Dieses Feld darf nicht leer sein.</span>
+              <span>Eingabe fehlt</span>
             </mat-error>
             <mat-error *ngIf="rewardForm.get('minutes')?.hasError('max')">
-              <span>Dieses Feld darf maximal 59 betragen.</span>
+              <span>max. 59</span>
             </mat-error>
-            <mat-error *ngIf="rewardForm.get('hours')?.hasError('min')">
-              <span>Dieses Feld darf maximal 59 betragen.</span>
+            <mat-error *ngIf="rewardForm.get('minutes')?.hasError('min')">
+              <span>min. 0</span>
             </mat-error>
           </mat-form-field>
           <span class="coluns">:</span>
