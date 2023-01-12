@@ -6,6 +6,7 @@ import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, 
 import {MatDialogRef} from "@angular/material/dialog";
 import {DatePipe} from '@angular/common';
 import {Observable, of} from "rxjs";
+import {faCirclePlus} from '@fortawesome/free-solid-svg-icons';
 
 export function endTimeValidator(): ValidatorFn {
   return (formGroup: AbstractControl): ValidationErrors | null => {
@@ -38,6 +39,8 @@ export class PopupMydayComponent implements OnInit {
   addPlannedTaskForm!: FormGroup;
   newTask!: Task;
   plannedTask!: Task;
+
+  faCircleX = faCirclePlus;
 
 
   ngOnInit(): void {
@@ -149,5 +152,10 @@ export class PopupMydayComponent implements OnInit {
   onClose() {
     this.dialogRefFinish.close();
     window.location.reload();
+  }
+
+  addTask(): void {
+    this.taskService.addTask();
+    this.dialogRefFinish.close();
   }
 }

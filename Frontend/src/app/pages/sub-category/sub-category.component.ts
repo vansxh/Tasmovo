@@ -166,7 +166,7 @@ export class SubCategoryComponent implements OnInit {
 
   checkWindowSize() {
     const progressbar = document.getElementById("progressbar-head")!;
-    if (window.innerWidth <= 768) {
+    if (progressbar && window.innerWidth <= 768) {
       progressbar.classList.add("top-fixed");
     } else {
       progressbar.classList.remove("top-fixed");

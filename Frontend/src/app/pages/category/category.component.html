@@ -44,7 +44,7 @@
         <h2 class="text-center pt-4" (click)="showCategory(s)">{{s.category_name}}</h2>
         <div class="row mt-3">
           <div>
-            <ngb-progressbar type="primary" *ngIf="(allTasks | ofCategory:s.CAID).length > 0"
+            <ngb-progressbar type="primary"
                              [value]="(allTasks | ofCategory:s.CAID | done).length"
                              [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar>
           </div>
@@ -118,6 +118,9 @@
 
       <div class="row mt-5">
         <div class="col-lg col-md">
+          <div class="text-center text-done mb-3" *ngIf="(categoryTasks | notDone).length == 0">
+            Du hast keine offenen Tasks in dieser Kategorie
+          </div>
           <div class="row justify-content-center task-bottom" *ngFor="let t of categoryTasks | notDone | slice:0:4"
                (click)="detailsTask(t)"> <!-- uses custom pipe notDone -->
             <div class="col-2 my-3">
@@ -142,7 +145,7 @@
         <h2 class="text-center pt-3" (click)="showCategory(s)">{{s.category_name}}</h2>
         <div class="row mt-3">
           <div>
-            <ngb-progressbar type="primary" *ngIf="allTasks" [showValue]="true"
+            <ngb-progressbar type="primary" *ngIf="allTasks"
                              [value]="(allTasks | ofCategory:s.CAID | done).length"
                              [max]="(allTasks | ofCategory:s.CAID).length"></ngb-progressbar>
           </div>
@@ -158,6 +161,9 @@
 
         <div class="row mt-2">
           <div class="col-lg col-md">
+            <div class="text-center text-done mb-3" *ngIf="(allTasks | ofCategory:s.CAID | notDone).length == 0">
+              Du hast keine offenen Tasks in dieser Subkategorie
+            </div>
             <div class="row justify-content-center task-bottom"
                  *ngFor="let t of allTasks | ofCategory:s.CAID | notDone | slice:0:4" (click)="detailsTask(t)">
               <!-- uses custom pipe notDone -->
@@ -174,6 +180,18 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template swiperSlide>
+    <div class="container-shadow bg-white swiper-height d-flex justify-content-center align-items-center">
+      <div class="swiper-slide-container">
+        <button class="btn btn-primary py-2 shadow add-cat-btn mt-2" (click)="addCategory()">
+          <div class="d-flex justify-content-center gap-3">
+            <fa-icon [icon]="faCircleX"></fa-icon>
+            Subkategorie hinzufügen
+          </div>
+        </button>
       </div>
     </div>
   </ng-template>
