@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
@@ -29,7 +29,7 @@ SwiperCore.use([Scrollbar, A11y, Keyboard, Pagination, Navigation, Virtual]);
 
 export class CategoryComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private catService: CategoryService) {
+  constructor(private dialog: MatDialog, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private catService: CategoryService, private router: Router) {
   }
 
   public categoryTasks!: Task[];
@@ -81,7 +81,8 @@ export class CategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            alert(error['error']['message']);
+            //alert(error['error']['message']);
+            this.router.navigate(['my-categories']);
             return;
           }
           this.general.errorResponse(error['status']);
