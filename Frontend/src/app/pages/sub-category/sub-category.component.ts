@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {Category} from "../../services/category/category";
@@ -15,7 +15,7 @@ import {CategoryService} from "../../services/category/category.service";
 })
 export class SubCategoryComponent implements OnInit {
 
-  constructor(private catService: CategoryService, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) {
+  constructor(private catService: CategoryService, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private dialog: MatDialog, private router: Router) {
   }
 
   public categoryTasks!: Task[];
@@ -49,6 +49,7 @@ export class SubCategoryComponent implements OnInit {
         (error: any = []) => {
           if (error['error']['message']) {
             //alert(error['error']['message']);
+            this.router.navigate(['my-categories']);
             return;
           }
           this.general.errorResponse(error['status']);
