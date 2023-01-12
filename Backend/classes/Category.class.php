@@ -75,8 +75,9 @@ class Category
 
     function getAllSubCategories($parent_categoryID)
     {
-        $stmt = Database::getDb()->prepare("SELECT * FROM Category WHERE parent_categoryID=:parent_categoryID");
+        $stmt = Database::getDb()->prepare("SELECT * FROM Category WHERE parent_categoryID=:parent_categoryID AND userID=:userID");
         $stmt->bindValue(":parent_categoryID", $parent_categoryID);
+        $stmt->bindValue(":userID", $_SESSION['UID']);
 
         $stmt->execute();
 
