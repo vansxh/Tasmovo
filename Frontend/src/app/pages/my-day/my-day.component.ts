@@ -78,7 +78,7 @@ export class MyDayComponent {
   faTrash = faTrash;
   faXmark = faXmark;
 
-  // Event Action that will be added to all events to delete them from MyDay
+  // event action that will be added to all events to delete them from MyDay
   deleteEntry(id: any) {
     this.taskService.deletePlannedTask(id).subscribe(
       (data: any = []) => {
@@ -110,8 +110,9 @@ export class MyDayComponent {
     this.selectedTask = new Task();
     this.getAllPlannedTasks();
 
+    // add swiping gestures for changing bewtween today and tomorrow
     this.swipeDiv = document.getElementById("swipeDiv")!;
-    var mc = new Hammer(this.swipeDiv, {
+    var swiper = new Hammer(this.swipeDiv, {
       recognizers: [
         [Hammer.Swipe, {direction: Hammer.DIRECTION_HORIZONTAL}],
       ]
@@ -128,6 +129,7 @@ export class MyDayComponent {
   }
 
   getAllPlannedTasks() {
+    this.plannedTasks = [];
     this.finish = false;
     this.taskService.getPlannedTasks(this.myDayService.viewDateString()).subscribe(
       (data: any = []) => {
@@ -157,7 +159,6 @@ export class MyDayComponent {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          //alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
@@ -171,26 +172,30 @@ export class MyDayComponent {
     const tomorrowBtn = document.getElementById('tomorrowBtn');
     // if today was clicked
     if (day === 1) {
-      this.myDayService.viewDate = new Date();
-      if (todayBtn && tomorrowBtn) {
-        todayBtn.classList.remove('btn-outline-primary');
-        todayBtn.classList.remove('btn-light');
-        todayBtn.classList.add('btn-primary');
-        tomorrowBtn.classList.remove('btn-primary');
-        tomorrowBtn.classList.add('btn-outline-primary');
-        tomorrowBtn.classList.add('btn-light');
+      if(this.datePipe.transform(new Date(), 'yyyy-MM-dd', 'de-AT') !== this.myDayService.viewDateString()) {
+        this.myDayService.viewDate = new Date();
+        if (todayBtn && tomorrowBtn) {
+          todayBtn.classList.remove('btn-outline-primary');
+          todayBtn.classList.remove('btn-light');
+          todayBtn.classList.add('btn-primary');
+          tomorrowBtn.classList.remove('btn-primary');
+          tomorrowBtn.classList.add('btn-outline-primary');
+          tomorrowBtn.classList.add('btn-light');
+        }
       }
       // if tomorrow was clicked
     } else if (day === 2) {
-      this.myDayService.viewDate.setDate(new Date().getDate() + 1);
-      if (todayBtn && tomorrowBtn) {
-        todayBtn.classList.remove('btn-primary');
-        todayBtn.classList.add('btn-outline-primary');
-        todayBtn.classList.add('btn-light');
-        tomorrowBtn.classList.remove('btn-outline-primary');
-        tomorrowBtn.classList.add('btn-primary');
-        tomorrowBtn.classList.remove('btn-light');
+      if(this.datePipe.transform(new Date().setDate(new Date().getDate() + 1), 'yyyy-MM-dd', 'de-AT') !== this.myDayService.viewDateString()) {
+        this.myDayService.viewDate.setDate(new Date().getDate() + 1);
+        if (todayBtn && tomorrowBtn) {
+          todayBtn.classList.remove('btn-primary');
+          todayBtn.classList.add('btn-outline-primary');
+          todayBtn.classList.add('btn-light');
+          tomorrowBtn.classList.remove('btn-outline-primary');
+          tomorrowBtn.classList.add('btn-primary');
+          tomorrowBtn.classList.remove('btn-light');
 
+        }
       }
     }
     // reload tasks with changed date

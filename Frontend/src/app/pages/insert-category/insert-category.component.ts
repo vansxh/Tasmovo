@@ -63,7 +63,6 @@ export class InsertCategoryComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          //alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
@@ -81,8 +80,8 @@ export class InsertCategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            //this.general.specificErrorResponse(error['error']['message'], "my-categories");
-            this.router.navigate(["my-categories"]);
+            alert(error['error']['message']);
+            this.navigation.back();
             return;
           }
           this.general.errorResponse(error['status']);
@@ -96,7 +95,6 @@ export class InsertCategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            //alert(error['error']['message']);
             this.isParentCat = false;
             return;
           }
@@ -113,12 +111,13 @@ export class InsertCategoryComponent implements OnInit {
   onInsertCategorySubmit() {
     this.catService.insertCategory(this.insertCategoryForm.value).subscribe(
       (data: any = []) => {
-        // if category was inserted reload categories
+        // if category was inserted go back to previous page
         this.navigation.back();
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          this.general.specificErrorResponse(error['error']['message'], "my-categories");
+          alert(error['error']['message']);
+          this.navigation.back();
           return;
         }
         this.general.errorResponse(error['status']);
@@ -128,12 +127,13 @@ export class InsertCategoryComponent implements OnInit {
   onEditCategorySubmit() {
     this.catService.updateCategory(this.insertCategoryForm.value).subscribe(
       (data: any = []) => {
-        // if category was inserted reload categories
+        // if category was updated go back to previous page
         this.navigation.back();
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          this.general.specificErrorResponse(error['error']['message'], "my-categories");
+          alert(error['error']['message']);
+          this.navigation.back();
           return;
         }
         this.general.errorResponse(error['status']);

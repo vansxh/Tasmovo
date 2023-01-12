@@ -25,7 +25,7 @@
         <div *ngIf="!categories" class="text-done">Du hast keine vorhandenen Kategorien</div>
         <mat-form-field class="w-100 container-shadow text-select-mat bg-light" *ngIf="categories">
           <mat-select
-            formControlName="parent_categoryID" name="parent_categoryID"
+            formControlName="parent_categoryID"
             class="text px-2" id="parent_categoryID"
             ngxMatSelect
             [lazyLoad]="true"

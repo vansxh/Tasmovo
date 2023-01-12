@@ -30,9 +30,6 @@ export class InsertTaskComponent implements OnInit {
   categories!: Category[];
   subcategories!: Category[];
   nowDate!: string;
-  formatNumber: number = 24;
-  bankValue = [{key: 10, value: 'Bank_10'}, {key: 75, value: 'Bank_75'}];
-  source: any[] = [];
 
   ngOnInit(): void {
     // modify headings
@@ -45,10 +42,6 @@ export class InsertTaskComponent implements OnInit {
       for (let i = 0; i < h1.length; i++) {
         h1[i].innerText = "Neuer Task";
       }
-    }
-
-    for (let i = 0; i < 100; i++) {
-      this.source.push({value: 'Bank_' + i, key: i})
     }
 
     this.nowDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd', 'de-AT') || '';
@@ -91,8 +84,7 @@ export class InsertTaskComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            //this.general.specificErrorResponse(error['error']['message'], "dashboard");
-            this.router.navigate(["dashboard"]);
+            this.navigation.back();
             return;
           }
           this.general.errorResponse(error['status']);
@@ -109,7 +101,6 @@ export class InsertTaskComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          //alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
@@ -130,12 +121,13 @@ export class InsertTaskComponent implements OnInit {
     this.insertTaskForm.value.deadlineDay = this.insertTaskForm.value.deadlineDay.format('yyyy-MM-DD');
     this.taskService.insertTask(this.insertTaskForm.value).subscribe(
       (data: any = []) => {
-        // if task was inserted reload tasks
+        // if task was inserted go back to previous page
         this.navigation.back();
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          this.general.specificErrorResponse(error['error']['message'], "dashboard");
+          alert(error['error']['message']);
+          this.navigation.back();
           return;
         }
         this.general.errorResponse(error['status']);
@@ -154,7 +146,8 @@ export class InsertTaskComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          this.general.specificErrorResponse(error['error']['message'], "dashboard");
+          alert(error['error']['message']);
+          this.navigation.back();
           return;
         }
         this.general.errorResponse(error['status']);
@@ -169,7 +162,6 @@ export class InsertTaskComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          //alert(error['error']['message']);
           this.subcategories = [];
           return;
         }
