@@ -6,7 +6,7 @@ import {CommonModule, PathLocationStrategy} from '@angular/common';
 
 import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
-import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {DashboardComponent} from './pages/dashboard/dashboard.component';
 import {InsertTaskComponent} from './pages/insert-task/insert-task.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -74,7 +74,7 @@ import { HammerModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatSliderModule} from '@angular/material/slider';
 import { ConfirmationDialogComponent } from './popups/confirmation-dialog/confirmation-dialog.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { LocationStrategy } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
@@ -126,8 +126,6 @@ export const routes: Routes = [
   {path: '**', redirectTo: '/dashboard', pathMatch: 'full'}
 ];
 
-// @ts-ignore
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,

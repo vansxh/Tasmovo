@@ -60,7 +60,6 @@ export class ProfileComponent implements OnInit {
   changeStressLimit!: boolean;
   matcher!: ErrorStateMatcher;
 
-
   userLoaded!: boolean;
   isLoading!: boolean;
 
@@ -69,12 +68,11 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this.userLoaded = false;
-    // For error messages
 
     this.setBooleansFalse();
     this.getWeeklyAvg();
     this.getData();
-    this.LauraVisualizations();
+    this.loadVisualizations();
 
     // modify heading
     let h1 = document.getElementsByTagName("h1");
@@ -89,17 +87,17 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  LauraVisualizations() {
+  loadVisualizations() {
     // get all days of the last week into an array
-    for (var i = 6; i >= 0; i--) {
-      var d = new Date();
+    for (let i = 6; i >= 0; i--) {
+      let d = new Date();
       d.setDate(d.getDate() - i);
       this.days.push(d);
     }
 
-    // set labels and fill data Arrays with as much 0s as there are days
-    for (var i = 0; i < this.days.length; i++) {
-      this.labels.push(this.days[i].toLocaleString('de-at', {weekday: 'short'}));
+    // set labels and fill data arrays with as much 0s as there are days
+    for (let j = 0; j < this.days.length; j++) {
+      this.labels.push(this.days[j].toLocaleString('de-at', {weekday: 'short'}));
       this.dataEasy.push(0);
       this.dataMedium.push(0);
       this.dataDiff.push(0);
@@ -163,7 +161,6 @@ export class ProfileComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          //alert(error['error']['message']);
           this.stresslevels = [{
             date: "",
             stresslevel: 0
@@ -224,7 +221,7 @@ export class ProfileComponent implements OnInit {
 
   initBarChart(canvas: string): void {
     // go through each day
-    for (var i = 0; i < this.days.length; i++) {
+    for (let i = 0; i < this.days.length; i++) {
       let today = this.datePipe.transform(this.days[i], 'yyyy-MM-dd', 'de-AT') || '';
       // look for all tasks with the same end date as the day we're looking into
       let tasks = this.taskExpenses.filter(t => t.date == today);
@@ -270,7 +267,7 @@ export class ProfileComponent implements OnInit {
       ]
     };
 
-    var barChart = new Chart(canvas, {
+    const barChart = new Chart(canvas, {
       type: 'bar',
       data: barChartData,
       options: {
@@ -304,7 +301,7 @@ export class ProfileComponent implements OnInit {
 
   initAreaChart(canvas: string): void {
     // go through each day
-    for (var i = 0; i < this.days.length; i++) {
+    for (let i = 0; i < this.days.length; i++) {
       let today = this.datePipe.transform(this.days[i], 'yyyy-MM-dd', 'de-AT') || '';
       // look for each day's stresslevel
       let stresslevel = this.stresslevels.find(s => s.date == today);
@@ -331,7 +328,7 @@ export class ProfileComponent implements OnInit {
       ]
     };
 
-    var areaChart = new Chart(canvas, {
+    const areaChart = new Chart(canvas, {
       type: "line",
       data: areaChartData,
       options: {
@@ -381,22 +378,28 @@ export class ProfileComponent implements OnInit {
   }
 
   initBubbleChart(): void {
+    // define value for multiplying to get size
     const size = 20;
 
+    // get divs for web and mobile
     let daysPlanned = document.querySelectorAll<HTMLElement>(".daysPlanned")!;
     daysPlanned.forEach((d: HTMLElement) => {
       if (this.numberDays > 1) {
         if (this.numberDays * size >= 220) {
+          // max size
           d.style.width = '220px';
           d.style.height = '220px';
         } else {
+          // normal calculation
           d.style.width = this.numberDays * size + 'px';
           d.style.height = this.numberDays * size + 'px';
         }
       } else if (this.numberDays == 1) {
+        // min size
         d.style.width = '25px';
         d.style.height = '25px';
       } else {
+        // if 0
         d.style.backgroundColor = 'rgba(0,0,0,0)'
         d.style.color = '#000000';
         d.style.width = '25px';
@@ -435,7 +438,7 @@ export class ProfileComponent implements OnInit {
   logout() {
     this.auth.logout(['Logout']).subscribe((data: any = []) => {
       this.auth.deleteToken();
-      window.location.href = window.location.href;
+      window.location.reload();
     }, (error: any = []) => {
       if (error['error']['message']) {
         alert(error['error']['message']);
