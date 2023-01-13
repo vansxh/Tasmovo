@@ -38,6 +38,7 @@ if($item['parent_categoryID'] !== null) {
             'deadline' => $item['deadline'],
             'categoryID' => $item['parent_categoryID'],
             'subcategoryID' => $item['categoryID'],
+            'statusID' => $item['statusID'],
             'expense' => $item['expense'],
             'stress_factor' => $item['stress_factor'],
             'created_date' => $item['created_date'],

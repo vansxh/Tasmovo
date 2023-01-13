@@ -8,7 +8,7 @@
 
 .h3-task-detail {
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 0;
 }
 
@@ -30,8 +30,10 @@
   width: 150px;
   background-image: url("../../../assets/check.svg");
   background-size: 20%;
-  background-position: left 8px top 2px;
+  background-position: left 25px top 2px;
   background-repeat: no-repeat;
+  text-align: right;
+  padding-right: 30px;
 }
 
 .not-doneBtn {
@@ -45,5 +47,9 @@
 
   .mobile-margin-content {
     margin: 0 1.5rem;
+  }
+
+  .h3-task-detail {
+    font-size: 18px;
   }
 }
