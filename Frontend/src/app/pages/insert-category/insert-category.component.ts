@@ -80,7 +80,6 @@ export class InsertCategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            alert(error['error']['message']);
             this.navigation.back();
             return;
           }
