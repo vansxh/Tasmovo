@@ -16,7 +16,7 @@
         <div class="form-group">
           <label class="input-text" for="firstName">Vorname</label>
           <input type="text" formControlName="firstName" name="firstName"
-                 class="form-control" id="firstName">
+                 class="form-control" id="firstName" (keypress)="keyPressNames($event)">
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched">
@@ -30,7 +30,7 @@
         <div class="form-group mt-3">
           <label class="input-text" for="lastName">Nachname</label>
           <input type="text" formControlName="lastName" name="lastName"
-                 class="form-control" id="lastName">
+                 class="form-control" id="lastName" (keypress)="keyPressNames($event)">
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('lastName')?.hasError('required') && registerForm.get('lastName')?.touched">
@@ -44,7 +44,7 @@
         <div class="form-group mt-3">
           <label class="input-text" for="mail">E-Mail</label>
           <input type="email" formControlName="mail" name="mail" class="form-control"
-                 id="mail">
+                 id="mail" (keypress)="keyPressMail($event)">
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('mail')?.hasError('required') && registerForm.get('mail')?.touched">

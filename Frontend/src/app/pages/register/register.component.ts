@@ -51,4 +51,12 @@ export class RegisterComponent implements OnInit {
     this.general.keyPressAlphaNumeric(event);
   }
 
+  keyPressMail(event: { keyCode: number; preventDefault: () => void; }){
+    this.general.keyPressMail(event);
+  }
+
+  keyPressNames(event: { keyCode: number; preventDefault: () => void; }){
+   this.general.keyPressNames(event);
+  }
+
 }
