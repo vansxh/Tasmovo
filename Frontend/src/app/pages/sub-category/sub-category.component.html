@@ -19,11 +19,10 @@
 
     <div id="btn-scroll" class="d-flex justify-content-center btn-heading top-fixed">
       <div class="btn-group w-75 mt-4">
-        <div class="btn btn-primary w-50" id="notDone-btn" (click)="scrollToNotDone()" (click)="changeDay(1)">
+        <div class="btn btn-primary w-50" id="notDone-btn" (click)="scrollToNotDone(); changeButtons(1)">
           Offen
         </div>
-        <div class="btn btn-light btn-outline-primary w-50" id="done-btn" (click)="scrollToDone()"
-             (click)="changeDay(2)">
+        <div class="btn btn-light btn-outline-primary w-50" id="done-btn" (click)="scrollToDone(); changeButtons(2)">
           Erledigt
         </div>
       </div>

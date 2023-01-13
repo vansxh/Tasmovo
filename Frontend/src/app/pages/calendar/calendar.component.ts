@@ -1,29 +1,19 @@
 import {Component, ChangeDetectionStrategy, OnInit, Inject} from '@angular/core';
-import {CalendarEvent, CalendarView, CalendarEventAction,} from 'angular-calendar';
+import {CalendarEvent, CalendarView} from 'angular-calendar';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
 import {Router, ActivatedRoute} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
-import {Observable} from 'rxjs';
 import {CategoryService} from "../../services/category/category.service";
 import {MatDialog} from "@angular/material/dialog";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ChangeDetectorRef} from '@angular/core';
 import {EventColor} from 'calendar-utils';
-import {CalendarNativeDateFormatter, DateFormatterParams} from 'angular-calendar';
 import * as Hammer from 'hammerjs';
 import * as moment from "moment";
 import {DOCUMENT} from '@angular/common';
-
-class CustomDateFormatter extends CalendarNativeDateFormatter {
-  public override dayViewHour({date, locale}: DateFormatterParams): string {
-    // change this to return a different date format
-    return new Intl.DateTimeFormat(locale, {hour: 'numeric'}).format(date);
-  }
-
-}
 
 const colors: Record<string, EventColor> = {
   main: {
@@ -49,9 +39,6 @@ export class CalendarComponent implements OnInit {
   viewDate!: Date;
   events: CalendarEvent[] = [];
   clickedDate: Date = new Date();
-  activeDayIsOpen: boolean = true;
-  events$!: Observable<CalendarEvent<{ task: Task }>[]>;
-  actions!: CalendarEventAction[];
   allTasks!: Task[];
   swipeDiv!: HTMLElement;
 
@@ -62,10 +49,13 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // add custom calendar theme
     this.document.body.classList.add(this.tasmovoThemeClass);
+
+    // make it possible to swipe between months
     this.swipeDiv = document.getElementById("swipeDiv")!;
 
-    var mc = new Hammer.Manager(this.swipeDiv, {
+    new Hammer.Manager(this.swipeDiv, {
       recognizers: [
         [Hammer.Swipe, {direction: Hammer.DIRECTION_HORIZONTAL}],
       ]
@@ -78,13 +68,14 @@ export class CalendarComponent implements OnInit {
     }
 
     this.viewDate = new Date();
-    this.getAllNextTasks();
+    this.getDueTasks();
   }
 
-  getAllNextTasks() {
+  getDueTasks() {
     this.taskService.getAllTasks().subscribe(
       (data: any = []) => {
         this.allTasks = <Task[]>data['data'];
+        // sort tasks by status for displaying not done tasks in front of done tasks as dots
         this.allTasks.sort(function (a, b) {
           return a.statusID - b.statusID
         });
@@ -102,7 +93,6 @@ export class CalendarComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          //alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
@@ -113,7 +103,9 @@ export class CalendarComponent implements OnInit {
     this.taskService.changeToDayView(this.datePipe.transform(this.clickedDate, 'yyyy-MM-dd', 'de-AT') || '');
   }
 
+  // for changing between months
   setViewDate(viewDate: number) {
+    // add or substract 1 month from viewDate for changing to next or previous month
     this.viewDate = moment(this.viewDate).add(viewDate, 'months').toDate();
   }
 

@@ -43,7 +43,6 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CategoryPipe } from './pipes/category.pipe';
-import { SubcategoryPipe } from './pipes/subcategory.pipe';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import {CalendarDateFormatter, CalendarModule, DateAdapter} from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -152,7 +151,6 @@ export const routes: Routes = [
     SingleTasksComponent,
     AllTasksComponent,
     CategoryPipe,
-    SubcategoryPipe,
     OfCategoryPipe,
     CalendarDetailComponent,
     PopupAddComponent,

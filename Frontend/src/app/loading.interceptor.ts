@@ -19,7 +19,7 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.totalRequests++;
-    // only display spinner if loading lasts longer than 100ms, credit to Luki
+    // only display spinner if loading lasts longer than 400ms
     if(this.totalRequests === 1) {
       this.timeout = setTimeout(() => {
         this.loadingService.setLoading(true)

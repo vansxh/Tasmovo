@@ -7,7 +7,7 @@ import { Router, NavigationEnd } from '@angular/router'
 })
 export class NavigationService {
 
-  // use Array for saving user's history in app
+  // use array for saving user's history in app
   private history: string[] = []
 
   constructor(private router: Router, private location: Location) {

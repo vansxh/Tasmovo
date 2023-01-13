@@ -28,7 +28,7 @@ export class PopupReminderComponent implements OnInit {
 
   onClose() {
     this.dialogRefFinish.close();
-    window.location.href = window.location.href;
+    window.location.reload();
   }
 
   resetDailyStresslevel(): void {
@@ -43,7 +43,7 @@ export class PopupReminderComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
     this.dialogRefFinish.close();
-    window.location.href = window.location.href
+    window.location.reload();
   }
 
   modifyDailyStresslevel(): void {
@@ -60,7 +60,7 @@ export class PopupReminderComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
     this.dialogRefFinish.close();
-    window.location.href = window.location.href
+    window.location.reload();
   });
   }
 

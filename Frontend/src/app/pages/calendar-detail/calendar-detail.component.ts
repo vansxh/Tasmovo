@@ -3,7 +3,6 @@ import {Task} from "../../services/task/task";
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
-import {AuthenticationService} from 'src/app/services/authentication/authentication.service';
 import {DatePipe} from "@angular/common";
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
@@ -29,7 +28,7 @@ export class CalendarDetailComponent implements OnInit {
   loadFinishedTasks = 5;
 
 
-  constructor(private dialog: MatDialog, private taskService: TaskService, private general: GeneralService, private router: Router, private datePipe: DatePipe, private route: ActivatedRoute, private authService: AuthenticationService) {
+  constructor(private dialog: MatDialog, private taskService: TaskService, private general: GeneralService, private router: Router, private datePipe: DatePipe, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -41,16 +40,16 @@ export class CalendarDetailComponent implements OnInit {
 
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.date = params.get('date')!;
-      this.loadDays();
+      this.loadDay();
     });
   }
 
-  loadDays() {
-    // if deadline is transmitted get task and display values
+  loadDay() {
+    // if deadline is transmitted get tasks
     this.selectedDate = new Date(this.date);
     this.loadTasks();
 
-    // set the calendars year and month to the selected date
+    // get day, month and year from selected date
     this.today = this.selectedDate.getDate();
     this.year = this.selectedDate.getFullYear();
     this.month = this.selectedDate.getMonth();
@@ -90,6 +89,7 @@ export class CalendarDetailComponent implements OnInit {
       selected[i].classList.add('selected');
     }
 
+    // put selected day in center
     selected[0].scrollIntoView({
       behavior: 'auto',
       block: 'center',
@@ -128,7 +128,7 @@ export class CalendarDetailComponent implements OnInit {
   }
 
   loadTasks(): void {
-    // get  next tasks
+    // get tasks that are due on selected day
     this.taskService.getTasksByDeadline(this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd', 'de-AT') || '').subscribe(
       (data: any = []) => {
         // get tasks from data
@@ -137,7 +137,6 @@ export class CalendarDetailComponent implements OnInit {
       (error: any = []) => {
         if (error['error']['message']) {
           this.deadlineTasks = [];
-          //alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);

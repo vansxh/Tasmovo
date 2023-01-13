@@ -97,8 +97,6 @@ export class MyDayComponent {
 
   events: MyEvent[] = [];
 
-  activeDayIsOpen: boolean = true;
-
   constructor(private myDayService: MyDayService, private dialog: MatDialog, private taskService: TaskService, private datePipe: DatePipe, private general: GeneralService, private cd: ChangeDetectorRef) {
   }
 
@@ -110,9 +108,9 @@ export class MyDayComponent {
     this.selectedTask = new Task();
     this.getAllPlannedTasks();
 
-    // add swiping gestures for changing bewtween today and tomorrow
+    // add swiping gestures for changing between today and tomorrow
     this.swipeDiv = document.getElementById("swipeDiv")!;
-    var swiper = new Hammer(this.swipeDiv, {
+    new Hammer(this.swipeDiv, {
       recognizers: [
         [Hammer.Swipe, {direction: Hammer.DIRECTION_HORIZONTAL}],
       ]

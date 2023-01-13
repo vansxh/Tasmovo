@@ -20,22 +20,11 @@ export class InsertCategoryComponent implements OnInit {
 
   insertCategoryForm!: FormGroup;
   selectedCategory!: Category;
-  edit!: boolean;
+  edit: boolean = false;
   categories!: Category[];
   isParentCat: boolean = false;
 
   ngOnInit(): void {
-    // modify headings
-    let h1 = document.getElementsByTagName("h1");
-    if (this.edit) {
-      for (let i = 0; i < h1.length; i++) {
-        h1[i].innerText = "Kategorie bearbeiten";
-      }
-    } else {
-      for (let i = 0; i < h1.length; i++) {
-        h1[i].innerText = "Neue Kategorie";
-      }
-    }
 
     this.insertCategoryForm = this.formBuilder.group({
       CAID: [''],
@@ -49,6 +38,19 @@ export class InsertCategoryComponent implements OnInit {
 
   getInsertData() {
     const routeParams = this.route.snapshot.params;
+
+    // modify headings
+    let h1 = document.getElementsByTagName("h1");
+
+    if (routeParams['CAID']) {
+      for (let i = 0; i < h1.length; i++) {
+        h1[i].innerText = "Kategorie bearbeiten";
+      }
+    } else {
+      for (let i = 0; i < h1.length; i++) {
+        h1[i].innerText = "Neue Kategorie";
+      }
+    }
 
     // get all categories from a user for dropdown
     this.catService.getCategoriesByUser().subscribe(
@@ -100,7 +102,7 @@ export class InsertCategoryComponent implements OnInit {
           this.general.errorResponse(error['status']);
         });
     } else {
-      if(this.catService.parentCAID != 0) {;
+      if(this.catService.parentCAID != 0) {
         this.insertCategoryForm.patchValue({
           parent_categoryID: this.catService.parentCAID
         });
@@ -109,7 +111,7 @@ export class InsertCategoryComponent implements OnInit {
   }
 
   // for searching through categories
-  categorySearcher = (search: string, pageNumber: number, pageSize: number): Observable<any[]> => {
+  categorySearcher = (search: string): Observable<any[]> => {
     return of(this.categories.filter(w => w.category_name.includes(search) && w.parent_categoryID === null));
   }
 

@@ -2,10 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Task} from './task';
 import {Router} from '@angular/router';
-import {AuthenticationService} from '../authentication/authentication.service';
 import {Observable} from "rxjs";
-import { CalendarEvent } from 'angular-calendar';
-import {PopupMydayComponent} from "../../popups/popup-myday/popup-myday.component";
 import {TaskComponent} from "../../pages/task/task.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 
@@ -14,7 +11,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 })
 export class TaskService {
 
-  constructor(private dialog: MatDialog, private http: HttpClient, private router: Router, private authService: AuthenticationService) {
+  constructor(private dialog: MatDialog, private http: HttpClient, private router: Router) {
   }
 
   terminateTask!: Task;

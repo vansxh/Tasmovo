@@ -8,8 +8,6 @@ import {AuthenticationService} from 'src/app/services/authentication/authenticat
 import {GeneralService} from "../../services/general/general.service";
 import {Category} from "../../services/category/category";
 import {CategoryService} from "../../services/category/category.service";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import * as moment from 'moment';
 import {Observable, of} from "rxjs";
 import {NavigationService} from "../../services/navigation/navigation.service";
@@ -21,7 +19,7 @@ import {NavigationService} from "../../services/navigation/navigation.service";
 })
 export class InsertTaskComponent implements OnInit {
 
-  constructor(private navigation: NavigationService, private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService, private catService: CategoryService, private matDatePicker: MatDatepickerModule, private matTimePicker: NgxMatTimepickerModule) {
+  constructor(private navigation: NavigationService, private formbuilder: FormBuilder, private taskService: TaskService, private router: Router, private route: ActivatedRoute, private datePipe: DatePipe, private authService: AuthenticationService, private general: GeneralService, private catService: CategoryService) {
   }
 
   insertTaskForm!: FormGroup;
@@ -32,17 +30,6 @@ export class InsertTaskComponent implements OnInit {
   nowDate!: string;
 
   ngOnInit(): void {
-    // modify headings
-    let h1 = document.getElementsByTagName("h1");
-    if (this.edit) {
-      for (let i = 0; i < h1.length; i++) {
-        h1[i].innerText = "Task bearbeiten";
-      }
-    } else {
-      for (let i = 0; i < h1.length; i++) {
-        h1[i].innerText = "Neuer Task";
-      }
-    }
 
     this.nowDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd', 'de-AT') || '';
 
@@ -62,6 +49,18 @@ export class InsertTaskComponent implements OnInit {
 
   getInsertData() {
     const routeParams = this.route.snapshot.params;
+
+    // modify headings
+    let h1 = document.getElementsByTagName("h1");
+    if (routeParams['TAID']) {
+      for (let i = 0; i < h1.length; i++) {
+        h1[i].innerText = "Task bearbeiten";
+      }
+    } else {
+      for (let i = 0; i < h1.length; i++) {
+        h1[i].innerText = "Neuer Task";
+      }
+    }
 
     // if TAID is transmitted get task and display values
     if (routeParams['TAID']) {
@@ -108,12 +107,12 @@ export class InsertTaskComponent implements OnInit {
   }
 
   // for searching through subcategories
-  subCategorySearcher = (search: string, pageNumber: number, pageSize: number): Observable<any[]> => {
+  subCategorySearcher = (search: string): Observable<any[]> => {
     return of(this.subcategories.filter(w => w.category_name.includes(search)));
   }
 
   // for searching through categories
-  categorySearcher = (search: string, pageNumber: number, pageSize: number): Observable<any[]> => {
+  categorySearcher = (search: string): Observable<any[]> => {
     return of(this.categories.filter(w => w.category_name.includes(search) && w.parent_categoryID === null));
   }
 

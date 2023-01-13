@@ -1,11 +1,10 @@
-import {Component, OnInit, ViewEncapsulation, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
 import {Category} from "../../services/category/category";
 import {CategoryService} from "../../services/category/category.service";
-import {BehaviorSubject} from 'rxjs';
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {faCirclePlus} from '@fortawesome/free-solid-svg-icons';
@@ -35,7 +34,6 @@ export class CategoryComponent implements OnInit {
   public categoryTasks!: Task[];
   public subcategories!: Category[];
   public allTasks!: Task[];
-  slides$ = new BehaviorSubject<string[]>(['']);
   category!: Category;
 
   faEdit = faPencil;
@@ -44,7 +42,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
 
-    var swiper = new Swiper('#banner .swiper-container', {
+    new Swiper('#banner .swiper-container', {
       pagination: true,
       slidesPerView: 2,
       centeredSlides: true,
@@ -56,11 +54,7 @@ export class CategoryComponent implements OnInit {
       }
     });
 
-    this.slides$.next(
-      Array.from({length: 600}).map((el, index) => `Slide ${index + 1}`)
-    );
-
-    //get Data and modify Headings
+    // get data and modify headings
     this.getCategoryData();
   }
 
@@ -73,7 +67,7 @@ export class CategoryComponent implements OnInit {
       // get info of category
       this.catService.getCategory(routeParams['CAID']).subscribe(
         (data: any = []) => {
-          // get tasks from data
+          // get category from data
           this.category = <Category>data['data'];
           for (let i = 0; i < h1.length; i++) {
             h1[i].innerText = this.category.category_name;
@@ -81,7 +75,6 @@ export class CategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            //alert(error['error']['message']);
             this.router.navigate(['my-categories']);
             return;
           }
@@ -96,7 +89,6 @@ export class CategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            //alert(error['error']['message']);
             return;
           }
           this.general.errorResponse(error['status']);
@@ -110,7 +102,6 @@ export class CategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            //alert(error['error']['message']);
             this.subcategories = [];
             return;
           }
@@ -125,7 +116,6 @@ export class CategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            //alert(error['error']['message']);
             return;
           }
           this.general.errorResponse(error['status']);

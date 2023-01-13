@@ -45,7 +45,6 @@
   <ng-template
     #myTemplate
     let-day="day"
-    let-openDay="openDay"
     let-locale="locale"
     let-tooltipPlacement="tooltipPlacement"
     let-highlightDay="highlightDay"
@@ -72,7 +71,7 @@
     <div class="cal-events" *ngIf="day.events.length > 0">
       <div
         class="cal-event"
-        *ngFor="let event of day.events; trackBy: trackByEventId" c
+        *ngFor="let event of day.events; trackBy: trackByEventId"
         [ngStyle]="{ backgroundColor: event.color?.primary }"
         [ngClass]="event?.cssClass"
         (mouseenter)="highlightDay.emit({ event: event })"

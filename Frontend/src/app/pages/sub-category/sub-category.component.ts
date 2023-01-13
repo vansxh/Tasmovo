@@ -2,11 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {Task} from "../../services/task/task";
 import {TaskService} from "../../services/task/task.service";
 import {GeneralService} from "../../services/general/general.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {PopupFinishComponent} from "../../popups/popup-finish/popup-finish.component";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {Category} from "../../services/category/category";
 import {CategoryService} from "../../services/category/category.service";
+import {NavigationService} from "../../services/navigation/navigation.service";
 
 @Component({
   selector: 'app-sub-category',
@@ -15,7 +16,7 @@ import {CategoryService} from "../../services/category/category.service";
 })
 export class SubCategoryComponent implements OnInit {
 
-  constructor(private catService: CategoryService, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private dialog: MatDialog, private router: Router) {
+  constructor(private navigation: NavigationService ,private catService: CategoryService, private route: ActivatedRoute, private taskService: TaskService, private general: GeneralService, private dialog: MatDialog) {
   }
 
   public categoryTasks!: Task[];
@@ -40,7 +41,7 @@ export class SubCategoryComponent implements OnInit {
     const routeParams = this.route.snapshot.params;
 
     if (routeParams['CAID']) {
-      // get  next tasks
+      // get tasks in category
       this.taskService.getCategoryTasks(routeParams['CAID']).subscribe(
         (data: any = []) => {
           // get tasks from data
@@ -48,8 +49,7 @@ export class SubCategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            //alert(error['error']['message']);
-            this.router.navigate(['my-categories']);
+            this.navigation.back();
             return;
           }
           this.general.errorResponse(error['status']);
@@ -61,6 +61,7 @@ export class SubCategoryComponent implements OnInit {
           // get tasks from data
           this.subcategory = <Category>data['data'];
 
+          // change headings depending on web or mobile
           if (!this.subcategory.parent_categoryID) {
             if (window.innerWidth <= 768) {
               parent!.innerText = this.subcategory.category_name;
@@ -78,8 +79,8 @@ export class SubCategoryComponent implements OnInit {
             // get info of parent category
             this.catService.getCategory(this.subcategory.parent_categoryID).subscribe(
               (data: any = []) => {
-                // get tasks from data
                 this.parentCategory = <Category>data['data'];
+                // change headings depending on web or mobile
                 if (window.innerWidth <= 768) {
                   parent!.innerText = this.parentCategory.category_name;
                   for (let i = 0; i < h1.length; i++) {
@@ -93,7 +94,6 @@ export class SubCategoryComponent implements OnInit {
               },
               (error: any = []) => {
                 if (error['error']['message']) {
-                  //alert(error['error']['message']);
                   return;
                 }
                 this.general.errorResponse(error['status']);
@@ -102,19 +102,10 @@ export class SubCategoryComponent implements OnInit {
         },
         (error: any = []) => {
           if (error['error']['message']) {
-            //alert(error['error']['message']);
             return;
           }
           this.general.errorResponse(error['status']);
         });
-    }
-  }
-
-  getSubcategoryName(): string {
-    if (!this.subcategory.parent_categoryID) {
-      return "Allgemein";
-    } else {
-      return this.subcategory.category_name;
     }
   }
 
@@ -128,21 +119,6 @@ export class SubCategoryComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     this.dialog.open(PopupFinishComponent, dialogConfig);
-  }
-
-  deleteCategory(category: Category): void {
-    this.catService.deleteCategory(category.CAID).subscribe(
-      (data: any = []) => {
-        // update view if deleting was successful
-        this.ngOnInit();
-      },
-      (error: any = []) => {
-        if (error['error']['message']) {
-          alert(error['error']['message']);
-          return;
-        }
-        this.general.errorResponse(error['status']);
-      });
   }
 
   scrollToNotDone() {
@@ -174,12 +150,12 @@ export class SubCategoryComponent implements OnInit {
     }
   }
 
-  changeDay(day: number) {
-    // get buttons for changing between days
+  changeButtons(state: number) {
+    // get buttons for changing between done and not done
     const notDone = document.getElementById('notDone-btn');
     const done = document.getElementById('done-btn');
-    // if today was clicked
-    if (day === 1) {
+    // if not done was clicked
+    if (state === 1) {
       if (notDone && done) {
         notDone.classList.remove('btn-outline-primary');
         notDone.classList.remove('btn-light');
@@ -188,8 +164,8 @@ export class SubCategoryComponent implements OnInit {
         done.classList.add('btn-outline-primary');
         done.classList.add('btn-light');
       }
-      // if tomorrow was clicked
-    } else if (day === 2) {
+      // if done was clicked
+    } else if (state === 2) {
       if (notDone && done) {
         notDone.classList.remove('btn-primary');
         notDone.classList.add('btn-outline-primary');

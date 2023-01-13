@@ -42,7 +42,6 @@ export class SingleTasksComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          //alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
@@ -90,12 +89,12 @@ export class SingleTasksComponent implements OnInit {
     }
   }
 
-  changeDay(day: number) {
-    // get buttons for changing between days
+  changeButtons(state: number) {
+    // get buttons for changing between done and not done
     const notDone = document.getElementById('notDone-btn');
     const done = document.getElementById('done-btn');
-    // if today was clicked
-    if (day === 1) {
+    // if not done was clicked
+    if (state === 1) {
       if (notDone && done) {
         notDone.classList.remove('btn-outline-primary');
         notDone.classList.remove('btn-light');
@@ -104,8 +103,8 @@ export class SingleTasksComponent implements OnInit {
         done.classList.add('btn-outline-primary');
         done.classList.add('btn-light');
       }
-      // if tomorrow was clicked
-    } else if (day === 2) {
+      // if done was clicked
+    } else if (state === 2) {
       if (notDone && done) {
         notDone.classList.remove('btn-primary');
         notDone.classList.add('btn-outline-primary');

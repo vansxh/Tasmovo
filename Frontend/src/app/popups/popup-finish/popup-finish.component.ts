@@ -124,7 +124,7 @@ export class PopupFinishComponent implements OnInit {
   onClose() {
     this.dialogRefFinish.close();
     if (this.dailyStresslevel < this.stressLimit) {
-      window.location.href = window.location.href;
+      window.location.reload();
     }
   }
 

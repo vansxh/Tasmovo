@@ -78,7 +78,6 @@ export class PopupMydayComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          //alert(error['error']['message']);
           return;
         }
         this.general.errorResponse(error['status']);
@@ -100,7 +99,7 @@ export class PopupMydayComponent implements OnInit {
   }
 
   // for searching through tasks
-  taskSearcher = (search: string, pageNumber: number, pageSize: number): Observable<any[]> => {
+  taskSearcher = (search: string): Observable<any[]> => {
     return of(this.tasks.filter(w => w.task_name.includes(search) && w.statusID == 1));
   }
 

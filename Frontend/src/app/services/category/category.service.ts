@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Category} from './category';
 import {Router} from '@angular/router';
-import {AuthenticationService} from '../authentication/authentication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ export class CategoryService {
 
   parentCAID!: number;
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   insertCategory(category: Category) {

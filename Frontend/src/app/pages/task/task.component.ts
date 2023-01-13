@@ -72,7 +72,6 @@ export class TaskComponent implements OnInit {
                 },
                 (error: any = []) => {
                   if (error['error']['message']) {
-                    //alert(error['error']['message']);
                     return;
                   }
                   this.general.errorResponse(error['status']);
@@ -80,7 +79,6 @@ export class TaskComponent implements OnInit {
             },
             (error: any = []) => {
               if (error['error']['message']) {
-                alert(error['error']['message']);
                 return;
               }
               this.general.errorResponse(error['status']);
@@ -106,7 +104,7 @@ export class TaskComponent implements OnInit {
       },
       (error: any = []) => {
         if (error['error']['message']) {
-          this.router.navigate(["dashboard"]);
+          this.back();
           return;
         }
         this.general.errorResponse(error['status']);
