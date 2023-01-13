@@ -45,4 +45,46 @@ export class GeneralService {
     }
   }
 
+  keyPressTitles(event: { keyCode: number; preventDefault: () => void; }){
+    const inp = String.fromCharCode(event.keyCode);
+
+    //!@#$%^&*)(+=.<>{}\[\]:;'"|~`_-
+    if (/[a-zA-Z0-9'-]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  keyPressMail(event: { keyCode: number; preventDefault: () => void; }){
+    const inp = String.fromCharCode(event.keyCode);
+
+    if (/[a-zA-Z.@-]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  keyPressNames(event: { keyCode: number; preventDefault: () => void; }){
+    const inp = String.fromCharCode(event.keyCode);
+
+    if (/[a-zA-Z'-]/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  decodeHtmlCharCodes(str: string) {
+    return str.replace(/(&#(\d+);)/g, function(match, capture, charCode) {
+      return String.fromCharCode(charCode);
+    });
+  }
+
+
+
 }
