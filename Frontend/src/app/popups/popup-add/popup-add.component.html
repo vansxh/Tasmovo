@@ -6,8 +6,7 @@
       Neuer Task
     </button>
     <br>
-    <button class="btn btn-warning w-100 my-2" (click)="onClose()" routerLink="insert-category"
-            routerLinkActive="active">Neue Kategorie
+    <button class="btn btn-warning w-100 my-2" (click)="onClose(); addCategory()">Neue Kategorie
     </button>
     <br>
     <button class="btn btn-primary w-100 mt-4 mb-2" (click)="onClose()">Abbrechen</button>

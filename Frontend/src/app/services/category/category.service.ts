@@ -9,6 +9,8 @@ import {AuthenticationService} from '../authentication/authentication.service';
 })
 export class CategoryService {
 
+  parentCAID!: number;
+
   constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) {
   }
 
@@ -36,7 +38,8 @@ export class CategoryService {
     this.router.navigate(['/insert-category/' + CAID]);
   }
 
-  addCategory() {
+  addCategory(CAID: number) {
+    this.parentCAID = CAID;
     this.router.navigate(['/insert-category']);
   }
 

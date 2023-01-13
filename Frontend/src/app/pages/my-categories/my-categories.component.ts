@@ -82,7 +82,7 @@ export class MyCategoriesComponent implements OnInit {
   }
 
   addCategory(): void {
-    this.catService.addCategory();
+    this.catService.addCategory(0);
   }
 
   showCategory(category: Category): void {

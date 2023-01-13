@@ -179,6 +179,6 @@ export class CategoryComponent implements OnInit {
   }
 
   addCategory(): void {
-    this.catService.addCategory();
+    this.catService.addCategory(this.category.CAID);
   }
 }

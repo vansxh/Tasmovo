@@ -22,7 +22,7 @@ export class InsertCategoryComponent implements OnInit {
   selectedCategory!: Category;
   edit!: boolean;
   categories!: Category[];
-  isParentCat!: boolean;
+  isParentCat: boolean = false;
 
   ngOnInit(): void {
     // modify headings
@@ -37,14 +37,14 @@ export class InsertCategoryComponent implements OnInit {
       }
     }
 
-    this.getInsertData();
-
     this.insertCategoryForm = this.formBuilder.group({
       CAID: [''],
       userID: [''],
       category_name: ['', [Validators.required, Validators.maxLength(30)]],
       parent_categoryID: ['']
     });
+
+    this.getInsertData();
   }
 
   getInsertData() {
@@ -100,6 +100,12 @@ export class InsertCategoryComponent implements OnInit {
           }
           this.general.errorResponse(error['status']);
         });
+    } else {
+      if(this.catService.parentCAID != 0) {;
+        this.insertCategoryForm.patchValue({
+          parent_categoryID: this.catService.parentCAID
+        });
+      }
     }
   }
 
