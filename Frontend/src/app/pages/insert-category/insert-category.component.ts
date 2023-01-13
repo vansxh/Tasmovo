@@ -29,7 +29,7 @@ export class InsertCategoryComponent implements OnInit {
     this.insertCategoryForm = this.formBuilder.group({
       CAID: [''],
       userID: [''],
-      category_name: ['', [Validators.required, Validators.maxLength(30), Validators.pattern('^[a-zA-Z\'\-]+$')]],
+      category_name: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[a-zA-Z\'\-]+$')]],
       parent_categoryID: ['']
     });
 

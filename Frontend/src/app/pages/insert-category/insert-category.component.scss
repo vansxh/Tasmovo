@@ -90,6 +90,11 @@ span {
   border-radius: 5px;
 }
 
+:host ::ng-deep span {
+  font-family: "Source Sans Pro";
+  font-size: 16px !important;
+}
+
 :host ::ng-deep .mat-select-arrow-wrapper {
   display: none !important;
 }

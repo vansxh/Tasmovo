@@ -12,3 +12,9 @@
 .add-cat-btn {
   width: 20rem;
 }
+
+.textoverflow {
+  white-space: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

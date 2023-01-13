@@ -12,11 +12,11 @@
         </div>
         <div class="alert p-0"
              *ngIf="insertTaskForm.get('task_name')?.hasError('required') && insertTaskForm.get('task_name')?.touched">
-          <span>Bitte einen Titel für den Task eingeben!</span>
+          <span>Bitte gib einen Titel für den Task ein!</span>
         </div>
         <div class="alert p-0"
              *ngIf="insertTaskForm.get('task_name')?.hasError('maxlength') && insertTaskForm.get('task_name')?.touched">
-          <span>Der Titel darf maximal 20 Zeichen lang sein.</span>
+          <span>Der Titel darf maximal 20 Zeichen lang sein</span>
         </div>
 
         <div class="row">
@@ -31,7 +31,7 @@
             </div>
             <div class="alert p-0"
                  *ngIf="insertTaskForm.get('deadlineDay')?.hasError('required') && insertTaskForm.get('deadlineDay')?.touched">
-              <span>Bitte eine Deadline für den Task wählen!</span>
+              <span>Bitte wähle eine Deadline für den Task!</span>
             </div>
           </div>
 
@@ -47,7 +47,7 @@
             </div>
             <div class="alert p-0"
                  *ngIf="insertTaskForm.get('deadlineHour')?.hasError('required') && insertTaskForm.get('deadlineHour')?.touched">
-              <span>Bitte eine Deadline für den Task wählen!</span>
+              <span>Bitte wähle eine Deadline für den Task!</span>
             </div>
           </div>
         </div>

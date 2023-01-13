@@ -13,11 +13,11 @@
       </div>
       <div class="alert p-0"
            *ngIf="insertCategoryForm.get('category_name')?.hasError('required') && insertCategoryForm.get('category_name')?.touched">
-        <span>Bitte einen Titel für die Kategorie eingeben!</span>
+        <span>Bitte gib einen Titel für die Kategorie ein!</span>
       </div>
       <div class="alert p-0"
            *ngIf="insertCategoryForm.get('category_name')?.hasError('maxlength') && insertCategoryForm.get('category_name')?.touched">
-        <span>Max Länge: 30 Zeichen</span>
+        <span>Der Titel darf maximal 20 Zeichen lang sein</span>
       </div>
 
       <div *ngIf="!isParentCat" class="form-group select mt-3">

@@ -20,11 +20,11 @@
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched">
-          <span>Bitte geben Sie Ihren Vornamen ein.</span>
+          <span>Bitte gib deinen Vornamen ein!</span>
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('firstName')?.hasError('maxlength')">
-          <span>Der Vorname darf maximal 30 Zeichen lang sein.</span>
+          <span>Der Vorname darf maximal 30 Zeichen lang sein</span>
         </div>
 
         <div class="form-group mt-3">
@@ -34,11 +34,11 @@
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('lastName')?.hasError('required') && registerForm.get('lastName')?.touched">
-          <span>Bitte geben Sie Ihren Nachnamen ein.</span>
+          <span>Bitte gib deinen Nachnamen ein!</span>
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('lastName')?.hasError('maxlength')">
-          <span>Der Nachname darf maximal 30 Zeichen lang sein.</span>
+          <span>Der Nachname darf maximal 30 Zeichen lang sein</span>
         </div>
 
         <div class="form-group mt-3">
@@ -48,15 +48,15 @@
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('mail')?.hasError('required') && registerForm.get('mail')?.touched">
-          <span>Bitte geben Sie eine Email ein.</span>
+          <span>Bitte gib eine E-Mail ein!</span>
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('mail')?.hasError('email')">
-          <span>Die Eingabe muss eine gültige Email sein.</span>
+          <span>Die Eingabe muss eine gültige E-Mail sein</span>
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('mail')?.hasError('maxlength')">
-          <span>Die Email darf maximal 30 Zeichen lang sein.</span>
+          <span>Die E-Mail darf maximal 30 Zeichen lang sein</span>
         </div>
 
         <div class="form-group mt-3">
@@ -67,15 +67,15 @@
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('username')?.hasError('required') && registerForm.get('username')?.touched">
-          <span>Bitte geben Sie einen Usernamen ein.</span>
+          <span>Bitte gib einen Benutzernamen ein!</span>
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('username')?.hasError('maxlength')">
-          <span>Der Username darf maximal 30 Zeichen lang sein.</span>
+          <span>Der Benutzername darf maximal 30 Zeichen lang sein</span>
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('username')?.hasError('minlength')">
-          <span>Der Username muss mindestens 4 Zeichen lang sein.</span>
+          <span>Der Benutzername muss mindestens 4 Zeichen lang sein</span>
         </div>
 
         <div class="form-group mt-3">
@@ -85,15 +85,15 @@
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
-          <span>Bitte geben Sie ein Passwort ein.</span>
+          <span>Bitte gib ein Passwort ein!</span>
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('password')?.hasError('maxlength')">
-          <span>Das Passwort darf maximal 30 Zeichen lang sein.</span>
+          <span>Das Passwort darf maximal 30 Zeichen lang sein</span>
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('password')?.hasError('minlength')">
-          <span>Das Passwort muss mindestens 6 Zeichen lang sein.</span>
+          <span>Das Passwort muss mindestens 6 Zeichen lang sein</span>
         </div>
 
         <div class="form-group mt-3">
@@ -103,11 +103,11 @@
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('repeatPassword')?.hasError('required') && registerForm.get('repeatPassword')?.touched">
-          <span>Bitte wiederholen sie Ihr Passwort.</span>
+          <span>Bitte wiederhole dein Passwort!</span>
         </div>
         <div class="alert p-0"
              *ngIf="registerForm.get('repeatPassword')?.hasError('notEqual') ">
-          <span>Das Passwort stimmt nicht überein.</span>
+          <span>Die Passworteingabe stimmt nicht überein</span>
         </div>
         <div class="text-center mt-4">
           <button [disabled]="!registerForm.valid" type="submit" class="btn btn-primary w-50">Registrieren</button>

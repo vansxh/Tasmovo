@@ -19,7 +19,7 @@
         </div>
         <div class="row px-3">
           <div class="col-12 text-center">
-            <h1 class="p-0 m-0"></h1>
+            <h1 class="p-0 m-0 textoverflow-heading"></h1>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
         *ngIf="getLocation()=='/dashboard' || getLocation()=='/overview' || getLocation()=='/timer' || getLocation()=='/calendar' || getLocation()=='/profile'">
         <div class="row pt-3 px-1">
           <div class="col">
-            <h1 class="p-0 m-0"></h1>
+            <h1 class="p-0 m-0 textoverflow-heading"></h1>
           </div>
           <div class="col d-flex justify-content-end" *ngIf="getLocation()!='/profile'">
             <a class="" routerLink="profile" routerLinkActive="active">
@@ -69,7 +69,7 @@
         </div>
         <div class="row px-3">
           <div class="col-12 text-center">
-            <h1 class="p-0 m-0"></h1>
+            <h1 class="p-0 m-0 textoverflow-heading"></h1>
           </div>
         </div>
       </div>
@@ -84,7 +84,7 @@
       <button class="btn display-web-only" *ngIf="getLocation().includes('/calendar-detail')"
               (click)="toCalendarOverview()">
         <i class="fa fa-chevron-left fa-lg"></i></button>
-      <h1 class="p-0 m-0">Überschrift</h1>
+      <h1 class="p-0 m-0 textoverflow-heading"></h1>
     </div>
 
     <!-- display web navbar correctly -->

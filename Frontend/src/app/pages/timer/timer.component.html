@@ -88,7 +88,7 @@
   </div>
 
   <div *ngIf="whileTimer" class="p-0  mt-3 text-center">
-    <div>
+    <div class="time-left-box">
       <countdown #cd [config]="{leftTime: timerSeconds}" (event)="handleEvent($event)" class="timer"></countdown>
     </div>
     <div>
@@ -109,7 +109,7 @@
   </div>
 
   <div *ngIf="timerEnd" class=" p-0 mt-3 text-center">
-    <div>
+    <div class="time-left-box">
       <countdown [config]="{leftTime: 0}" class="timer"></countdown>
     </div>
     <div>

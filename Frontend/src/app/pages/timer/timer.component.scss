@@ -136,7 +136,6 @@ input[type=number] {
 .buttonStart {
   width: 259px;
   margin-top: 25px;
-  font-size: 20px;
 }
 
 .mat-form-field {
@@ -155,10 +154,11 @@ input[type=number] {
 }
 
 .text-timer-select {
+  font-family: "Source Sans Pro";
   position: absolute;
   left: 5px;
   top: 15px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
   text-align: left !important;
 }
@@ -185,7 +185,7 @@ input[type=number] {
 }
 
 .imgBorder {
-  width: 400px;
+  width: 390px;
 }
 
 .gif {
@@ -194,6 +194,10 @@ input[type=number] {
 
 .loadText {
   font-size: 20px;
+}
+
+.time-left-box {
+  height: 20px;
 }
 
 //finishState
@@ -208,10 +212,7 @@ input[type=number] {
     width: 365px;
   }
   :host ::ng-deep .timer > span {
-    font-size: 42px !important;
-  }
-  .loadText {
-    font-size: 28px;
+    font-size: 35px !important;
   }
 }
 
@@ -258,9 +259,6 @@ input[type=number] {
   :host ::ng-deep .timer > span {
     font-size: 36px !important;
   }
-  .loadText {
-    font-size: 24px;
-  }
 }
 
 @media (max-width: 518px) {
@@ -271,17 +269,17 @@ input[type=number] {
 
   //whileState
   .gif {
-    width: 300px;
+    width: 366px;
   }
   .imgBorder {
-    width: 180px;
+    width: 220px;
   }
-  .loadText {
-    font-size: 20px;
+  .time-left-box {
+    height: 40px;
   }
 }
 
-@media (max-width: 340px) {
+@media (max-width: 370px) {
   //startState
   :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
     text-align: center;
@@ -300,9 +298,19 @@ input[type=number] {
 
   //whileState
   .gif {
-    width: 260px;
+    width: 310px;
   }
   .imgBorder {
-    width: 155px;
+    width: 185px;
+  }
+}
+
+@media (max-width: 370px) {
+  //whileState
+  .gif {
+    width: 285px;
+  }
+  .imgBorder {
+    width: 170px;
   }
 }

@@ -1,7 +1,7 @@
 <div class="row m-0 switch-screen-full">
   <div class="col-md-7 col-sm-12 d-flex flex-column justify-content-center align-items-center login-screen">
     <h1 class="text-center">Willkommen zurück!</h1>
-    <div class="alert alert-success" *ngIf="createdUser">
+    <div class="alert alert-primary" *ngIf="createdUser">
       User erfolgreich erstellt!
     </div>
 
@@ -14,11 +14,11 @@
         </div>
         <div class="alert p-0"
              *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched">
-          <span>Bitte geben Sie Ihren Benutzernamen oder Ihre E-Mail ein.</span>
+          <span>Bitte gib deinen Benutzernamen oder deine E-Mail ein!</span>
         </div>
         <div class="alert p-0"
              *ngIf="loginForm.get('username')?.hasError('maxlength')">
-          <span>Der Benutzername bzw. die E-Mail darf maximal 30 Zeichen lang sein.</span>
+          <span>Die Eingabe darf maximal 30 Zeichen lang sein</span>
         </div>
 
         <div class="form-group mt-3">
@@ -28,7 +28,7 @@
         </div>
         <div class="alert p-0"
              *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
-          <span>Bitte geben Sie Ihr Passwort ein</span>
+          <span>Bitte gib dein Passwort ein!</span>
         </div>
         <div class="alert p-0" *ngIf="message">
           <span>{{message}}</span>
