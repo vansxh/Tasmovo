@@ -17,7 +17,7 @@ Chart.register(annotationPlugin);
 Chart.defaults.font.family = "'Ubuntu', sans-serif";
 import {TaskService} from "../../services/task/task.service";
 import {CategoryService} from "../../services/category/category.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ErrorStateMatcher} from '@angular/material/core';
 
 @Component({
@@ -450,9 +450,9 @@ export class ProfileComponent implements OnInit {
 
   changeForm() {
     this.userForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.maxLength(30)]],
-      lastName: ['', [Validators.required, Validators.maxLength(30)]],
-      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30)]],
+      firstName: ['', [Validators.required, Validators.maxLength(30), Validators.pattern('^[a-zA-Z\'\-]+$')]],
+      lastName: ['', [Validators.required, Validators.maxLength(30), Validators.pattern('^[a-zA-Z\'\-]+$')]],
+      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30), this.usernameValidator, Validators.pattern('^[a-z0-9]+$')]],
       stressLimit: ['', Validators.required]
     });
     this.userForm.setValue({
@@ -561,6 +561,14 @@ export class ProfileComponent implements OnInit {
       }
       this.general.errorResponse(error['status']);
     });
+  }
+
+  // @ts-ignore
+  usernameValidator(control: FormControl): { [key: string]: boolean } {
+    const nameRegexp: RegExp = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+    if (control.value && nameRegexp.test(control.value)) {
+      return { invalidUsername: true };
+    }
   }
 
 
