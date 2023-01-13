@@ -137,8 +137,8 @@ export class MyDayComponent {
         this.plannedTasks.forEach((item) => {
           this.events.push({
             id: item.MID,
-            start: new Date(item.planned_date + ' ' + item.start_time),
-            end: new Date(item.planned_date + ' ' + item.end_time),
+            start: new Date(item.planned_date + 'T' + item.start_time),
+            end: new Date(item.planned_date + 'T' + item.end_time),
             title: item.task_name,
             color: (item.statusID == 1 ? colors['main'] : colors['done']),
             resizable: {
