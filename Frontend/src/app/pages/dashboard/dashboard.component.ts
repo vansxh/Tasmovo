@@ -89,11 +89,6 @@ export class DashboardComponent implements OnInit {
       (data: any = []) => {
         // get tasks from data
         this.openTasks = <Task[]>data['data'];
-        this.openTasks.forEach((task)=>{
-          task.task_name = this.general.decodeHtmlCharCodes(task.task_name);
-          task.notes = this.general.decodeHtmlCharCodes(task.notes);
-          task.category = this.general.decodeHtmlCharCodes(task.category);
-        });
       },
       (error: any = []) => {
         if (error['error']['message']) {
@@ -166,5 +161,9 @@ export class DashboardComponent implements OnInit {
 
   myDay() {
     this.router.navigate(['/my-day']);
+  }
+
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
   }
 }
