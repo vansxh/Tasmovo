@@ -510,6 +510,8 @@ export class ProfileComponent implements OnInit {
     this.auth.getUser().subscribe(
       (data: any = []) => {
         this.currentUser = <User>data['data'];
+        this.currentUser.firstName = this.decodeSpecialCharacters(this.currentUser.firstName);
+        this.currentUser.lastName = this.decodeSpecialCharacters(this.currentUser.lastName);
 
         this.changeForm();
         this.userLoaded = true;
@@ -571,5 +573,8 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
+  }
 
 }
