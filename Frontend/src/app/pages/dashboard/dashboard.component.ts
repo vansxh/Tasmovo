@@ -72,6 +72,9 @@ export class DashboardComponent implements OnInit {
         this.plannedTasks.forEach((task) => {
           task.start_time = task.start_time.slice(0, -3);
           task.end_time = task.end_time.slice(0, -3);
+          task.task_name = this.general.decodeHtmlCharCodes(task.task_name);
+          task.notes = this.general.decodeHtmlCharCodes(task.notes);
+          task.category = this.general.decodeHtmlCharCodes(task.category);
         });
       },
       (error: any = []) => {
@@ -86,6 +89,11 @@ export class DashboardComponent implements OnInit {
       (data: any = []) => {
         // get tasks from data
         this.openTasks = <Task[]>data['data'];
+        this.openTasks.forEach((task)=>{
+          task.task_name = this.general.decodeHtmlCharCodes(task.task_name);
+          task.notes = this.general.decodeHtmlCharCodes(task.notes);
+          task.category = this.general.decodeHtmlCharCodes(task.category);
+        });
       },
       (error: any = []) => {
         if (error['error']['message']) {
