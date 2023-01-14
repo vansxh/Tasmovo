@@ -57,10 +57,10 @@
               (click)="$event.stopPropagation(); deleteEntry(event.id);">
         <fa-icon [icon]="faXmark"></fa-icon>
       </button>
-      <h6 class="d-inline-block m-0 p-0 task-pointer">{{event.title}}</h6>
+      <h6 class="d-inline-block m-0 p-0 task-pointer">{{decodeSpecialCharacters(event.title)}}</h6>
       <div class="px-2 display-web-only-inline">
         <div class="bg-dark rounded px-1 my-day-tags" *ngIf="event.deadline">bis {{event.deadline}} Uhr</div>
-        <div class="bg-dark rounded px-1 my-day-tags" *ngIf="event.category">{{event.category}}</div>
+        <div class="bg-dark rounded px-1 my-day-tags" *ngIf="event.category">{{decodeSpecialCharacters(event.category)}}</div>
       </div>
     </div>
     <button *ngIf="event.statusID == 1" class="myDay-btn-circle bg-info" (click)="finishTask(event)"></button>

@@ -349,4 +349,8 @@ export class MyDayComponent {
     }
   }
 
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
+  }
+
 }
