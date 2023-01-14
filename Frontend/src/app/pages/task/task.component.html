@@ -18,7 +18,7 @@
 
   <div id="mobile-content-margin">
     <h1 *ngIf="task" id="detail-task-heading"
-        class="display-web-only text-center h1-task-detail">{{task.task_name}}</h1>
+        class="display-web-only text-center h1-task-detail">{{decodeSpecialCharacters(task.task_name)}}</h1>
     <div class="display-mobile-only text-center">
       <button class="btn" (click)="this.closePopUp(); editTask()">
         <fa-icon [icon]="faEdit"></fa-icon>
@@ -46,12 +46,12 @@
 
     <div *ngIf="category">
       <h3 class="h3-task-detail">Kategorie</h3>
-      <p class="text-danger">{{category.category_name}}</p>
+      <p class="text-danger">{{decodeSpecialCharacters(category.category_name)}}</p>
     </div>
 
     <div *ngIf="subcategory">
       <h3 class="h3-task-detail">Subkategorie</h3>
-      <p class="text-danger">{{subcategory.category_name}}</p>
+      <p class="text-danger">{{decodeSpecialCharacters(subcategory.category_name)}}</p>
     </div>
 
     <div *ngIf="task && task.expense">

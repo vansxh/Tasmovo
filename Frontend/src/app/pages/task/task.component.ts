@@ -171,4 +171,8 @@ export class TaskComponent implements OnInit {
     this.taskService.closePopUp();
   }
 
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
+  }
+
 }
