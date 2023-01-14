@@ -79,6 +79,17 @@ export class GeneralService {
     }
   }
 
+  preventSpaces(event: { keyCode: number; preventDefault: () => void; }){
+    const inp = String.fromCharCode(event.keyCode);
+
+    if (/[ ]/.test(inp)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   decodeHtmlCharCodes(str: string) {
     return str.replace(/(&#(\d+);)/g, function(match, capture, charCode) {
       return String.fromCharCode(charCode);

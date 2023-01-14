@@ -59,4 +59,8 @@ export class RegisterComponent implements OnInit {
    this.general.keyPressNames(event);
   }
 
+  preventSpaces(event: { keyCode: number; preventDefault: () => void; }){
+    this.general.preventSpaces(event);
+  }
+
 }
