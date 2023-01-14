@@ -78,6 +78,7 @@ export class InsertCategoryComponent implements OnInit {
         (data: any = []) => {
           // get category from data
           this.selectedCategory = <Category>data['data'];
+          this.selectedCategory.category_name = this.decodeSpecialCharacters(this.selectedCategory.category_name);
           this.insertCategoryForm.patchValue(this.selectedCategory);
         },
         (error: any = []) => {
@@ -145,5 +146,9 @@ export class InsertCategoryComponent implements OnInit {
         }
         this.general.errorResponse(error['status']);
       });
+  }
+
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
   }
 }
