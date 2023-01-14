@@ -59,7 +59,7 @@
         #sf="ngxMatSelect"
       >
         <mat-option [value]="t.TAID" *ngFor="let t of sf.filteredSource">
-          {{t.task_name}}
+          {{decodeSpecialCharacters(t.task_name)}}
         </mat-option>
       </mat-select>
       <div class="select_arrow"></div>

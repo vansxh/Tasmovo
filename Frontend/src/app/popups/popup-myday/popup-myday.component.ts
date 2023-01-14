@@ -157,4 +157,8 @@ export class PopupMydayComponent implements OnInit {
     this.taskService.addTask();
     this.dialogRefFinish.close();
   }
+
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
+  }
 }
