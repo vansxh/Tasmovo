@@ -26,6 +26,8 @@ export class SubCategoryComponent implements OnInit {
   loadAllTasks = 10;
   loadFinishedTasks = 10;
 
+  heading!: boolean;
+
   ngOnInit(): void {
     this.getAllCategoryTasks();
 
@@ -46,6 +48,7 @@ export class SubCategoryComponent implements OnInit {
         (data: any = []) => {
           // get tasks from data
           this.categoryTasks = <Task[]>data['data'];
+          this.heading = true;
         },
         (error: any = []) => {
           if (error['error']['message']) {
@@ -62,7 +65,7 @@ export class SubCategoryComponent implements OnInit {
           this.subcategory = <Category>data['data'];
 
           // change headings depending on web or mobile
-          if (!this.subcategory.parent_categoryID) {
+          if (!this.subcategory.parent_categoryID && this.heading) {
             if (window.innerWidth <= 768) {
               parent!.innerText = this.subcategory.category_name;
               for (let i = 0; i < h1.length; i++) {
@@ -70,12 +73,12 @@ export class SubCategoryComponent implements OnInit {
               }
             } else {
               for (let i = 0; i < h1.length; i++) {
-                h1[i].innerText = this.subcategory.category_name + ' - Allgemein'
+                h1[i].innerText = this.decodeSpecialCharacters(this.subcategory.category_name) + ' - Allgemein'
               }
             }
           }
 
-          if (this.subcategory.parent_categoryID) {
+          if (this.subcategory.parent_categoryID && this.heading) {
             // get info of parent category
             this.catService.getCategory(this.subcategory.parent_categoryID).subscribe(
               (data: any = []) => {
@@ -84,11 +87,11 @@ export class SubCategoryComponent implements OnInit {
                 if (window.innerWidth <= 768) {
                   parent!.innerText = this.parentCategory.category_name;
                   for (let i = 0; i < h1.length; i++) {
-                    h1[i].innerText = this.subcategory.category_name;
+                    h1[i].innerText = this.decodeSpecialCharacters(this.subcategory.category_name);
                   }
                 } else {
                   for (let i = 0; i < h1.length; i++) {
-                    h1[i].innerText = this.parentCategory.category_name + ' - ' + this.subcategory.category_name;
+                    h1[i].innerText = this.decodeSpecialCharacters(this.parentCategory.category_name) + ' - ' + this.decodeSpecialCharacters(this.subcategory.category_name);
                   }
                 }
               },
@@ -175,5 +178,9 @@ export class SubCategoryComponent implements OnInit {
         done.classList.add('btn-primary');
       }
     }
+  }
+
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
   }
 }
