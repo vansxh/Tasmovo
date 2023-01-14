@@ -70,7 +70,7 @@ export class CategoryComponent implements OnInit {
           // get category from data
           this.category = <Category>data['data'];
           for (let i = 0; i < h1.length; i++) {
-            h1[i].innerText = this.category.category_name;
+            h1[i].innerText = this.decodeSpecialCharacters(this.category.category_name);
           }
         },
         (error: any = []) => {
@@ -170,5 +170,9 @@ export class CategoryComponent implements OnInit {
 
   addCategory(): void {
     this.catService.addCategory(this.category.CAID);
+  }
+
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
   }
 }
