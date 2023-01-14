@@ -113,4 +113,8 @@ export class AllTasksComponent implements OnInit {
       }
     }
   }
+
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
+  }
 }
