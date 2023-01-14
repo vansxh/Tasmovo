@@ -13,7 +13,7 @@
          (click)="showCategory(c)"
          style="position: relative;">
       <div class="d-flex justify-content-start">
-        <h4 class="textoverflow">{{c.category_name}}</h4>
+        <h4 class="textoverflow">{{decodeSpecialCharacters(c.category_name)}}</h4>
       </div>
       <div class="d-flex justify-content-end"
            style="position: absolute; bottom: 80px; right: 10px;">

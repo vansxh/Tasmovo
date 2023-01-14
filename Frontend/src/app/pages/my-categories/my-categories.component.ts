@@ -87,4 +87,8 @@ export class MyCategoriesComponent implements OnInit {
   showCategory(category: Category): void {
     this.catService.showCategory(category.CAID);
   }
+
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
+  }
 }
