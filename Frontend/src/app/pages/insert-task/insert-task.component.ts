@@ -76,6 +76,8 @@ export class InsertTaskComponent implements OnInit {
           this.selectedTask.deadlineDay = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
           this.selectedTask.deadlineHour = this.datePipe.transform(deadline, 'HH:mm', 'de-AT') || '';
           this.selectedTask.notes = this.selectedTask.notes.replaceAll("<br/>", "\r\n");
+          this.selectedTask.notes = this.decodeSpecialCharacters(this.selectedTask.notes);
+          this.selectedTask.task_name = this.decodeSpecialCharacters(this.selectedTask.task_name);
           this.insertTaskForm.patchValue(this.selectedTask);
           if(deadline < new Date()) {
             this.nowDate = this.datePipe.transform(deadline, 'yyyy-MM-dd', 'de-AT') || '';
@@ -166,5 +168,9 @@ export class InsertTaskComponent implements OnInit {
         }
         this.general.errorResponse(error['status']);
       });
+  }
+
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
   }
 }

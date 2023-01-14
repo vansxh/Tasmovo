@@ -81,7 +81,7 @@
             >
               <mat-option [value]=""></mat-option>
               <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
-                {{c.category_name}}
+                {{decodeSpecialCharacters(c.category_name)}}
               </mat-option>
             </mat-select>
             <div class="select_arrow"></div>
@@ -108,7 +108,7 @@
             >
               <mat-option [value]=""></mat-option>
               <mat-option [value]="c.CAID" *ngFor="let c of sf.filteredSource">
-                {{c.category_name}}
+                {{decodeSpecialCharacters(c.category_name)}}
               </mat-option>
             </mat-select>
             <div class="select_arrow"></div>
