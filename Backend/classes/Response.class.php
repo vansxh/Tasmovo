@@ -24,7 +24,10 @@ class Response
         ], $data);
     }
 
-    //Function for encoding the array and sending an response code
+    //Function for encoding the array and sending a response code
+    /**
+     * Function for sending JSON encoded data with a http response code.
+     */
     #[NoReturn] public function send($code = 200): void
     {
         echo json_encode($this->data);
