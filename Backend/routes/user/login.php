@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 //Required file
 require('../../bootstrap.inc.php');
 

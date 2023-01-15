@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 //Required file
 require('../../bootstrap.inc.php');
 
@@ -10,7 +13,7 @@ if (Input::isEmpty()) {
     ]))->send(HttpCode::BAD_REQUEST);
 }
 
-$auth->check(); // check() statt loggedIn()
+$auth->check();
 
 //Unset the session and send a response
 unset($_SESSION['loggedIn']);

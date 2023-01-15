@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 //Required file
 require('../../bootstrap.inc.php');
 
@@ -23,7 +26,7 @@ if ($auth->register(Input::read('UID'), Input::read('firstName'), Input::read('l
             'mail' => Input::read('mail')
         ]
     ]))->send(HttpCode::OKAY);
-}else{
+} else {
     (new Response([
         'error' => true,
         'message' => 'Registrieren fehlgeschlagen.'
