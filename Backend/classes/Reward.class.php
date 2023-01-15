@@ -2,7 +2,8 @@
 
 class Reward
 {
-    function getAllRewards(){
+    function getAllRewards(): bool|array
+    {
        $stmt = Database::getDb()->prepare("SELECT * FROM Reward");
        $stmt->execute();
 
