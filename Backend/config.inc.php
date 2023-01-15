@@ -11,11 +11,7 @@ header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 header('Access-Control-Max-Age: 600');
 
-//Details for the flock (database)
-/*define("DB_HOST", "mysql5");
-define("DB_NAME", "db_flock-1902_1");
-define("DB_USER", "flock-1902");
-define("DB_PW", "r_TaA3LBaBev");*/
+
 define("DB_HOST", "mysqlsvr77.world4you.com");
 define("DB_NAME", "1374430db1");
 define("DB_USER", "sql4695684");
