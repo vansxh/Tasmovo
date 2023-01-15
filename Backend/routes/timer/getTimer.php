@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 //Required file
 require('../../bootstrap.inc.php');
 
@@ -9,12 +12,10 @@ $timer = new Timer();
 $now = date("Y-m-d H:i:s", time());
 
 $data = $timer->getTimer();
-//print_r($data);
 $sec = $data['duration'] * 60;
-//$endDate = $data[0]['start_time'] /*+ strtotime("+$sec sec")*/;
 $endDate = date("Y-m-d H:i:s", (strtotime(date($data['start_time'])) + $sec));
-//print_r($endDate);
-if (!$data || $now > $endDate){
+
+if (!$data || $now > $endDate) {
     (new Response([
         'error' => true,
         'message' => 'Keine Daten vorhanden.',
