@@ -20,8 +20,6 @@ $stress = new Stresstracking();
 
 // get different values from input
 $daily_stresslevel =  Input::read('stress_factor');
-//var_dump($daily_stresslevel);
-//exit;
 
 $item = $stress->resetDailyStresslevel($daily_stresslevel);
 
