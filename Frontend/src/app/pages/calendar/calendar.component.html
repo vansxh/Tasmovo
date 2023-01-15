@@ -1,7 +1,7 @@
-<div class="mobile-distance">
+<div class="mobile-distance web-distance">
   <div id="swipeDiv" (swiperight)="setViewDate(-1)" (swipeleft)="setViewDate(1)">
     <div class="row text-center">
-      <div class="my-4">
+      <div class="my-3">
         <div class="btn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
           <i class="fa fa-chevron-left" style="color:#000000;"></i>
         </div>
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div>
-      <button (click)="changeToDayView()" class="btn btn-outline-secondary mx-auto d-block mb-4" mwlCalendarToday
+      <button (click)="changeToDayView()" class="btn btn-primary mx-auto d-block mb-4 px-5" mwlCalendarToday
               [(viewDate)]="viewDate">
         Heute
       </button>

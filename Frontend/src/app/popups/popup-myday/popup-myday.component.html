@@ -2,13 +2,13 @@
   <h2>{{planned_date}}</h2>
 </div>
 
-<form [formGroup]="addPlannedTaskForm" class="form">
+<form [formGroup]="addPlannedTaskForm" class="form d-flex flex-column justify-content-center align-items-center">
   <span
     *ngIf="this.addPlannedTaskForm.controls['end_time'].touched && this.addPlannedTaskForm.getError('endTimeBeforeStartTime')">
       Ende kann nicht vor Start liegen!
   </span>
 
-  <div class="form-group mb-2">
+  <div class="form-group mb-2 w-100">
     <label for="start_time">von</label>
     <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
       <div class="d-flex justify-content-space-around align-items-center px-3">
@@ -20,7 +20,7 @@
     </mat-form-field>
   </div>
 
-  <div class="form-group">
+  <div class="form-group w-100">
     <label for="end_time">bis</label>
     <mat-form-field class="w-100 container-shadow text-field-mat bg-light">
       <div class="d-flex justify-content-space-between align-items-center px-3">
@@ -38,7 +38,7 @@
       <button class="btn btn-primary py-2 shadow add-cat-btn mt-2" (click)="addTask()">
         <div class="d-flex justify-content-center gap-3">
           <fa-icon [icon]="faCircleX"></fa-icon>
-          Neuer Task erstellen
+          Neuen Task erstellen
         </div>
       </button>
     </div>
@@ -66,14 +66,14 @@
     </mat-form-field>
   </div>
 
-  <div class="row mt-4 mx-5 mb-3">
+  <div class="row mt-4 mb-3 w-100 d-flex justify-content-center">
     <button *ngIf="this.plannedTask.TAID === 0"
             [disabled]="!addPlannedTaskForm.valid || addPlannedTaskForm.value.TAID == ''" (click)="onAddTaskSubmit()"
-            class="btn btn-primary">Speichern
+            class="btn btn-primary myday-btn">Speichern
     </button>
     <button *ngIf="this.plannedTask.TAID !== 0" [disabled]="!addPlannedTaskForm.valid" (click)="onEditTaskSubmit()"
-            class="btn btn-primary">Bearbeiten
+            class="btn btn-primary myday-btn">Bearbeiten
     </button>
-    <button class="btn btn-primary mt-2" (click)="onClose()">Abbrechen</button>
+    <button class="btn btn-primary mt-2 myday-btn" (click)="onClose()">Abbrechen</button>
   </div>
 </form>

@@ -45,10 +45,32 @@ span {
   stroke: #e1e1e1;
 }
 
+.dashboard-btn-cat {
+  width: 145px;
+}
+
+.dashboard-btn-day {
+  width: 145px;
+}
+
+@media (max-width: 825px) {
+  .dashboard-btn-day {
+    width: 125px;
+  }
+}
+
 @media (max-width: 768px) {
   .text-dashboard {
     font-weight: 300;
     color: white;
+  }
+
+  .dashboard-btn-cat {
+    width: 145px;
+  }
+
+  .dashboard-btn-day {
+    width: 145px;
   }
 }
 
