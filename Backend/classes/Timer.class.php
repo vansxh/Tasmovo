@@ -2,7 +2,7 @@
 
 class Timer
 {
-    function createTimer($rewardID, $duration)
+    function createTimer($rewardID, $duration): bool
     {
         $stmt = Database::getDb()->prepare("INSERT INTO Timer (userID, rewardID, duration) VALUES (:userID, :rewardID, :duration)");
         $stmt->bindValue(":userID", $_SESSION['UID']);
@@ -16,7 +16,7 @@ class Timer
         }
     }
 
-    function deleteTimer()
+    function deleteTimer(): bool
     {
         $stmt = Database::getDb()->prepare("DELETE FROM Timer WHERE userID = :userID ORDER BY TIID DESC LIMIT 1");
         $stmt->bindValue(":userID", $_SESSION['UID']);
