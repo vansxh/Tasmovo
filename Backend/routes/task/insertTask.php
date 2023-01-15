@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -22,13 +25,13 @@ $notes = Input::read('notes');
 $deadlineDay = Input::read('deadlineDay');
 $deadlineHour = Input::read('deadlineHour');
 $deadline = $deadlineDay . " " . $deadlineHour;
-if(Input::read('subcategoryID')) $caid = Input::read('subcategoryID');
+if (Input::read('subcategoryID')) $caid = Input::read('subcategoryID');
 else $caid = Input::read('categoryID');
 
 $item = $task->insertTask($tName, $notes, $deadline, $_SESSION['UID'], $caid/*, $gid*/);
 
 // check if task was inserted
-if(!$item) {
+if (!$item) {
     (new Response([
         'error' => true,
         'message' => 'Task konnte nicht hinzugefügt werden.'

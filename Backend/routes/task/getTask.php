@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -28,7 +31,7 @@ $item['notes'] = str_replace("\n", "<br/>", $item['notes']);
 $item['deadline'] = date('c', strtotime($item['deadline']));
 
 // if the category of the task HAS a parent category
-if($item['parent_categoryID'] !== null) {
+if ($item['parent_categoryID'] !== null) {
     (new Response([
         'error' => false,
         'data' => [

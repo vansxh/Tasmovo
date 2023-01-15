@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -18,8 +21,8 @@ $task = new Task();
 // get different values from input
 $MID = Input::read('MID');
 $TAID = Input::read('TAID');
-$start_time =  Input::read('start_time');
-$end_time =  Input::read('end_time');
+$start_time = Input::read('start_time');
+$end_time = Input::read('end_time');
 $planned_date = Input::read('planned_date');
 
 $item = $task->updatePlannedTask($MID, $TAID, $start_time, $end_time, $planned_date);

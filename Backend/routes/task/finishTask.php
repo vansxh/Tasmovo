@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -20,16 +23,16 @@ $TAID = Input::read('TAID');
 $compareTask = $task->getTask($TAID);
 
 // check if user is allowed to finish task
-if($compareTask['created_by'] != $_SESSION['UID']) {
+if ($compareTask['created_by'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
         'message' => 'Der User darf diesen Task nicht abschließen.'
     ]))->send(HttpCode::FORBIDDEN);
 }
 
-if (!Input::read('stress_factor')){
+if (!Input::read('stress_factor')) {
     $item = $task->finishTask($TAID, Input::read('expenseID'), 0);
-}else{
+} else {
     $item = $task->finishTask($TAID, Input::read('expenseID'), Input::read('stress_factor'));
 }
 

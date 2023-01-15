@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -12,7 +15,7 @@ $TAID = $_GET['TAID'];
 $compareTask = $task->getTask($TAID);
 
 // check if user is allowed to delete task
-if($compareTask['created_by'] != $_SESSION['UID']) {
+if ($compareTask['created_by'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
         'message' => 'Der User darf diesen Task nicht löschen.'

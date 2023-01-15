@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -20,7 +23,7 @@ $TAID = Input::read('TAID');
 $compareTask = $task->getTask($TAID);
 
 // check if user is allowed to finish task
-if($compareTask['created_by'] != $_SESSION['UID']) {
+if ($compareTask['created_by'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
         'message' => 'Der User darf diesen Task nicht wieder öffnen.'

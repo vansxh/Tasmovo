@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -22,14 +25,14 @@ $notes = Input::read('notes');
 $deadlineDay = Input::read('deadlineDay');
 $deadlineHour = Input::read('deadlineHour');
 $deadline = $deadlineDay . " " . $deadlineHour;
-if(Input::read('subcategoryID')) $caid = Input::read('subcategoryID');
+if (Input::read('subcategoryID')) $caid = Input::read('subcategoryID');
 else $caid = Input::read('categoryID');
 
 // get task that should be updated
 $compareTask = $task->getTask($TAID);
 
 // check if user is allowed to update task
-if($compareTask['created_by'] != $_SESSION['UID']) {
+if ($compareTask['created_by'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
         'message' => 'wrong user'

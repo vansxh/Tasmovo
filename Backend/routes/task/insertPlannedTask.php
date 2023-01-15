@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -24,7 +27,7 @@ $planned_date = Input::read('planned_date');
 $item = $task->insertPlannedTask($TAID, $start_time, $end_time, $planned_date);
 
 // check if planned task was inserted
-if(!$item) {
+if (!$item) {
     (new Response([
         'error' => true,
         'message' => 'Task konnte nicht hinzugefügt werden.'
