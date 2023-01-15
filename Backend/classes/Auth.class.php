@@ -5,7 +5,7 @@ class Auth
     /**
      * Function for inserting a user.
      */
-    function register($uid, $firstname, $lastname, $username, $password, $mail)
+    function register($uid, $firstname, $lastname, $username, $password, $mail): bool
     {
         //Check if variables are empty
         if (empty($username) || empty($password) || empty($firstname) || empty($lastname) || empty($mail)) {
@@ -42,7 +42,7 @@ class Auth
     /**
      * Function for checking if you can login.
      */
-    function login($usernameORmail, $password)
+    function login($usernameORmail, $password): bool
     {
         //Check if variables are empty
         if (empty($usernameORmail) || empty($password)) {
@@ -104,7 +104,7 @@ class Auth
     /**
      * Function for checking if a user is logged in.
      */
-    function check()
+    function check(): void
     {
         if (!$this->user()) {
             (new Response([
@@ -114,7 +114,7 @@ class Auth
         }
     }
 
-    function updateUser($firstName, $lastName, $username, $stress_limit)
+    function updateUser($firstName, $lastName, $username, $stress_limit): bool
     {
         $stmt = Database::getDb()->prepare("UPDATE User SET first_name = :firstName, last_name = :lastName, username = :username, stress_limit = :stressLimit WHERE UID = :UID LIMIT 1");
         $stmt->bindValue(":UID", $_SESSION['UID']);
