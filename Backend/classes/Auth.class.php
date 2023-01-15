@@ -2,7 +2,9 @@
 
 class Auth
 {
-    //Function to register a user
+    /**
+     * Function for inserting a user.
+     */
     function register($uid, $firstname, $lastname, $username, $password, $mail)
     {
         //Check if variables are empty
@@ -37,7 +39,9 @@ class Auth
         }
     }
 
-    //Function for login
+    /**
+     * Function for checking if you can login.
+     */
     function login($usernameORmail, $password)
     {
         //Check if variables are empty
@@ -97,7 +101,9 @@ class Auth
         }
     }
 
-    //Function for checking if there is a user for the current session
+    /**
+     * Function for checking if a user is logged in.
+     */
     function check()
     {
         if (!$this->user()) {

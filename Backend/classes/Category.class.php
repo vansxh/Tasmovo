@@ -19,7 +19,6 @@ class Category
     {
         $stmt = Database::getDb()->prepare("SELECT * FROM Category WHERE CAID=:CAID LIMIT 1");
         $stmt->bindValue(":CAID", $CAID);
-
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -27,12 +26,13 @@ class Category
         return $result;
     }
 
-    // function for getting all categories of a user
+    /**
+     * Function for getting all Categories of the current user.
+     */
     function getCategoriesByUser($userID)
     {
         $stmt = Database::getDb()->prepare("SELECT *,(SELECT COUNT(t.TAID) from Task as t WHERE t.categoryID = c.CAID) as 'numberOfTasks', (SELECT COUNT(t.TAID) from Task as t WHERE t.categoryID = c.CAID AND t.statusID = 2) as 'numberOfFinished' FROM Category as c WHERE c.userID=:userID");
         $stmt->bindValue(":userID", $userID);
-
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -65,7 +65,6 @@ class Category
     {
         $stmt = Database::getDb()->prepare("SELECT * FROM Category as c WHERE c.userID=:userID");
         $stmt->bindValue(":userID", $userID);
-
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -78,7 +77,6 @@ class Category
         $stmt = Database::getDb()->prepare("SELECT * FROM Category WHERE parent_categoryID=:parent_categoryID AND userID=:userID");
         $stmt->bindValue(":parent_categoryID", $parent_categoryID);
         $stmt->bindValue(":userID", $_SESSION['UID']);
-
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
