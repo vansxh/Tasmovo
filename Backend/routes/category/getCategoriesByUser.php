@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -17,15 +20,15 @@ if (!$items) {
     ]))->send(HttpCode::NOT_FOUND);
 }
 
-foreach($items as $key => $mainCategory) {
+foreach ($items as $key => $mainCategory) {
     // if subcategory
-    if($mainCategory['parent_categoryID']) {
+    if ($mainCategory['parent_categoryID']) {
         continue;
     }
     $categoryID = $mainCategory['CAID'];
-    foreach($items as $key2 => $subcategory) {
+    foreach ($items as $key2 => $subcategory) {
         // if not subcategory of main category
-        if($subcategory['parent_categoryID'] != $categoryID) {
+        if ($subcategory['parent_categoryID'] != $categoryID) {
             continue;
         }
         // add subcategories number of tasks to main category

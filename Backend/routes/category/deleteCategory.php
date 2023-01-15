@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -12,7 +15,7 @@ $CAID = $_GET['CAID'];
 $compareCat = $category->getCategory($CAID);
 
 // check if user is allowed to delete category
-if($compareCat['userID'] != $_SESSION['UID']) {
+if ($compareCat['userID'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
         'message' => 'Der User darf diese Kategorie nicht löschen.'

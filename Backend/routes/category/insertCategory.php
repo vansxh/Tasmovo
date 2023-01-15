@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -23,7 +26,7 @@ $parent_categoryID = Input::read('parent_categoryID');
 $item = $category->insertCategory($cName, $_SESSION['UID'], $parent_categoryID);
 
 // check if category was inserted
-if(!$item) {
+if (!$item) {
     (new Response([
         'error' => true,
         'message' => 'Kategorie konnte nicht hinzugefügt werden.'

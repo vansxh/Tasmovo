@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var Auth $auth
+ */
 // required file
 require('../../bootstrap.inc.php');
 
@@ -24,7 +27,7 @@ $parent_categoryID = Input::read('parent_categoryID');
 $compareCat = $category->getCategory($CAID);
 
 // check if user is allowed to update category
-if($compareCat['userID'] != $_SESSION['UID']) {
+if ($compareCat['userID'] != $_SESSION['UID']) {
     (new Response([
         'error' => true,
         'message' => 'Der User darf diese Kategorie nicht bearbeiten.'
