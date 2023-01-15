@@ -4,7 +4,11 @@ class TimerReset{
 
     const lastResetDate = "last_reset_date";
 
-    static function resetDailyStress(){
+    /**
+     * Function to reset daily stress level of every user to 0 (once a day).
+     */
+    static function resetDailyStress(): void
+    {
         $today = date("Y-m-d", time());
 
         $stmt = Database::getDb()->prepare("SELECT * FROM Settings WHERE record = :record");
