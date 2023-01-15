@@ -8,7 +8,7 @@ class Input
     /**
      * Function for decoding the JSON from input fields.
      */
-    static function init()
+    static function init(): void
     {
         static::$input = json_decode(file_get_contents("php://input") ?? '{}');
     }
@@ -24,7 +24,7 @@ class Input
     /**
      * Function for reading the JSON data.
      */
-    static function read($name)
+    static function read($name): ?string
     {
         if(static::$input->{$name} == '' || static::$input->{$name} == null) return null;
         return htmlspecialchars(static::$input->{$name}) ?? null;
