@@ -291,7 +291,8 @@ export class ProfileComponent implements OnInit {
             title: {
               display: true,
               text: 'Abgeschlossene Tasks'
-            }
+            },
+            min: 0
           }
         }
       }
@@ -364,13 +365,15 @@ export class ProfileComponent implements OnInit {
               display: true,
               text: 'Wochentag',
             },
+            min: 0
           },
           y: {
             suggestedMax: this.stressLimit + 5,
             title: {
               display: true,
               text: 'Angesammelter Stress',
-            }
+            },
+            min: 0
           }
         }
       }
@@ -379,16 +382,16 @@ export class ProfileComponent implements OnInit {
 
   initBubbleChart(): void {
     // define value for multiplying to get size
-    const size = 20;
+    const size = 15;
 
     // get divs for web and mobile
     let daysPlanned = document.querySelectorAll<HTMLElement>(".daysPlanned")!;
     daysPlanned.forEach((d: HTMLElement) => {
       if (this.numberDays > 1) {
-        if (this.numberDays * size >= 220) {
+        if (this.numberDays * size >= 150) {
           // max size
-          d.style.width = '220px';
-          d.style.height = '220px';
+          d.style.width = '150px';
+          d.style.height = '150px';
         } else {
           // normal calculation
           d.style.width = this.numberDays * size + 'px';
@@ -411,9 +414,9 @@ export class ProfileComponent implements OnInit {
     let timersUsed = document.querySelectorAll<HTMLElement>(".timersUsed")!;
     timersUsed.forEach((t: HTMLElement) => {
       if (this.numberTimers > 0) {
-        if (this.numberDays * size >= 220) {
-          t.style.width = '220px';
-          t.style.height = '220px';
+        if (this.numberTimers * size >= 150) {
+          t.style.width = '150px';
+          t.style.height = '150px';
         } else {
           t.style.width = this.numberTimers * size + 'px';
           t.style.height = this.numberTimers * size + 'px';
