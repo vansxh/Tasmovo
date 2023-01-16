@@ -13,7 +13,8 @@ class Database
     static function init(): void
     {
         try {
-            static::$db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PW);
+            static::$db = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PW );
+            static::$db->exec('set names utf8');
         } catch (PDOException $e) {
             //echo $e;
             echo "Connection failed";

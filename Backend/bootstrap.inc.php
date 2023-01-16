@@ -13,6 +13,8 @@ spl_autoload_register(function ($class) {
 
 //Initialize the database
 Database::init();
+mb_internal_encoding('UTF-8');
+mb_http_output('UTF-8');
 
 //Check if there is a reset
 TimerReset::resetDailyStress();
