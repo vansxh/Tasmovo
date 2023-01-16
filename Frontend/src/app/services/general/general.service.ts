@@ -91,9 +91,12 @@ export class GeneralService {
   }
 
   decodeHtmlCharCodes(str: string) {
-    return str.replace(/(&#(\d+);)/g, function(match, capture, charCode) {
-      return String.fromCharCode(charCode);
-    });
+    if(str != null) {
+      return str.replace(/(&#(\d+);)/g, function (match, capture, charCode) {
+        return String.fromCharCode(charCode);
+      });
+    } else
+      return str;
   }
 
 
