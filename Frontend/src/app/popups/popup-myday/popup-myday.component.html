@@ -34,7 +34,7 @@
   <br>
   <div class="form-group select mt-1">
     <label for="TAID">Task hinzufügen</label>
-    <div *ngIf="!tasks" id="no-tasks-alert" class="text-done" style="font-size: 1rem">Du hast keine vorhandenen Tasks <br>
+    <div *ngIf="(tasks | notDone).length == 0" id="no-tasks-alert" class="text-done" style="font-size: 1rem">Du hast keine vorhandenen Tasks <br>
       <button class="btn btn-primary py-2 shadow add-cat-btn mt-2" (click)="addTask()">
         <div class="d-flex justify-content-center gap-3">
           <fa-icon [icon]="faCircleX"></fa-icon>
@@ -42,9 +42,9 @@
         </div>
       </button>
     </div>
-    <mat-form-field class="w-100 container-shadow text-select-mat bg-light" *ngIf="tasks | notDone">
+    <mat-form-field class="w-100 container-shadow text-select-mat bg-light" *ngIf="(tasks | notDone).length > 0">
       <mat-select
-        formControlName="TAID" name="TAID"
+        formControlName="TAID"
         class="text px-2" id="TAID"
         ngxMatSelect
         [lazyLoad]="true"
