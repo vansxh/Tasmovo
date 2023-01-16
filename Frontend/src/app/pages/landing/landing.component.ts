@@ -33,4 +33,8 @@ export class LandingComponent implements OnInit {
         this.general.errorResponse(error['status']);
       });
   }
+
+  decodeSpecialCharacters(str: string){
+    return this.general.decodeHtmlCharCodes(str);
+  }
 }

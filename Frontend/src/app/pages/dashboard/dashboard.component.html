@@ -1,6 +1,6 @@
 <div class="mobile-distance">
 
-  <h3 class="mt-5 mb-4 mx-5 text-center display-web-only" *ngIf="dailyQuote">"{{dailyQuote.quote}}"</h3>
+  <h3 class="mt-5 mb-4 mx-5 text-center display-web-only" *ngIf="dailyQuote">"{{decodeSpecialCharacters(dailyQuote.quote)}}"</h3>
 
   <div class="row my-md-5">
     <div class="col-md-6 col-sm-12">

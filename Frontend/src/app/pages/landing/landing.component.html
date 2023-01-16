@@ -3,7 +3,7 @@
   <!--Content before waves-->
   <div class="inner-header flex flex-column">
     <h1>Willkommen bei Tasmovo</h1>
-    <h4 class="text-primary mt-3" *ngIf="dailyQuote">"{{dailyQuote.quote}}"</h4>
+    <h4 class="text-primary mt-3" *ngIf="dailyQuote">"{{decodeSpecialCharacters(dailyQuote.quote)}}"</h4>
     <button routerLink="login" routerLinkActive="active" class="btn btn-primary mt-4 mb-2 btn-landing">Login</button>
     <button routerLink="register" routerLinkActive="active" class="btn btn-primary m-2 btn-landing">Registrieren
     </button>
