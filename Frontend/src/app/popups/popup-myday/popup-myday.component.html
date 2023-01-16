@@ -2,7 +2,7 @@
   <h2>{{planned_date}}</h2>
 </div>
 
-<form [formGroup]="addPlannedTaskForm" class="form d-flex flex-column justify-content-center align-items-center">
+<form [formGroup]="addPlannedTaskForm" class="form d-flex flex-column justify-content-center align-items-center px-3 my-1">
   <span
     *ngIf="this.addPlannedTaskForm.controls['end_time'].touched && this.addPlannedTaskForm.getError('endTimeBeforeStartTime')">
       Ende kann nicht vor Start liegen!
@@ -34,7 +34,7 @@
   <br>
   <div class="form-group select mt-1">
     <label for="TAID">Task hinzufügen</label>
-    <div *ngIf="(tasks | notDone).length == 0" id="no-tasks-alert" class="text-done" style="font-size: 1rem">Du hast keine vorhandenen Tasks <br>
+    <div *ngIf="(tasks | notDone).length == 0" id="no-tasks-alert" class="text-done no-tasks-alert" style="font-size: 1rem">Du hast keine vorhandenen Tasks <br>
       <button class="btn btn-primary py-2 shadow add-cat-btn mt-2" (click)="addTask()">
         <div class="d-flex justify-content-center gap-3">
           <fa-icon [icon]="faCircleX"></fa-icon>
