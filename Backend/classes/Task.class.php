@@ -202,7 +202,7 @@ class Task
      */
     function getPlannedTasks($userID, $date): array
     {
-        $stmt = Database::getDb()->prepare("SELECT * ,(SELECT c.category_name from Category as c WHERE c.CAID=t.categoryID) as 'category' FROM MyDay as md INNER JOIN Task as t ON md.taskID=t.TAID WHERE md.planned_date=:date AND t.created_by=:userID");
+        $stmt = Database::getDb()->prepare("SELECT * ,(SELECT c.category_name from Category as c WHERE c.CAID=t.categoryID) as 'category' FROM MyDay as md INNER JOIN Task as t ON md.taskID=t.TAID WHERE md.planned_date=:date AND t.created_by=:userID ORDER BY start_time ASC");
         $stmt->bindValue(":date", $date);
         $stmt->bindValue(":userID", $userID);
         $stmt->execute();
