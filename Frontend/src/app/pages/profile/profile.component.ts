@@ -450,8 +450,8 @@ export class ProfileComponent implements OnInit {
 
   changeForm() {
     this.userForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.maxLength(30), Validators.pattern('^[a-zA-Z\'\-]+$')]],
-      lastName: ['', [Validators.required, Validators.maxLength(30), Validators.pattern('^[a-zA-Z\'\-]+$')]],
+      firstName: ['', [Validators.required, Validators.maxLength(30), Validators.pattern('^[a-zA-ZäÄöÖüÜß\'\-]+$')]],
+      lastName: ['', [Validators.required, Validators.maxLength(30), Validators.pattern('^[a-zA-ZäÄöÖüÜß\'\-]+$')]],
       username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(30), this.usernameValidator, Validators.pattern('^[a-z0-9]+$')]],
       stressLimit: ['', Validators.required]
     });
