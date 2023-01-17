@@ -13,8 +13,17 @@
 
     <!--Stresslevel Tab on Mobile View-->
     <mat-tab label="Daten">
-
       <div class="text-center mt-2">
+        <div class="divChart">
+          <span class="user-headings">Dein täglich angesammelter Stress <br> in der letzten Woche</span>
+          <canvas id="myAreaChartMobile" class="mt-2"></canvas>
+        </div>
+
+        <div class="divChart">
+          <span class="mb-3 user-headings">Deine abgeschlossenen Tasks <br> in der letzten Woche</span>
+          <canvas id="myBarChartMobile" class="mt-2"></canvas>
+        </div>
+
         <div class="d-flex flex-column align-items-center mb-5">
           <span class="mb-3 user-headings">Dein durchschnittlicher Stress <br> pro Task in der letzten Woche</span>
           <div class="spinner-bg-container">
@@ -25,16 +34,6 @@
             </mat-progress-spinner>
           </div>
           <div>{{weeklyAverage}} / 10</div>
-        </div>
-
-        <div class="divChart">
-          <span class="user-headings">Dein täglich angesammelter Stress <br> in der letzten Woche</span>
-          <canvas id="myAreaChartMobile" class="mt-2"></canvas>
-        </div>
-
-        <div class="divChart">
-          <span class="mb-3 user-headings">Deine abgeschlossenen Tasks <br> in der letzten Woche</span>
-          <canvas id="myBarChartMobile" class="mt-2"></canvas>
         </div>
 
         <div class="mb-3">
