@@ -60,7 +60,7 @@ export class GeneralService {
   keyPressMail(event: { keyCode: number; preventDefault: () => void; }){
     const inp = String.fromCharCode(event.keyCode);
 
-    if (/[a-zA-Z.@-_]/.test(inp)) {
+    if (/[0-9a-zA-Z.@-_]/.test(inp)) {
       return true;
     } else {
       event.preventDefault();
