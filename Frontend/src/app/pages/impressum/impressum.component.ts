@@ -11,6 +11,11 @@ export class ImpressumComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // modify heading
+    let h1 = document.getElementsByTagName("h1");
+    for (let i = 0; i < h1.length; i++) {
+      h1[i].innerText = "Impressum & Datenschutz";
+    }
 
   }
 }
