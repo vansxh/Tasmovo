@@ -25,15 +25,38 @@ class Auth
             if ($resultUser > 0 || $resultMail > 0) {
                 return false;
             } else {
+                $rand_string = bin2hex(random_bytes(15));
+
                 //Save in database
-                $stmt3 = Database::getDb()->prepare("INSERT INTO User (UID, username, password, mail, first_name, last_name) VALUES(:userid, :username, :pw, :mail, :firstname, :lastname)");
+                $stmt3 = Database::getDb()->prepare("INSERT INTO User (UID, username, password, mail, first_name, last_name, random_string, isVerified) VALUES(:userid, :username, :pw, :mail, :firstname, :lastname, :random, 0)");
                 $stmt3->bindValue(":userid", $uid);
                 $stmt3->bindValue(":firstname", $firstname);
                 $stmt3->bindValue(":lastname", $lastname);
                 $stmt3->bindValue(":username", $username);
                 $stmt3->bindValue(":pw", $password);
                 $stmt3->bindValue(":mail", $mail);
-                $stmt3->execute();
+                $stmt3->bindValue(":random", $rand_string);
+
+                if ($stmt3->execute()) {
+                    $to = $mail;
+                    $subject = "Verify Email";
+
+                    $link = "https://tasmovo.at/Backend/routes/user/verifyEmail.php?rand=" . $rand_string . "&us=" . $uid;
+                    $message = "Please follow this link to verify your account: " . $link;
+
+                    // To send HTML mail, the Content-type header must be set
+                    $headers = "MIME-Version: 1.0" . "\r\n";
+                    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                    // Additional headers
+                    $headers .= 'From: do-not-reply@tasmovo.at' . "\r\n";
+                    $headers .= 'Reply-To: do-not-reply@tasmovo.at' . "\r\n";
+                    $headers .= 'X-Mailer: PHP/' . phpversion();
+
+                    // Send the email
+                    mail($to, $subject, $message, $headers);
+                }
+
                 return true;
             }
         }
@@ -48,13 +71,13 @@ class Auth
         if (empty($usernameORmail) || empty($password)) {
             return false;
         } else {
-            $stmt = Database::getDb()->prepare("SELECT * FROM User WHERE username LIKE :usernameORmail OR mail LIKE :usernameORmail");
+            $stmt = Database::getDb()->prepare("SELECT * FROM User WHERE username LIKE :usernameORmail && isVerified = 1 OR mail LIKE :usernameORmail && isVerified = 1");
             $stmt->bindValue(":usernameORmail", $usernameORmail);
             $stmt->execute();
 
             $resultUser = $stmt->rowCount();
 
-            $stmt2 = Database::getDb()->prepare("SELECT * FROM User WHERE username = :usernameORmail OR mail = :usernameORmail");
+            $stmt2 = Database::getDb()->prepare("SELECT * FROM User WHERE username = :usernameORmail && isVerified = 1 OR mail = :usernameORmail && isVerified = 1");
             $stmt2->bindValue(":usernameORmail", $usernameORmail);
             $stmt2->execute();
 
@@ -132,6 +155,21 @@ class Auth
         } else {
             return false;
         }
+    }
 
+    function verifyUser($random, $uid): bool
+    {
+        $stmt = Database::getDb()->prepare("UPDATE User SET isVerified = 1 WHERE UID = :UID AND random_string = :random LIMIT 1");
+        $stmt->bindValue(":UID", $uid);
+        $stmt->bindValue(":random", $random);
+        $stmt->execute();
+
+        $result = $stmt->rowCount();
+
+        if ($result == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
