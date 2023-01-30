@@ -1,0 +1,59 @@
+h1 {
+  font-size: 34px;
+  margin-bottom: 15px;
+}
+
+h2 {
+ font-size: 28px;
+  margin-bottom: 15px;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+p, li {
+  color: black;
+  font-size: 16px;
+}
+
+.impressum-pos {
+  margin-bottom: 35px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 25px;
+    margin-bottom: 15px;
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  p, li {
+    color: black;
+    font-size: 16px;
+  }
+
+  .impressum-pos {
+    margin-bottom: 35px;
+  }
+}
