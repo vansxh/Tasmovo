@@ -80,6 +80,13 @@
   text-overflow: ellipsis;
 }
 
+.imprint-position-default {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 12px;
+}
+
 @media (max-width: 992px) {
   ::ng-deep .container {
     max-width: 992px;
@@ -170,6 +177,13 @@
 
   .mobile-header {
     width: 92%;
+  }
+
+  .imprint-position-default {
+    position: fixed;
+    left: 10px;
+    bottom: 60px;
+    font-size: 10px;
   }
 }
 

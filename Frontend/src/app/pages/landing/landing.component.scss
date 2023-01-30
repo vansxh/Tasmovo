@@ -22,10 +22,11 @@ h1 {
   font-size: 48px;
 }
 
-p {
+p, a {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   color: #333333;
+  margin-bottom: 0;
 }
 
 .header {

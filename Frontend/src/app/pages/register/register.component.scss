@@ -22,6 +22,18 @@ span {
   width: 55%;
 }
 
+.imprint-position {
+  position: absolute;
+  left: 5px;
+  bottom: 10px;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.imprint-position a {
+  color: white!important;
+}
+
 @media (max-width: 768px) {
   .switch-screen {
     display: none !important;
@@ -33,5 +45,9 @@ span {
 
   .mobile-input-width {
     width: 100%;
+  }
+
+  .imprint-position a {
+    color: #30235B!important;
   }
 }

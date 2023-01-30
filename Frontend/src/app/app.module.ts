@@ -76,6 +76,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import { ConfirmationDialogComponent } from './popups/confirmation-dialog/confirmation-dialog.component';
 import { LocationStrategy } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ImpressumComponent } from './pages/impressum/impressum.component';
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
 
@@ -102,6 +103,7 @@ registerLocaleData(localeAt);
 
 export const routes: Routes = [
   {path: '', component: LandingComponent, pathMatch: 'full', canActivate: [LoggedInGuard]},
+  {path: 'impressum', component: ImpressumComponent},
   {path: 'insert-task', component: InsertTaskComponent, canActivate: [AuthGuard]},
   {path: 'insert-task/:TAID', component: InsertTaskComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
@@ -157,7 +159,8 @@ export const routes: Routes = [
     PopupMydayComponent,
     SpinnerComponent,
     BackButtonDirective,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ImpressumComponent
   ],
   imports: [
     BrowserModule,

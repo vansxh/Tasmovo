@@ -207,6 +207,10 @@
       </div>
     </div>
   </div>
+
+  <div class="imprint-position-default" *ngIf="loggedIn() && getLocation()!='/impressum'">
+    <a class="text-primary" routerLink="impressum" routerLinkActive="active">Impressum & Datenschutz</a>
+  </div>
 </div>
 
 <app-spinner></app-spinner>
